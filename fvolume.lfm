@@ -1,0 +1,126 @@
+object frmVolume: TfrmVolume
+  Left = 236
+  Height = 420
+  Top = 146
+  Width = 780
+  Caption = 'Ficmake v1.1.0'
+  ClientHeight = 420
+  ClientWidth = 780
+  Constraints.MinHeight = 420
+  Constraints.MinWidth = 780
+  OnResize = FormResize
+  LCLVersion = '1.0.12.0'
+  object lstVolumes: TListBox
+    Left = 8
+    Height = 80
+    Top = 32
+    Width = 100
+    ItemHeight = 0
+    ScrollWidth = 98
+    TabOrder = 0
+    TopIndex = -1
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 18
+    Top = 8
+    Width = 53
+    Caption = 'Volumes'
+    ParentColor = False
+  end
+  object txtVolumeName: TLabeledEdit
+    Left = 183
+    Height = 27
+    Top = 55
+    Width = 80
+    EditLabel.AnchorSideLeft.Control = txtVolumeName
+    EditLabel.AnchorSideRight.Control = txtVolumeName
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtVolumeName
+    EditLabel.Left = 183
+    EditLabel.Height = 18
+    EditLabel.Top = 34
+    EditLabel.Width = 80
+    EditLabel.Caption = 'Volume Name'
+    EditLabel.ParentColor = False
+    TabOrder = 1
+  end
+  object txtDirectory: TLabeledEdit
+    Left = 183
+    Height = 27
+    Top = 104
+    Width = 80
+    EditLabel.AnchorSideLeft.Control = txtDirectory
+    EditLabel.AnchorSideRight.Control = txtDirectory
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtDirectory
+    EditLabel.Left = 183
+    EditLabel.Height = 18
+    EditLabel.Top = 83
+    EditLabel.Width = 80
+    EditLabel.Caption = 'Volume Base Directory'
+    EditLabel.ParentColor = False
+    TabOrder = 2
+  end
+  object txtAuthor: TLabeledEdit
+    Left = 183
+    Height = 27
+    Top = 152
+    Width = 80
+    EditLabel.AnchorSideLeft.Control = txtAuthor
+    EditLabel.AnchorSideRight.Control = txtAuthor
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtAuthor
+    EditLabel.Left = 183
+    EditLabel.Height = 18
+    EditLabel.Top = 131
+    EditLabel.Width = 80
+    EditLabel.Caption = 'Default Author Name'
+    EditLabel.ParentColor = False
+    TabOrder = 3
+  end
+  object chkHTMLIndex: TCheckBox
+    Left = 177
+    Height = 21
+    Top = 218
+    Width = 325
+    Caption = 'HTML Profiles in this Volume generate Index pages'
+    TabOrder = 4
+  end
+  object btnSelectDir: TBitBtn
+    Left = 395
+    Height = 27
+    Top = 74
+    Width = 32
+    Glyph.Data = {
+      9E020000424D9E0200000000000036000000280000000E0000000B0000000100
+      2000000000006802000064000000640000000000000000000000B9D8F3003B90
+      DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF3B90DBFFA3CBEF003B90DBFFE0F2FBFFA9DEF5FF9EDB
+      F4FF96DAF3FF8ED8F3FF86D7F3FF7FD4F2FF79D3F2FF72D2F1FF6CD0F1FF69CF
+      F1FFC3EBF9FF3B90DBFF3B90DBFFEFFAFEFFA1E9F9FF91E5F8FF81E1F7FF72DE
+      F6FF63DAF5FF54D7F4FF47D3F3FF39D0F2FF2ECDF1FF26CBF0FFCAF2FBFF3B90
+      DBFF3B90DBFFF2FAFDFFB3EDFAFFA4E9F9FF95E6F8FF85E2F7FF76DEF6FF65DB
+      F5FF57D7F4FF49D4F3FF3BD1F2FF30CEF1FFCCF2FBFF3B90DBFF3B90DBFFF6FC
+      FEFFC8F2FCFFB9EFFBFFACECFAFF9CE8F9FF8BE3F7FF7CE0F6FF6CDCF6FF5DD9
+      F5FF4FD6F4FF44D3F3FFD0F3FCFF3B90DBFF3B90DBFFFEFFFFFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF73C1E9FF94E6F8FF85E3F7FF76DFF6FF68DBF5FF5CD8
+      F4FFD7F4FCFF3B90DBFF3B90DBFFE8F6FBFF94D4EFFF88CEEEFF73C1E9FF73C1
+      E9FF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFF1FAFDFF94DEF5FF93DCF4FF81D5F2FF6ACAEDFF6CCBEAFF85D3
+      EFFF80D2EFFF7AD0EFFF76CFEEFF72CFEEFFE9F7FBFF3B90DBFF3B90DBFFF7FC
+      FEFF8EE4F8FF91DEF5FF9FE0F5FFACE1F6FFEFFBFEFFF4FDFEFFF3FCFEFFF1FC
+      FEFFEFFBFEFFEEFBFEFFFBFEFFFF3B90DBFF3B90DBFFFDFEFEFFFEFFFFFFFEFE
+      FFFFFDFEFFFFFEFFFFFFEAF7FBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFCAEBF500B9D8F3003B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFDBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDF
+      DF00
+    }
+    OnClick = btnSelectDirClick
+    TabOrder = 5
+  end
+  object SelectDirectoryDialog1: TSelectDirectoryDialog
+    left = 614
+    top = 141
+  end
+end
