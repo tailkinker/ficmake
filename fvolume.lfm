@@ -43,6 +43,7 @@ object frmVolume: TfrmVolume
     EditLabel.Width = 80
     EditLabel.Caption = 'Volume Name'
     EditLabel.ParentColor = False
+    Enabled = False
     TabOrder = 1
   end
   object txtDirectory: TLabeledEdit
@@ -60,6 +61,7 @@ object frmVolume: TfrmVolume
     EditLabel.Width = 80
     EditLabel.Caption = 'Volume Base Directory'
     EditLabel.ParentColor = False
+    Enabled = False
     TabOrder = 2
   end
   object txtAuthor: TLabeledEdit
@@ -77,6 +79,7 @@ object frmVolume: TfrmVolume
     EditLabel.Width = 80
     EditLabel.Caption = 'Default Author Name'
     EditLabel.ParentColor = False
+    Enabled = False
     TabOrder = 3
   end
   object chkHTMLIndex: TCheckBox
@@ -85,6 +88,7 @@ object frmVolume: TfrmVolume
     Top = 218
     Width = 325
     Caption = 'HTML Profiles in this Volume generate Index pages'
+    Enabled = False
     TabOrder = 4
   end
   object btnSelectDir: TBitBtn
@@ -92,6 +96,7 @@ object frmVolume: TfrmVolume
     Height = 27
     Top = 74
     Width = 32
+    Enabled = False
     Glyph.Data = {
       9E020000424D9E0200000000000036000000280000000E0000000B0000000100
       2000000000006802000064000000640000000000000000000000B9D8F3003B90
