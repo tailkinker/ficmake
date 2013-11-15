@@ -59,6 +59,9 @@ type
 
 implementation
 
+uses
+  gtools;
+
 {$region tVolume}
 
 procedure tVolume.Load (var t : text);
@@ -73,8 +76,8 @@ begin
   GenerateIndexFile := FALSE;
   repeat
     // Read Keyline
-    system.readln (t, s);
-    if (length (s) > 0) then                          ,
+    readln (t, s);
+    if (length (s) > 0) then
       Trim (s);
 
     if (s = '[end]') then
@@ -113,7 +116,7 @@ begin
   writeln (t, 'Volume = ', VolumeName);
   writeln (t, 'BaseDir = ', BaseDir);
   writeln (t, 'Author = ', Author);
-  if (VolumeList [i].GenerateIndexFile) then
+  if (GenerateIndexFile) then
     writeln (t, 'Index');
   writeln (t, '[end]');
 end;

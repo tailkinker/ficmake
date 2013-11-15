@@ -33,6 +33,8 @@ type
   { TfrmVolume }
 
   TfrmVolume = class(TForm)
+    btnAddVolume : TBitBtn;
+    btnDeleteVolume : TBitBtn;
     btnSelectDir: TBitBtn;
     chkHTMLIndex: TCheckBox;
     Label1: TLabel;
@@ -42,6 +44,7 @@ type
     txtDirectory: TLabeledEdit;
     txtAuthor: TLabeledEdit;
     procedure btnSelectDirClick(Sender: TObject);
+    procedure FormCreate (Sender : TObject );
     procedure FormResize(Sender: TObject);
   private
     { private declarations }
@@ -60,26 +63,20 @@ implementation
 
 procedure TfrmVolume.FormResize(Sender: TObject);
 begin
-  lstVolumes.Width := (frmVolume.Width - 32) div 3;
-  lstVolumes.Height := frmVolume.Height - 64;
+  lstVolumes.Width := (frmVolume.Width - 24) div 2;
+  lstVolumes.Height := frmVolume.Height - 236;
 
-  txtVolumeName.Width := (frmVolume.Width - 32) div 3 * 2 + 8;
-  txtVolumeName.Top := 32;
-  txtVolumeName.Left := (frmVolume.Width - 32) div 3 + 16;
+  txtVolumeName.Width := (frmVolume.Width - 24) div 2;
 
-  txtDirectory.Width := (frmVolume.Width - 32) div 3 * 2 - 24;
-  txtDirectory.Top := 96;
-  txtDirectory.Left := (frmVolume.Width - 32) div 3 + 16;
+  txtDirectory.Width := (frmVolume.Width - 24) div 2 - 32;
+  txtDirectory.Left := (frmVolume.Width - 24) div 2 + 16;
 
-  txtAuthor.Width := (frmVolume.Width - 32) div 3 * 2 + 8;
-  txtAuthor.Top := 160;
-  txtAuthor.Left := (frmVolume.Width - 32) div 3 + 16;
-
-  chkHTMLIndex.Left := (frmVolume.Width - 32) div 3 + 16;
-  chkHTMLIndex.Top := 192;
+  txtAuthor.Width := (frmVolume.Width - 24) div 2;
 
   btnSelectDir.Left := (frmVolume.Width - 40);
-  btnSelectDir.Top := 96;
+  btnAddVolume.Top := frmVolume.Height - 44;
+  btnDeleteVolume.Top := frmVolume.Height - 44;
+  btnDeleteVolume.Left := lstVolumes.Width - 28;
 end;
 
 procedure TfrmVolume.btnSelectDirClick(Sender: TObject);
@@ -87,6 +84,12 @@ begin
   if (SelectDirectoryDialog1.Execute) then begin
     txtDirectory.Text := SelectDirectoryDialog1.Filename;
   end;
+end;
+
+procedure TfrmVolume.FormCreate (Sender : TObject );
+begin
+  Left := (Screen.Width - Width) div 2;
+  Top := (Screen.Height - Height) div 2;
 end;
 
 end.
