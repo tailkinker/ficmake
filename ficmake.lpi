@@ -38,7 +38,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="7">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -75,6 +75,13 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fnewvol"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="fstory.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmStory"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fstory"/>
+      </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

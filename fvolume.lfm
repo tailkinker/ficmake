@@ -18,6 +18,7 @@ object frmVolume: TfrmVolume
     Width = 100
     ItemHeight = 0
     OnClick = lstVolumesClick
+    OnDblClick = lstVolumesDblClick
     ScrollWidth = 96
     Sorted = True
     TabOrder = 5

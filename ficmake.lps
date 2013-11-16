@@ -3,12 +3,12 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="9">
+    <Units Count="10">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ficmake"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="35"/>
       </Unit0>
       <Unit1>
         <Filename Value="fvolume.pas"/>
@@ -18,11 +18,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fvolume"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="187"/>
-        <CursorPos X="35" Y="223"/>
-        <UsageCount Value="25"/>
+        <TopLine Value="115"/>
+        <CursorPos X="30" Y="162"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -33,7 +33,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="35"/>
       </Unit2>
       <Unit3>
         <Filename Value="gvolume.pas"/>
@@ -44,18 +44,18 @@
         <TopLine Value="16"/>
         <CursorPos X="31" Y="61"/>
         <FoldState Value=" TJiS2+M"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="gtools.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gtools"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="7" Y="48"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -65,26 +65,24 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fnewvol"/>
-        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="44"/>
-        <UsageCount Value="26"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="29"/>
       </Unit5>
       <Unit6>
         <Filename Value="/usr/share/lazarus/1.0.10/lcl/include/control.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3213"/>
         <CursorPos X="1" Y="3264"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit6>
       <Unit7>
         <Filename Value="/usr/share/lazarus/1.0.10/lcl/include/wincontrol.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="7970"/>
         <CursorPos X="1" Y="8022"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit7>
       <Unit8>
         <Filename Value="/usr/share/lazarus/1.0.10/lcl/interfaces/gtk2/gtk2int.pas"/>
@@ -92,64 +90,78 @@
         <WindowIndex Value="0"/>
         <TopLine Value="404"/>
         <CursorPos X="1" Y="434"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit8>
+      <Unit9>
+        <Filename Value="fstory.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmStory"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fstory"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="41" Y="31"/>
+        <UsageCount Value="23"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit9>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="gvolume.pas"/>
-        <Caret Line="158" Column="1" TopLine="136"/>
+        <Filename Value="fvolume.pas"/>
+        <Caret Line="144" Column="6" TopLine="101"/>
       </Position1>
       <Position2>
-        <Filename Value="gvolume.pas"/>
-        <Caret Line="160" Column="1" TopLine="136"/>
+        <Filename Value="fvolume.pas"/>
+        <Caret Line="70" Column="10" TopLine="40"/>
       </Position2>
       <Position3>
-        <Filename Value="gvolume.pas"/>
-        <Caret Line="163" Column="1" TopLine="136"/>
+        <Filename Value="fvolume.pas"/>
+        <Caret Line="137" Column="1" TopLine="107"/>
       </Position3>
       <Position4>
         <Filename Value="fvolume.pas"/>
-        <Caret Line="154" Column="30" TopLine="99"/>
+        <Caret Line="138" Column="12" TopLine="107"/>
       </Position4>
       <Position5>
         <Filename Value="fvolume.pas"/>
-        <Caret Line="144" Column="6" TopLine="101"/>
+        <Caret Line="145" Column="34" TopLine="111"/>
       </Position5>
       <Position6>
         <Filename Value="fvolume.pas"/>
-        <Caret Line="70" Column="10" TopLine="40"/>
+        <Caret Line="98" Column="43" TopLine="72"/>
       </Position6>
       <Position7>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="137" Column="1" TopLine="107"/>
+        <Filename Value="gvolume.pas"/>
+        <Caret Line="257" Column="13" TopLine="209"/>
       </Position7>
       <Position8>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="138" Column="12" TopLine="107"/>
+        <Filename Value="gvolume.pas"/>
+        <Caret Line="231" Column="21" TopLine="200"/>
       </Position8>
       <Position9>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="145" Column="34" TopLine="111"/>
+        <Filename Value="gvolume.pas"/>
+        <Caret Line="187" Column="5" TopLine="178"/>
       </Position9>
       <Position10>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="98" Column="43" TopLine="72"/>
+        <Filename Value="gvolume.pas"/>
+        <Caret Line="93" Column="1" TopLine="63"/>
       </Position10>
       <Position11>
         <Filename Value="gvolume.pas"/>
-        <Caret Line="257" Column="13" TopLine="209"/>
+        <Caret Line="94" Column="1" TopLine="63"/>
       </Position11>
       <Position12>
         <Filename Value="gvolume.pas"/>
-        <Caret Line="231" Column="21" TopLine="200"/>
+        <Caret Line="93" Column="1" TopLine="63"/>
       </Position12>
       <Position13>
         <Filename Value="gvolume.pas"/>
-        <Caret Line="187" Column="5" TopLine="178"/>
+        <Caret Line="94" Column="1" TopLine="63"/>
       </Position13>
       <Position14>
         <Filename Value="gvolume.pas"/>
@@ -176,48 +188,48 @@
         <Caret Line="94" Column="1" TopLine="63"/>
       </Position19>
       <Position20>
-        <Filename Value="gvolume.pas"/>
-        <Caret Line="93" Column="1" TopLine="63"/>
+        <Filename Value="fvolume.pas"/>
+        <Caret Line="161" Column="22" TopLine="114"/>
       </Position20>
       <Position21>
         <Filename Value="gvolume.pas"/>
-        <Caret Line="94" Column="1" TopLine="63"/>
+        <Caret Line="63" Column="7" TopLine="18"/>
       </Position21>
       <Position22>
-        <Filename Value="gvolume.pas"/>
-        <Caret Line="93" Column="1" TopLine="63"/>
+        <Filename Value="fvolume.pas"/>
+        <Caret Line="197" Column="43" TopLine="138"/>
       </Position22>
       <Position23>
-        <Filename Value="gvolume.pas"/>
-        <Caret Line="94" Column="1" TopLine="63"/>
+        <Filename Value="fvolume.pas"/>
+        <Caret Line="155" Column="1" TopLine="148"/>
       </Position23>
       <Position24>
         <Filename Value="fvolume.pas"/>
-        <Caret Line="161" Column="22" TopLine="114"/>
+        <Caret Line="164" Column="26" TopLine="149"/>
       </Position24>
       <Position25>
-        <Filename Value="gvolume.pas"/>
-        <Caret Line="63" Column="7" TopLine="18"/>
+        <Filename Value="fvolume.pas"/>
+        <Caret Line="173" Column="1" TopLine="145"/>
       </Position25>
       <Position26>
         <Filename Value="fvolume.pas"/>
-        <Caret Line="197" Column="43" TopLine="138"/>
+        <Caret Line="190" Column="38" TopLine="159"/>
       </Position26>
       <Position27>
         <Filename Value="fvolume.pas"/>
-        <Caret Line="155" Column="1" TopLine="148"/>
+        <Caret Line="78" Column="18" TopLine="68"/>
       </Position27>
       <Position28>
         <Filename Value="fvolume.pas"/>
-        <Caret Line="164" Column="26" TopLine="149"/>
+        <Caret Line="149" Column="3" TopLine="147"/>
       </Position28>
       <Position29>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="173" Column="1" TopLine="145"/>
+        <Filename Value="fstory.pas"/>
+        <Caret Line="22" Column="1" TopLine="1"/>
       </Position29>
       <Position30>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="190" Column="38" TopLine="159"/>
+        <Filename Value="fstory.pas"/>
+        <Caret Line="31" Column="41" TopLine="1"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

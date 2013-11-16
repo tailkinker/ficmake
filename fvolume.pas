@@ -56,6 +56,7 @@ type
     procedure FormCreate (Sender : TObject );
     procedure FormResize(Sender: TObject);
     procedure lstVolumesClick (Sender : TObject );
+    procedure lstVolumesDblClick (Sender : TObject );
     procedure txtAuthorChange (Sender : TObject );
     procedure txtDirectoryChange (Sender : TObject );
     procedure txtVolumeNameChange (Sender : TObject );
@@ -74,7 +75,7 @@ implementation
 
 uses
   LCLType,
-  fnewvol;
+  fnewvol, fstory;
 
 {$R *.lfm}
 
@@ -140,6 +141,31 @@ begin
     txtDirectory.Enabled := TRUE;
     txtAuthor.Enabled := TRUE;
     chkHTMLIndex.Enabled := TRUE;
+  end;
+end;
+
+procedure TfrmVolume.lstVolumesDblClick (Sender : TObject );
+var
+  NewStoryForm : TfrmStory;
+  FormCaption : string;
+  index : integer;
+  Present : boolean;
+begin
+	FormCaption := 'Volume "' + Volumes.Current.VolumeName + '"';
+  index := 0;
+  Present := false;
+  repeat
+    if (Screen.Forms [index].Caption = FormCaption) then
+      Present := true
+    else
+    	index += 1;
+  until (Present or (index >= Screen.FormCount));
+  if (Present) then
+    Screen.Forms [index].BringToFront
+  else begin
+    NewStoryForm := TfrmStory.Create (Application);
+    NewStoryForm.Caption := FormCaption;
+    NewStoryForm.Show;
   end;
 end;
 

@@ -1,0 +1,10 @@
+object frmStory: TfrmStory
+  Left = 2008
+  Height = 420
+  Top = 693
+  Width = 780
+  Constraints.MinHeight = 420
+  Constraints.MinWidth = 780
+  OnCreate = FormCreate
+  LCLVersion = '1.0.10.0'
+end
