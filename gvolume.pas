@@ -26,6 +26,7 @@ interface
 uses
   Classes, SysUtils;
 
+{$region type}
 type
   tVolume = class (tObject)
     private
@@ -45,17 +46,23 @@ type
 
   tVolumeList = class (tObject)
     private
+      t_dirty : boolean;
       t_volumes : array of tVolume;
+      t_current_volume : tVolume;
       function GetVolumeCount : integer;
     public
-      Current : tVolume;
+      property Current : tVolume read t_current_volume;
       property Count : integer read GetVolumeCount;
+      property Dirty : boolean read t_dirty;
       procedure NewVolume (aVolumeName : string);
       procedure DeleteVolume;
       procedure SelectVolume (aVolumeName : string);
       procedure LoadVolumeList;
       procedure SaveVolumeList;
+      function VolumeName (index : integer) : string;
+      procedure MarkDirty;
   end;
+{$endregion}
 
 implementation
 
@@ -87,7 +94,7 @@ begin
       i := 0;
       repeat
         inc (i);
-      until (copy (s, i, 1) = '=');
+      until ((copy (s, i, 1) = '=') or (i > length (s)));
 
    		// Split Keyline
       k := copy (s, 1, i - 1);
@@ -134,33 +141,141 @@ begin
 end;
 
 procedure tVolumeList.NewVolume (aVolumeName : string);
+var
+  index : integer;
 begin
-  SetLength (t_volumes, length (t_volumes) + 1);
-  Current := t_volumes [length (t_volumes)];
-  Current := tVolume.Create;
+  index := length (t_volumes);
+  SetLength (t_volumes, index + 1);
+  t_volumes [index] := tVolume.Create;
+  t_current_volume := t_volumes [index];
+  t_current_volume.VolumeName := aVolumeName;
+  t_dirty := true;
 end;
 
 procedure tVolumeList.DeleteVolume;
+var
+  index,
+  last : integer;
 begin
-
+  last := length (t_volumes) - 1;
+  index := 0;
+  while ((t_volumes [index] <> t_current_volume) and (index < last)) do
+  	inc (index);
+  t_volumes [index].Destroy;
+  if (index < last) then
+    t_volumes [index] := t_volumes [last];
+  SetLength (t_volumes, last);
+  t_dirty := true;
 end;
 
 procedure tVolumeList.SelectVolume (aVolumeName : string);
+var
+  found : boolean;
+  index : integer;
 begin
-
+	// Simple linear search
+  index := 0;
+  found := false;
+  while ((index < length (t_volumes)) and not found) do begin
+    if (aVolumeName = t_volumes [index].VolumeName) then
+      found := true
+    else
+    	index += 1;
+  end;
+  if found then
+    t_current_volume := t_volumes [index];
 end;
 
 procedure tVolumeList.LoadVolumeList;
+var
+  filename,
+  s : string;
+  index : integer;
+  Done : boolean;
+  t : text;
 begin
+  // Verify that the directory exists, and create it if it doesn't
+	filename := GetEnvironmentVariable ('HOME') + '/.config';
+  if not (DirectoryExists(filename)) then
+    CreateDir (filename);
+  filename += '/ficmake';
+  if not (DirectoryExists(filename)) then
+    CreateDir (filename);
+  filename += '/volumes.fic';
 
+  // Verify that volumes.fic exists
+  if (FileExists (filename)) then begin
+    // Open it, and start scanning
+    assign (t, filename);
+    reset (t);
+    Done := false;
+
+    repeat
+      repeat
+        readln (t, s);
+        if (length (s) > 0) then
+          Trim (s);
+
+        if (s = '[end list]') then
+          Done := true;
+      until ((s = '[Volume]') or Done);
+
+      if (s = '[Volume]') then begin
+        index := length (t_volumes);
+        SetLength (t_volumes, index + 1);
+        t_volumes [index] := tVolume.Create;
+        t_volumes [index].Load (t);
+      end;
+    until Done;
+
+    close (t);
+  end;
+  t_dirty := false;
 end;
 
 procedure tVolumeList.SaveVolumeList;
+var
+  filename : string;
+  index : integer;
+  Done : boolean;
+  t : text;
 begin
+  // Verify that the directory exists, and create it if it doesn't
+	filename := GetEnvironmentVariable ('HOME') + '/.config';
+  if not (DirectoryExists(filename)) then
+    CreateDir (filename);
+  filename += '/ficmake';
+  if not (DirectoryExists(filename)) then
+    CreateDir (filename);
+  filename += '/volumes.fic';
 
+  // Open the Volumes file
+  assign (t, filename);
+  rewrite (t);
+
+  // Go through all the volumes, and save them
+  for index := 0 to (length (t_volumes) - 1) do begin
+    t_volumes [index].Save (t);
+    writeln (t);
+  end;
+
+  // Close out the list
+  writeln (t, '[end list]');
+  close (t);
+  t_dirty := false;
 end;
 
-{$end region}
+function tVolumeList.VolumeName (index : integer) : string;
+begin
+  VolumeName := t_volumes [index].VolumeName;
+end;
+
+procedure tVolumeList.MarkDirty;
+begin
+  t_dirty := true;
+end;
+
+{$endregion}
 
 end.
 

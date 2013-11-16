@@ -1,0 +1,50 @@
+object frmNewVolume: TfrmNewVolume
+  Left = 1085
+  Height = 104
+  Top = 720
+  Width = 480
+  Caption = 'Create New Volume'
+  ClientHeight = 104
+  ClientWidth = 480
+  OnCreate = FormCreate
+  LCLVersion = '1.0.10.0'
+  object txtName: TLabeledEdit
+    Left = 8
+    Height = 27
+    Top = 32
+    Width = 464
+    EditLabel.AnchorSideLeft.Control = txtName
+    EditLabel.AnchorSideRight.Control = txtName
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtName
+    EditLabel.Left = 8
+    EditLabel.Height = 20
+    EditLabel.Top = 9
+    EditLabel.Width = 464
+    EditLabel.Caption = 'New Volume Name'
+    EditLabel.ParentColor = False
+    TabOrder = 0
+    OnChange = txtNameChange
+  end
+  object btnOk: TButton
+    Left = 312
+    Height = 25
+    Top = 72
+    Width = 75
+    Caption = 'OK'
+    Default = True
+    Enabled = False
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object btnCancel: TButton
+    Left = 397
+    Height = 25
+    Top = 72
+    Width = 75
+    Cancel = True
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 2
+  end
+end

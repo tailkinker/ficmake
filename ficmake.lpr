@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, fvolume, gprofile, gvolume, gtools
+  Forms, fvolume, gprofile, gvolume, gtools, fnewvol
   { you can add units after this };
 
 {$R *.res}
@@ -15,7 +15,7 @@ uses
 begin
   RequireDerivedFormResource := True;
   Application.Initialize;
-  Application.CreateForm(TfrmVolume, frmVolume);
+  Application.CreateForm (TfrmVolume, frmVolume );
   Application.Run;
 end.
 
