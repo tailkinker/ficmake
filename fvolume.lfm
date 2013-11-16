@@ -1,13 +1,14 @@
 object frmVolume: TfrmVolume
-  Left = 407
-  Height = 420
-  Top = 216
+  Left = 459
+  Height = 400
+  Top = 173
   Width = 780
   Caption = 'Ficmake v1.1.0'
-  ClientHeight = 420
+  ClientHeight = 400
   ClientWidth = 780
-  Constraints.MinHeight = 420
+  Constraints.MinHeight = 400
   Constraints.MinWidth = 780
+  OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
   LCLVersion = '1.0.10.0'
@@ -136,7 +137,7 @@ object frmVolume: TfrmVolume
     Left = 8
     Height = 36
     Top = 376
-    Width = 36
+    Width = 60
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
       2000000000000010000064000000640000000000000000000000FFFFFF00FFFF
@@ -276,7 +277,7 @@ object frmVolume: TfrmVolume
     Left = 112
     Height = 36
     Top = 376
-    Width = 36
+    Width = 60
     Enabled = False
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
@@ -435,7 +436,7 @@ object frmVolume: TfrmVolume
     Left = 408
     Height = 36
     Top = 380
-    Width = 36
+    Width = 60
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
       2000000000000010000064000000640000000000000000000000FFFFFF00FFFF
@@ -574,7 +575,7 @@ object frmVolume: TfrmVolume
     Left = 504
     Height = 36
     Top = 376
-    Width = 36
+    Width = 60
     Enabled = False
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
@@ -714,7 +715,7 @@ object frmVolume: TfrmVolume
     Left = 64
     Height = 36
     Top = 376
-    Width = 36
+    Width = 60
     Enabled = False
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
@@ -850,6 +851,23 @@ object frmVolume: TfrmVolume
     }
     OnClick = btnSaveVolumesClick
     TabOrder = 11
+  end
+  object btnAbout: TButton
+    Left = 672
+    Height = 25
+    Top = 88
+    Width = 100
+    Caption = 'About'
+    TabOrder = 12
+  end
+  object btnOptions: TButton
+    Left = 672
+    Height = 25
+    Top = 120
+    Width = 100
+    Caption = 'Options'
+    OnClick = btnOptionsClick
+    TabOrder = 13
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
     left = 176

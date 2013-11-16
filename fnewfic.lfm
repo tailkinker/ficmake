@@ -1,11 +1,11 @@
-object frmNewVolume: TfrmNewVolume
-  Left = 1085
-  Height = 104
-  Top = 720
+object frmNewStory: TfrmNewStory
+  Left = 558
+  Height = 103
+  Top = 721
   Width = 480
   BorderStyle = bsDialog
-  Caption = 'Create New Volume'
-  ClientHeight = 104
+  Caption = 'Create New Story'
+  ClientHeight = 103
   ClientWidth = 480
   OnCreate = FormCreate
   LCLVersion = '1.0.10.0'
@@ -22,7 +22,7 @@ object frmNewVolume: TfrmNewVolume
     EditLabel.Height = 20
     EditLabel.Top = 9
     EditLabel.Width = 464
-    EditLabel.Caption = 'New Volume Name'
+    EditLabel.Caption = 'New Story Title'
     EditLabel.ParentColor = False
     TabOrder = 0
     OnChange = txtNameChange

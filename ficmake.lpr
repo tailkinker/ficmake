@@ -7,7 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, fvolume, gprofile, gvolume, gtools, fnewvol, fstory
+  Forms, fvolume, gprofile, gvolume, gtools, fnewvol, fstory, gstory, fnewfic,
+  foptions
   { you can add units after this };
 
 {$R *.res}

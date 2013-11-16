@@ -1,0 +1,67 @@
+object frmOptions: TfrmOptions
+  Left = 459
+  Height = 201
+  Top = 251
+  Width = 346
+  BorderStyle = bsDialog
+  Caption = 'Options'
+  ClientHeight = 201
+  ClientWidth = 346
+  OnCreate = FormCreate
+  OnResize = FormResize
+  LCLVersion = '1.0.10.0'
+  object radScreen: TRadioGroup
+    Left = 8
+    Height = 138
+    Top = 8
+    Width = 301
+    AutoFill = True
+    AutoSize = True
+    Caption = 'Screen Size'
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.TopBottomSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 117
+    ClientWidth = 297
+    Columns = 2
+    ItemIndex = 0
+    Items.Strings = (
+      '800x480 (W)'
+      '800x600'
+      '1024x600 (W)'
+      '1024x768'
+      '1024x1280 (P)'
+      '1280x1024'
+      '1280x720 (W)'
+      '1440x900 (W)'
+      '1600x900 (W)'
+      '1920x1080 (W)'
+    )
+    OnClick = radScreenClick
+    TabOrder = 0
+  end
+  object btnOk: TButton
+    Left = 237
+    Height = 25
+    Top = 168
+    Width = 100
+    Caption = 'OK'
+    Default = True
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object btnGuess: TButton
+    Left = 8
+    Height = 25
+    Top = 168
+    Width = 100
+    Caption = 'Guess'
+    OnClick = btnGuessClick
+    TabOrder = 2
+  end
+end

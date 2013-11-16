@@ -33,10 +33,12 @@ type
   { TfrmVolume }
 
   TfrmVolume = class(TForm)
+    btnAbout : TButton;
     btnAddVolume : TBitBtn;
     btnAddProfile : TBitBtn;
     btnDeleteVolume : TBitBtn;
     btnDeleteProfile : TBitBtn;
+    btnOptions : TButton;
     btnSaveVolumes : TBitBtn;
     btnSelectDir: TBitBtn;
     chkHTMLIndex: TCheckBox;
@@ -50,9 +52,11 @@ type
     txtAuthor: TLabeledEdit;
     procedure btnAddVolumeClick (Sender : TObject );
     procedure btnDeleteVolumeClick (Sender : TObject );
+    procedure btnOptionsClick (Sender : TObject );
     procedure btnSaveVolumesClick (Sender : TObject );
     procedure btnSelectDirClick(Sender: TObject);
     procedure chkHTMLIndexChange (Sender : TObject );
+    procedure FormClose (Sender : TObject; var CloseAction : TCloseAction );
     procedure FormCreate (Sender : TObject );
     procedure FormResize(Sender: TObject);
     procedure lstVolumesClick (Sender : TObject );
@@ -75,7 +79,7 @@ implementation
 
 uses
   LCLType,
-  fnewvol, fstory;
+  fnewvol, foptions, fstory;
 
 {$R *.lfm}
 
@@ -96,7 +100,7 @@ begin
   btnSelectDir.Left := (Width - 40);
   btnAddVolume.Top := Height - 44;
   btnDeleteVolume.Top := Height - 44;
-  btnDeleteVolume.Left := lstVolumes.Width - 28;
+  btnDeleteVolume.Left := (lstVolumes.Width - btnDeleteVolume.Width) + 8;
 
   labProfile.Left := (Width - 24) div 2 + 16;
   lstGlobalProfiles.Left := (Width - 24) div 2 + 16;
@@ -104,12 +108,15 @@ begin
   lstGlobalProfiles.Height := Height - 228;
 
   btnAddProfile.Left := lstGlobalProfiles.Left;
-  btnDeleteProfile.Left := Width - 44;
+  btnDeleteProfile.Left := (Width - btnDeleteProfile.Width) - 8;
   btnAddProfile.Top := Height - 44;
   btnDeleteProfile.Top := Height - 44;
 
   btnSaveVolumes.Top := Height - 44;
-  btnSaveVolumes.Left := (lstVolumes.Width - 36) div 2 + 8;
+  btnSaveVolumes.Left := (lstVolumes.Width - btnSaveVolumes.Width) div 2 + 8;
+
+  btnAbout.Left := Width - 108;
+  btnOptions.Left := Width - 108;
 end;
 
 procedure TfrmVolume.lstVolumesClick (Sender : TObject );
@@ -165,6 +172,8 @@ begin
   else begin
     NewStoryForm := TfrmStory.Create (Application);
     NewStoryForm.Caption := FormCaption;
+    NewStoryForm.SetBaseDir (Volumes.Current.BaseDir);
+    NewStoryForm.ForceLoadStoryList;
     NewStoryForm.Show;
   end;
 end;
@@ -217,6 +226,14 @@ begin
     end;
 end;
 
+procedure TfrmVolume.FormClose (Sender : TObject; var CloseAction : TCloseAction );
+begin
+  if (Volumes.Dirty) then
+    if (Application.MessageBox ('Do you wish to save the Volume List?',
+    	'Volume List Changed', MB_ICONQUESTION + MB_YESNO) = IDYES) then
+      Volumes.SaveVolumeList;
+end;
+
 procedure TfrmVolume.btnAddVolumeClick (Sender : TObject );
 var
   Dialog : TfrmNewVolume;
@@ -241,6 +258,19 @@ begin
   end;
   btnDeleteVolume.Enabled := FALSE;
   PopulateVolumeList;
+end;
+
+procedure TfrmVolume.btnOptionsClick (Sender : TObject );
+var
+  Dialog : TfrmOptions;
+begin
+	Dialog := TfrmOptions.Create (Application);
+  Dialog.ShowModal;
+  Dialog.Destroy;
+  Width := InitialX;
+  Height := InitialY;
+  Left := (Screen.Width - Width) div 2;
+  Top := (Screen.Height - Height) div 2;
 end;
 
 procedure TfrmVolume.btnSaveVolumesClick (Sender : TObject );
