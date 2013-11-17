@@ -39,7 +39,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="13">
+    <Units Count="14">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -121,9 +121,17 @@
         <Filename Value="fchapter.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmChapter"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fchapter"/>
       </Unit12>
+      <Unit13>
+        <Filename Value="fnewchap.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmNewChapter"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fnewchap"/>
+      </Unit13>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

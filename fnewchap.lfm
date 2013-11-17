@@ -1,10 +1,10 @@
-object frmNewStory: TfrmNewStory
-  Left = 558
+object frmNewChapter: TfrmNewChapter
+  Left = 1019
   Height = 104
-  Top = 721
+  Top = 458
   Width = 480
   BorderStyle = bsDialog
-  Caption = 'Create New Story'
+  Caption = 'Create New Chapter'
   ClientHeight = 104
   ClientWidth = 480
   OnCreate = FormCreate
@@ -22,7 +22,7 @@ object frmNewStory: TfrmNewStory
     EditLabel.Height = 20
     EditLabel.Top = 9
     EditLabel.Width = 464
-    EditLabel.Caption = 'New Story Title'
+    EditLabel.Caption = 'New Chapter Title'
     EditLabel.ParentColor = False
     TabOrder = 0
     OnChange = txtNameChange

@@ -114,6 +114,7 @@ begin
     NewForm.Caption := FormCaption;
     NewForm.SetBaseDir (Stories.Current.SourceDir);
     NewForm.ForceChapterListLoad;
+    NewForm.ShortName := Stories.Current.ShortName;
     NewForm.Show;
   end;
 end;
