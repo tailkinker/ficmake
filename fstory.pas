@@ -17,6 +17,7 @@ type
     btnBlurb : TButton;
     btnBuild : TButton;
     btnCredits : TButton;
+    btnProfiles : TButton;
     btnDeleteStory : TBitBtn;
     btnDisclaimer : TButton;
     btnEditChapters : TButton;
@@ -30,6 +31,9 @@ type
     txtTitle : TLabeledEdit;
     procedure btnAddStoryClick (Sender : TObject );
     procedure btnDeleteStoryClick (Sender : TObject );
+    procedure btnEditChaptersClick (Sender : TObject );
+    procedure btnEditStoryClick (Sender : TObject );
+    procedure btnSaveStoriesClick (Sender : TObject );
     procedure FormClose (Sender : TObject; var CloseAction : TCloseAction );
     procedure FormCreate (Sender : TObject );
     procedure FormResize (Sender : TObject );
@@ -46,7 +50,7 @@ implementation
 
 uses
   LCLType,
-  fnewfic, foptions;
+  fchapter, fnewfic, fficinfo, foptions;
 
 {$R *.lfm}
 
@@ -85,6 +89,51 @@ begin
   end;
   btnDeleteStory.Enabled := FALSE;
   PopulateStoryList;
+end;
+
+procedure TfrmStory.btnEditChaptersClick (Sender : TObject );
+var
+  NewForm : TfrmChapter;
+  FormCaption : string;
+  index : integer;
+  Present : boolean;
+begin
+	FormCaption := 'Story "' + Stories.Current.Title + '"';
+  index := 0;
+  Present := false;
+  repeat
+    if (Screen.Forms [index].Caption = FormCaption) then
+      Present := true
+    else
+    	index += 1;
+  until (Present or (index >= Screen.FormCount));
+  if (Present) then
+    Screen.Forms [index].BringToFront
+  else begin
+    NewForm := TfrmChapter.Create (Application);
+    NewForm.Caption := FormCaption;
+    NewForm.SetBaseDir (Stories.Current.SourceDir);
+    NewForm.ForceChapterListLoad;
+    NewForm.Show;
+  end;
+end;
+
+procedure TfrmStory.btnEditStoryClick (Sender : TObject );
+var
+  Dialog : TfrmStoryInfo;
+begin
+	Dialog := TfrmStoryInfo.Create (Application);
+  Dialog.Story := Stories.Current;
+  Dialog.ShowModal;
+  Dialog.Destroy;
+  Stories.SetDirty;
+  btnSaveStories.Enabled := true;
+end;
+
+procedure TfrmStory.btnSaveStoriesClick (Sender : TObject );
+begin
+  Stories.SaveStoryList;
+  btnSaveStories.Enabled := FALSE;
 end;
 
 procedure TfrmStory.FormClose (Sender : TObject; var CloseAction : TCloseAction );
@@ -127,6 +176,8 @@ begin
   btnBuild.Left := y;
   btnMake.Width := x;
   btnMake.Left := y;
+  btnProfiles.Width := x;
+  btnProfiles.Left := y;
 
   btnAddStory.Left := 8;
   btnAddStory.Top := Height - 44;
@@ -154,18 +205,22 @@ begin
     btnBlurb.Enabled := FALSE;
     btnDisclaimer.Enabled := FALSE;
     btnCredits.Enabled := FALSE;
+    btnProfiles.Enabled := FALSE;
 
     // Load Controls
     txtTitle.Text := Stories.Current.Title;
 
     // Enable Controls
-    txtTitle.Enabled := TRUE;
-    btnDeleteStory.Enabled := TRUE;
-    btnEditStory.Enabled := TRUE;
-    btnEditChapters.Enabled := TRUE;
-    btnBlurb.Enabled := TRUE;
-    btnDisclaimer.Enabled := TRUE;
-    btnCredits.Enabled := TRUE;
+    if (Stories.Current <> nil) then begin
+      txtTitle.Enabled := TRUE;
+      btnDeleteStory.Enabled := TRUE;
+      btnEditStory.Enabled := TRUE;
+      btnEditChapters.Enabled := TRUE;
+      btnBlurb.Enabled := TRUE;
+      btnDisclaimer.Enabled := TRUE;
+      btnCredits.Enabled := TRUE;
+      btnProfiles.Enabled := TRUE;
+    end;
   end;
 end;
 

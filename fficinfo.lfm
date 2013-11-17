@@ -1,0 +1,316 @@
+object frmStoryInfo: TfrmStoryInfo
+  Left = 529
+  Height = 400
+  Top = 322
+  Width = 780
+  BorderStyle = bsDialog
+  ClientHeight = 400
+  ClientWidth = 780
+  Constraints.MinHeight = 400
+  Constraints.MinWidth = 780
+  OnResize = FormResize
+  LCLVersion = '1.0.10.0'
+  object txtSubtitle: TLabeledEdit
+    Left = 8
+    Height = 27
+    Top = 32
+    Width = 378
+    EditLabel.AnchorSideLeft.Control = txtSubtitle
+    EditLabel.AnchorSideRight.Control = txtSubtitle
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtSubtitle
+    EditLabel.Left = 8
+    EditLabel.Height = 20
+    EditLabel.Top = 9
+    EditLabel.Width = 378
+    EditLabel.Caption = 'Subtitle'
+    EditLabel.ParentColor = False
+    TabOrder = 0
+    OnChange = txtSubtitleChange
+  end
+  object txtAuthor: TLabeledEdit
+    Left = 8
+    Height = 27
+    Top = 88
+    Width = 378
+    EditLabel.AnchorSideLeft.Control = txtAuthor
+    EditLabel.AnchorSideRight.Control = txtAuthor
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtAuthor
+    EditLabel.Left = 8
+    EditLabel.Height = 20
+    EditLabel.Top = 65
+    EditLabel.Width = 378
+    EditLabel.Caption = 'Author'
+    EditLabel.ParentColor = False
+    TabOrder = 1
+    OnChange = txtAuthorChange
+  end
+  object txtLongName: TLabeledEdit
+    Left = 398
+    Height = 27
+    Top = 32
+    Width = 378
+    EditLabel.AnchorSideLeft.Control = txtLongName
+    EditLabel.AnchorSideRight.Control = txtLongName
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtLongName
+    EditLabel.Left = 398
+    EditLabel.Height = 20
+    EditLabel.Top = 9
+    EditLabel.Width = 378
+    EditLabel.Caption = 'Output File Pattern'
+    EditLabel.ParentColor = False
+    TabOrder = 2
+    OnChange = txtLongNameChange
+  end
+  object txtShortName: TLabeledEdit
+    Left = 398
+    Height = 27
+    Top = 88
+    Width = 378
+    EditLabel.AnchorSideLeft.Control = txtShortName
+    EditLabel.AnchorSideRight.Control = txtShortName
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtShortName
+    EditLabel.Left = 398
+    EditLabel.Height = 20
+    EditLabel.Top = 65
+    EditLabel.Width = 378
+    EditLabel.Caption = 'Input File Pattern'
+    EditLabel.ParentColor = False
+    TabOrder = 3
+    OnChange = txtShortNameChange
+  end
+  object txtSourceDir: TLabeledEdit
+    Left = 8
+    Height = 27
+    Top = 144
+    Width = 354
+    EditLabel.AnchorSideLeft.Control = txtSourceDir
+    EditLabel.AnchorSideRight.Control = txtSourceDir
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtSourceDir
+    EditLabel.Left = 8
+    EditLabel.Height = 20
+    EditLabel.Top = 121
+    EditLabel.Width = 354
+    EditLabel.Caption = 'Source Directory'
+    EditLabel.ParentColor = False
+    TabOrder = 4
+    OnChange = txtSourceDirChange
+  end
+  object txtOmakeHeader: TLabeledEdit
+    Left = 398
+    Height = 27
+    Top = 144
+    Width = 378
+    EditLabel.AnchorSideLeft.Control = txtOmakeHeader
+    EditLabel.AnchorSideRight.Control = txtOmakeHeader
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtOmakeHeader
+    EditLabel.Left = 398
+    EditLabel.Height = 20
+    EditLabel.Top = 121
+    EditLabel.Width = 378
+    EditLabel.Caption = 'Omake Header'
+    EditLabel.ParentColor = False
+    TabOrder = 5
+    OnChange = txtOmakeHeaderChange
+  end
+  object txtTrailerHeader: TLabeledEdit
+    Left = 398
+    Height = 27
+    Top = 200
+    Width = 378
+    EditLabel.AnchorSideLeft.Control = txtTrailerHeader
+    EditLabel.AnchorSideRight.Control = txtTrailerHeader
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtTrailerHeader
+    EditLabel.Left = 398
+    EditLabel.Height = 20
+    EditLabel.Top = 177
+    EditLabel.Width = 378
+    EditLabel.Caption = 'Trailer Header'
+    EditLabel.ParentColor = False
+    TabOrder = 6
+    OnChange = txtTrailerHeaderChange
+  end
+  object txtTitlePicture: TLabeledEdit
+    Left = 8
+    Height = 27
+    Top = 200
+    Width = 354
+    EditLabel.AnchorSideLeft.Control = txtTitlePicture
+    EditLabel.AnchorSideRight.Control = txtTitlePicture
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtTitlePicture
+    EditLabel.Left = 8
+    EditLabel.Height = 20
+    EditLabel.Top = 177
+    EditLabel.Width = 354
+    EditLabel.Caption = 'Titles Picture'
+    EditLabel.ParentColor = False
+    TabOrder = 7
+    OnChange = txtTitlePictureChange
+  end
+  object txtCoverPicture: TLabeledEdit
+    Left = 8
+    Height = 27
+    Top = 256
+    Width = 354
+    EditLabel.AnchorSideLeft.Control = txtCoverPicture
+    EditLabel.AnchorSideRight.Control = txtCoverPicture
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtCoverPicture
+    EditLabel.Left = 8
+    EditLabel.Height = 20
+    EditLabel.Top = 233
+    EditLabel.Width = 354
+    EditLabel.Caption = 'Cover Picture'
+    EditLabel.ParentColor = False
+    TabOrder = 8
+    OnChange = txtCoverPictureChange
+  end
+  object chkSuppressTitles: TCheckBox
+    Left = 8
+    Height = 21
+    Top = 304
+    Width = 269
+    Caption = 'Suppress Titles on Title Page'
+    OnChange = chkSuppressTitlesChange
+    TabOrder = 9
+  end
+  object chkSuppressAuthor: TCheckBox
+    Left = 8
+    Height = 21
+    Top = 336
+    Width = 334
+    Caption = 'Suppress Author Name on Title Page'
+    OnChange = chkSuppressAuthorChange
+    TabOrder = 10
+  end
+  object chkSubtitleFirst: TCheckBox
+    Left = 8
+    Height = 21
+    Top = 368
+    Width = 237
+    Caption = 'Place Subtitle above Title'
+    OnChange = chkSubtitleFirstChange
+    TabOrder = 11
+  end
+  object btnOpenSource: TBitBtn
+    Left = 362
+    Height = 24
+    Top = 145
+    Width = 24
+    Glyph.Data = {
+      9E020000424D9E0200000000000036000000280000000E0000000B0000000100
+      2000000000006802000064000000640000000000000000000000B9D8F3003B90
+      DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF3B90DBFFA3CBEF003B90DBFFE0F2FBFFA9DEF5FF9EDB
+      F4FF96DAF3FF8ED8F3FF86D7F3FF7FD4F2FF79D3F2FF72D2F1FF6CD0F1FF69CF
+      F1FFC3EBF9FF3B90DBFF3B90DBFFEFFAFEFFA1E9F9FF91E5F8FF81E1F7FF72DE
+      F6FF63DAF5FF54D7F4FF47D3F3FF39D0F2FF2ECDF1FF26CBF0FFCAF2FBFF3B90
+      DBFF3B90DBFFF2FAFDFFB3EDFAFFA4E9F9FF95E6F8FF85E2F7FF76DEF6FF65DB
+      F5FF57D7F4FF49D4F3FF3BD1F2FF30CEF1FFCCF2FBFF3B90DBFF3B90DBFFF6FC
+      FEFFC8F2FCFFB9EFFBFFACECFAFF9CE8F9FF8BE3F7FF7CE0F6FF6CDCF6FF5DD9
+      F5FF4FD6F4FF44D3F3FFD0F3FCFF3B90DBFF3B90DBFFFEFFFFFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF73C1E9FF94E6F8FF85E3F7FF76DFF6FF68DBF5FF5CD8
+      F4FFD7F4FCFF3B90DBFF3B90DBFFE8F6FBFF94D4EFFF88CEEEFF73C1E9FF73C1
+      E9FF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFF1FAFDFF94DEF5FF93DCF4FF81D5F2FF6ACAEDFF6CCBEAFF85D3
+      EFFF80D2EFFF7AD0EFFF76CFEEFF72CFEEFFE9F7FBFF3B90DBFF3B90DBFFF7FC
+      FEFF8EE4F8FF91DEF5FF9FE0F5FFACE1F6FFEFFBFEFFF4FDFEFFF3FCFEFFF1FC
+      FEFFEFFBFEFFEEFBFEFFFBFEFFFF3B90DBFF3B90DBFFFDFEFEFFFEFFFFFFFEFE
+      FFFFFDFEFFFFFEFFFFFFEAF7FBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFCAEBF500B9D8F3003B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFDBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDF
+      DF00
+    }
+    OnClick = btnOpenSourceClick
+    TabOrder = 12
+  end
+  object btnOpenTitle: TBitBtn
+    Left = 362
+    Height = 24
+    Top = 201
+    Width = 24
+    Glyph.Data = {
+      9E020000424D9E0200000000000036000000280000000E0000000B0000000100
+      2000000000006802000064000000640000000000000000000000B9D8F3003B90
+      DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF3B90DBFFA3CBEF003B90DBFFE0F2FBFFA9DEF5FF9EDB
+      F4FF96DAF3FF8ED8F3FF86D7F3FF7FD4F2FF79D3F2FF72D2F1FF6CD0F1FF69CF
+      F1FFC3EBF9FF3B90DBFF3B90DBFFEFFAFEFFA1E9F9FF91E5F8FF81E1F7FF72DE
+      F6FF63DAF5FF54D7F4FF47D3F3FF39D0F2FF2ECDF1FF26CBF0FFCAF2FBFF3B90
+      DBFF3B90DBFFF2FAFDFFB3EDFAFFA4E9F9FF95E6F8FF85E2F7FF76DEF6FF65DB
+      F5FF57D7F4FF49D4F3FF3BD1F2FF30CEF1FFCCF2FBFF3B90DBFF3B90DBFFF6FC
+      FEFFC8F2FCFFB9EFFBFFACECFAFF9CE8F9FF8BE3F7FF7CE0F6FF6CDCF6FF5DD9
+      F5FF4FD6F4FF44D3F3FFD0F3FCFF3B90DBFF3B90DBFFFEFFFFFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF73C1E9FF94E6F8FF85E3F7FF76DFF6FF68DBF5FF5CD8
+      F4FFD7F4FCFF3B90DBFF3B90DBFFE8F6FBFF94D4EFFF88CEEEFF73C1E9FF73C1
+      E9FF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFF1FAFDFF94DEF5FF93DCF4FF81D5F2FF6ACAEDFF6CCBEAFF85D3
+      EFFF80D2EFFF7AD0EFFF76CFEEFF72CFEEFFE9F7FBFF3B90DBFF3B90DBFFF7FC
+      FEFF8EE4F8FF91DEF5FF9FE0F5FFACE1F6FFEFFBFEFFF4FDFEFFF3FCFEFFF1FC
+      FEFFEFFBFEFFEEFBFEFFFBFEFFFF3B90DBFF3B90DBFFFDFEFEFFFEFFFFFFFEFE
+      FFFFFDFEFFFFFEFFFFFFEAF7FBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFCAEBF500B9D8F3003B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFDBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDF
+      DF00
+    }
+    OnClick = btnOpenTitleClick
+    TabOrder = 13
+  end
+  object btnOpenCover: TBitBtn
+    Left = 362
+    Height = 24
+    Top = 257
+    Width = 24
+    Glyph.Data = {
+      9E020000424D9E0200000000000036000000280000000E0000000B0000000100
+      2000000000006802000064000000640000000000000000000000B9D8F3003B90
+      DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF3B90DBFFA3CBEF003B90DBFFE0F2FBFFA9DEF5FF9EDB
+      F4FF96DAF3FF8ED8F3FF86D7F3FF7FD4F2FF79D3F2FF72D2F1FF6CD0F1FF69CF
+      F1FFC3EBF9FF3B90DBFF3B90DBFFEFFAFEFFA1E9F9FF91E5F8FF81E1F7FF72DE
+      F6FF63DAF5FF54D7F4FF47D3F3FF39D0F2FF2ECDF1FF26CBF0FFCAF2FBFF3B90
+      DBFF3B90DBFFF2FAFDFFB3EDFAFFA4E9F9FF95E6F8FF85E2F7FF76DEF6FF65DB
+      F5FF57D7F4FF49D4F3FF3BD1F2FF30CEF1FFCCF2FBFF3B90DBFF3B90DBFFF6FC
+      FEFFC8F2FCFFB9EFFBFFACECFAFF9CE8F9FF8BE3F7FF7CE0F6FF6CDCF6FF5DD9
+      F5FF4FD6F4FF44D3F3FFD0F3FCFF3B90DBFF3B90DBFFFEFFFFFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF73C1E9FF94E6F8FF85E3F7FF76DFF6FF68DBF5FF5CD8
+      F4FFD7F4FCFF3B90DBFF3B90DBFFE8F6FBFF94D4EFFF88CEEEFF73C1E9FF73C1
+      E9FF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFF1FAFDFF94DEF5FF93DCF4FF81D5F2FF6ACAEDFF6CCBEAFF85D3
+      EFFF80D2EFFF7AD0EFFF76CFEEFF72CFEEFFE9F7FBFF3B90DBFF3B90DBFFF7FC
+      FEFF8EE4F8FF91DEF5FF9FE0F5FFACE1F6FFEFFBFEFFF4FDFEFFF3FCFEFFF1FC
+      FEFFEFFBFEFFEEFBFEFFFBFEFFFF3B90DBFF3B90DBFFFDFEFEFFFEFFFFFFFEFE
+      FFFFFDFEFFFFFEFFFFFFEAF7FBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFCAEBF500B9D8F3003B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFDBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDF
+      DF00
+    }
+    OnClick = btnOpenCoverClick
+    TabOrder = 14
+  end
+  object btnOk: TButton
+    Left = 664
+    Height = 25
+    Top = 344
+    Width = 75
+    Caption = 'OK'
+    Default = True
+    ModalResult = 1
+    TabOrder = 15
+  end
+  object OpenPicture: TOpenPictureDialog
+    left = 896
+    top = 40
+  end
+  object SelectDirectory: TSelectDirectoryDialog
+    left = 896
+    top = 104
+  end
+end

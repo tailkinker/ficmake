@@ -11,9 +11,10 @@ uses
 type
   tStory = class (tObject)
     private
-      t_strings : array [0..8] of string;
+      t_strings : array [0..9] of string;
       t_notitle,
-      t_noauthor : boolean;
+      t_noauthor,
+      t_subfirst: boolean;
       procedure SetString (index : integer; aData : string);
       function GetString (index : integer) : string;
     public
@@ -26,8 +27,10 @@ type
       property OmakeHeader   : string index 6 read getstring write setstring;
       property TrailerHeader : string index 7 read getstring write setstring;
       property TitlePicture  : string index 8 read getstring write setstring;
+      property CoverPicture  : string index 9 read getstring write setstring;
       property SuppressTitles : boolean read t_notitle write t_notitle;
       property SuppressAuthor : boolean read t_noauthor write t_noauthor;
+      property SubtitleFirst  : boolean read t_subfirst write t_subfirst;
       procedure Load (var t : text);
       procedure Save (var t : text);
   end;
@@ -128,10 +131,14 @@ begin
         TrailerHeader := v
       else if (k = 'Title Picture') then
         TitlePicture := v
+      else if (k = 'Cover Picture') then
+        CoverPicture := v
       else if (k = 'Suppress Titles') then
         SuppressTitles := TRUE
       else if (k = 'Suppress Author') then
         SuppressAuthor := TRUE
+      else if (k = 'Subtitle Above Title') then
+        SubtitleFirst := TRUE
     end;
   until Done;
 end;
@@ -140,18 +147,26 @@ procedure tStory.Save (var t : text);
 begin
   writeln (t, '[Story]');
   writeln (t, 'Title = ', Title);
-  writeln (t, 'Subtitle = ', Subtitle);
+  if (Subtitle <> '') then
+  	writeln (t, 'Subtitle = ', Subtitle);
   writeln (t, 'Author = ', Author);
   writeln (t, 'Output Name = ', LongName);
   writeln (t, 'Input Name = ', ShortName);
   writeln (t, 'Source Dir = ', SourceDir);
-  writeln (t, 'Omake Header = ', OmakeHeader);
-  writeln (t, 'Trailer Header = ', TrailerHeader);
-  writeln (t, 'Title Picture = ', TitlePicture);
+  if (OmakeHeader <> '') then
+    writeln (t, 'Omake Header = ', OmakeHeader);
+  if (TrailerHeader <> '') then
+    writeln (t, 'Trailer Header = ', TrailerHeader);
+  if (TitlePicture <> '') then
+    writeln (t, 'Title Picture = ', TitlePicture);
+  if (CoverPicture <> '') then
+    writeln (t, 'Cover Picture = ', CoverPicture);
   if (SuppressTitles) then
     writeln (t, 'Suppress Titles');
   if (SuppressAuthor) then
     writeln (t, 'Suppress Author');
+  if (SubtitleFirst) then
+    writeln (t, 'Subtitle Above Title');
   writeln (t, '[end]');
 end;
 

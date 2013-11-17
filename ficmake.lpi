@@ -39,7 +39,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="10">
+    <Units Count="13">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -80,6 +80,7 @@
         <Filename Value="fstory.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmStory"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fstory"/>
       </Unit6>
@@ -92,6 +93,7 @@
         <Filename Value="fnewfic.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmNewStory"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fnewfic"/>
       </Unit8>
@@ -99,9 +101,29 @@
         <Filename Value="foptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmOptions"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="foptions"/>
       </Unit9>
+      <Unit10>
+        <Filename Value="fficinfo.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmStoryInfo"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fficinfo"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="gchapter.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="gchapter"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="fchapter.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmChapter"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fchapter"/>
+      </Unit12>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

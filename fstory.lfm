@@ -1,7 +1,7 @@
 object frmStory: TfrmStory
-  Left = 426
+  Left = 409
   Height = 400
-  Top = 305
+  Top = 146
   Width = 780
   ClientHeight = 400
   ClientWidth = 780
@@ -62,25 +62,27 @@ object frmStory: TfrmStory
   object btnEditStory: TButton
     Left = 288
     Height = 25
-    Top = 96
+    Top = 88
     Width = 200
     Caption = 'Story Information'
     Enabled = False
+    OnClick = btnEditStoryClick
     TabOrder = 3
   end
   object btnEditChapters: TButton
     Left = 288
     Height = 25
-    Top = 136
+    Top = 128
     Width = 200
     Caption = 'Chapter List'
     Enabled = False
+    OnClick = btnEditChaptersClick
     TabOrder = 4
   end
   object btnBlurb: TButton
     Left = 288
     Height = 25
-    Top = 176
+    Top = 208
     Width = 200
     Caption = 'Story Blurb'
     Enabled = False
@@ -89,7 +91,7 @@ object frmStory: TfrmStory
   object btnDisclaimer: TButton
     Left = 288
     Height = 25
-    Top = 216
+    Top = 248
     Width = 200
     Caption = 'Disclaimer'
     Enabled = False
@@ -98,7 +100,7 @@ object frmStory: TfrmStory
   object btnCredits: TButton
     Left = 288
     Height = 25
-    Top = 256
+    Top = 288
     Width = 200
     Caption = 'Credits'
     Enabled = False
@@ -107,7 +109,7 @@ object frmStory: TfrmStory
   object btnBuild: TButton
     Left = 288
     Height = 25
-    Top = 316
+    Top = 328
     Width = 200
     Caption = 'Build Volume'
     Enabled = False
@@ -116,7 +118,7 @@ object frmStory: TfrmStory
   object btnMake: TButton
     Left = 288
     Height = 25
-    Top = 356
+    Top = 368
     Width = 200
     Caption = 'Run Make on Volume'
     Enabled = False
@@ -541,6 +543,7 @@ object frmStory: TfrmStory
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
+    OnClick = btnSaveStoriesClick
     TabOrder = 12
   end
   object labProfiles: TLabel
@@ -550,5 +553,14 @@ object frmStory: TfrmStory
     Width = 132
     Caption = 'Volume Profiles'
     ParentColor = False
+  end
+  object btnProfiles: TButton
+    Left = 288
+    Height = 25
+    Top = 168
+    Width = 200
+    Caption = 'Story Profiles'
+    Enabled = False
+    TabOrder = 13
   end
 end
