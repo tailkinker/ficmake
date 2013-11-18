@@ -3,12 +3,12 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="17">
+    <Units Count="15">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ficmake"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="127"/>
       </Unit0>
       <Unit1>
         <Filename Value="fvolume.pas"/>
@@ -21,7 +21,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="121"/>
         <CursorPos X="1" Y="179"/>
-        <UsageCount Value="77"/>
+        <UsageCount Value="120"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -31,7 +31,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="127"/>
       </Unit2>
       <Unit3>
         <Filename Value="gvolume.pas"/>
@@ -41,7 +41,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="58" Y="97"/>
-        <UsageCount Value="77"/>
+        <UsageCount Value="120"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -52,7 +52,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="7" Y="48"/>
-        <UsageCount Value="83"/>
+        <UsageCount Value="126"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -65,7 +65,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="45"/>
-        <UsageCount Value="78"/>
+        <UsageCount Value="121"/>
       </Unit5>
       <Unit6>
         <Filename Value="fstory.pas"/>
@@ -74,12 +74,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fstory"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="94"/>
         <CursorPos X="52" Y="117"/>
-        <UsageCount Value="73"/>
+        <UsageCount Value="116"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit6>
@@ -91,7 +90,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="41" Y="60"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="112"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -101,11 +100,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fnewfic"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="21" Y="38"/>
-        <UsageCount Value="66"/>
+        <UsageCount Value="109"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit8>
@@ -116,11 +115,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="foptions"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="53"/>
         <CursorPos X="1" Y="98"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="107"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -129,11 +128,12 @@
         <ComponentName Value="frmStoryInfo"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fficinfo"/>
-        <EditorIndex Value="4"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="154"/>
+        <TopLine Value="153"/>
         <CursorPos X="57" Y="166"/>
-        <UsageCount Value="52"/>
+        <UsageCount Value="95"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -144,7 +144,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="21" Y="60"/>
-        <UsageCount Value="51"/>
+        <UsageCount Value="94"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
@@ -158,7 +158,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="68" Y="38"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="64"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit12>
@@ -167,36 +167,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2689"/>
         <CursorPos X="1" Y="2719"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="2"/>
       </Unit13>
       <Unit14>
-        <Filename Value="/usr/share/lazarus/1.0.10/lcl/include/wincontrol.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="7970"/>
-        <CursorPos X="1" Y="8022"/>
-        <UsageCount Value="4"/>
-      </Unit14>
-      <Unit15>
-        <Filename Value="/usr/share/lazarus/1.0.10/lcl/interfaces/gtk2/gtk2int.pas"/>
-        <UnitName Value="Gtk2Int"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="404"/>
-        <CursorPos X="1" Y="434"/>
-        <UsageCount Value="4"/>
-      </Unit15>
-      <Unit16>
         <Filename Value="fnewchap.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmNewChapter"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fnewchap"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="47"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="63"/>
         <Loaded Value="True"/>
-      </Unit16>
+      </Unit14>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
