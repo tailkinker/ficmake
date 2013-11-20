@@ -10,7 +10,7 @@ object frmStory: TfrmStory
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.0.14.0'
   object Label1: TLabel
     Left = 8
     Height = 20

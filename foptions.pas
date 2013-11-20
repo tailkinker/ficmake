@@ -1,3 +1,22 @@
+{
+Copyright 2013 Timothy Groves <timothy.red.groves@gmail.com>
+
+This file is part of FicMake.
+
+FicMake is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+FicMake is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with FicMake.  If not, see <http://www.gnu.org/licenses/>.
+}
+
 unit foptions;
 
 {$mode objfpc}{$H+}
@@ -35,19 +54,6 @@ implementation
 
 const
   MaxResolution = 9;
-	Resolutions : array [0..MaxResolution] of string = (
-  	'800x480 (W)',
-    '800x600',
-    '1024x600 (W)',
-    '1024x768',
-    '1280x720 (W)',
-    '1280x1024',
-    '1440x900 (W)',
-    '1600x900 (W)',
-    '1920x1080 (W)',
-    '1024x1280 (P)'
-  );
-
   Initials : array [0..MaxResolution, 0..1] of integer = (
 	  (  800,  480 ), // 800x480
 	  (  800,  600 ), // 800x600
