@@ -109,6 +109,7 @@
         <Filename Value="fficinfo.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmStoryInfo"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fficinfo"/>
       </Unit10>
