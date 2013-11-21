@@ -3,12 +3,12 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="15">
+    <Units Count="14">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ficmake"/>
-        <UsageCount Value="145"/>
+        <UsageCount Value="192"/>
       </Unit0>
       <Unit1>
         <Filename Value="fvolume.pas"/>
@@ -21,7 +21,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="29"/>
         <CursorPos X="48" Y="59"/>
-        <UsageCount Value="138"/>
+        <UsageCount Value="185"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -31,9 +31,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="60"/>
-        <CursorPos X="77" Y="90"/>
-        <UsageCount Value="145"/>
+        <TopLine Value="92"/>
+        <CursorPos X="20" Y="123"/>
+        <UsageCount Value="192"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -44,7 +44,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="138"/>
+        <UsageCount Value="185"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -55,7 +55,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="21" Y="33"/>
-        <UsageCount Value="144"/>
+        <UsageCount Value="191"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -68,7 +68,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="45"/>
-        <UsageCount Value="139"/>
+        <UsageCount Value="186"/>
       </Unit5>
       <Unit6>
         <Filename Value="fstory.pas"/>
@@ -81,7 +81,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="134"/>
+        <UsageCount Value="181"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit6>
@@ -93,7 +93,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="130"/>
+        <UsageCount Value="177"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -107,7 +107,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="127"/>
+        <UsageCount Value="174"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit8>
@@ -122,7 +122,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="27"/>
         <CursorPos X="1" Y="57"/>
-        <UsageCount Value="125"/>
+        <UsageCount Value="172"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -136,7 +136,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="44"/>
         <CursorPos X="3" Y="103"/>
-        <UsageCount Value="113"/>
+        <UsageCount Value="160"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit10>
@@ -148,7 +148,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="112"/>
+        <UsageCount Value="159"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
@@ -162,7 +162,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="82"/>
+        <UsageCount Value="129"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit12>
@@ -176,140 +176,133 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="81"/>
+        <UsageCount Value="128"/>
         <Loaded Value="True"/>
       </Unit13>
-      <Unit14>
-        <Filename Value="/usr/share/lazarus/1.0.10/lcl/include/control.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="2689"/>
-        <CursorPos X="1" Y="2719"/>
-        <UsageCount Value="0"/>
-      </Unit14>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="fchapter.pas"/>
-        <Caret Line="59" Column="1" TopLine="29"/>
+        <Filename Value="fstory.pas"/>
+        <Caret Line="137" Column="1" TopLine="133"/>
       </Position1>
       <Position2>
-        <Filename Value="fstory.pas"/>
-        <Caret Line="91" Column="21" TopLine="79"/>
+        <Filename Value="fchapter.pas"/>
+        <Caret Line="85" Column="18" TopLine="81"/>
       </Position2>
       <Position3>
         <Filename Value="fchapter.pas"/>
-        <Caret Line="79" Column="18" TopLine="68"/>
+        <Caret Line="120" Column="37" TopLine="82"/>
       </Position3>
       <Position4>
-        <Filename Value="fstory.pas"/>
-        <Caret Line="137" Column="1" TopLine="133"/>
+        <Filename Value="fchapter.pas"/>
+        <Caret Line="119" Column="39" TopLine="82"/>
       </Position4>
       <Position5>
         <Filename Value="fchapter.pas"/>
-        <Caret Line="85" Column="18" TopLine="81"/>
+        <Caret Line="60" Column="23" TopLine="29"/>
       </Position5>
       <Position6>
         <Filename Value="fchapter.pas"/>
-        <Caret Line="120" Column="37" TopLine="82"/>
+        <Caret Line="44" Column="21" TopLine="1"/>
       </Position6>
       <Position7>
         <Filename Value="fchapter.pas"/>
-        <Caret Line="119" Column="39" TopLine="82"/>
+        <Caret Line="71" Column="14" TopLine="42"/>
       </Position7>
       <Position8>
         <Filename Value="fchapter.pas"/>
-        <Caret Line="60" Column="23" TopLine="29"/>
+        <Caret Line="78" Column="23" TopLine="48"/>
       </Position8>
       <Position9>
-        <Filename Value="fchapter.pas"/>
-        <Caret Line="44" Column="21" TopLine="1"/>
+        <Filename Value="fstory.pas"/>
+        <Caret Line="188" Column="1" TopLine="147"/>
       </Position9>
       <Position10>
         <Filename Value="fchapter.pas"/>
-        <Caret Line="71" Column="14" TopLine="42"/>
+        <Caret Line="122" Column="81" TopLine="90"/>
       </Position10>
       <Position11>
-        <Filename Value="fchapter.pas"/>
-        <Caret Line="78" Column="23" TopLine="48"/>
-      </Position11>
-      <Position12>
-        <Filename Value="fstory.pas"/>
-        <Caret Line="188" Column="1" TopLine="147"/>
-      </Position12>
-      <Position13>
-        <Filename Value="fchapter.pas"/>
-        <Caret Line="122" Column="81" TopLine="90"/>
-      </Position13>
-      <Position14>
         <Filename Value="fstory.pas"/>
         <Caret Line="225" Column="1" TopLine="190"/>
-      </Position14>
-      <Position15>
+      </Position11>
+      <Position12>
         <Filename Value="fchapter.pas"/>
         <Caret Line="38" Column="68" TopLine="1"/>
-      </Position15>
-      <Position16>
+      </Position12>
+      <Position13>
         <Filename Value="fficinfo.pas"/>
         <Caret Line="166" Column="57" TopLine="153"/>
-      </Position16>
-      <Position17>
+      </Position13>
+      <Position14>
         <Filename Value="fnewchap.pas"/>
         <Caret Line="47" Column="28" TopLine="1"/>
-      </Position17>
-      <Position18>
+      </Position14>
+      <Position15>
         <Filename Value="fnewfic.pas"/>
         <Caret Line="38" Column="21" TopLine="1"/>
-      </Position18>
-      <Position19>
+      </Position15>
+      <Position16>
         <Filename Value="foptions.pas"/>
         <Caret Line="98" Column="1" TopLine="53"/>
-      </Position19>
-      <Position20>
+      </Position16>
+      <Position17>
         <Filename Value="fstory.pas"/>
         <Caret Line="117" Column="52" TopLine="94"/>
+      </Position17>
+      <Position18>
+        <Filename Value="fvolume.pas"/>
+        <Caret Line="179" Column="1" TopLine="121"/>
+      </Position18>
+      <Position19>
+        <Filename Value="gchapter.pas"/>
+        <Caret Line="60" Column="21" TopLine="1"/>
+      </Position19>
+      <Position20>
+        <Filename Value="gstory.pas"/>
+        <Caret Line="60" Column="41" TopLine="1"/>
       </Position20>
       <Position21>
         <Filename Value="fvolume.pas"/>
-        <Caret Line="179" Column="1" TopLine="121"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position21>
       <Position22>
-        <Filename Value="gchapter.pas"/>
-        <Caret Line="60" Column="21" TopLine="1"/>
-      </Position22>
-      <Position23>
-        <Filename Value="gstory.pas"/>
-        <Caret Line="60" Column="41" TopLine="1"/>
-      </Position23>
-      <Position24>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position24>
-      <Position25>
         <Filename Value="foptions.pas"/>
         <Caret Line="20" Column="1" TopLine="1"/>
-      </Position25>
-      <Position26>
+      </Position22>
+      <Position23>
         <Filename Value="fficinfo.pas"/>
         <Caret Line="20" Column="1" TopLine="1"/>
+      </Position23>
+      <Position24>
+        <Filename Value="gprofile.pas"/>
+        <Caret Line="54" Column="28" TopLine="1"/>
+      </Position24>
+      <Position25>
+        <Filename Value="gprofile.pas"/>
+        <Caret Line="131" Column="34" TopLine="72"/>
+      </Position25>
+      <Position26>
+        <Filename Value="gprofile.pas"/>
+        <Caret Line="53" Column="27" TopLine="24"/>
       </Position26>
       <Position27>
         <Filename Value="gprofile.pas"/>
-        <Caret Line="54" Column="28" TopLine="1"/>
+        <Caret Line="81" Column="44" TopLine="37"/>
       </Position27>
       <Position28>
         <Filename Value="gprofile.pas"/>
-        <Caret Line="131" Column="34" TopLine="72"/>
+        <Caret Line="108" Column="3" TopLine="80"/>
       </Position28>
       <Position29>
         <Filename Value="gprofile.pas"/>
-        <Caret Line="53" Column="27" TopLine="24"/>
+        <Caret Line="53" Column="1" TopLine="27"/>
       </Position29>
       <Position30>
         <Filename Value="gprofile.pas"/>
-        <Caret Line="81" Column="44" TopLine="37"/>
+        <Caret Line="123" Column="7" TopLine="83"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
