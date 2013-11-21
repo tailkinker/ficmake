@@ -8,7 +8,7 @@ object frmNewStory: TfrmNewStory
   ClientHeight = 104
   ClientWidth = 480
   OnCreate = FormCreate
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.0.14.0'
   object txtName: TLabeledEdit
     Left = 8
     Height = 27
