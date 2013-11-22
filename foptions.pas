@@ -74,7 +74,7 @@ const
 procedure TfrmOptions.FormResize (Sender : TObject );
 begin
   btnOk.Left := (Width - btnOk.Width) - 8;
-  btnOk.Top := (Height - btnOk.height) - 8;
+  btnOk.Top := (Height - btnOk.Height) - 8;
   btnGuess.Top := (radScreen.Height + 16);
 end;
 
