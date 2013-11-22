@@ -8,7 +8,7 @@
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ficmake"/>
-        <UsageCount Value="192"/>
+        <UsageCount Value="214"/>
       </Unit0>
       <Unit1>
         <Filename Value="fvolume.pas"/>
@@ -21,7 +21,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="29"/>
         <CursorPos X="48" Y="59"/>
-        <UsageCount Value="185"/>
+        <UsageCount Value="207"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -31,9 +31,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="92"/>
-        <CursorPos X="20" Y="123"/>
-        <UsageCount Value="192"/>
+        <TopLine Value="206"/>
+        <CursorPos X="19" Y="206"/>
+        <UsageCount Value="214"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -44,7 +44,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="185"/>
+        <UsageCount Value="207"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -55,7 +55,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="21" Y="33"/>
-        <UsageCount Value="191"/>
+        <UsageCount Value="213"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -68,7 +68,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="45"/>
-        <UsageCount Value="186"/>
+        <UsageCount Value="208"/>
       </Unit5>
       <Unit6>
         <Filename Value="fstory.pas"/>
@@ -81,7 +81,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="181"/>
+        <UsageCount Value="203"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit6>
@@ -93,7 +93,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="177"/>
+        <UsageCount Value="199"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -107,7 +107,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="174"/>
+        <UsageCount Value="196"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit8>
@@ -122,7 +122,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="27"/>
         <CursorPos X="1" Y="57"/>
-        <UsageCount Value="172"/>
+        <UsageCount Value="194"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -136,7 +136,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="44"/>
         <CursorPos X="3" Y="103"/>
-        <UsageCount Value="160"/>
+        <UsageCount Value="182"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit10>
@@ -148,7 +148,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="159"/>
+        <UsageCount Value="181"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
@@ -162,7 +162,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="129"/>
+        <UsageCount Value="151"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit12>
@@ -176,7 +176,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="128"/>
+        <UsageCount Value="150"/>
         <Loaded Value="True"/>
       </Unit13>
     </Units>
@@ -306,20 +306,4 @@
       </Position30>
     </JumpHistory>
   </ProjectSession>
-  <Debugging>
-    <Watches Count="4">
-      <Item1>
-        <Expression Value="ScreenMP"/>
-      </Item1>
-      <Item2>
-        <Expression Value="ThisMP"/>
-      </Item2>
-      <Item3>
-        <Expression Value="DiffMP"/>
-      </Item3>
-      <Item4>
-        <Expression Value="DiffRatio"/>
-      </Item4>
-    </Watches>
-  </Debugging>
 </CONFIG>
