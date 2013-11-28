@@ -214,8 +214,9 @@ var
 begin
   index := lstStories.ItemIndex;
   btnDeleteStory.Enabled := FALSE;
-  s := lstStories.Items [index];
-  if (s <> '') then begin
+
+  if (index in [0..lstStories.Items.Count]) then begin
+    s := lstStories.Items [index];
     Stories.SelectStory (s);
 
     // Disable Controls

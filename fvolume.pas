@@ -135,8 +135,9 @@ var
 begin
 	index := lstGlobalProfiles.ItemIndex;
   btnDeleteProfile.Enabled := FALSE;
-  s := lstGlobalProfiles.Items [index];
-  if (s <> '') then begin
+
+  if (index in [0..lstGlobalProfiles.Items.Count]) then begin
+    s := lstGlobalProfiles.Items [index];
     Profiles.Select (s);
     btnDeleteProfile.Enabled := TRUE;
   end;
@@ -149,8 +150,9 @@ var
 begin
   index := lstVolumes.ItemIndex;
   btnDeleteVolume.Enabled := FALSE;
-  s := lstVolumes.Items [index];
-  if (s <> '') then begin
+
+  if (index in [0..lstVolumes.Items.Count]) then begin
+    s := lstVolumes.Items [index];
     Volumes.SelectVolume (s);
 
     // Disable Controls
