@@ -1,0 +1,83 @@
+object frmNewProfile: TfrmNewProfile
+  Left = 541
+  Height = 102
+  Top = 306
+  Width = 780
+  BorderStyle = bsDialog
+  Caption = 'Create New Profile'
+  ClientHeight = 102
+  ClientWidth = 780
+  OnCreate = FormCreate
+  LCLVersion = '1.0.14.0'
+  object txtName: TLabeledEdit
+    Left = 8
+    Height = 27
+    Top = 32
+    Width = 764
+    EditLabel.AnchorSideLeft.Control = txtName
+    EditLabel.AnchorSideRight.Control = txtName
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtName
+    EditLabel.Left = 8
+    EditLabel.Height = 20
+    EditLabel.Top = 9
+    EditLabel.Width = 764
+    EditLabel.Caption = 'Profile Name:'
+    EditLabel.ParentColor = False
+    TabOrder = 0
+    OnChange = txtNameChange
+  end
+  object btnPDF: TButton
+    Left = 8
+    Height = 30
+    Top = 64
+    Width = 120
+    Caption = 'PDF'
+    Enabled = False
+    ModalResult = 1
+    OnClick = btnPDFClick
+    TabOrder = 1
+  end
+  object btnHTML: TButton
+    Left = 136
+    Height = 30
+    Top = 64
+    Width = 120
+    Caption = 'HTML'
+    Enabled = False
+    ModalResult = 1
+    OnClick = btnHTMLClick
+    TabOrder = 2
+  end
+  object btnText: TButton
+    Left = 264
+    Height = 30
+    Top = 64
+    Width = 120
+    Caption = 'Text'
+    Enabled = False
+    ModalResult = 1
+    OnClick = btnTextClick
+    TabOrder = 3
+  end
+  object btnEPub: TButton
+    Left = 392
+    Height = 30
+    Top = 64
+    Width = 120
+    Caption = 'EPub'
+    Enabled = False
+    ModalResult = 1
+    OnClick = btnEPubClick
+    TabOrder = 4
+  end
+  object btnCancel: TButton
+    Left = 652
+    Height = 30
+    Top = 64
+    Width = 120
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 5
+  end
+end

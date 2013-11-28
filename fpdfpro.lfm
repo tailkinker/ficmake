@@ -1,0 +1,313 @@
+object frmPDFProfile: TfrmPDFProfile
+  Left = 523
+  Height = 400
+  Top = 339
+  Width = 780
+  BorderStyle = bsDialog
+  Caption = 'Edit PDF Profile'
+  ClientHeight = 400
+  ClientWidth = 780
+  LCLVersion = '1.0.14.0'
+  object pgPDF: TPageControl
+    Left = 0
+    Height = 296
+    Top = 72
+    Width = 780
+    ActivePage = tabPage
+    TabIndex = 0
+    TabOrder = 0
+    TabPosition = tpLeft
+    object tabPage: TTabSheet
+      Caption = 'Page'
+      ClientHeight = 292
+      ClientWidth = 698
+      object labPageSize: TLabel
+        Left = 20
+        Height = 20
+        Top = 10
+        Width = 86
+        Caption = 'Page Size:'
+        ParentColor = False
+      end
+      object cmbPageSize: TComboBox
+        Left = 116
+        Height = 27
+        Top = 5
+        Width = 124
+        ItemHeight = 0
+        ItemIndex = 0
+        Items.Strings = (
+          'Letter'
+          'Legal'
+          'Statement'
+          'Tabloid'
+          'Trade'
+          'Executive'
+          'A0'
+          'A1'
+          'A2'
+          'A3'
+          'A4'
+          'A5'
+          'A6'
+          'Custom...'
+        )
+        Style = csDropDownList
+        TabOrder = 0
+        Text = 'Letter'
+      end
+      object chkLandscape: TCheckBox
+        Left = 125
+        Height = 21
+        Top = 38
+        Width = 115
+        Caption = 'Landscape'
+        TabOrder = 1
+      end
+      object txtPDFWidth: TEdit
+        Left = 160
+        Height = 27
+        Top = 62
+        Width = 80
+        Enabled = False
+        TabOrder = 2
+      end
+      object txtPDFHeight: TEdit
+        Left = 48
+        Height = 27
+        Top = 62
+        Width = 80
+        Enabled = False
+        TabOrder = 3
+      end
+      object cmbPageSizeUnits: TComboBox
+        Left = 160
+        Height = 27
+        Top = 94
+        Width = 80
+        ItemHeight = 0
+        ItemIndex = 0
+        Items.Strings = (
+          'in.'
+          'cm'
+          'pt'
+        )
+        Style = csDropDownList
+        TabOrder = 4
+        Text = 'in.'
+      end
+      object Label3: TLabel
+        Left = 100
+        Height = 20
+        Top = 100
+        Width = 51
+        Caption = 'Units:'
+        ParentColor = False
+      end
+      object Label1: TLabel
+        Left = 139
+        Height = 20
+        Top = 69
+        Width = 12
+        Caption = 'X'
+        ParentColor = False
+      end
+      object cmbColumns: TComboBox
+        Left = 188
+        Height = 27
+        Top = 126
+        Width = 52
+        ItemHeight = 0
+        ItemIndex = 0
+        Items.Strings = (
+          '1'
+          '2'
+          '3'
+        )
+        Style = csDropDownList
+        TabOrder = 5
+        Text = '1'
+      end
+      object Label4: TLabel
+        Left = 104
+        Height = 20
+        Top = 131
+        Width = 79
+        Caption = 'Columns:'
+        ParentColor = False
+      end
+      object txtOutsideMargin: TEdit
+        Left = 160
+        Height = 27
+        Top = 166
+        Width = 80
+        TabOrder = 6
+        Text = '1'
+      end
+      object txtInsideMargin: TEdit
+        Left = 160
+        Height = 27
+        Top = 198
+        Width = 80
+        TabOrder = 7
+        Text = '0.5'
+      end
+      object txtTopMargin: TEdit
+        Left = 160
+        Height = 27
+        Top = 230
+        Width = 80
+        TabOrder = 8
+        Text = '1'
+      end
+      object txtBottomMargin: TEdit
+        Left = 160
+        Height = 27
+        Top = 262
+        Width = 80
+        TabOrder = 9
+        Text = '1'
+      end
+      object Label5: TLabel
+        Left = 16
+        Height = 20
+        Top = 171
+        Width = 138
+        Caption = 'Outside Margin:'
+        ParentColor = False
+      end
+      object Label6: TLabel
+        Left = 28
+        Height = 20
+        Top = 203
+        Width = 123
+        Caption = 'Inside Margin:'
+        ParentColor = False
+      end
+      object Label7: TLabel
+        Left = 48
+        Height = 20
+        Top = 235
+        Width = 103
+        Caption = 'Top Margin:'
+        ParentColor = False
+      end
+      object Label8: TLabel
+        Left = 21
+        Height = 20
+        Top = 267
+        Width = 133
+        Caption = 'Bottom Margin:'
+        ParentColor = False
+      end
+      object Shape1: TShape
+        Left = 250
+        Height = 280
+        Top = 6
+        Width = 440
+        Brush.Color = 12628144
+      end
+      object sLeftPage: TShape
+        Left = 290
+        Height = 194
+        Top = 79
+        Width = 134
+        Brush.Color = 15132390
+      end
+      object sRightPage: TShape
+        Left = 474
+        Height = 145
+        Top = 109
+        Width = 102
+        Brush.Color = 15132390
+      end
+      object sLeftMargin: TShape
+        Left = 328
+        Height = 37
+        Top = 142
+        Width = 36
+      end
+      object sRightMargin: TShape
+        Left = 512
+        Height = 37
+        Top = 158
+        Width = 36
+      end
+    end
+    object tabContent: TTabSheet
+      Caption = 'Content'
+    end
+    object tabStyles: TTabSheet
+      Caption = 'Styles'
+    end
+  end
+  object txtName: TLabeledEdit
+    Left = 120
+    Height = 27
+    Top = 8
+    Width = 652
+    EditLabel.AnchorSideTop.Control = txtName
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = txtName
+    EditLabel.AnchorSideBottom.Control = txtName
+    EditLabel.AnchorSideBottom.Side = asrBottom
+    EditLabel.Left = 3
+    EditLabel.Height = 20
+    EditLabel.Top = 11
+    EditLabel.Width = 114
+    EditLabel.Caption = 'Profile Name:'
+    EditLabel.ParentColor = False
+    LabelPosition = lpLeft
+    TabOrder = 1
+  end
+  object txtOutDir: TLabeledEdit
+    Left = 160
+    Height = 27
+    Top = 40
+    Width = 584
+    EditLabel.AnchorSideTop.Control = txtOutDir
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = txtOutDir
+    EditLabel.AnchorSideBottom.Control = txtOutDir
+    EditLabel.AnchorSideBottom.Side = asrBottom
+    EditLabel.Left = 2
+    EditLabel.Height = 20
+    EditLabel.Top = 43
+    EditLabel.Width = 155
+    EditLabel.Caption = 'Output Directory: '
+    EditLabel.ParentColor = False
+    LabelPosition = lpLeft
+    TabOrder = 2
+  end
+  object btnOutDir: TBitBtn
+    Left = 744
+    Height = 27
+    Top = 40
+    Width = 27
+    Glyph.Data = {
+      9E020000424D9E0200000000000036000000280000000E0000000B0000000100
+      2000000000006802000064000000640000000000000000000000B9D8F3003B90
+      DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF3B90DBFFA3CBEF003B90DBFFE0F2FBFFA9DEF5FF9EDB
+      F4FF96DAF3FF8ED8F3FF86D7F3FF7FD4F2FF79D3F2FF72D2F1FF6CD0F1FF69CF
+      F1FFC3EBF9FF3B90DBFF3B90DBFFEFFAFEFFA1E9F9FF91E5F8FF81E1F7FF72DE
+      F6FF63DAF5FF54D7F4FF47D3F3FF39D0F2FF2ECDF1FF26CBF0FFCAF2FBFF3B90
+      DBFF3B90DBFFF2FAFDFFB3EDFAFFA4E9F9FF95E6F8FF85E2F7FF76DEF6FF65DB
+      F5FF57D7F4FF49D4F3FF3BD1F2FF30CEF1FFCCF2FBFF3B90DBFF3B90DBFFF6FC
+      FEFFC8F2FCFFB9EFFBFFACECFAFF9CE8F9FF8BE3F7FF7CE0F6FF6CDCF6FF5DD9
+      F5FF4FD6F4FF44D3F3FFD0F3FCFF3B90DBFF3B90DBFFFEFFFFFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF73C1E9FF94E6F8FF85E3F7FF76DFF6FF68DBF5FF5CD8
+      F4FFD7F4FCFF3B90DBFF3B90DBFFE8F6FBFF94D4EFFF88CEEEFF73C1E9FF73C1
+      E9FF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFF1FAFDFF94DEF5FF93DCF4FF81D5F2FF6ACAEDFF6CCBEAFF85D3
+      EFFF80D2EFFF7AD0EFFF76CFEEFF72CFEEFFE9F7FBFF3B90DBFF3B90DBFFF7FC
+      FEFF8EE4F8FF91DEF5FF9FE0F5FFACE1F6FFEFFBFEFFF4FDFEFFF3FCFEFFF1FC
+      FEFFEFFBFEFFEEFBFEFFFBFEFFFF3B90DBFF3B90DBFFFDFEFEFFFEFFFFFFFEFE
+      FFFFFDFEFFFFFEFFFFFFEAF7FBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFCAEBF500B9D8F3003B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFDBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDF
+      DF00
+    }
+    TabOrder = 3
+  end
+end

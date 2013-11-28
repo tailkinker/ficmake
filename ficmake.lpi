@@ -39,7 +39,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="14">
+    <Units Count="17">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -133,6 +133,26 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fnewchap"/>
       </Unit13>
+      <Unit14>
+        <Filename Value="dgroff.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="dgroff"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="fnewprof.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmNewProfile"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fnewprof"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="fpdfpro.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmPDFProfile"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fpdfpro"/>
+      </Unit16>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

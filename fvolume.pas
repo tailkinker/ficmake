@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Buttons,
-  gvolume;
+  gvolume, gprofile;
 
 type
 
@@ -40,6 +40,7 @@ type
     btnDeleteProfile : TBitBtn;
     btnOptions : TButton;
     btnSaveVolumes : TBitBtn;
+    btnSaveProfiles : TBitBtn;
     btnSelectDir: TBitBtn;
     chkHTMLIndex: TCheckBox;
     Label1: TLabel;
@@ -50,7 +51,9 @@ type
     lstVolumes: TListBox;
     txtDirectory: TLabeledEdit;
     txtAuthor: TLabeledEdit;
+    procedure btnAddProfileClick (Sender : TObject );
     procedure btnAddVolumeClick (Sender : TObject );
+    procedure btnDeleteProfileClick (Sender : TObject );
     procedure btnDeleteVolumeClick (Sender : TObject );
     procedure btnOptionsClick (Sender : TObject );
     procedure btnSaveVolumesClick (Sender : TObject );
@@ -59,6 +62,7 @@ type
     procedure FormClose (Sender : TObject; var CloseAction : TCloseAction );
     procedure FormCreate (Sender : TObject );
     procedure FormResize(Sender: TObject);
+    procedure lstGlobalProfilesClick (Sender : TObject );
     procedure lstVolumesClick (Sender : TObject );
     procedure lstVolumesDblClick (Sender : TObject );
     procedure txtAuthorChange (Sender : TObject );
@@ -67,7 +71,9 @@ type
   private
     { private declarations }
     Volumes : tVolumeList;
+    Profiles : tProfileList;
     procedure PopulateVolumeList;
+    procedure PopulateProfileList;
   public
     { public declarations }
   end;
@@ -79,7 +85,7 @@ implementation
 
 uses
   LCLType,
-  fnewvol, foptions, fstory;
+  fnewvol, foptions, fstory, fnewprof;
 
 {$R *.lfm}
 
@@ -114,9 +120,26 @@ begin
 
   btnSaveVolumes.Top := Height - 44;
   btnSaveVolumes.Left := (lstVolumes.Width - btnSaveVolumes.Width) div 2 + 8;
+  btnSaveProfiles.Top := Height - 44;
+  btnSaveProfiles.Left := (lstGlobalProfiles.Width - btnSaveProfiles.Width)
+  	div 2 + lstGlobalProfiles.Left;
 
   btnAbout.Left := Width - 108;
   btnOptions.Left := Width - 108;
+end;
+
+procedure TfrmVolume.lstGlobalProfilesClick (Sender : TObject );
+var
+  index : integer;
+  s : string;
+begin
+	index := lstGlobalProfiles.ItemIndex;
+  btnDeleteProfile.Enabled := FALSE;
+  s := lstProfiles.Items [index];
+  if (s <> '') then begin
+    Profiles.Select (s);
+    btnDeleteProfile.Enabled := TRUE;
+  end;
 end;
 
 procedure TfrmVolume.lstVolumesClick (Sender : TObject );
@@ -245,6 +268,34 @@ begin
   PopulateVolumeList;
 end;
 
+procedure TfrmVolume.btnDeleteProfileClick (Sender : TObject );
+var
+  s : string;
+begin
+  if (Profiles.Current <> nil) then begin
+    s := 'Are you sure you wish to delete the Profile "'
+    	+ Profiles.Current.Name + '"?';
+    if (Application.MessageBox (pchar(s), 'Delete Profile',
+    	MB_ICONQUESTION + MB_YESNO) = IDYES) then
+    	Profiles.Delete;
+  end;
+  btnDeleteProfile.Enabled := FALSE;
+  PopulateProfileList;
+end;
+
+procedure TfrmVolume.btnAddProfileClick (Sender : TObject );
+var
+  Dialog : TfrmNewProfile;
+begin
+	Dialog := TfrmNewProfile.Create (Application);
+  if (Dialog.ShowModal = mrOK) then begin
+    Profiles.Add (Dialog.NewProfile);
+    Profiles.Edit;
+  end;
+  Dialog.Destroy;
+  PopulateProfileList;
+end;
+
 procedure TfrmVolume.btnDeleteVolumeClick (Sender : TObject );
 var
   s : string;
@@ -283,9 +334,13 @@ procedure TfrmVolume.FormCreate (Sender : TObject );
 begin
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
+
   Volumes := tVolumeList.Create;
   Volumes.LoadVolumeList;
   PopulateVolumeList;
+
+  Profiles := tProfileList.Create;
+  PopulateProfileList;
 end;
 
 procedure TfrmVolume.PopulateVolumeList;
@@ -297,6 +352,17 @@ begin
     for index := 0 to (Volumes.Count - 1) do
   		lstVolumes.Items.Add (Volumes.VolumeName (index));
   btnSaveVolumes.Enabled := Volumes.Dirty;
+end;
+
+procedure TfrmVolume.PopulateProfileList;
+var
+  index : integer;
+begin
+  lstGlobalProfiles.Items.Clear;
+  if (Profiles.Count > 0) then
+    for index := 0 to (Profiles.Count - 1) do
+      lstGlobalProfiles.Items.Add (Profiles.Name (index));
+
 end;
 
 end.

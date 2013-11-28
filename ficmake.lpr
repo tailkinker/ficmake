@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, fvolume, gprofile, gvolume, gtools, fnewvol, fstory, gstory, fnewfic,
-  foptions, fficinfo, gchapter, fchapter, fnewchap;
+  foptions, fficinfo, gchapter, fchapter, fnewchap, dgroff, fnewprof, fpdfpro;
 
 {$R *.res}
 
