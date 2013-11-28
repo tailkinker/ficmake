@@ -69,7 +69,7 @@ implementation
 
 uses
   LCLType,
-  fchapter, fnewfic, fficinfo, foptions;
+  fchapter, fnewfic, fficinfo, doption;
 
 {$R *.lfm}
 

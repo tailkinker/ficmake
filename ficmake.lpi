@@ -39,7 +39,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="17">
+    <Units Count="19">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -150,9 +150,20 @@
         <Filename Value="fpdfpro.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmPDFProfile"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fpdfpro"/>
       </Unit16>
+      <Unit17>
+        <Filename Value="doption.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="doption"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="dtools.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="dtools"/>
+      </Unit18>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

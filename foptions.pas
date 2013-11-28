@@ -45,12 +45,10 @@ type
     { public declarations }
   end;
 
-var
-  InitialX,
-  InitialY : integer;
-  optScreenSize : integer = 0;
-
 implementation
+
+uses
+  doption;
 
 const
   MaxResolution = 9;

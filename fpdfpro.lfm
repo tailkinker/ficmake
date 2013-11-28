@@ -1,13 +1,14 @@
 object frmPDFProfile: TfrmPDFProfile
-  Left = 523
+  Left = 238
   Height = 400
-  Top = 339
+  Top = 146
   Width = 780
   BorderStyle = bsDialog
   Caption = 'Edit PDF Profile'
   ClientHeight = 400
   ClientWidth = 780
-  LCLVersion = '1.0.14.0'
+  OnCreate = FormCreate
+  LCLVersion = '1.0.12.0'
   object pgPDF: TPageControl
     Left = 0
     Height = 296
@@ -19,19 +20,19 @@ object frmPDFProfile: TfrmPDFProfile
     TabPosition = tpLeft
     object tabPage: TTabSheet
       Caption = 'Page'
-      ClientHeight = 292
-      ClientWidth = 698
+      ClientHeight = 294
+      ClientWidth = 721
       object labPageSize: TLabel
         Left = 20
-        Height = 20
+        Height = 18
         Top = 10
-        Width = 86
+        Width = 60
         Caption = 'Page Size:'
         ParentColor = False
       end
       object cmbPageSize: TComboBox
         Left = 116
-        Height = 27
+        Height = 25
         Top = 5
         Width = 124
         ItemHeight = 0
@@ -60,7 +61,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 125
         Height = 21
         Top = 38
-        Width = 115
+        Width = 87
         Caption = 'Landscape'
         TabOrder = 1
       end
@@ -82,7 +83,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object cmbPageSizeUnits: TComboBox
         Left = 160
-        Height = 27
+        Height = 25
         Top = 94
         Width = 80
         ItemHeight = 0
@@ -98,23 +99,23 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object Label3: TLabel
         Left = 100
-        Height = 20
+        Height = 18
         Top = 100
-        Width = 51
+        Width = 36
         Caption = 'Units:'
         ParentColor = False
       end
       object Label1: TLabel
         Left = 139
-        Height = 20
+        Height = 18
         Top = 69
-        Width = 12
+        Width = 8
         Caption = 'X'
         ParentColor = False
       end
       object cmbColumns: TComboBox
         Left = 188
-        Height = 27
+        Height = 25
         Top = 126
         Width = 52
         ItemHeight = 0
@@ -130,9 +131,9 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object Label4: TLabel
         Left = 104
-        Height = 20
+        Height = 18
         Top = 131
-        Width = 79
+        Width = 58
         Caption = 'Columns:'
         ParentColor = False
       end
@@ -170,33 +171,33 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object Label5: TLabel
         Left = 16
-        Height = 20
+        Height = 18
         Top = 171
-        Width = 138
+        Width = 97
         Caption = 'Outside Margin:'
         ParentColor = False
       end
       object Label6: TLabel
         Left = 28
-        Height = 20
+        Height = 18
         Top = 203
-        Width = 123
+        Width = 87
         Caption = 'Inside Margin:'
         ParentColor = False
       end
       object Label7: TLabel
         Left = 48
-        Height = 20
+        Height = 18
         Top = 235
-        Width = 103
+        Width = 72
         Caption = 'Top Margin:'
         ParentColor = False
       end
       object Label8: TLabel
         Left = 21
-        Height = 20
+        Height = 18
         Top = 267
-        Width = 133
+        Width = 96
         Caption = 'Bottom Margin:'
         ParentColor = False
       end
@@ -251,14 +252,15 @@ object frmPDFProfile: TfrmPDFProfile
     EditLabel.AnchorSideRight.Control = txtName
     EditLabel.AnchorSideBottom.Control = txtName
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 3
-    EditLabel.Height = 20
-    EditLabel.Top = 11
-    EditLabel.Width = 114
+    EditLabel.Left = 35
+    EditLabel.Height = 18
+    EditLabel.Top = 12
+    EditLabel.Width = 82
     EditLabel.Caption = 'Profile Name:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
     TabOrder = 1
+    OnChange = txtNameChange
   end
   object txtOutDir: TLabeledEdit
     Left = 160
@@ -270,14 +272,15 @@ object frmPDFProfile: TfrmPDFProfile
     EditLabel.AnchorSideRight.Control = txtOutDir
     EditLabel.AnchorSideBottom.Control = txtOutDir
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 2
-    EditLabel.Height = 20
-    EditLabel.Top = 43
-    EditLabel.Width = 155
+    EditLabel.Left = 47
+    EditLabel.Height = 18
+    EditLabel.Top = 44
+    EditLabel.Width = 110
     EditLabel.Caption = 'Output Directory: '
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
     TabOrder = 2
+    OnChange = txtOutDirChange
   end
   object btnOutDir: TBitBtn
     Left = 744
@@ -308,6 +311,11 @@ object frmPDFProfile: TfrmPDFProfile
       DBFF3B90DBFFDBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDF
       DF00
     }
+    OnClick = btnOutDirClick
     TabOrder = 3
+  end
+  object SelectDirectoryDialog1: TSelectDirectoryDialog
+    left = 104
+    top = 368
   end
 end

@@ -63,7 +63,7 @@ implementation
 
 uses
   LCLType,
-  foptions, fnewchap;
+  doption, fnewchap;
 
 {$R *.lfm}
 

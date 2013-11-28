@@ -85,7 +85,7 @@ implementation
 
 uses
   LCLType,
-  fnewvol, foptions, fstory, fnewprof;
+  fnewvol, foptions, fstory, fnewprof, doption;
 
 {$R *.lfm}
 
@@ -135,7 +135,7 @@ var
 begin
 	index := lstGlobalProfiles.ItemIndex;
   btnDeleteProfile.Enabled := FALSE;
-  s := lstProfiles.Items [index];
+  s := lstGlobalProfiles.Items [index];
   if (s <> '') then begin
     Profiles.Select (s);
     btnDeleteProfile.Enabled := TRUE;

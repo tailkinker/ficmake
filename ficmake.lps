@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="17">
+    <Units Count="19">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -19,8 +19,8 @@
         <UnitName Value="fvolume"/>
         <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="271"/>
-        <CursorPos X="18" Y="283"/>
+        <TopLine Value="70"/>
+        <CursorPos X="47" Y="88"/>
         <UsageCount Value="207"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -28,9 +28,9 @@
         <Filename Value="gprofile.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gprofile"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="46"/>
+        <TopLine Value="85"/>
         <CursorPos X="1" Y="105"/>
         <UsageCount Value="214"/>
         <Loaded Value="True"/>
@@ -39,7 +39,7 @@
         <Filename Value="gvolume.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gvolume"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="1" Y="58"/>
@@ -50,7 +50,7 @@
         <Filename Value="gtools.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gtools"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="21" Y="33"/>
@@ -78,8 +78,8 @@
         <UnitName Value="fstory"/>
         <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="20"/>
+        <TopLine Value="69"/>
+        <CursorPos X="39" Y="72"/>
         <UsageCount Value="203"/>
         <Loaded Value="True"/>
       </Unit6>
@@ -87,7 +87,7 @@
         <Filename Value="gstory.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gstory"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="58"/>
         <CursorPos X="1" Y="58"/>
@@ -117,8 +117,8 @@
         <UnitName Value="foptions"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="27"/>
-        <CursorPos X="1" Y="57"/>
+        <TopLine Value="36"/>
+        <CursorPos X="1" Y="47"/>
         <UsageCount Value="242"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -141,7 +141,7 @@
         <Filename Value="gchapter.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gchapter"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="234"/>
         <CursorPos X="1" Y="291"/>
@@ -157,8 +157,8 @@
         <UnitName Value="fchapter"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="20"/>
+        <TopLine Value="49"/>
+        <CursorPos X="10" Y="66"/>
         <UsageCount Value="272"/>
         <Loaded Value="True"/>
       </Unit12>
@@ -179,12 +179,11 @@
         <Filename Value="dgroff.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="dgroff"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="39"/>
         <CursorPos X="1" Y="60"/>
-        <UsageCount Value="104"/>
+        <UsageCount Value="105"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
@@ -198,23 +197,47 @@
         <WindowIndex Value="0"/>
         <TopLine Value="29"/>
         <CursorPos X="41" Y="57"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="31"/>
         <Loaded Value="True"/>
       </Unit15>
       <Unit16>
         <Filename Value="fpdfpro.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmPDFProfile"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fpdfpro"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="3" Y="64"/>
-        <UsageCount Value="21"/>
+        <TopLine Value="57"/>
+        <CursorPos X="26" Y="67"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit16>
+      <Unit17>
+        <Filename Value="doption.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="doption"/>
+        <EditorIndex Value="10"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="121"/>
+        <CursorPos X="32" Y="131"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="dtools.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="dtools"/>
+        <EditorIndex Value="11"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="69"/>
+        <CursorPos X="1" Y="144"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit18>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
@@ -222,123 +245,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="fnewprof.pas"/>
-        <Caret Line="56" Column="1" TopLine="1"/>
+        <Caret Line="52" Column="41" TopLine="24"/>
       </Position1>
       <Position2>
         <Filename Value="fnewprof.pas"/>
-        <Caret Line="53" Column="35" TopLine="1"/>
+        <Caret Line="53" Column="41" TopLine="25"/>
       </Position2>
       <Position3>
         <Filename Value="fnewprof.pas"/>
-        <Caret Line="48" Column="22" TopLine="1"/>
+        <Caret Line="54" Column="41" TopLine="26"/>
       </Position3>
       <Position4>
         <Filename Value="fnewprof.pas"/>
-        <Caret Line="66" Column="22" TopLine="7"/>
+        <Caret Line="55" Column="41" TopLine="27"/>
       </Position4>
       <Position5>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="83" Column="38" TopLine="41"/>
+        <Filename Value="fnewprof.pas"/>
+        <Caret Line="56" Column="41" TopLine="28"/>
       </Position5>
       <Position6>
-        <Filename Value="fnewprof.pas"/>
-        <Caret Line="66" Column="34" TopLine="7"/>
+        <Filename Value="fvolume.pas"/>
+        <Caret Line="306" Column="3" TopLine="275"/>
       </Position6>
       <Position7>
         <Filename Value="fvolume.pas"/>
-        <Caret Line="255" Column="3" TopLine="249"/>
+        <Caret Line="140" Column="38" TopLine="130"/>
       </Position7>
       <Position8>
-        <Filename Value="gprofile.pas"/>
-        <Caret Line="248" Column="1" TopLine="228"/>
+        <Filename Value="fvolume.pas"/>
+        <Caret Line="302" Column="1" TopLine="289"/>
       </Position8>
       <Position9>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="259" Column="23" TopLine="234"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position9>
       <Position10>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="29" Column="20" TopLine="19"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="49" Column="5" TopLine="1"/>
       </Position10>
       <Position11>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="326" Column="3" TopLine="269"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="70" Column="3" TopLine="48"/>
       </Position11>
       <Position12>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="327" Column="3" TopLine="270"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="91" Column="3" TopLine="75"/>
       </Position12>
       <Position13>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="301" Column="3" TopLine="272"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="152" Column="1" TopLine="133"/>
       </Position13>
       <Position14>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="63" Column="25" TopLine="33"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="75" Column="36" TopLine="71"/>
       </Position14>
       <Position15>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="123" Column="4" TopLine="67"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="87" Column="26" TopLine="84"/>
       </Position15>
       <Position16>
-        <Filename Value="fnewprof.pas"/>
-        <Caret Line="57" Column="41" TopLine="29"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="75" Column="14" TopLine="72"/>
       </Position16>
       <Position17>
-        <Filename Value="fnewprof.pas"/>
-        <Caret Line="56" Column="41" TopLine="28"/>
+        <Filename Value="doption.pas"/>
+        <Caret Line="32" Column="1" TopLine="11"/>
       </Position17>
       <Position18>
-        <Filename Value="fnewprof.pas"/>
-        <Caret Line="55" Column="41" TopLine="27"/>
+        <Filename Value="doption.pas"/>
+        <Caret Line="132" Column="37" TopLine="72"/>
       </Position18>
       <Position19>
-        <Filename Value="fnewprof.pas"/>
-        <Caret Line="54" Column="41" TopLine="26"/>
+        <Filename Value="dtools.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position19>
       <Position20>
-        <Filename Value="fnewprof.pas"/>
-        <Caret Line="53" Column="41" TopLine="25"/>
+        <Filename Value="doption.pas"/>
+        <Caret Line="44" Column="3" TopLine="33"/>
       </Position20>
       <Position21>
-        <Filename Value="fnewprof.pas"/>
-        <Caret Line="52" Column="41" TopLine="24"/>
+        <Filename Value="doption.pas"/>
+        <Caret Line="45" Column="11" TopLine="34"/>
       </Position21>
       <Position22>
-        <Filename Value="fnewprof.pas"/>
-        <Caret Line="53" Column="41" TopLine="25"/>
+        <Filename Value="doption.pas"/>
+        <Caret Line="95" Column="1" TopLine="84"/>
       </Position22>
       <Position23>
-        <Filename Value="fnewprof.pas"/>
-        <Caret Line="54" Column="41" TopLine="26"/>
+        <Filename Value="doption.pas"/>
+        <Caret Line="97" Column="12" TopLine="87"/>
       </Position23>
       <Position24>
-        <Filename Value="fnewprof.pas"/>
-        <Caret Line="55" Column="41" TopLine="27"/>
+        <Filename Value="fchapter.pas"/>
+        <Caret Line="20" Column="1" TopLine="1"/>
       </Position24>
       <Position25>
-        <Filename Value="fnewprof.pas"/>
-        <Caret Line="56" Column="41" TopLine="28"/>
+        <Filename Value="fstory.pas"/>
+        <Caret Line="20" Column="1" TopLine="251"/>
       </Position25>
       <Position26>
         <Filename Value="fvolume.pas"/>
-        <Caret Line="306" Column="3" TopLine="275"/>
+        <Caret Line="240" Column="1" TopLine="221"/>
       </Position26>
       <Position27>
         <Filename Value="fvolume.pas"/>
-        <Caret Line="140" Column="38" TopLine="130"/>
+        <Caret Line="138" Column="17" TopLine="127"/>
       </Position27>
       <Position28>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="302" Column="1" TopLine="289"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="182" Column="37" TopLine="167"/>
       </Position28>
       <Position29>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Caret Line="143" Column="4" TopLine="130"/>
       </Position29>
       <Position30>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="49" Column="5" TopLine="1"/>
+        <Caret Line="67" Column="10" TopLine="58"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
