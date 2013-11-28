@@ -1,5 +1,5 @@
 object frmVolume: TfrmVolume
-  Left = 459
+  Left = 242
   Height = 400
   Top = 173
   Width = 780
@@ -20,16 +20,16 @@ object frmVolume: TfrmVolume
     ItemHeight = 0
     OnClick = lstVolumesClick
     OnDblClick = lstVolumesDblClick
-    ScrollWidth = 96
+    ScrollWidth = 98
     Sorted = True
     TabOrder = 5
     TopIndex = -1
   end
   object Label1: TLabel
     Left = 8
-    Height = 20
+    Height = 18
     Top = 152
-    Width = 72
+    Width = 59
     Caption = 'Volumes'
     ParentColor = False
   end
@@ -43,8 +43,8 @@ object frmVolume: TfrmVolume
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtVolumeName
     EditLabel.Left = 8
-    EditLabel.Height = 20
-    EditLabel.Top = 9
+    EditLabel.Height = 18
+    EditLabel.Top = 11
     EditLabel.Width = 80
     EditLabel.Caption = 'Volume Name'
     EditLabel.ParentColor = False
@@ -62,8 +62,8 @@ object frmVolume: TfrmVolume
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtDirectory
     EditLabel.Left = 360
-    EditLabel.Height = 20
-    EditLabel.Top = 9
+    EditLabel.Height = 18
+    EditLabel.Top = 11
     EditLabel.Width = 80
     EditLabel.Caption = 'Volume Base Directory'
     EditLabel.ParentColor = False
@@ -81,8 +81,8 @@ object frmVolume: TfrmVolume
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtAuthor
     EditLabel.Left = 8
-    EditLabel.Height = 20
-    EditLabel.Top = 65
+    EditLabel.Height = 18
+    EditLabel.Top = 67
     EditLabel.Width = 80
     EditLabel.Caption = 'Default Author Name'
     EditLabel.ParentColor = False
@@ -92,9 +92,9 @@ object frmVolume: TfrmVolume
   end
   object chkHTMLIndex: TCheckBox
     Left = 8
-    Height = 21
+    Height = 24
     Top = 120
-    Width = 457
+    Width = 363
     Caption = 'HTML Profiles in this Volume generate Index pages'
     Enabled = False
     OnChange = chkHTMLIndexChange
@@ -416,9 +416,9 @@ object frmVolume: TfrmVolume
   end
   object labProfile: TLabel
     Left = 288
-    Height = 20
+    Height = 18
     Top = 152
-    Width = 124
+    Width = 100
     Caption = 'Global Profiles'
     ParentColor = False
   end
@@ -429,7 +429,8 @@ object frmVolume: TfrmVolume
     Width = 100
     ItemHeight = 0
     OnClick = lstGlobalProfilesClick
-    ScrollWidth = 96
+    OnDblClick = lstGlobalProfilesDblClick
+    ScrollWidth = 98
     TabOrder = 8
     TopIndex = -1
   end

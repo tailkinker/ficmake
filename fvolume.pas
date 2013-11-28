@@ -63,6 +63,7 @@ type
     procedure FormCreate (Sender : TObject );
     procedure FormResize(Sender: TObject);
     procedure lstGlobalProfilesClick (Sender : TObject );
+    procedure lstGlobalProfilesDblClick(Sender: TObject);
     procedure lstVolumesClick (Sender : TObject );
     procedure lstVolumesDblClick (Sender : TObject );
     procedure txtAuthorChange (Sender : TObject );
@@ -140,6 +141,28 @@ begin
     s := lstGlobalProfiles.Items [index];
     Profiles.Select (s);
     btnDeleteProfile.Enabled := TRUE;
+  end;
+end;
+
+procedure TfrmVolume.lstGlobalProfilesDblClick(Sender: TObject);
+var
+  Dialog : TForm;
+  index : integer;
+  s : string;
+begin
+  index := lstGlobalProfiles.ItemIndex;
+  if (index in [0..lstGlobalProfiles.Items.Count]) then begin
+    s := lstGlobalProfiles.Items [index];
+    Profiles.Select (s);
+
+    case (Profiles.Current.ProfileType) of
+      ptPDF: begin
+          Dialog := TfrmPDFProfile.Create (Application);
+          Dialog.Profile := Profiles.Current;
+          Dialog.ShowModal;
+          Dialog.Destroy;
+        end;
+    end;
   end;
 end;
 
