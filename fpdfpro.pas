@@ -29,7 +29,7 @@ type
     labPageSize : TLabel;
     pgPDF : TPageControl;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
-    Shape1 : TShape;
+    sBackground : TShape;
     sLeftMargin : TShape;
     sLeftPage : TShape;
     sRightMargin : TShape;
@@ -46,15 +46,19 @@ type
     txtPDFWidth : TEdit;
     txtTopMargin : TEdit;
     procedure btnOutDirClick(Sender: TObject);
+    procedure chkLandscapeChange(Sender: TObject);
+    procedure cmbPageSizeChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure txtNameChange(Sender: TObject);
     procedure txtOutDirChange(Sender: TObject);
   private
     { private declarations }
+    t_profile : tPDFProfile;
     procedure ResizePageView;
     procedure ChangePaperSize;
+    procedure LoadProfile (aProfile : tPDFProfile);
   public
-    Profile : tPDFProfile;
+    property Profile : tPDFProfile read t_profile write LoadProfile;
     { public declarations }
   end;
 
@@ -74,11 +78,38 @@ begin
   Top := (Screen.Height - Height) div 2;
 end;
 
+procedure TfrmPDFProfile.LoadProfile (aProfile : tPDFProfile);
+begin
+  t_profile := aProfile;
+  txtName.Text := aProfile.Name;
+  cmbPageSize.ItemIndex := aProfile.PageSize;
+
+  ChangePaperSize;
+end;
+
 procedure TfrmPDFProfile.btnOutDirClick(Sender: TObject);
 begin
   if (SelectDirectoryDialog1.Execute) then begin
     txtOutDir.Text := SelectDirectoryDialog1.Filename;
   end;
+end;
+
+procedure TfrmPDFProfile.chkLandscapeChange(Sender: TObject);
+begin
+  ChangePaperSize;
+end;
+
+procedure TfrmPDFProfile.cmbPageSizeChange(Sender: TObject);
+begin
+  Profile.PageSize := cmbPageSize.ItemIndex;
+  if (Profile.PageSize = PaperCount) then begin
+    txtPDFWidth.Enabled := TRUE;
+    txtPDFHeight.Enabled := TRUE;
+  end else begin
+    txtPDFWidth.Enabled := FALSE;
+    txtPDFHeight.Enabled := FALSE;
+  end;
+  ChangePaperSize;
 end;
 
 procedure TfrmPDFProfile.txtNameChange(Sender: TObject);
@@ -97,78 +128,78 @@ end;
 procedure TfrmPDFProfile.ResizePageView;
 var
   max,
-  mx1,
-  mx2,
-  mx3,
-  my1,
-  my2,
-  x1,
-  x2,
-  xa,
-  y1,
-  y2,
-  ya : integer;
+  margin_w,
+  margin_x_left,
+  margin_x_right,
+  margin_h,
+  margin_y,
+  page_w,
+  page_x,
+  profile_x,
+  page_h,
+  page_y,
+  profile_y : integer;
 	scale : real;
-  h0,
-  w0,
-  x0,
-  y0 : integer;
+  background_h,
+  background_w,
+  background_x,
+  background_y : integer;
 begin
   // Determine Limits
-  h0 := Shape1.Height - 8;
-  w0 := (Shape1.Width - 12) div 2;
-  x0 := Shape1.Left;
-  y0 := Shape1.Top;
+  background_h := (sBackground.Height -  8);
+  background_w := (sBackground.Width - 12) div 2;
+  background_x := sBackground.Left;
+  background_y := sBackground.Top ;
 
   // Determine Scale
-	xa := Profile.PageH;
-  ya := Profile.PageV;
-  max := xa;
-  if (xa < ya) then
-  	max := ya;
-	if ((w0 / xa) > (h0 / ya)) then
-  	scale := h0 / max
+	profile_x := Profile.PageH;
+  profile_y := Profile.PageV;
+  max := profile_x;
+  if (profile_x < profile_y) then
+  	max := profile_y;
+	if ((background_w / profile_x) > (background_h / profile_y)) then
+  	scale := background_h / max
   else
-    scale := w0 / max;
+    scale := background_w / max;
 
   // Determine x and y page sizes
-  x1 := round (xa * scale);
-  y1 := round (ya * scale);
+  page_w := round (profile_x * scale);
+  page_h := round (profile_y * scale);
 
   // Determine left-hand corners
-  x2 := (x0 + w0 + 4) - x1;
-  y2 := (h0 - y1) div 2 + y1;
+  page_x := (background_x + background_w + 6) - (2 + page_w);
+  page_y := (background_h - page_h) div 2 + background_y + 4;
 
   // Move and resize page graphics
-  sLeftPage.Height := y1;
-  sLeftPage.Width := x1;
-  sRightPage.Height := y1;
-  sRightPage.Width := x1;
+  sLeftPage.Height := page_h;
+  sLeftPage.Width := page_w;
+  sRightPage.Height := page_h;
+  sRightPage.Width := page_w;
 
-  sLeftPage.Left := x2;
-  sLeftPage.Top := y2;
-  sRightPage.Left := (x0 + w0 + 8);
-  sRightPage.Top := y2;
+  sLeftPage.Left := page_x;
+  sLeftPage.Top := page_y;
+  sRightPage.Left := (page_x + page_w + 4);
+  sRightPage.Top := page_y;
 
   // Now for the margins sizes
-  mx1 := x1 - round ((Profile.InnerMargin + Profile.OuterMargin) * scale);
-  my1 := y1 - round ((Profile.TopMargin + Profile.BottomMargin) * scale);
+  margin_w := page_w - round ((Profile.InnerMargin + Profile.OuterMargin) * scale);
+  margin_h := page_h - round ((Profile.TopMargin + Profile.BottomMargin) * scale);
 
   // Determine margin corners
-  mx2 := x2 + round (Profile.OuterMargin * scale);
-  mx3 := 572 + round (Profile.InnerMargin * scale);
-  my2 := y2 + round (Profile.TopMargin * scale);
+  margin_x_left := page_x + round (Profile.OuterMargin * scale);
+  margin_x_right := (page_x + page_w + 4) + round (Profile.InnerMargin * scale);
+  margin_y := page_y + round (Profile.TopMargin * scale);
 
   // Move and resize margin graphics
-  sLeftMargin.Width := mx1;
-  sLeftMargin.Height := my1;
-  sRightMargin.Width := mx1;
-  sRightMargin.Height := my1;
+  sLeftMargin.Width := margin_w;
+  sLeftMargin.Height := margin_h;
+  sRightMargin.Width := margin_w;
+  sRightMargin.Height := margin_h;
 
-  sLeftMargin.Left := mx2;
-  sLeftMargin.Top := my2;
-  sRightMargin.Left := mx3;
-  sRightMargin.Top := my2;
+  sLeftMargin.Left := margin_x_left;
+  sLeftMargin.Top := margin_y;
+  sRightMargin.Left := margin_x_right;
+  sRightMargin.Top := margin_y;
 end;
 
 procedure TfrmPDFProfile.ChangePaperSize;
@@ -184,6 +215,7 @@ begin
     txtPDFWidth.Text := BasicReal (Profile.PageH / ScaleMult);
     txtPDFHeight.Text := BasicReal (Profile.PageV / ScaleMult);
   end;
+  ResizePageView;
 end;
 
 

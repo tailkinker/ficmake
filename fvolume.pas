@@ -86,7 +86,7 @@ implementation
 
 uses
   LCLType,
-  fnewvol, foptions, fstory, fnewprof, doption;
+  fnewvol, foptions, fstory, fnewprof, fpdfpro, doption;
 
 {$R *.lfm}
 
@@ -158,7 +158,7 @@ begin
     case (Profiles.Current.ProfileType) of
       ptPDF: begin
           Dialog := TfrmPDFProfile.Create (Application);
-          Dialog.Profile := Profiles.Current;
+          TfrmPDFProfile (Dialog).Profile := tPDFProfile (Profiles.Current);
           Dialog.ShowModal;
           Dialog.Destroy;
         end;
@@ -206,23 +206,25 @@ var
   index : integer;
   Present : boolean;
 begin
-	FormCaption := 'Volume "' + Volumes.Current.VolumeName + '"';
-  index := 0;
-  Present := false;
-  repeat
-    if (Screen.Forms [index].Caption = FormCaption) then
-      Present := true
-    else
-    	index += 1;
-  until (Present or (index >= Screen.FormCount));
-  if (Present) then
-    Screen.Forms [index].BringToFront
-  else begin
-    NewStoryForm := TfrmStory.Create (Application);
-    NewStoryForm.Caption := FormCaption;
-    NewStoryForm.SetBaseDir (Volumes.Current.BaseDir);
-    NewStoryForm.ForceLoadStoryList;
-    NewStoryForm.Show;
+  if (Volumes.Current <> nil) then begin
+	  FormCaption := 'Volume "' + Volumes.Current.VolumeName + '"';
+    index := 0;
+    Present := false;
+    repeat
+      if (Screen.Forms [index].Caption = FormCaption) then
+        Present := true
+      else
+    	  index += 1;
+    until (Present or (index >= Screen.FormCount));
+    if (Present) then
+      Screen.Forms [index].BringToFront
+    else begin
+      NewStoryForm := TfrmStory.Create (Application);
+      NewStoryForm.Caption := FormCaption;
+      NewStoryForm.SetBaseDir (Volumes.Current.BaseDir);
+      NewStoryForm.ForceLoadStoryList;
+      NewStoryForm.Show;
+    end;
   end;
 end;
 

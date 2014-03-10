@@ -24,10 +24,10 @@ const
 		( 'A4', '-pa4' ),
 		( 'A5', '-pa5' ),
 		( 'A6', '-pa6' ),
-		( 'Custom...', '')
+		( 'Custom...', '') // Always the last
 		);
 
-  PaperMeasurements : array [0..PaperCount, 0..1] of real =
+  PaperMeasurements : array [0..PaperCount, 0..1] of longint =
     (
     (  612000,   792000 ),
     (  612000,  1008000 ),

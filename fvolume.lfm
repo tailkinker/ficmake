@@ -1,7 +1,7 @@
 object frmVolume: TfrmVolume
-  Left = 242
+  Left = 625
   Height = 400
-  Top = 173
+  Top = 175
   Width = 780
   Caption = 'Ficmake v1.1.0'
   ClientHeight = 400
@@ -11,7 +11,7 @@ object frmVolume: TfrmVolume
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.0.14.0'
+  LCLVersion = '1.2.0.3'
   object lstVolumes: TListBox
     Left = 8
     Height = 80
@@ -27,9 +27,9 @@ object frmVolume: TfrmVolume
   end
   object Label1: TLabel
     Left = 8
-    Height = 18
+    Height = 17
     Top = 152
-    Width = 59
+    Width = 55
     Caption = 'Volumes'
     ParentColor = False
   end
@@ -43,8 +43,8 @@ object frmVolume: TfrmVolume
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtVolumeName
     EditLabel.Left = 8
-    EditLabel.Height = 18
-    EditLabel.Top = 11
+    EditLabel.Height = 17
+    EditLabel.Top = 12
     EditLabel.Width = 80
     EditLabel.Caption = 'Volume Name'
     EditLabel.ParentColor = False
@@ -62,8 +62,8 @@ object frmVolume: TfrmVolume
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtDirectory
     EditLabel.Left = 360
-    EditLabel.Height = 18
-    EditLabel.Top = 11
+    EditLabel.Height = 17
+    EditLabel.Top = 12
     EditLabel.Width = 80
     EditLabel.Caption = 'Volume Base Directory'
     EditLabel.ParentColor = False
@@ -81,8 +81,8 @@ object frmVolume: TfrmVolume
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtAuthor
     EditLabel.Left = 8
-    EditLabel.Height = 18
-    EditLabel.Top = 67
+    EditLabel.Height = 17
+    EditLabel.Top = 68
     EditLabel.Width = 80
     EditLabel.Caption = 'Default Author Name'
     EditLabel.ParentColor = False
@@ -92,9 +92,9 @@ object frmVolume: TfrmVolume
   end
   object chkHTMLIndex: TCheckBox
     Left = 8
-    Height = 24
+    Height = 20
     Top = 120
-    Width = 363
+    Width = 344
     Caption = 'HTML Profiles in this Volume generate Index pages'
     Enabled = False
     OnChange = chkHTMLIndexChange
@@ -416,9 +416,9 @@ object frmVolume: TfrmVolume
   end
   object labProfile: TLabel
     Left = 288
-    Height = 18
+    Height = 17
     Top = 152
-    Width = 100
+    Width = 93
     Caption = 'Global Profiles'
     ParentColor = False
   end

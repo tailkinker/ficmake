@@ -1,7 +1,7 @@
 object frmOptions: TfrmOptions
-  Left = 670
+  Left = 1014
   Height = 201
-  Top = 25
+  Top = 618
   Width = 346
   BorderStyle = bsDialog
   Caption = 'Options'
@@ -9,12 +9,12 @@ object frmOptions: TfrmOptions
   ClientWidth = 346
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.0.12.0'
+  LCLVersion = '1.2.0.3'
   object radScreen: TRadioGroup
     Left = 8
-    Height = 136
+    Height = 131
     Top = 8
-    Width = 230
+    Width = 236
     AutoFill = True
     AutoSize = True
     Caption = 'Screen Size'
@@ -26,8 +26,8 @@ object frmOptions: TfrmOptions
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 2
-    ClientHeight = 117
-    ClientWidth = 226
+    ClientHeight = 112
+    ClientWidth = 232
     Columns = 2
     ItemIndex = 0
     Items.Strings = (

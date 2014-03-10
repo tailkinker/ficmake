@@ -85,12 +85,13 @@ type
       function GetMargin (index : integer) : longint;
       procedure SetFlag (index : integer; aflag : boolean);
       function GetFlag (index : integer) : boolean;
+      procedure SetPageSize (aPageSize : byte);
     public
       class function ProfileType : integer; override;
       property GroffFonts : tGroffFontArray read t_fonts write t_fonts;
-      property PageSize : byte read t_pagesize write t_pagesize;
-      property PageH : longint read t_pageh write t_pageh;
-      property PageV : longint read t_pagev write t_pagev;
+      property PageSize : byte read t_pagesize write SetPageSize default 0;
+      property PageH : longint read t_pageh write t_pageh default 612000;
+      property PageV : longint read t_pagev write t_pagev default 792000;
       property Columns : byte read t_columns write t_columns;
       property OuterMargin  : longint index 0 read GetMargin write SetMargin;
       property InnerMargin  : longint index 1 read GetMargin write SetMargin;
@@ -205,6 +206,7 @@ const
 implementation
 
 uses
+  forms, fpdfpro,
   dgroff;
 
 {$region tBaseProfile}
@@ -247,6 +249,15 @@ end;
 class function tPDFProfile.ProfileType : integer;
 begin
   ProfileType := ptPDF;
+end;
+
+procedure tPDFProfile.SetPageSize (aPageSize : byte);
+begin
+  if (aPageSize in [0..PaperCount]) then begin
+    t_pagesize := aPageSize;
+    t_PageH := PaperMeasurements [aPageSize, 0];
+    t_PageV := PaperMeasurements [aPageSize, 1];
+  end;
 end;
 
 constructor tPDFProfile.Create;
@@ -803,8 +814,13 @@ begin
 end;
 
 procedure tPDFProfile.Edit;
+var
+  Dialog : tfrmPDFProfile;
 begin
-  RunError (211);
+  Dialog := TfrmPDFProfile.Create (Application);
+  TfrmPDFProfile (Dialog).Profile := self;
+  Dialog.ShowModal;
+  Dialog.Destroy;
 end;
 
 {$endregion}
@@ -1541,7 +1557,7 @@ end;
 
 procedure tProfileList.Edit;
 begin
-
+  t_current_profile.Edit;
 end;
 
 procedure tProfileList.MarkDirty;
