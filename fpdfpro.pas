@@ -47,10 +47,18 @@ type
     txtTopMargin : TEdit;
     procedure btnOutDirClick(Sender: TObject);
     procedure chkLandscapeChange(Sender: TObject);
+    procedure cmbColumnsChange(Sender: TObject);
     procedure cmbPageSizeChange(Sender: TObject);
+    procedure cmbPageSizeUnitsChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure txtBottomMarginChange(Sender: TObject);
+    procedure txtInsideMarginChange(Sender: TObject);
     procedure txtNameChange(Sender: TObject);
     procedure txtOutDirChange(Sender: TObject);
+    procedure txtOutsideMarginChange(Sender: TObject);
+    procedure txtPDFHeightChange(Sender: TObject);
+    procedure txtPDFWidthChange(Sender: TObject);
+    procedure txtTopMarginChange(Sender: TObject);
   private
     { private declarations }
     t_profile : tPDFProfile;
@@ -68,7 +76,8 @@ var
 implementation
 
 uses
-  dgroff, dtools, doption;
+  dgroff, dtools, doption,
+  gtools;
 
 {$R *.lfm}
 
@@ -78,11 +87,48 @@ begin
   Top := (Screen.Height - Height) div 2;
 end;
 
+procedure TfrmPDFProfile.txtBottomMarginChange(Sender: TObject);
+var
+  n : real;
+begin
+  val (txtBottomMargin.Text, n);
+  Profile.BottomMargin := round (n * ScaleMult);
+  if (Profile.BottomMargin = 0) then
+    txtBottomMargin.Color := clRed
+  else
+    txtBottomMargin.Color := clDefault;
+  ResizePageView;
+end;
+
+procedure TfrmPDFProfile.txtInsideMarginChange(Sender: TObject);
+var
+  n : real;
+begin
+  val (txtInsideMargin.Text, n);
+  Profile.InnerMargin := round (n * ScaleMult);
+  if (Profile.InnerMargin = 0) then
+    txtInsideMargin.Color := clRed
+  else
+    txtInsideMargin.Color := clDefault;
+  ResizePageView;
+end;
+
 procedure TfrmPDFProfile.LoadProfile (aProfile : tPDFProfile);
 begin
   t_profile := aProfile;
   txtName.Text := aProfile.Name;
   cmbPageSize.ItemIndex := aProfile.PageSize;
+  chkLandscape.Checked := aProfile.Landscape;
+  txtPDFHeight.Text := BasicReal (aProfile.PageV / ScaleMult);
+  txtPDFWidth.Text := BasicReal (aProfile.PageH / ScaleMult);
+  cmbPageSizeUnits.ItemIndex := ScaleType;
+  cmbColumns.ItemIndex := aProfile.Columns - 1;
+
+  // Margins
+  txtOutsideMargin.Text := BasicReal (aProfile.OuterMargin / ScaleMult);
+  txtInsideMargin.Text := BasicReal (aProfile.InnerMargin / ScaleMult);
+  txtTopMargin.Text := BasicReal (aProfile.TopMargin / ScaleMult);
+  txtBottomMargin.Text := BasicReal (aProfile.BottomMargin / ScaleMult);
 
   ChangePaperSize;
 end;
@@ -96,7 +142,13 @@ end;
 
 procedure TfrmPDFProfile.chkLandscapeChange(Sender: TObject);
 begin
+  Profile.Landscape := chkLandscape.Checked;
   ChangePaperSize;
+end;
+
+procedure TfrmPDFProfile.cmbColumnsChange(Sender: TObject);
+begin
+  Profile.Columns := cmbColumns.ItemIndex + 1;
 end;
 
 procedure TfrmPDFProfile.cmbPageSizeChange(Sender: TObject);
@@ -105,11 +157,21 @@ begin
   if (Profile.PageSize = PaperCount) then begin
     txtPDFWidth.Enabled := TRUE;
     txtPDFHeight.Enabled := TRUE;
+    chkLandscape.Enabled := FALSE;
   end else begin
     txtPDFWidth.Enabled := FALSE;
     txtPDFHeight.Enabled := FALSE;
+    chkLandscape.Enabled := TRUE;
   end;
   ChangePaperSize;
+end;
+
+procedure TfrmPDFProfile.cmbPageSizeUnitsChange(Sender: TObject);
+begin
+  if (cmbPageSize.ItemIndex in [0..2]) then
+    SetScale (cmbPageSizeUnits.ItemIndex);
+  txtPDFHeight.Text := BasicReal (Profile.PageV / ScaleMult);
+  txtPDFWidth.Text := BasicReal (Profile.PageH / ScaleMult);
 end;
 
 procedure TfrmPDFProfile.txtNameChange(Sender: TObject);
@@ -123,6 +185,58 @@ procedure TfrmPDFProfile.txtOutDirChange(Sender: TObject);
 begin
   if (txtOutDir.Enabled) then
     Profile.OutputDir := txtOutDir.Text;
+end;
+
+procedure TfrmPDFProfile.txtOutsideMarginChange(Sender: TObject);
+var
+  n : real;
+begin
+  val (txtOutsideMargin.Text, n);
+  Profile.OuterMargin := round (n * ScaleMult);
+  if (Profile.OuterMargin = 0) then
+    txtOutsideMargin.Color := clRed
+  else
+    txtOutsideMargin.Color := clDefault;
+  ResizePageView;
+end;
+
+procedure TfrmPDFProfile.txtPDFHeightChange(Sender: TObject);
+var
+  n : real;
+begin
+  val (txtPDFHeight.Text, n);
+  Profile.PageV := round (n * ScaleMult);
+  if (Profile.PageV = 0) then
+    txtPDFHeight.Color := clRed
+  else
+    txtPDFHeight.Color := clDefault;
+  ResizePageView;
+end;
+
+procedure TfrmPDFProfile.txtPDFWidthChange(Sender: TObject);
+var
+  n : real;
+begin
+  val (txtPDFWidth.Text, n);
+  Profile.PageH := round (n * ScaleMult);
+  if (Profile.PageH = 0) then
+    txtPDFWidth.Color := clRed
+  else
+    txtPDFWidth.Color := clDefault;
+  ResizePageView;
+end;
+
+procedure TfrmPDFProfile.txtTopMarginChange(Sender: TObject);
+var
+  n : real;
+begin
+  val (txtTopMargin.Text, n);
+  Profile.TopMargin := round (n * ScaleMult);
+  if (Profile.TopMargin = 0) then
+    txtTopMargin.Color := clRed
+  else
+    txtTopMargin.Color := clDefault;
+  ResizePageView;
 end;
 
 procedure TfrmPDFProfile.ResizePageView;
@@ -205,13 +319,17 @@ end;
 procedure TfrmPDFProfile.ChangePaperSize;
 begin
   if (chkLandscape.Checked) then begin
-    Profile.PageH := round (PaperMeasurements [Profile.PageSize, 1]);
-    Profile.PageV := round (PaperMeasurements [Profile.PageSize, 0]);
+    if (Profile.PageSize < PaperCount) then begin
+      Profile.PageH := round (PaperMeasurements [Profile.PageSize, 1]);
+      Profile.PageV := round (PaperMeasurements [Profile.PageSize, 0]);
+    end;
     txtPDFWidth.Text := BasicReal (Profile.PageH / ScaleMult);
     txtPDFHeight.Text := BasicReal (Profile.PageV / ScaleMult);
   end else begin
-    Profile.PageH := round (PaperMeasurements [Profile.PageSize, 0]);
-    Profile.PageV := round (PaperMeasurements [Profile.PageSize, 1]);
+    if (Profile.PageSize < PaperCount) then begin
+      Profile.PageH := round (PaperMeasurements [Profile.PageSize, 0]);
+      Profile.PageV := round (PaperMeasurements [Profile.PageSize, 1]);
+    end;
     txtPDFWidth.Text := BasicReal (Profile.PageH / ScaleMult);
     txtPDFHeight.Text := BasicReal (Profile.PageV / ScaleMult);
   end;

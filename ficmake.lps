@@ -8,12 +8,10 @@
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ficmake"/>
-        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="214"/>
-        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="fvolume.pas"/>
@@ -34,9 +32,9 @@
         <Filename Value="gprofile.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gprofile"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1528"/>
+        <TopLine Value="66"/>
         <CursorPos X="13" Y="1560"/>
         <UsageCount Value="214"/>
         <Loaded Value="True"/>
@@ -45,7 +43,7 @@
         <Filename Value="gvolume.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gvolume"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="32"/>
         <CursorPos X="1" Y="58"/>
@@ -56,7 +54,7 @@
         <Filename Value="gtools.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gtools"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="21" Y="33"/>
@@ -93,7 +91,7 @@
         <Filename Value="gstory.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gstory"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="58"/>
         <CursorPos X="1" Y="58"/>
@@ -147,9 +145,9 @@
         <Filename Value="gchapter.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gchapter"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="265"/>
+        <TopLine Value="250"/>
         <CursorPos X="1" Y="291"/>
         <UsageCount Value="229"/>
         <Loaded Value="True"/>
@@ -189,7 +187,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="61" Y="30"/>
-        <UsageCount Value="131"/>
+        <UsageCount Value="132"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
@@ -203,7 +201,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="42"/>
         <CursorPos X="3" Y="44"/>
-        <UsageCount Value="57"/>
+        <UsageCount Value="58"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit15>
@@ -217,9 +215,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="91"/>
-        <CursorPos X="34" Y="110"/>
-        <UsageCount Value="48"/>
+        <TopLine Value="103"/>
+        <CursorPos X="12" Y="131"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit16>
@@ -227,22 +225,22 @@
         <Filename Value="doption.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="doption"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="121"/>
+        <TopLine Value="1"/>
         <CursorPos X="32" Y="131"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
         <Loaded Value="True"/>
       </Unit17>
       <Unit18>
         <Filename Value="dtools.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="dtools"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="118"/>
+        <TopLine Value="26"/>
         <CursorPos X="1" Y="144"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
         <Loaded Value="True"/>
       </Unit18>
       <Unit19>
@@ -260,155 +258,131 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="147" Column="1" TopLine="112"/>
+        <Caret Line="166" Column="42" TopLine="156"/>
       </Position1>
       <Position2>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="150" Column="1" TopLine="115"/>
+        <Caret Line="100" Column="19" TopLine="86"/>
       </Position2>
       <Position3>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="125" Column="1" TopLine="121"/>
+        <Caret Line="101" Column="1" TopLine="92"/>
       </Position3>
       <Position4>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="126" Column="1" TopLine="118"/>
+        <Caret Line="86" Column="1" TopLine="62"/>
       </Position4>
       <Position5>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="127" Column="1" TopLine="118"/>
+        <Caret Line="85" Column="45" TopLine="42"/>
       </Position5>
       <Position6>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="128" Column="1" TopLine="118"/>
+        <Caret Line="226" Column="7" TopLine="189"/>
       </Position6>
       <Position7>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="131" Column="1" TopLine="118"/>
+        <Caret Line="122" Column="38" TopLine="119"/>
       </Position7>
       <Position8>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="132" Column="1" TopLine="118"/>
+        <Caret Line="88" Column="33" TopLine="66"/>
       </Position8>
       <Position9>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="133" Column="1" TopLine="118"/>
+        <Caret Line="90" Column="19" TopLine="67"/>
       </Position9>
       <Position10>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="134" Column="1" TopLine="118"/>
+        <Caret Line="91" Column="1" TopLine="68"/>
       </Position10>
       <Position11>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="135" Column="1" TopLine="118"/>
+        <Caret Line="160" Column="1" TopLine="126"/>
       </Position11>
       <Position12>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="136" Column="1" TopLine="118"/>
+        <Caret Line="125" Column="1" TopLine="119"/>
       </Position12>
       <Position13>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="137" Column="1" TopLine="118"/>
+        <Caret Line="123" Column="31" TopLine="101"/>
       </Position13>
       <Position14>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="142" Column="1" TopLine="118"/>
+        <Caret Line="121" Column="1" TopLine="101"/>
       </Position14>
       <Position15>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="143" Column="1" TopLine="118"/>
+        <Caret Line="122" Column="31" TopLine="101"/>
       </Position15>
       <Position16>
-        <Filename Value="fnewprof.pas"/>
-        <Caret Line="57" Column="41" TopLine="29"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="121" Column="1" TopLine="101"/>
       </Position16>
       <Position17>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="318" Column="3" TopLine="313"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="122" Column="1" TopLine="101"/>
       </Position17>
       <Position18>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="317" Column="1" TopLine="313"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="123" Column="1" TopLine="101"/>
       </Position18>
       <Position19>
-        <Filename Value="gprofile.pas"/>
-        <Caret Line="209" Column="11" TopLine="190"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="125" Column="1" TopLine="102"/>
       </Position19>
       <Position20>
-        <Filename Value="gprofile.pas"/>
-        <Caret Line="818" Column="23" TopLine="796"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="148" Column="1" TopLine="147"/>
       </Position20>
       <Position21>
-        <Filename Value="gprofile.pas"/>
-        <Caret Line="209" Column="8" TopLine="187"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="147" Column="16" TopLine="142"/>
       </Position21>
       <Position22>
-        <Filename Value="gprofile.pas"/>
-        <Caret Line="818" Column="17" TopLine="796"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="110" Column="3" TopLine="220"/>
       </Position22>
       <Position23>
-        <Filename Value="gprofile.pas"/>
-        <Caret Line="209" Column="8" TopLine="209"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="256" Column="1" TopLine="220"/>
       </Position23>
       <Position24>
-        <Filename Value="fvolume.pas"/>
-        <Caret Line="160" Column="11" TopLine="132"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="125" Column="1" TopLine="114"/>
       </Position24>
       <Position25>
-        <Filename Value="gprofile.pas"/>
-        <Caret Line="1560" Column="26" TopLine="1528"/>
+        <Filename Value="fpdfpro.pas"/>
+        <Caret Line="95" Column="48" TopLine="61"/>
       </Position25>
       <Position26>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="166" Column="42" TopLine="156"/>
+        <Caret Line="108" Column="45" TopLine="106"/>
       </Position26>
       <Position27>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="100" Column="19" TopLine="86"/>
+        <Caret Line="173" Column="1" TopLine="172"/>
       </Position27>
       <Position28>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="101" Column="1" TopLine="92"/>
+        <Caret Line="165" Column="22" TopLine="142"/>
       </Position28>
       <Position29>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="86" Column="1" TopLine="62"/>
+        <Caret Line="94" Column="22" TopLine="89"/>
       </Position29>
       <Position30>
         <Filename Value="fpdfpro.pas"/>
-        <Caret Line="85" Column="45" TopLine="42"/>
+        <Caret Line="219" Column="20" TopLine="214"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
-    <Watches Count="9">
+    <Watches Count="1">
       <Item1>
-        <Expression Value="background_h"/>
+        <Expression Value="ScaleMult"/>
       </Item1>
-      <Item2>
-        <Expression Value="background_w"/>
-      </Item2>
-      <Item3>
-        <Expression Value="background_x"/>
-      </Item3>
-      <Item4>
-        <Expression Value="background_y"/>
-      </Item4>
-      <Item5>
-        <Expression Value="max"/>
-      </Item5>
-      <Item6>
-        <Expression Value="page_w"/>
-      </Item6>
-      <Item7>
-        <Expression Value="page_h"/>
-      </Item7>
-      <Item8>
-        <Expression Value="page_x"/>
-      </Item8>
-      <Item9>
-        <Expression Value="page_y"/>
-      </Item9>
     </Watches>
   </Debugging>
   <EditorMacros Count="0"/>

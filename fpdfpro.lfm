@@ -68,19 +68,21 @@ object frmPDFProfile: TfrmPDFProfile
         TabOrder = 1
       end
       object txtPDFWidth: TEdit
-        Left = 160
+        Left = 48
         Height = 27
-        Top = 62
+        Top = 63
         Width = 80
         Enabled = False
+        OnChange = txtPDFWidthChange
         TabOrder = 2
       end
       object txtPDFHeight: TEdit
-        Left = 48
+        Left = 160
         Height = 27
-        Top = 62
+        Top = 63
         Width = 80
         Enabled = False
+        OnChange = txtPDFHeightChange
         TabOrder = 3
       end
       object cmbPageSizeUnits: TComboBox
@@ -95,6 +97,7 @@ object frmPDFProfile: TfrmPDFProfile
           'cm'
           'pt'
         )
+        OnChange = cmbPageSizeUnitsChange
         Style = csDropDownList
         TabOrder = 4
         Text = 'in.'
@@ -127,6 +130,7 @@ object frmPDFProfile: TfrmPDFProfile
           '2'
           '3'
         )
+        OnChange = cmbColumnsChange
         Style = csDropDownList
         TabOrder = 5
         Text = '1'
@@ -144,6 +148,7 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 27
         Top = 166
         Width = 80
+        OnChange = txtOutsideMarginChange
         TabOrder = 6
         Text = '1'
       end
@@ -152,6 +157,7 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 27
         Top = 198
         Width = 80
+        OnChange = txtInsideMarginChange
         TabOrder = 7
         Text = '0.5'
       end
@@ -160,6 +166,7 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 27
         Top = 230
         Width = 80
+        OnChange = txtTopMarginChange
         TabOrder = 8
         Text = '1'
       end
@@ -168,6 +175,7 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 27
         Top = 262
         Width = 80
+        OnChange = txtBottomMarginChange
         TabOrder = 9
         Text = '1'
       end
