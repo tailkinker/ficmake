@@ -121,7 +121,7 @@ object frmPDFProfile: TfrmPDFProfile
       object cmbColumns: TComboBox
         Left = 188
         Height = 25
-        Top = 126
+        Top = 127
         Width = 52
         ItemHeight = 0
         ItemIndex = 0
@@ -138,7 +138,7 @@ object frmPDFProfile: TfrmPDFProfile
       object Label4: TLabel
         Left = 104
         Height = 17
-        Top = 131
+        Top = 132
         Width = 60
         Caption = 'Columns:'
         ParentColor = False
@@ -247,9 +247,493 @@ object frmPDFProfile: TfrmPDFProfile
     end
     object tabContent: TTabSheet
       Caption = 'Content'
+      ClientHeight = 294
+      ClientWidth = 719
+      object chkOddHeaderEnable: TCheckBox
+        Left = 8
+        Height = 20
+        Top = 7
+        Width = 179
+        Caption = 'Enable Odd-Page Header'
+        OnChange = chkOddHeaderEnableChange
+        TabOrder = 0
+      end
+      object txtOddHeaderLeft: TEdit
+        Left = 8
+        Height = 27
+        Top = 31
+        Width = 220
+        Enabled = False
+        OnChange = txtOddHeaderLeftChange
+        TabOrder = 1
+      end
+      object txtOddHeaderMiddle: TEdit
+        Left = 236
+        Height = 27
+        Top = 31
+        Width = 220
+        Enabled = False
+        OnChange = txtOddHeaderMiddleChange
+        TabOrder = 2
+      end
+      object txtOddHeaderRight: TEdit
+        Left = 464
+        Height = 27
+        Top = 31
+        Width = 220
+        Enabled = False
+        OnChange = txtOddHeaderRightChange
+        TabOrder = 3
+        Text = '%t'
+      end
+      object chkEvenHeaderEnable: TCheckBox
+        Left = 8
+        Height = 20
+        Top = 71
+        Width = 185
+        Caption = 'Enable Even-Page Header'
+        OnChange = chkEvenHeaderEnableChange
+        TabOrder = 4
+      end
+      object txtEvenHeaderLeft: TEdit
+        Left = 8
+        Height = 27
+        Top = 95
+        Width = 220
+        Enabled = False
+        OnChange = txtEvenHeaderLeftChange
+        TabOrder = 5
+        Text = '%c'
+      end
+      object txtEvenHeaderMiddle: TEdit
+        Left = 236
+        Height = 27
+        Top = 95
+        Width = 220
+        Enabled = False
+        OnChange = txtEvenHeaderMiddleChange
+        TabOrder = 6
+      end
+      object txtEvenHeaderRight: TEdit
+        Left = 464
+        Height = 27
+        Top = 95
+        Width = 220
+        Enabled = False
+        OnChange = txtEvenHeaderRightChange
+        TabOrder = 7
+      end
+      object chkOddFooterEnable: TCheckBox
+        Left = 8
+        Height = 20
+        Top = 135
+        Width = 173
+        Caption = 'Enable Odd-Page Footer'
+        OnChange = chkOddFooterEnableChange
+        TabOrder = 8
+      end
+      object txtOddFooterLeft: TEdit
+        Left = 8
+        Height = 27
+        Top = 159
+        Width = 220
+        Enabled = False
+        OnChange = txtOddFooterLeftChange
+        TabOrder = 9
+        Text = '%a'
+      end
+      object txtOddFooterMiddle: TEdit
+        Left = 236
+        Height = 27
+        Top = 159
+        Width = 220
+        Enabled = False
+        OnChange = txtOddFooterMiddleChange
+        TabOrder = 10
+      end
+      object txtOddFooterRight: TEdit
+        Left = 464
+        Height = 27
+        Top = 159
+        Width = 220
+        Enabled = False
+        OnChange = txtOddFooterRightChange
+        TabOrder = 11
+        Text = '%p'
+      end
+      object chkEvenFooterEnable: TCheckBox
+        Left = 8
+        Height = 20
+        Top = 199
+        Width = 179
+        Caption = 'Enable Even-Page Footer'
+        OnChange = chkEvenFooterEnableChange
+        TabOrder = 12
+      end
+      object txtEvenFooterLeft: TEdit
+        Left = 8
+        Height = 27
+        Top = 223
+        Width = 220
+        Enabled = False
+        OnChange = txtEvenFooterLeftChange
+        TabOrder = 13
+        Text = '%p'
+      end
+      object txtEvenFooterMiddle: TEdit
+        Left = 236
+        Height = 27
+        Top = 223
+        Width = 220
+        Enabled = False
+        OnChange = txtEvenFooterMiddleChange
+        TabOrder = 14
+      end
+      object txtEvenFooterRight: TEdit
+        Left = 464
+        Height = 27
+        Top = 223
+        Width = 220
+        Enabled = False
+        OnChange = txtEvenFooterRightChange
+        TabOrder = 15
+        Text = '%a'
+      end
+      object btnVariableHelp: TButton
+        Left = 609
+        Height = 25
+        Top = 260
+        Width = 75
+        Caption = '&Help'
+        OnClick = btnVariableHelpClick
+        TabOrder = 16
+      end
     end
     object tabStyles: TTabSheet
       Caption = 'Styles'
+      ClientHeight = 294
+      ClientWidth = 719
+      object lstStyles: TListBox
+        Left = 8
+        Height = 280
+        Top = 8
+        Width = 100
+        Items.Strings = (
+          'Text'
+          'Title'
+          'Subtitle'
+          'Heading 0'
+          'Heading 1'
+          'Heading 2'
+          'Heading 3'
+          'Heading 4'
+          'Heading 5'
+          '.CP1'
+          '.CP2'
+          '.CP3'
+        )
+        ItemHeight = 23
+        OnClick = lstStylesClick
+        ScrollWidth = 98
+        TabOrder = 0
+      end
+      object Label2: TLabel
+        Left = 124
+        Height = 17
+        Top = 8
+        Width = 81
+        Caption = 'Font Family:'
+        Enabled = False
+        ParentColor = False
+      end
+      object cmbFontFamily: TComboBox
+        Left = 124
+        Height = 25
+        Hint = 'Selects the font family used with this style'
+        Top = 31
+        Width = 220
+        Enabled = False
+        ItemHeight = 0
+        ItemIndex = 6
+        Items.Strings = (
+          'Avant-Garde'
+          'Bookman'
+          'Courier'
+          'Helvetica'
+          'New Century Schoolbook'
+          'Palatino'
+          'Times New Roman'
+        )
+        OnChange = cmbFontFamilyChange
+        ParentShowHint = False
+        ShowHint = True
+        Style = csDropDownList
+        TabOrder = 1
+        Text = 'Times New Roman'
+      end
+      object chkFontBold: TCheckBox
+        Left = 124
+        Height = 20
+        Top = 69
+        Width = 53
+        Caption = 'Bold'
+        Enabled = False
+        Font.Style = [fsBold]
+        OnChange = chkFontBoldChange
+        ParentFont = False
+        TabOrder = 2
+      end
+      object chkFontItalics: TCheckBox
+        Left = 196
+        Height = 20
+        Top = 69
+        Width = 60
+        Caption = 'Italics'
+        Enabled = False
+        Font.Style = [fsItalic]
+        OnChange = chkFontItalicsChange
+        ParentFont = False
+        TabOrder = 3
+      end
+      object chkFontCentered: TCheckBox
+        Left = 265
+        Height = 20
+        Top = 69
+        Width = 79
+        Caption = 'Centered'
+        Enabled = False
+        OnChange = chkFontCenteredChange
+        TabOrder = 4
+      end
+      object txtSpaceAbove: TLabeledEdit
+        Left = 332
+        Height = 27
+        Hint = 'Insert this much space above this paragraph.'
+        Top = 95
+        Width = 50
+        EditLabel.AnchorSideTop.Control = txtSpaceAbove
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = txtSpaceAbove
+        EditLabel.AnchorSideBottom.Control = txtSpaceAbove
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 245
+        EditLabel.Height = 17
+        EditLabel.Top = 100
+        EditLabel.Width = 84
+        EditLabel.Caption = 'Space Above:'
+        EditLabel.ParentColor = False
+        Enabled = False
+        LabelPosition = lpLeft
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 5
+        Text = '0'
+        OnChange = txtSpaceAboveChange
+      end
+      object txtFontSize: TLabeledEdit
+        Left = 188
+        Height = 27
+        Top = 95
+        Width = 50
+        EditLabel.AnchorSideTop.Control = txtFontSize
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = txtFontSize
+        EditLabel.AnchorSideBottom.Control = txtFontSize
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 123
+        EditLabel.Height = 17
+        EditLabel.Top = 100
+        EditLabel.Width = 62
+        EditLabel.Caption = 'Font Size:'
+        EditLabel.ParentColor = False
+        Enabled = False
+        LabelPosition = lpLeft
+        TabOrder = 6
+        Text = '12'
+        OnChange = txtFontSizeChange
+      end
+      object txtSpaceBelow: TLabeledEdit
+        Left = 332
+        Height = 27
+        Hint = 'Insert this much space below the paragraph.'
+        Top = 127
+        Width = 50
+        EditLabel.AnchorSideTop.Control = txtSpaceBelow
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = txtSpaceBelow
+        EditLabel.AnchorSideBottom.Control = txtSpaceBelow
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 246
+        EditLabel.Height = 17
+        EditLabel.Top = 132
+        EditLabel.Width = 83
+        EditLabel.Caption = 'Space Below:'
+        EditLabel.ParentColor = False
+        Enabled = False
+        LabelPosition = lpLeft
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 7
+        Text = '0'
+        OnChange = txtSpaceBelowChange
+      end
+      object Panel1: TPanel
+        Left = 174
+        Height = 36
+        Top = 223
+        Width = 80
+        Caption = 'Borders'
+        Enabled = False
+        TabOrder = 8
+      end
+      object btnBordersTop: TToggleBox
+        Left = 174
+        Height = 24
+        Top = 199
+        Width = 80
+        Enabled = False
+        OnChange = btnBordersTopChange
+        TabOrder = 9
+      end
+      object btnBordersBottom: TToggleBox
+        Tag = 1
+        Left = 174
+        Height = 24
+        Top = 259
+        Width = 80
+        Enabled = False
+        TabOrder = 10
+      end
+      object btnBordersLeft: TToggleBox
+        Tag = 2
+        Left = 150
+        Height = 36
+        Top = 223
+        Width = 24
+        Enabled = False
+        TabOrder = 11
+      end
+      object btnBordersRight: TToggleBox
+        Tag = 3
+        Left = 254
+        Height = 36
+        Top = 223
+        Width = 24
+        Enabled = False
+        TabOrder = 12
+      end
+      object chkTitlePageOneColumn: TCheckBox
+        Left = 420
+        Height = 20
+        Hint = 'The first page of the document will be only '#10'one column, regardless of the number of '#10'columns selected.'
+        Top = 191
+        Width = 212
+        Caption = 'Title Page is One Column Only'
+        Enabled = False
+        OnChange = chkTitlePageOneColumnChange
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 13
+      end
+      object Label9: TLabel
+        Left = 420
+        Height = 17
+        Top = 8
+        Width = 172
+        Caption = 'Heading 1 Centering Mode:'
+        Enabled = False
+        ParentColor = False
+      end
+      object cmbH1CenterMode: TComboBox
+        Left = 420
+        Height = 25
+        Top = 32
+        Width = 240
+        Enabled = False
+        ItemHeight = 0
+        ItemIndex = 0
+        Items.Strings = (
+          'Left Justify Over First Column'
+          'Left Justify Over All Columns'
+          'Center Over First Column'
+          'Center Over All Columns'
+        )
+        OnChange = cmbH1CenterModeChange
+        Style = csDropDownList
+        TabOrder = 14
+        Text = 'Left Justify Over First Column'
+      end
+      object Label10: TLabel
+        Left = 420
+        Height = 102
+        Top = 71
+        Width = 264
+        AutoSize = False
+        Caption = 'Font Size, Space Reserved, Space Above, and Space Below must be entered in points, not in inches or centimeters.  There are 72 points to the inch, or 28.35 points to the centimeter.'
+        ParentColor = False
+        WordWrap = True
+      end
+      object txtSpaceReserved: TLabeledEdit
+        Left = 188
+        Height = 27
+        Hint = 'If there is not at least this much space '#10'remaining on the page when this header '#10'style is called, force a column break.'
+        Top = 127
+        Width = 50
+        EditLabel.AnchorSideTop.Control = txtSpaceReserved
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = txtSpaceReserved
+        EditLabel.AnchorSideBottom.Control = txtSpaceReserved
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 123
+        EditLabel.Height = 17
+        EditLabel.Top = 132
+        EditLabel.Width = 62
+        EditLabel.Caption = 'Reserved:'
+        EditLabel.ParentColor = False
+        Enabled = False
+        LabelPosition = lpLeft
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 15
+        Text = '0'
+        OnChange = txtSpaceReservedChange
+      end
+      object chkCallPreconv: TCheckBox
+        Left = 420
+        Height = 20
+        Hint = 'When building the file, call the groff preconv pre-processor.'#10'This pre-processor converts non-ASCII characters to groff characters.'
+        Top = 263
+        Width = 102
+        Caption = 'Call Preconv'
+        OnChange = chkCallPreconvChange
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 16
+      end
+      object chkCallTBL: TCheckBox
+        Left = 540
+        Height = 20
+        Hint = 'When building the file, call the groff tbl pre-processor.'#10'This pre-processor is used to construct tables.'
+        Top = 263
+        Width = 74
+        Caption = 'Call TBL'
+        OnChange = chkCallTBLChange
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 17
+      end
+      object chkCallEQN: TCheckBox
+        Left = 628
+        Height = 20
+        Hint = 'When building the file, call the groff eqn pre-processor.'#10'This pre-processor is used to typeset mathematical formulae.'
+        Top = 263
+        Width = 77
+        Caption = 'Call EQN'
+        OnChange = chkCallEQNChange
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 18
+      end
     end
   end
   object txtName: TLabeledEdit
@@ -324,8 +808,18 @@ object frmPDFProfile: TfrmPDFProfile
     OnClick = btnOutDirClick
     TabOrder = 3
   end
+  object btnClose: TButton
+    Left = 704
+    Height = 26
+    Top = 374
+    Width = 75
+    Caption = 'Close'
+    ModalResult = 1
+    OnClick = btnCloseClick
+    TabOrder = 4
+  end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
-    left = 104
+    left = 56
     top = 368
   end
 end

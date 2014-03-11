@@ -1,0 +1,32 @@
+object frmHeaderHelp: TfrmHeaderHelp
+  Left = 1200
+  Height = 250
+  Top = 397
+  Width = 300
+  BorderStyle = bsDialog
+  Caption = 'Header and Footer Help'
+  ClientHeight = 250
+  ClientWidth = 300
+  OnCreate = FormCreate
+  LCLVersion = '1.2.0.3'
+  object btnDismiss: TButton
+    Left = 217
+    Height = 25
+    Top = 217
+    Width = 75
+    Cancel = True
+    Caption = 'Dismiss'
+    OnClick = btnDismissClick
+    TabOrder = 0
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 208
+    Top = 8
+    Width = 284
+    AutoSize = False
+    Caption = 'You may use any text you wish in the header and footer fields, and you may also use any of the following special variables:'#10#10'%a for author name'#10'%c for chapter title'#10'%d for chapter subtitle'#10'%p for page number'#10'%t for document title'#10'%u for document subtitle'
+    ParentColor = False
+    WordWrap = True
+  end
+end

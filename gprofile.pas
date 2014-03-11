@@ -76,10 +76,6 @@ type
       t_columns : byte;
       t_margins : array [0..3] of longint;
       t_H1Mode : byte;
-      t_oddheader,
-      t_evenheader,
-      t_oddfooter,
-      t_evenfooter : tGroffHeader;
       t_flags : array [0..3] of boolean;
       procedure SetMargin (index : integer; value : longint);
       function GetMargin (index : integer) : longint;
@@ -87,6 +83,10 @@ type
       function GetFlag (index : integer) : boolean;
       procedure SetPageSize (aPageSize : byte);
     public
+      OddHeader,
+      EvenHeader,
+      OddFooter,
+      EvenFooter : tGroffHeader;
       class function ProfileType : integer; override;
       property GroffFonts : tGroffFontArray read t_fonts write t_fonts;
       property PageSize : byte read t_pagesize write SetPageSize default 0;
@@ -98,10 +98,6 @@ type
       property TopMargin    : longint index 2 read GetMargin write SetMargin;
       property BottomMargin : longint index 3 read GetMargin write SetMargin;
       property H1Mode : byte read t_H1Mode write t_H1Mode;
-      property OddHeader  : tGroffHeader read t_oddheader  write t_oddheader;
-      property EvenHeader : tGroffHeader read t_evenheader write t_evenheader;
-      property OddFooter  : tGroffHeader read t_oddfooter  write t_oddfooter;
-      property EvenFooter : tGroffHeader read t_evenfooter write t_evenfooter;
       property OneColumnTitlePage : boolean index 0 read GetFlag write SetFlag;
       property Landscape          : boolean index 1 read GetFlag write SetFlag;
       property UseTBL             : boolean index 2 read GetFlag write SetFlag;
@@ -403,28 +399,28 @@ begin
   BottomMargin := 72000;
 
   // Odd Header
-  t_OddHeader.Enabled := true;
-  t_OddHeader.Left := '';
-  t_OddHeader.Middle := '';
-  t_OddHeader.Right := '%t';
+  OddHeader.Enabled := true;
+  OddHeader.Left := '';
+  OddHeader.Middle := '';
+  OddHeader.Right := '%t';
 
   // Even Header
-  t_EvenHeader.Enabled := true;
-  t_EvenHeader.Left := '%c';
-  t_EvenHeader.Middle := '';
-  t_EvenHeader.Right := '';
+  EvenHeader.Enabled := true;
+  EvenHeader.Left := '%c';
+  EvenHeader.Middle := '';
+  EvenHeader.Right := '';
 
   // Odd Footer
-  t_OddFooter.Enabled := true;
-  t_OddFooter.Left := '%a';
-  t_OddFooter.Middle := '';
-  t_OddFooter.Right := '%p';
+  OddFooter.Enabled := true;
+  OddFooter.Left := '%a';
+  OddFooter.Middle := '';
+  OddFooter.Right := '%p';
 
   // Even Footer
-  t_EvenFooter.Enabled := true;
-  t_EvenFooter.Left := '%p';
-  t_EvenFooter.Middle := '';
-  t_EvenFooter.Right := '%a';
+  EvenFooter.Enabled := true;
+  EvenFooter.Left := '%p';
+  EvenFooter.Middle := '';
+  EvenFooter.Right := '%a';
 end;
 
 procedure tPDFProfile.SetMargin (index : integer; value : longint);
@@ -600,9 +596,9 @@ begin
         H1Mode := r
       end else if (k = 'Odd Header') then begin
         if (v = 'Disabled') then
-          t_OddHeader.Enabled := false
+          OddHeader.Enabled := false
         else begin
-          t_OddHeader.Enabled := true;
+          OddHeader.Enabled := true;
           k1 := copy (v, 1, 1);
           v1 := '';
           j := 2;
@@ -610,27 +606,27 @@ begin
             v1 += copy (v, j, 1);
             inc (j)
           end;
-          t_OddHeader.Left := v1;
+          OddHeader.Left := v1;
           v1 := '';
           inc (j);
           while (copy (v, j, 1) <> k1) do begin
             v1 += copy (v, j, 1);
             inc (j)
           end;
-          t_OddHeader.Middle := v1;
+          OddHeader.Middle := v1;
           v1 := '';
           inc (j);
           while (copy (v, j, 1) <> k1) do begin
             v1 += copy (v, j, 1);
             inc (j)
           end;
-          t_OddHeader.Right := v1
+          OddHeader.Right := v1
         end;
       end else if (k = 'Even Header') then begin
         if (v = 'Disabled') then
-          t_EvenHeader.Enabled := false
+          EvenHeader.Enabled := false
         else begin
-          t_EvenHeader.Enabled := true;
+          EvenHeader.Enabled := true;
           k1 := copy (v, 1, 1);
           v1 := '';
           j := 2;
@@ -638,27 +634,27 @@ begin
             v1 += copy (v, j, 1);
             inc (j)
           end;
-          t_EvenHeader.Left := v1;
+          EvenHeader.Left := v1;
           v1 := '';
           inc (j);
           while (copy (v, j, 1) <> k1) do begin
             v1 += copy (v, j, 1);
             inc (j)
           end;
-          t_EvenHeader.Middle := v1;
+          EvenHeader.Middle := v1;
           v1 := '';
           inc (j);
           while (copy (v, j, 1) <> k1) do begin
             v1 += copy (v, j, 1);
             inc (j)
           end;
-          t_EvenHeader.Right := v1
+          EvenHeader.Right := v1
         end;
       end else if (k = 'Even Footer') then begin
         if (v = 'Disabled') then
-          t_EvenFooter.Enabled := false
+          EvenFooter.Enabled := false
         else begin
-          t_EvenFooter.Enabled := true;
+          EvenFooter.Enabled := true;
           k1 := copy (v, 1, 1);
           v1 := '';
           j := 2;
@@ -666,27 +662,27 @@ begin
             v1 += copy (v, j, 1);
             inc (j)
           end;
-          t_EvenFooter.Left := v1;
+          EvenFooter.Left := v1;
           v1 := '';
           inc (j);
           while (copy (v, j, 1) <> k1) do begin
             v1 += copy (v, j, 1);
             inc (j)
           end;
-          t_EvenFooter.Middle := v1;
+          EvenFooter.Middle := v1;
           v1 := '';
           inc (j);
           while (copy (v, j, 1) <> k1) do begin
             v1 += copy (v, j, 1);
             inc (j)
           end;
-          t_EvenFooter.Right := v1
+          EvenFooter.Right := v1
         end;
       end else if (k = 'Odd Footer') then begin
         if (v = 'Disabled') then
-          t_OddFooter.Enabled := false
+          OddFooter.Enabled := false
         else begin
-          t_OddFooter.Enabled := true;
+          OddFooter.Enabled := true;
           k1 := copy (v, 1, 1);
           v1 := '';
           j := 2;
@@ -694,21 +690,21 @@ begin
             v1 += copy (v, j, 1);
             inc (j)
           end;
-          t_OddFooter.Left := v1;
+          OddFooter.Left := v1;
           v1 := '';
           inc (j);
           while (copy (v, j, 1) <> k1) do begin
             v1 += copy (v, j, 1);
             inc (j)
           end;
-          t_OddFooter.Middle := v1;
+          OddFooter.Middle := v1;
           v1 := '';
           inc (j);
           while (copy (v, j, 1) <> k1) do begin
             v1 += copy (v, j, 1);
             inc (j)
           end;
-          t_OddFooter.Right := v1
+          OddFooter.Right := v1
         end;
       end else if (k = 'One Column Title Page') then
         OneColumnTitlePage := TRUE

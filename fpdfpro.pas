@@ -15,10 +15,48 @@ type
 
   TfrmPDFProfile = class (TForm )
     btnOutDir : TBitBtn;
+    btnVariableHelp: TButton;
+    btnClose: TButton;
+    chkCallEQN: TCheckBox;
+    chkCallTBL: TCheckBox;
+    chkCallPreconv: TCheckBox;
+    chkTitlePageOneColumn: TCheckBox;
+    chkFontCentered: TCheckBox;
+    chkFontItalics: TCheckBox;
+    chkFontBold: TCheckBox;
+    chkEvenFooterEnable: TCheckBox;
+    chkOddFooterEnable: TCheckBox;
+    chkEvenHeaderEnable: TCheckBox;
+    chkOddHeaderEnable: TCheckBox;
     chkLandscape : TCheckBox;
     cmbColumns : TComboBox;
     cmbPageSize : TComboBox;
     cmbPageSizeUnits : TComboBox;
+    cmbFontFamily: TComboBox;
+    cmbH1CenterMode: TComboBox;
+    Label10: TLabel;
+    Label9: TLabel;
+    Panel1: TPanel;
+    btnBordersTop: TToggleBox;
+    btnBordersBottom: TToggleBox;
+    btnBordersLeft: TToggleBox;
+    btnBordersRight: TToggleBox;
+    txtFontSize: TLabeledEdit;
+    txtSpaceAbove: TLabeledEdit;
+    Label2: TLabel;
+    lstStyles: TListBox;
+    txtOddHeaderLeft: TEdit;
+    txtEvenFooterLeft: TEdit;
+    txtEvenFooterMiddle: TEdit;
+    txtEvenFooterRight: TEdit;
+    txtOddHeaderMiddle: TEdit;
+    txtOddHeaderRight: TEdit;
+    txtEvenHeaderLeft: TEdit;
+    txtEvenHeaderMiddle: TEdit;
+    txtEvenHeaderRight: TEdit;
+    txtOddFooterLeft: TEdit;
+    txtOddFooterMiddle: TEdit;
+    txtOddFooterRight: TEdit;
     Label1 : TLabel;
     Label3 : TLabel;
     Label4 : TLabel;
@@ -44,24 +82,60 @@ type
     txtOutsideMargin : TEdit;
     txtPDFHeight : TEdit;
     txtPDFWidth : TEdit;
+    txtSpaceBelow: TLabeledEdit;
+    txtSpaceReserved: TLabeledEdit;
     txtTopMargin : TEdit;
+    procedure btnBordersTopChange(Sender: TObject);
+    procedure btnCloseClick(Sender: TObject);
     procedure btnOutDirClick(Sender: TObject);
+    procedure btnVariableHelpClick(Sender: TObject);
+    procedure chkCallEQNChange(Sender: TObject);
+    procedure chkCallPreconvChange(Sender: TObject);
+    procedure chkCallTBLChange(Sender: TObject);
+    procedure chkEvenFooterEnableChange(Sender: TObject);
+    procedure chkEvenHeaderEnableChange(Sender: TObject);
+    procedure chkFontBoldChange(Sender: TObject);
+    procedure chkFontCenteredChange(Sender: TObject);
+    procedure chkFontItalicsChange(Sender: TObject);
     procedure chkLandscapeChange(Sender: TObject);
+    procedure chkOddFooterEnableChange(Sender: TObject);
+    procedure chkOddHeaderEnableChange(Sender: TObject);
+    procedure chkTitlePageOneColumnChange(Sender: TObject);
     procedure cmbColumnsChange(Sender: TObject);
+    procedure cmbFontFamilyChange(Sender: TObject);
+    procedure cmbH1CenterModeChange(Sender: TObject);
     procedure cmbPageSizeChange(Sender: TObject);
     procedure cmbPageSizeUnitsChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure lstStylesClick(Sender: TObject);
     procedure txtBottomMarginChange(Sender: TObject);
+    procedure txtEvenFooterLeftChange(Sender: TObject);
+    procedure txtEvenFooterMiddleChange(Sender: TObject);
+    procedure txtEvenFooterRightChange(Sender: TObject);
+    procedure txtEvenHeaderLeftChange(Sender: TObject);
+    procedure txtEvenHeaderMiddleChange(Sender: TObject);
+    procedure txtEvenHeaderRightChange(Sender: TObject);
+    procedure txtFontSizeChange(Sender: TObject);
     procedure txtInsideMarginChange(Sender: TObject);
     procedure txtNameChange(Sender: TObject);
+    procedure txtOddFooterLeftChange(Sender: TObject);
+    procedure txtOddFooterMiddleChange(Sender: TObject);
+    procedure txtOddFooterRightChange(Sender: TObject);
+    procedure txtOddHeaderLeftChange(Sender: TObject);
+    procedure txtOddHeaderMiddleChange(Sender: TObject);
+    procedure txtOddHeaderRightChange(Sender: TObject);
     procedure txtOutDirChange(Sender: TObject);
     procedure txtOutsideMarginChange(Sender: TObject);
     procedure txtPDFHeightChange(Sender: TObject);
     procedure txtPDFWidthChange(Sender: TObject);
+    procedure txtSpaceAboveChange(Sender: TObject);
+    procedure txtSpaceBelowChange(Sender: TObject);
+    procedure txtSpaceReservedChange(Sender: TObject);
     procedure txtTopMarginChange(Sender: TObject);
   private
     { private declarations }
     t_profile : tPDFProfile;
+    CurrentFont : integer;
     procedure ResizePageView;
     procedure ChangePaperSize;
     procedure LoadProfile (aProfile : tPDFProfile);
@@ -76,15 +150,86 @@ var
 implementation
 
 uses
+  fhdhelp,
   dgroff, dtools, doption,
   gtools;
 
 {$R *.lfm}
 
 procedure TfrmPDFProfile.FormCreate(Sender: TObject);
+var
+  x,
+  y : integer;
 begin
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
+  pgPDF.ActivePage := tabPage;
+end;
+
+procedure TfrmPDFProfile.lstStylesClick(Sender: TObject);
+var
+  index : integer;
+begin
+  chkFontCentered.Enabled := FALSE;
+  cmbH1CenterMode.Enabled := FALSE;
+  btnBordersTop.Enabled := FALSE;
+  btnBordersBottom.Enabled := FALSE;
+  btnBordersLeft.Enabled := FALSE;
+  btnBordersRight.Enabled := FALSE;
+  txtSpaceAbove.Enabled := FALSE;
+  txtSpaceBelow.Enabled := FALSE;
+  txtSpaceReserved.Enabled := FALSE;
+  Panel1.Enabled := FALSE;
+
+  if (lstStyles.ItemIndex in [0..11]) then begin
+    CurrentFont := lstStyles.ItemIndex;
+    with (Profile.GroffFonts [CurrentFont]) do begin
+      cmbFontFamily.ItemIndex := Family;
+      if ((Font AND 1) = 1) then
+        chkFontBold.Checked := TRUE
+      else
+        chkFontBold.Checked := FALSE;
+      if ((Font AND 2) = 2) then
+        chkFontItalics.Checked := TRUE
+      else
+        chkFontItalics.Checked := FALSE;
+      chkFontCentered.Checked := Centered;
+      txtFontSize.Text := BasicReal (Size);
+      txtSpaceReserved.Text := BasicReal (ReserveSpace);
+      txtSpaceAbove.Text := BasicReal (SpaceAbove);
+      txtSpaceBelow.Text := BasicReal (SpaceBelow);
+
+      btnBordersTop.Checked := Borders [0];
+      btnBordersBottom.Checked := Borders [1];
+      btnBordersLeft.Checked := Borders [2];
+      btnBordersRight.Checked := Borders [3];
+    end;
+
+    Label2.Enabled := TRUE;
+    cmbFontFamily.Enabled := TRUE;
+    chkFontBold.Enabled := TRUE;
+    chkFontItalics.Enabled := TRUE;
+    if (CurrentFont <> 4) then
+      chkFontCentered.Enabled := TRUE
+    else begin
+      Label9.Enabled := TRUE;
+      cmbH1CenterMode.Enabled := TRUE;
+    end;
+    txtFontSize.Enabled := TRUE;
+    if (CurrentFont in [3..8]) then begin
+      if (CurrentFont > 4) then
+        txtSpaceReserved.Enabled := TRUE;
+      Panel1.Enabled := TRUE;
+      btnBordersTop.Enabled := TRUE;
+      btnBordersBottom.Enabled := TRUE;
+      btnBordersLeft.Enabled := TRUE;
+      btnBordersRight.Enabled := TRUE;
+    end;
+    if (CurrentFont in [1..8]) then begin
+      txtSpaceAbove.Enabled := TRUE;
+      txtSpaceBelow.Enabled := TRUE;
+    end;
+  end;
 end;
 
 procedure TfrmPDFProfile.txtBottomMarginChange(Sender: TObject);
@@ -98,6 +243,48 @@ begin
   else
     txtBottomMargin.Color := clDefault;
   ResizePageView;
+end;
+
+procedure TfrmPDFProfile.txtEvenFooterLeftChange(Sender: TObject);
+begin
+  Profile.EvenFooter.Left := txtEvenFooterLeft.Text;
+end;
+
+procedure TfrmPDFProfile.txtEvenFooterMiddleChange(Sender: TObject);
+begin
+  Profile.EvenFooter.Middle := txtEvenFooterMiddle.Text;
+end;
+
+procedure TfrmPDFProfile.txtEvenFooterRightChange(Sender: TObject);
+begin
+  Profile.EvenFooter.Right := txtEvenFooterRight.Text;
+end;
+
+procedure TfrmPDFProfile.txtEvenHeaderLeftChange(Sender: TObject);
+begin
+  Profile.EvenHeader.Left := txtEvenHeaderLeft.Text;
+end;
+
+procedure TfrmPDFProfile.txtEvenHeaderMiddleChange(Sender: TObject);
+begin
+  Profile.EvenHeader.Middle := txtEvenHeaderMiddle.Text;
+end;
+
+procedure TfrmPDFProfile.txtEvenHeaderRightChange(Sender: TObject);
+begin
+  Profile.EvenHeader.Right := txtEvenHeaderRight.Text;
+end;
+
+procedure TfrmPDFProfile.txtFontSizeChange(Sender: TObject);
+var
+  n : integer;
+begin
+  val (txtFontSize.Text, n);
+  Profile.GroffFonts [CurrentFont].Size := n;
+  if (n = 0) then
+    txtFontSize.Color := clRed
+  else
+    txtFontSize.Color := clDefault;
 end;
 
 procedure TfrmPDFProfile.txtInsideMarginChange(Sender: TObject);
@@ -130,6 +317,32 @@ begin
   txtTopMargin.Text := BasicReal (aProfile.TopMargin / ScaleMult);
   txtBottomMargin.Text := BasicReal (aProfile.BottomMargin / ScaleMult);
 
+  // Headers
+  chkOddHeaderEnable.Checked := aProfile.OddHeader.Enabled;
+  txtOddHeaderLeft.Text := aProfile.OddHeader.Left;
+  txtOddHeaderMiddle.Text := aProfile.OddHeader.Middle;
+  txtOddHeaderRight.Text := aProfile.OddHeader.Right;
+
+  chkEvenHeaderEnable.Checked := aProfile.EvenHeader.Enabled;
+  txtEvenHeaderLeft.Text := aProfile.EvenHeader.Left;
+  txtEvenHeaderMiddle.Text := aProfile.EvenHeader.Middle;
+  txtEvenHeaderRight.Text := aProfile.EvenHeader.Right;
+
+  chkOddFooterEnable.Checked := aProfile.OddFooter.Enabled;
+  txtOddFooterLeft.Text := aProfile.OddFooter.Left;
+  txtOddFooterMiddle.Text := aProfile.OddFooter.Middle;
+  txtOddFooterRight.Text := aProfile.OddFooter.Right;
+
+  chkEvenFooterEnable.Checked := aProfile.EvenFooter.Enabled;
+  txtEvenFooterLeft.Text := aProfile.EvenFooter.Left;
+  txtEvenFooterMiddle.Text := aProfile.EvenFooter.Middle;
+  txtEvenFooterRight.Text := aProfile.EvenFooter.Right;
+
+  // Styles
+  chkTitlePageOneColumn.Checked := aProfile.OneColumnTitlePage;
+  if (aProfile.Columns > 1) then
+    chkTitlePageOneColumn.Enabled := TRUE;
+
   ChangePaperSize;
 end;
 
@@ -140,15 +353,120 @@ begin
   end;
 end;
 
+procedure TfrmPDFProfile.btnBordersTopChange(Sender: TObject);
+begin
+  Profile.GroffFonts [CurrentFont].Borders [TToggleBox (Sender).Tag] :=
+    TToggleBox (Sender).Checked;
+end;
+
+procedure TfrmPDFProfile.btnCloseClick(Sender: TObject);
+begin
+  Hide;
+end;
+
+procedure TfrmPDFProfile.btnVariableHelpClick(Sender: TObject);
+begin
+  frmHeaderHelp.Visible := true;
+end;
+
+procedure TfrmPDFProfile.chkCallEQNChange(Sender: TObject);
+begin
+  Profile.UseEQN := chkCallEQN.Checked;
+end;
+
+procedure TfrmPDFProfile.chkCallPreconvChange(Sender: TObject);
+begin
+  Profile.UsePreconv := chkCallPreconv.Checked;
+end;
+
+procedure TfrmPDFProfile.chkCallTBLChange(Sender: TObject);
+begin
+  Profile.UseTBL := chkCallTBL.Checked;
+end;
+
+procedure TfrmPDFProfile.chkEvenFooterEnableChange(Sender: TObject);
+begin
+  Profile.EvenFooter.Enabled := chkEvenFooterEnable.Checked;
+  txtEvenFooterLeft.Enabled := Profile.EvenFooter.Enabled;
+  txtEvenFooterMiddle.Enabled := Profile.EvenFooter.Enabled;
+  txtEvenFooterRight.Enabled := Profile.EvenFooter.Enabled;
+end;
+
+procedure TfrmPDFProfile.chkEvenHeaderEnableChange(Sender: TObject);
+begin
+  Profile.EvenHeader.Enabled := chkEvenHeaderEnable.Checked;
+  txtEvenHeaderLeft.Enabled := Profile.EvenHeader.Enabled;
+  txtEvenHeaderMiddle.Enabled := Profile.EvenHeader.Enabled;
+  txtEvenHeaderRight.Enabled := Profile.EvenHeader.Enabled;
+end;
+
+procedure TfrmPDFProfile.chkFontBoldChange(Sender: TObject);
+begin
+  with (Profile.GroffFonts [CurrentFont]) do
+    if (chkFontBold.Checked) then
+      Font := Font OR 1
+    else
+      Font := Font AND 254;
+end;
+
+procedure TfrmPDFProfile.chkFontCenteredChange(Sender: TObject);
+begin
+  Profile.GroffFonts [CurrentFont].Centered := chkFontCentered.Checked;
+end;
+
+procedure TfrmPDFProfile.chkFontItalicsChange(Sender: TObject);
+begin
+  with (Profile.GroffFonts [CurrentFont]) do
+    if (chkFontItalics.Checked) then
+      Font := Font OR 2
+    else
+      Font := Font AND 253;
+end;
+
 procedure TfrmPDFProfile.chkLandscapeChange(Sender: TObject);
 begin
   Profile.Landscape := chkLandscape.Checked;
   ChangePaperSize;
 end;
 
+procedure TfrmPDFProfile.chkOddFooterEnableChange(Sender: TObject);
+begin
+  Profile.OddFooter.Enabled := chkOddFooterEnable.Checked;
+  txtOddFooterLeft.Enabled := Profile.OddFooter.Enabled;
+  txtOddFooterMiddle.Enabled := Profile.OddFooter.Enabled;
+  txtOddFooterRight.Enabled := Profile.OddFooter.Enabled;
+end;
+
+procedure TfrmPDFProfile.chkOddHeaderEnableChange(Sender: TObject);
+begin
+  Profile.OddHeader.Enabled := chkOddHeaderEnable.Checked;
+  txtOddHeaderLeft.Enabled := Profile.OddHeader.Enabled;
+  txtOddHeaderMiddle.Enabled := Profile.OddHeader.Enabled;
+  txtOddHeaderRight.Enabled := Profile.OddHeader.Enabled;
+end;
+
+procedure TfrmPDFProfile.chkTitlePageOneColumnChange(Sender: TObject);
+begin
+  Profile.OneColumnTitlePage := chkTitlePageOneColumn.Checked;
+end;
+
 procedure TfrmPDFProfile.cmbColumnsChange(Sender: TObject);
 begin
   Profile.Columns := cmbColumns.ItemIndex + 1;
+  if (Profile.Columns > 1) then
+    chkTitlePageOneColumn.Enabled := TRUE
+  else
+    chkTitlePageOneColumn.Enabled := FALSE;
+end;
+
+procedure TfrmPDFProfile.cmbFontFamilyChange(Sender: TObject);
+begin
+  Profile.GroffFonts [CurrentFont].Family := cmbFontFamily.ItemIndex;
+end;
+
+procedure TfrmPDFProfile.cmbH1CenterModeChange(Sender: TObject);
+begin
+  Profile.H1Mode := cmbH1CenterMode.ItemIndex;
 end;
 
 procedure TfrmPDFProfile.cmbPageSizeChange(Sender: TObject);
@@ -177,8 +495,44 @@ end;
 procedure TfrmPDFProfile.txtNameChange(Sender: TObject);
 begin
   if (txtName.Enabled) then
-    if (length (txtName.Text) > 0) then
+    if (length (txtName.Text) > 0) then begin
       Profile.Name := txtName.Text;
+      txtName.Color := clDefault;
+      btnClose.Enabled := TRUE
+    end else begin
+      txtName.Color := clRed;
+      btnClose.Enabled := FALSE;
+    end;
+end;
+
+procedure TfrmPDFProfile.txtOddFooterLeftChange(Sender: TObject);
+begin
+  Profile.OddFooter.Left := txtOddFooterLeft.Text;
+end;
+
+procedure TfrmPDFProfile.txtOddFooterMiddleChange(Sender: TObject);
+begin
+  Profile.OddFooter.Middle := txtOddFooterMiddle.Text;
+end;
+
+procedure TfrmPDFProfile.txtOddFooterRightChange(Sender: TObject);
+begin
+  Profile.OddFooter.Right := txtOddFooterRight.Text;
+end;
+
+procedure TfrmPDFProfile.txtOddHeaderLeftChange(Sender: TObject);
+begin
+  Profile.OddHeader.Left := txtOddHeaderLeft.Text;
+end;
+
+procedure TfrmPDFProfile.txtOddHeaderMiddleChange(Sender: TObject);
+begin
+  Profile.OddHeader.Middle := txtOddHeaderMiddle.Text;
+end;
+
+procedure TfrmPDFProfile.txtOddHeaderRightChange(Sender: TObject);
+begin
+  Profile.OddHeader.Right := txtOddHeaderRight.Text;
 end;
 
 procedure TfrmPDFProfile.txtOutDirChange(Sender: TObject);
@@ -224,6 +578,30 @@ begin
   else
     txtPDFWidth.Color := clDefault;
   ResizePageView;
+end;
+
+procedure TfrmPDFProfile.txtSpaceAboveChange(Sender: TObject);
+var
+  n : integer;
+begin
+  val (txtSpaceAbove.Text, n);
+  Profile.GroffFonts [CurrentFont].SpaceAbove := n;
+end;
+
+procedure TfrmPDFProfile.txtSpaceBelowChange(Sender: TObject);
+var
+  n : integer;
+begin
+  val (txtSpaceBelow.Text, n);
+  Profile.GroffFonts [CurrentFont].SpaceBelow := n;
+end;
+
+procedure TfrmPDFProfile.txtSpaceReservedChange(Sender: TObject);
+var
+  n : integer;
+begin
+  val (txtSpaceReserved.Text, n);
+  Profile.GroffFonts [CurrentFont].ReserveSpace := n;
 end;
 
 procedure TfrmPDFProfile.txtTopMarginChange(Sender: TObject);
