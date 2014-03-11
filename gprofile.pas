@@ -111,7 +111,6 @@ type
 
   tHTMLProfile = class (tBaseProfile)
     private
-      t_fonts : tGroffFontArray;
       t_flags : array [0..6] of boolean;
       t_strings : array [0..1] of string;
       procedure SetFlag (index : integer; aflag : boolean);
@@ -120,7 +119,6 @@ type
       function GetString (index : integer) : string;
     public
       class function ProfileType : integer; override;
-      property GroffFonts : tGroffFontArray read t_fonts write t_fonts;
       property BulkHTML            : boolean index 0 read GetFlag write SetFlag;
       property DisclaimerInIndex   : boolean index 1 read GetFlag write SetFlag;
       property DisclaimerInChapter : boolean index 2 read GetFlag write SetFlag;
@@ -202,7 +200,7 @@ const
 implementation
 
 uses
-  forms, fpdfpro,
+  forms, fpdfpro, fhtmlpro,
   dgroff;
 
 {$region tBaseProfile}
@@ -834,6 +832,7 @@ begin
   OutputDir := '';
   Usepreconv := false;
 
+  {
   // Font 0 - Plain Text
   GroffFonts [0].Family := 6; // Times New Roman
   GroffFonts [0].Font := 0; // Regular
@@ -955,6 +954,7 @@ begin
   GroffFonts [9] := GroffFonts [0];
   GroffFonts [10] := GroffFonts [0];
   GroffFonts [11] := GroffFonts [0];
+  }
 
   BulkHTML := false;
   DisclaimerInIndex := false;
@@ -1037,6 +1037,7 @@ begin
 
       // Font related stuff
       else if (copy (k, 1, 10) = 'Groff Font') then begin
+        {
         k1 := copy (k, 12, 2);
         val (k1, font);
 
@@ -1068,6 +1069,7 @@ begin
           val (v1, j);
           Size := j;
         end
+        }
       end
 
       // HTML stuff
@@ -1107,7 +1109,7 @@ begin
   writeln (t, 'Name = ', Name);
   writeln (t, 'Output Directory = ', OutputDir);
   writeln (t, 'Separator = ', Separator);
-
+  {
   for j := 0 to 11 do begin
     write (t, 'Groff Font ', j:2, ' = ');
     write (t, FontFamilyNames [GroffFonts [j].Family], ',');
@@ -1125,7 +1127,7 @@ begin
         l += 1 shl k;
     writeln (t, 'Borders = ', l);
   end;
-
+  }
   if (BulkHTML) then
     writeln (t, 'Bulk HTML');
   if (DisclaimerInIndex) then
@@ -1155,8 +1157,13 @@ begin
 end;
 
 procedure tHTMLProfile.Edit;
+var
+  Dialog : tfrmHTMLProfile;
 begin
-  RunError (211);
+  Dialog := TfrmHTMLProfile.Create (Application);
+  TfrmHTMLProfile (Dialog).Profile := self;
+  Dialog.ShowModal;
+  Dialog.Destroy;
 end;
 
 {$endregion}

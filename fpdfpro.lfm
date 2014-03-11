@@ -408,6 +408,27 @@ object frmPDFProfile: TfrmPDFProfile
         OnClick = btnVariableHelpClick
         TabOrder = 16
       end
+      object txtSeparator: TLabeledEdit
+        Left = 236
+        Height = 27
+        Top = 258
+        Width = 220
+        EditLabel.AnchorSideTop.Control = txtSeparator
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = txtSeparator
+        EditLabel.AnchorSideBottom.Control = txtSeparator
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 58
+        EditLabel.Height = 17
+        EditLabel.Top = 263
+        EditLabel.Width = 175
+        EditLabel.Caption = 'Separator for .SEP requests:'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        TabOrder = 17
+        Text = 'txtSeparator'
+        OnChange = txtSeparatorChange
+      end
     end
     object tabStyles: TTabSheet
       Caption = 'Styles'

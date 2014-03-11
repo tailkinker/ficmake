@@ -38,7 +38,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="20">
+    <Units Count="21">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -170,6 +170,13 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fhdhelp"/>
       </Unit19>
+      <Unit20>
+        <Filename Value="fhtmlpro.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmHTMLProfile"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fhtmlpro"/>
+      </Unit20>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

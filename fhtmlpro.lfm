@@ -1,0 +1,227 @@
+object frmHTMLProfile: TfrmHTMLProfile
+  Left = 918
+  Height = 360
+  Top = 272
+  Width = 780
+  BorderStyle = bsDialog
+  Caption = 'Edit HTML Profile'
+  ClientHeight = 360
+  ClientWidth = 780
+  OnCreate = FormCreate
+  LCLVersion = '1.2.0.3'
+  object txtOutDir: TLabeledEdit
+    Left = 160
+    Height = 27
+    Top = 40
+    Width = 584
+    EditLabel.AnchorSideTop.Control = txtOutDir
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = txtOutDir
+    EditLabel.AnchorSideBottom.Control = txtOutDir
+    EditLabel.AnchorSideBottom.Side = asrBottom
+    EditLabel.Left = 42
+    EditLabel.Height = 17
+    EditLabel.Top = 45
+    EditLabel.Width = 115
+    EditLabel.Caption = 'Output Directory: '
+    EditLabel.ParentColor = False
+    LabelPosition = lpLeft
+    TabOrder = 0
+    OnChange = txtOutDirChange
+  end
+  object btnOutDir: TBitBtn
+    Left = 744
+    Height = 27
+    Top = 40
+    Width = 27
+    Glyph.Data = {
+      9E020000424D9E0200000000000036000000280000000E0000000B0000000100
+      2000000000006802000064000000640000000000000000000000B9D8F3003B90
+      DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF3B90DBFFA3CBEF003B90DBFFE0F2FBFFA9DEF5FF9EDB
+      F4FF96DAF3FF8ED8F3FF86D7F3FF7FD4F2FF79D3F2FF72D2F1FF6CD0F1FF69CF
+      F1FFC3EBF9FF3B90DBFF3B90DBFFEFFAFEFFA1E9F9FF91E5F8FF81E1F7FF72DE
+      F6FF63DAF5FF54D7F4FF47D3F3FF39D0F2FF2ECDF1FF26CBF0FFCAF2FBFF3B90
+      DBFF3B90DBFFF2FAFDFFB3EDFAFFA4E9F9FF95E6F8FF85E2F7FF76DEF6FF65DB
+      F5FF57D7F4FF49D4F3FF3BD1F2FF30CEF1FFCCF2FBFF3B90DBFF3B90DBFFF6FC
+      FEFFC8F2FCFFB9EFFBFFACECFAFF9CE8F9FF8BE3F7FF7CE0F6FF6CDCF6FF5DD9
+      F5FF4FD6F4FF44D3F3FFD0F3FCFF3B90DBFF3B90DBFFFEFFFFFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF73C1E9FF94E6F8FF85E3F7FF76DFF6FF68DBF5FF5CD8
+      F4FFD7F4FCFF3B90DBFF3B90DBFFE8F6FBFF94D4EFFF88CEEEFF73C1E9FF73C1
+      E9FF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFF1FAFDFF94DEF5FF93DCF4FF81D5F2FF6ACAEDFF6CCBEAFF85D3
+      EFFF80D2EFFF7AD0EFFF76CFEEFF72CFEEFFE9F7FBFF3B90DBFF3B90DBFFF7FC
+      FEFF8EE4F8FF91DEF5FF9FE0F5FFACE1F6FFEFFBFEFFF4FDFEFFF3FCFEFFF1FC
+      FEFFEFFBFEFFEEFBFEFFFBFEFFFF3B90DBFF3B90DBFFFDFEFEFFFEFFFFFFFEFE
+      FFFFFDFEFFFFFEFFFFFFEAF7FBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFCAEBF500B9D8F3003B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFDBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDF
+      DF00
+    }
+    OnClick = btnOutDirClick
+    TabOrder = 1
+  end
+  object txtName: TLabeledEdit
+    Left = 120
+    Height = 27
+    Top = 8
+    Width = 652
+    EditLabel.AnchorSideTop.Control = txtName
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = txtName
+    EditLabel.AnchorSideBottom.Control = txtName
+    EditLabel.AnchorSideBottom.Side = asrBottom
+    EditLabel.Left = 30
+    EditLabel.Height = 17
+    EditLabel.Top = 13
+    EditLabel.Width = 87
+    EditLabel.Caption = 'Profile Name:'
+    EditLabel.ParentColor = False
+    LabelPosition = lpLeft
+    TabOrder = 2
+    OnChange = txtNameChange
+  end
+  object chkIsFFNet: TCheckBox
+    Left = 8
+    Height = 20
+    Top = 80
+    Width = 289
+    Caption = 'Generate Fanfiction.net compliant output'
+    OnChange = chkIsFFNetChange
+    TabOrder = 3
+  end
+  object txtBackLink: TLabeledEdit
+    Left = 8
+    Height = 27
+    Top = 248
+    Width = 764
+    EditLabel.AnchorSideLeft.Control = txtBackLink
+    EditLabel.AnchorSideRight.Control = txtBackLink
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtBackLink
+    EditLabel.Left = 8
+    EditLabel.Height = 17
+    EditLabel.Top = 228
+    EditLabel.Width = 764
+    EditLabel.Caption = 'Link from index file to previous level'
+    EditLabel.ParentColor = False
+    TabOrder = 4
+    OnChange = txtBackLinkChange
+  end
+  object txtBackLinkText: TLabeledEdit
+    Left = 8
+    Height = 27
+    Top = 296
+    Width = 764
+    EditLabel.AnchorSideLeft.Control = txtBackLinkText
+    EditLabel.AnchorSideRight.Control = txtBackLinkText
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtBackLinkText
+    EditLabel.Left = 8
+    EditLabel.Height = 17
+    EditLabel.Top = 276
+    EditLabel.Width = 764
+    EditLabel.Caption = 'Text for link from index file to previous level'
+    EditLabel.ParentColor = False
+    TabOrder = 5
+    OnChange = txtBackLinkTextChange
+  end
+  object chkDisclaimerInChapter: TCheckBox
+    Left = 8
+    Height = 20
+    Top = 104
+    Width = 230
+    Caption = 'Place Disclaimer in each Chapter'
+    OnChange = chkDisclaimerInChapterChange
+    TabOrder = 6
+  end
+  object chkSeparateBookFiles: TCheckBox
+    Left = 8
+    Height = 20
+    Top = 128
+    Width = 341
+    Caption = 'Generate output files for Books as well as Chapters'
+    OnChange = chkSeparateBookFilesChange
+    TabOrder = 7
+  end
+  object chkDisclaimerInIndex: TCheckBox
+    Left = 394
+    Height = 20
+    Top = 104
+    Width = 220
+    Caption = 'Place Disclaimer on index page'
+    OnChange = chkDisclaimerInIndexChange
+    TabOrder = 8
+  end
+  object chkBookFilesInIndex: TCheckBox
+    Left = 394
+    Height = 20
+    Top = 128
+    Width = 232
+    Caption = 'Place Book files in the index page'
+    OnChange = chkBookFilesInIndexChange
+    TabOrder = 9
+  end
+  object chkSingleLineBooks: TCheckBox
+    Left = 394
+    Height = 20
+    Top = 152
+    Width = 377
+    Caption = 'Place all Chapters within a Book on one line in the index'
+    OnChange = chkSingleLineBooksChange
+    TabOrder = 10
+  end
+  object chkBulkHTML: TCheckBox
+    Left = 394
+    Height = 20
+    Top = 80
+    Width = 229
+    Caption = 'Generate a single bulk HTML file'
+    OnChange = chkBulkHTMLChange
+    TabOrder = 11
+  end
+  object btnClose: TButton
+    Left = 697
+    Height = 26
+    Top = 328
+    Width = 75
+    Caption = 'Close'
+    ModalResult = 1
+    TabOrder = 12
+  end
+  object chkUsePreconv: TCheckBox
+    Left = 8
+    Height = 20
+    Hint = 'When creating the output, call groff preconv pre-processor.'#10'This pre-processor converts characters that groff cannot handle into those that it can.'
+    Top = 152
+    Width = 161
+    Caption = 'Call Preconv on make'
+    OnChange = chkUsePreconvChange
+    TabOrder = 13
+  end
+  object txtSeparator: TLabeledEdit
+    Left = 394
+    Height = 27
+    Top = 184
+    Width = 220
+    EditLabel.AnchorSideTop.Control = txtSeparator
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = txtSeparator
+    EditLabel.AnchorSideBottom.Control = txtSeparator
+    EditLabel.AnchorSideBottom.Side = asrBottom
+    EditLabel.Left = 216
+    EditLabel.Height = 17
+    EditLabel.Top = 189
+    EditLabel.Width = 175
+    EditLabel.Caption = 'Separator for .SEP requests:'
+    EditLabel.ParentColor = False
+    LabelPosition = lpLeft
+    TabOrder = 14
+    Text = 'txtSeparator'
+    OnChange = txtSeparatorChange
+  end
+  object SelectDirectoryDialog1: TSelectDirectoryDialog
+    left = 96
+    top = 176
+  end
+end

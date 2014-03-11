@@ -36,6 +36,7 @@ type
     cmbH1CenterMode: TComboBox;
     Label10: TLabel;
     Label9: TLabel;
+    txtSeparator: TLabeledEdit;
     Panel1: TPanel;
     btnBordersTop: TToggleBox;
     btnBordersBottom: TToggleBox;
@@ -128,6 +129,7 @@ type
     procedure txtOutsideMarginChange(Sender: TObject);
     procedure txtPDFHeightChange(Sender: TObject);
     procedure txtPDFWidthChange(Sender: TObject);
+    procedure txtSeparatorChange(Sender: TObject);
     procedure txtSpaceAboveChange(Sender: TObject);
     procedure txtSpaceBelowChange(Sender: TObject);
     procedure txtSpaceReservedChange(Sender: TObject);
@@ -316,6 +318,8 @@ begin
   txtInsideMargin.Text := BasicReal (aProfile.InnerMargin / ScaleMult);
   txtTopMargin.Text := BasicReal (aProfile.TopMargin / ScaleMult);
   txtBottomMargin.Text := BasicReal (aProfile.BottomMargin / ScaleMult);
+
+  txtSeparator.Text := aProfile.Separator;
 
   // Headers
   chkOddHeaderEnable.Checked := aProfile.OddHeader.Enabled;
@@ -578,6 +582,11 @@ begin
   else
     txtPDFWidth.Color := clDefault;
   ResizePageView;
+end;
+
+procedure TfrmPDFProfile.txtSeparatorChange(Sender: TObject);
+begin
+  Profile.Separator := txtSeparator.Text;
 end;
 
 procedure TfrmPDFProfile.txtSpaceAboveChange(Sender: TObject);

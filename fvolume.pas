@@ -86,7 +86,7 @@ implementation
 
 uses
   LCLType,
-  fnewvol, foptions, fstory, fnewprof, fpdfpro, doption;
+  fnewvol, foptions, fstory, fnewprof, fpdfpro, fhtmlpro, doption;
 
 {$R *.lfm}
 
@@ -154,15 +154,23 @@ begin
   if (index in [0..lstGlobalProfiles.Items.Count]) then begin
     s := lstGlobalProfiles.Items [index];
     Profiles.Select (s);
-
+    Profiles.Current.Edit;
+    {
     case (Profiles.Current.ProfileType) of
-      ptPDF: begin
-          Dialog := TfrmPDFProfile.Create (Application);
-          TfrmPDFProfile (Dialog).Profile := tPDFProfile (Profiles.Current);
-          Dialog.ShowModal;
-          Dialog.Destroy;
-        end;
+    ptPDF: begin
+        Dialog := TfrmPDFProfile.Create (Application);
+        TfrmPDFProfile (Dialog).Profile := tPDFProfile (Profiles.Current);
+        Dialog.ShowModal;
+        Dialog.Destroy;
+      end;
+    ptHTML: begin
+        Dialog := TfrmHTMLProfile.Create (Application);
+        TfrmHTMLProfile (Dialog).Profile := tHTMLProfile (Profiles.Current);
+        Dialog.ShowModal;
+        Dialog.Destroy;
+      end;
     end;
+    }
   end;
 end;
 
