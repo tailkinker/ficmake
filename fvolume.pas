@@ -181,6 +181,7 @@ var
 begin
   index := lstVolumes.ItemIndex;
   btnDeleteVolume.Enabled := FALSE;
+  btnSelectDir.Enabled := FALSE;
 
   if (index in [0..lstVolumes.Items.Count]) then begin
     s := lstVolumes.Items [index];
@@ -204,6 +205,7 @@ begin
     txtDirectory.Enabled := TRUE;
     txtAuthor.Enabled := TRUE;
     chkHTMLIndex.Enabled := TRUE;
+    btnSelectDir.Enabled := TRUE;
   end;
 end;
 

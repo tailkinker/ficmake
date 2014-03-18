@@ -30,6 +30,7 @@ type
     txtName: TLabeledEdit;
     txtOutDir: TLabeledEdit;
     txtSeparator: TLabeledEdit;
+    procedure btnCloseClick(Sender: TObject);
     procedure btnOutDirClick(Sender: TObject);
     procedure chkBookFilesInIndexChange(Sender: TObject);
     procedure chkBulkHTMLChange(Sender: TObject);
@@ -120,6 +121,11 @@ begin
   if (SelectDirectoryDialog1.Execute) then begin
     txtOutDir.Text := SelectDirectoryDialog1.Filename;
   end;
+end;
+
+procedure TfrmHTMLProfile.btnCloseClick(Sender: TObject);
+begin
+  Hide;
 end;
 
 procedure TfrmHTMLProfile.chkBookFilesInIndexChange(Sender: TObject);

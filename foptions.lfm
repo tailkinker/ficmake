@@ -1,7 +1,7 @@
 object frmOptions: TfrmOptions
-  Left = 1014
+  Left = 1532
   Height = 201
-  Top = 618
+  Top = 855
   Width = 346
   BorderStyle = bsDialog
   Caption = 'Options'

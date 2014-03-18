@@ -1,7 +1,7 @@
 object frmVolume: TfrmVolume
-  Left = 625
+  Left = 320
   Height = 400
-  Top = 175
+  Top = 166
   Width = 780
   Caption = 'Ficmake v1.1.0'
   ClientHeight = 400

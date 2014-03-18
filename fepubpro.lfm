@@ -1,0 +1,158 @@
+object frmEPubProfile: TfrmEPubProfile
+  Left = 574
+  Height = 168
+  Top = 548
+  Width = 780
+  BorderStyle = bsDialog
+  Caption = 'Edit EPub Profile'
+  ClientHeight = 168
+  ClientWidth = 780
+  OnCreate = FormCreate
+  LCLVersion = '1.2.0.3'
+  object txtName: TLabeledEdit
+    Left = 128
+    Height = 27
+    Top = 8
+    Width = 652
+    EditLabel.AnchorSideTop.Control = txtName
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = txtName
+    EditLabel.AnchorSideBottom.Control = txtName
+    EditLabel.AnchorSideBottom.Side = asrBottom
+    EditLabel.Left = 38
+    EditLabel.Height = 17
+    EditLabel.Top = 13
+    EditLabel.Width = 87
+    EditLabel.Caption = 'Profile Name:'
+    EditLabel.ParentColor = False
+    LabelPosition = lpLeft
+    TabOrder = 0
+    OnChange = txtNameChange
+  end
+  object txtOutDir: TLabeledEdit
+    Left = 168
+    Height = 27
+    Top = 40
+    Width = 584
+    EditLabel.AnchorSideTop.Control = txtOutDir
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = txtOutDir
+    EditLabel.AnchorSideBottom.Control = txtOutDir
+    EditLabel.AnchorSideBottom.Side = asrBottom
+    EditLabel.Left = 50
+    EditLabel.Height = 17
+    EditLabel.Top = 45
+    EditLabel.Width = 115
+    EditLabel.Caption = 'Output Directory: '
+    EditLabel.ParentColor = False
+    LabelPosition = lpLeft
+    TabOrder = 1
+    OnChange = txtOutDirChange
+  end
+  object btnOutDir: TBitBtn
+    Left = 753
+    Height = 27
+    Top = 40
+    Width = 27
+    Glyph.Data = {
+      9E020000424D9E0200000000000036000000280000000E0000000B0000000100
+      2000000000006802000064000000640000000000000000000000B9D8F3003B90
+      DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF3B90DBFFA3CBEF003B90DBFFE0F2FBFFA9DEF5FF9EDB
+      F4FF96DAF3FF8ED8F3FF86D7F3FF7FD4F2FF79D3F2FF72D2F1FF6CD0F1FF69CF
+      F1FFC3EBF9FF3B90DBFF3B90DBFFEFFAFEFFA1E9F9FF91E5F8FF81E1F7FF72DE
+      F6FF63DAF5FF54D7F4FF47D3F3FF39D0F2FF2ECDF1FF26CBF0FFCAF2FBFF3B90
+      DBFF3B90DBFFF2FAFDFFB3EDFAFFA4E9F9FF95E6F8FF85E2F7FF76DEF6FF65DB
+      F5FF57D7F4FF49D4F3FF3BD1F2FF30CEF1FFCCF2FBFF3B90DBFF3B90DBFFF6FC
+      FEFFC8F2FCFFB9EFFBFFACECFAFF9CE8F9FF8BE3F7FF7CE0F6FF6CDCF6FF5DD9
+      F5FF4FD6F4FF44D3F3FFD0F3FCFF3B90DBFF3B90DBFFFEFFFFFF3B90DBFF3B90
+      DBFF3B90DBFF3B90DBFF73C1E9FF94E6F8FF85E3F7FF76DFF6FF68DBF5FF5CD8
+      F4FFD7F4FCFF3B90DBFF3B90DBFFE8F6FBFF94D4EFFF88CEEEFF73C1E9FF73C1
+      E9FF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFF1FAFDFF94DEF5FF93DCF4FF81D5F2FF6ACAEDFF6CCBEAFF85D3
+      EFFF80D2EFFF7AD0EFFF76CFEEFF72CFEEFFE9F7FBFF3B90DBFF3B90DBFFF7FC
+      FEFF8EE4F8FF91DEF5FF9FE0F5FFACE1F6FFEFFBFEFFF4FDFEFFF3FCFEFFF1FC
+      FEFFEFFBFEFFEEFBFEFFFBFEFFFF3B90DBFF3B90DBFFFDFEFEFFFEFFFFFFFEFE
+      FFFFFDFEFFFFFEFFFFFFEAF7FBFF3B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFCAEBF500B9D8F3003B90DBFF3B90DBFF3B90DBFF3B90DBFF3B90
+      DBFF3B90DBFFDBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDFDF00DBDF
+      DF00
+    }
+    OnClick = btnOutDirClick
+    TabOrder = 2
+  end
+  object chkUsePreconv: TCheckBox
+    Left = 8
+    Height = 20
+    Hint = 'When creating the output, call groff preconv pre-processor.'#10'This pre-processor converts characters that groff cannot handle into those that it can.'
+    Top = 109
+    Width = 161
+    Caption = 'Call Preconv on make'
+    OnChange = chkUsePreconvChange
+    TabOrder = 3
+  end
+  object txtSeparator: TLabeledEdit
+    Left = 559
+    Height = 27
+    Top = 105
+    Width = 220
+    EditLabel.AnchorSideTop.Control = txtSeparator
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = txtSeparator
+    EditLabel.AnchorSideBottom.Control = txtSeparator
+    EditLabel.AnchorSideBottom.Side = asrBottom
+    EditLabel.Left = 381
+    EditLabel.Height = 17
+    EditLabel.Top = 110
+    EditLabel.Width = 175
+    EditLabel.Caption = 'Separator for .SEP requests:'
+    EditLabel.ParentColor = False
+    LabelPosition = lpLeft
+    TabOrder = 4
+    Text = 'txtSeparator'
+    OnChange = txtSeparatorChange
+  end
+  object btnClose: TButton
+    Left = 705
+    Height = 26
+    Top = 138
+    Width = 75
+    Caption = 'Close'
+    ModalResult = 1
+    OnClick = btnCloseClick
+    TabOrder = 5
+  end
+  object txtEPubSeries: TLabeledEdit
+    Left = 128
+    Height = 27
+    Top = 72
+    Width = 651
+    EditLabel.AnchorSideTop.Control = txtEPubSeries
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = txtEPubSeries
+    EditLabel.AnchorSideBottom.Control = txtEPubSeries
+    EditLabel.AnchorSideBottom.Side = asrBottom
+    EditLabel.Left = 49
+    EditLabel.Height = 17
+    EditLabel.Top = 77
+    EditLabel.Width = 76
+    EditLabel.Caption = 'EPub Series:'
+    EditLabel.ParentColor = False
+    LabelPosition = lpLeft
+    TabOrder = 6
+    OnChange = txtEPubSeriesChange
+  end
+  object chkBlurbInEPub: TCheckBox
+    Left = 192
+    Height = 20
+    Top = 109
+    Width = 162
+    Caption = 'Insert Blurb into EPub'
+    OnChange = chkBlurbInEPubChange
+    TabOrder = 7
+  end
+  object SelectDirectoryDialog1: TSelectDirectoryDialog
+    left = 124
+    top = 128
+  end
+end

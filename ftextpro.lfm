@@ -1,11 +1,11 @@
-object frmHTMLProfile: TfrmHTMLProfile
-  Left = 959
-  Height = 360
-  Top = 118
+object frmTextProfile: TfrmTextProfile
+  Left = 391
+  Height = 168
+  Top = 263
   Width = 780
   BorderStyle = bsDialog
-  Caption = 'Edit HTML Profile'
-  ClientHeight = 360
+  Caption = 'Edit Text Profile'
+  ClientHeight = 168
   ClientWidth = 780
   OnCreate = FormCreate
   LCLVersion = '1.2.0.3'
@@ -81,148 +81,76 @@ object frmHTMLProfile: TfrmHTMLProfile
     TabOrder = 2
     OnChange = txtNameChange
   end
-  object chkIsFFNet: TCheckBox
-    Left = 8
-    Height = 20
-    Top = 80
-    Width = 289
-    Caption = 'Generate Fanfiction.net compliant output'
-    OnChange = chkIsFFNetChange
-    TabOrder = 3
-  end
-  object txtBackLink: TLabeledEdit
-    Left = 8
-    Height = 27
-    Top = 248
-    Width = 764
-    EditLabel.AnchorSideLeft.Control = txtBackLink
-    EditLabel.AnchorSideRight.Control = txtBackLink
-    EditLabel.AnchorSideRight.Side = asrBottom
-    EditLabel.AnchorSideBottom.Control = txtBackLink
-    EditLabel.Left = 8
-    EditLabel.Height = 17
-    EditLabel.Top = 228
-    EditLabel.Width = 764
-    EditLabel.Caption = 'Link from index file to previous level'
-    EditLabel.ParentColor = False
-    TabOrder = 4
-    OnChange = txtBackLinkChange
-  end
-  object txtBackLinkText: TLabeledEdit
-    Left = 8
-    Height = 27
-    Top = 296
-    Width = 764
-    EditLabel.AnchorSideLeft.Control = txtBackLinkText
-    EditLabel.AnchorSideRight.Control = txtBackLinkText
-    EditLabel.AnchorSideRight.Side = asrBottom
-    EditLabel.AnchorSideBottom.Control = txtBackLinkText
-    EditLabel.Left = 8
-    EditLabel.Height = 17
-    EditLabel.Top = 276
-    EditLabel.Width = 764
-    EditLabel.Caption = 'Text for link from index file to previous level'
-    EditLabel.ParentColor = False
-    TabOrder = 5
-    OnChange = txtBackLinkTextChange
-  end
-  object chkDisclaimerInChapter: TCheckBox
-    Left = 8
-    Height = 20
-    Top = 104
-    Width = 230
-    Caption = 'Place Disclaimer in each Chapter'
-    OnChange = chkDisclaimerInChapterChange
-    TabOrder = 6
-  end
-  object chkSeparateBookFiles: TCheckBox
-    Left = 8
-    Height = 20
-    Top = 128
-    Width = 341
-    Caption = 'Generate output files for Books as well as Chapters'
-    OnChange = chkSeparateBookFilesChange
-    TabOrder = 7
-  end
-  object chkDisclaimerInIndex: TCheckBox
-    Left = 394
-    Height = 20
-    Top = 104
-    Width = 220
-    Caption = 'Place Disclaimer on index page'
-    OnChange = chkDisclaimerInIndexChange
-    TabOrder = 8
-  end
-  object chkBookFilesInIndex: TCheckBox
-    Left = 394
-    Height = 20
-    Top = 128
-    Width = 232
-    Caption = 'Place Book files in the index page'
-    OnChange = chkBookFilesInIndexChange
-    TabOrder = 9
-  end
-  object chkSingleLineBooks: TCheckBox
-    Left = 394
-    Height = 20
-    Top = 152
-    Width = 377
-    Caption = 'Place all Chapters within a Book on one line in the index'
-    OnChange = chkSingleLineBooksChange
-    TabOrder = 10
-  end
-  object chkBulkHTML: TCheckBox
-    Left = 394
-    Height = 20
-    Top = 80
-    Width = 229
-    Caption = 'Generate a single bulk HTML file'
-    OnChange = chkBulkHTMLChange
-    TabOrder = 11
-  end
-  object btnClose: TButton
-    Left = 697
-    Height = 26
-    Top = 328
-    Width = 75
-    Caption = 'Close'
-    ModalResult = 1
-    OnClick = btnCloseClick
-    TabOrder = 12
-  end
-  object chkUsePreconv: TCheckBox
-    Left = 8
-    Height = 20
-    Hint = 'When creating the output, call groff preconv pre-processor.'#10'This pre-processor converts characters that groff cannot handle into those that it can.'
-    Top = 152
-    Width = 161
-    Caption = 'Call Preconv on make'
-    OnChange = chkUsePreconvChange
-    TabOrder = 13
-  end
   object txtSeparator: TLabeledEdit
-    Left = 394
+    Left = 192
     Height = 27
-    Top = 184
+    Top = 136
     Width = 220
     EditLabel.AnchorSideTop.Control = txtSeparator
     EditLabel.AnchorSideTop.Side = asrCenter
     EditLabel.AnchorSideRight.Control = txtSeparator
     EditLabel.AnchorSideBottom.Control = txtSeparator
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 216
+    EditLabel.Left = 14
     EditLabel.Height = 17
-    EditLabel.Top = 189
+    EditLabel.Top = 141
     EditLabel.Width = 175
     EditLabel.Caption = 'Separator for .SEP requests:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
-    TabOrder = 14
+    TabOrder = 3
     Text = 'txtSeparator'
     OnChange = txtSeparatorChange
   end
+  object btnClose: TButton
+    Left = 696
+    Height = 26
+    Top = 137
+    Width = 75
+    Caption = 'Close'
+    ModalResult = 1
+    OnClick = btnCloseClick
+    TabOrder = 4
+  end
+  object chkUsePreconv: TCheckBox
+    Left = 8
+    Height = 20
+    Hint = 'When creating the output, call groff preconv pre-processor.'#10'This pre-processor converts characters that groff cannot handle into those that it can.'
+    Top = 112
+    Width = 161
+    Caption = 'Call Preconv on make'
+    OnChange = chkUsePreconvChange
+    TabOrder = 5
+  end
+  object chkUseTBL: TCheckBox
+    Left = 394
+    Height = 20
+    Top = 112
+    Width = 133
+    Caption = 'Call TBL on make'
+    OnChange = chkUseTBLChange
+    TabOrder = 6
+  end
+  object chkBulkText: TCheckBox
+    Left = 8
+    Height = 20
+    Top = 80
+    Width = 196
+    Caption = 'Create a single bulk text file'
+    OnChange = chkBulkTextChange
+    TabOrder = 7
+  end
+  object chkFFMLCompliant: TCheckBox
+    Left = 394
+    Height = 20
+    Top = 80
+    Width = 311
+    Caption = 'Generate output suitable for posting on FFML'
+    OnChange = chkFFMLCompliantChange
+    TabOrder = 8
+  end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
-    left = 96
-    top = 176
+    left = 272
+    top = 72
   end
 end

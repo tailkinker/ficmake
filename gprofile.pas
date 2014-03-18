@@ -200,7 +200,7 @@ const
 implementation
 
 uses
-  forms, fpdfpro, fhtmlpro,
+  forms, fpdfpro, fhtmlpro, ftextpro, fepubpro,
   dgroff;
 
 {$region tBaseProfile}
@@ -996,10 +996,10 @@ procedure tHTMLProfile.Load (var t : text);
 var
   k,
   v,
-  k1,
-  v1,
+  //k1,
+  //v1,
 	s : string;
-  font : integer = -1;
+  //font : integer = -1;
   i,
   j: integer;
   Done : boolean;
@@ -1100,10 +1100,12 @@ begin
 end;
 
 procedure tHTMLProfile.Save (var t : text);
+{
 var
   j,
   k,
   l : integer;
+}
 begin
   writeln (t, '[Profile HTML]');
   writeln (t, 'Name = ', Name);
@@ -1198,7 +1200,7 @@ end;
 
 procedure tTextProfile.Make (aStory : tStory);
 begin
-
+  RunError (211);
 end;
 
 procedure tTextProfile.Load (var t : text);
@@ -1257,10 +1259,6 @@ begin
 end;
 
 procedure tTextProfile.Save (var t : text);
-var
-  j,
-  k,
-  l : integer;
 begin
   writeln (t, '[Profile Text]');
   writeln (t, 'Name = ', Name);
@@ -1283,8 +1281,13 @@ begin
 end;
 
 procedure tTextProfile.Edit;
+var
+  Dialog : tfrmTextProfile;
 begin
-  RunError (211);
+  Dialog := TfrmTextProfile.Create (Application);
+  Dialog.Profile := self;
+  Dialog.ShowModal;
+  Dialog.Destroy;
 end;
 
 {$endregion}
@@ -1388,8 +1391,13 @@ begin
 end;
 
 procedure tEPubProfile.Edit;
+var
+  Dialog : tfrmEPubProfile;
 begin
-  RunError (211);
+  Dialog := TfrmEPubProfile.Create (Application);
+  Dialog.Profile := self;
+  Dialog.ShowModal;
+  Dialog.Destroy;
 end;
 
 {$endregion}
