@@ -38,7 +38,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="23">
+    <Units Count="24">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -193,6 +193,13 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fepubpro"/>
       </Unit22>
+      <Unit23>
+        <Filename Value="fbaredit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmBareEditor"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fbaredit"/>
+      </Unit23>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

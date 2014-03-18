@@ -1,7 +1,7 @@
 object frmStory: TfrmStory
-  Left = 654
+  Left = 609
   Height = 400
-  Top = 441
+  Top = 290
   Width = 780
   ClientHeight = 400
   ClientWidth = 780
@@ -86,6 +86,7 @@ object frmStory: TfrmStory
     Width = 200
     Caption = 'Story Blurb'
     Enabled = False
+    OnClick = btnBlurbClick
     TabOrder = 5
   end
   object btnDisclaimer: TButton
@@ -95,6 +96,7 @@ object frmStory: TfrmStory
     Width = 200
     Caption = 'Disclaimer'
     Enabled = False
+    OnClick = btnDisclaimerClick
     TabOrder = 6
   end
   object btnCredits: TButton
@@ -104,6 +106,7 @@ object frmStory: TfrmStory
     Width = 200
     Caption = 'Credits'
     Enabled = False
+    OnClick = btnCreditsClick
     TabOrder = 7
   end
   object btnBuild: TButton

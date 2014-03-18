@@ -49,7 +49,10 @@ type
     lstStories : TListBox;
     txtTitle : TLabeledEdit;
     procedure btnAddStoryClick (Sender : TObject );
+    procedure btnBlurbClick(Sender: TObject);
+    procedure btnCreditsClick(Sender: TObject);
     procedure btnDeleteStoryClick (Sender : TObject );
+    procedure btnDisclaimerClick(Sender: TObject);
     procedure btnEditChaptersClick (Sender : TObject );
     procedure btnEditStoryClick (Sender : TObject );
     procedure btnSaveStoriesClick (Sender : TObject );
@@ -69,7 +72,7 @@ implementation
 
 uses
   LCLType,
-  fchapter, fnewfic, fficinfo, doption;
+  fchapter, fnewfic, fficinfo, fbaredit, doption;
 
 {$R *.lfm}
 
@@ -95,6 +98,24 @@ begin
   PopulateStoryList;
 end;
 
+procedure TfrmStory.btnBlurbClick(Sender: TObject);
+begin
+  with (TfrmBareEditor.Create (Application)) do begin
+    Caption := 'Edit Blurb';
+    Filename := Stories.Current.SourceDir + '/blurb.so';
+    ShowModal;
+  end;
+end;
+
+procedure TfrmStory.btnCreditsClick(Sender: TObject);
+begin
+  with (TfrmBareEditor.Create (Application)) do begin
+    Caption := 'Edit Credits';
+    Filename := Stories.Current.SourceDir + '/credits.so';
+    ShowModal;
+  end;
+end;
+
 procedure TfrmStory.btnDeleteStoryClick (Sender : TObject );
 var
   s : string;
@@ -108,6 +129,15 @@ begin
   end;
   btnDeleteStory.Enabled := FALSE;
   PopulateStoryList;
+end;
+
+procedure TfrmStory.btnDisclaimerClick(Sender: TObject);
+begin
+  with (TfrmBareEditor.Create (Application)) do begin
+    Caption := 'Edit Disclaimer';
+    Filename := Stories.Current.SourceDir + '/disclaimer.so';
+    ShowModal;
+  end;
 end;
 
 procedure TfrmStory.btnEditChaptersClick (Sender : TObject );

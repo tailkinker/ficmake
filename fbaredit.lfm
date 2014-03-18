@@ -1,0 +1,44 @@
+object frmBareEditor: TfrmBareEditor
+  Left = 422
+  Height = 420
+  Top = 303
+  Width = 780
+  Caption = 'frmBareEditor'
+  ClientHeight = 420
+  ClientWidth = 780
+  Constraints.MinHeight = 420
+  Constraints.MinWidth = 780
+  OnCreate = FormCreate
+  OnResize = FormResize
+  LCLVersion = '1.2.0.3'
+  object txtEditor: TMemo
+    Left = 8
+    Height = 378
+    Top = 8
+    Width = 768
+    OnChange = txtEditorChange
+    OnKeyPress = txtEditorKeyPress
+    TabOrder = 0
+  end
+  object btnOK: TButton
+    Left = 616
+    Height = 25
+    Top = 392
+    Width = 75
+    Caption = 'OK'
+    ModalResult = 1
+    OnClick = btnOKClick
+    TabOrder = 1
+  end
+  object btnCancel: TButton
+    Left = 704
+    Height = 25
+    Top = 392
+    Width = 75
+    Cancel = True
+    Caption = 'Cancel'
+    ModalResult = 2
+    OnClick = btnCancelClick
+    TabOrder = 2
+  end
+end
