@@ -10,12 +10,12 @@ object frmChapter: TfrmChapter
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.0.14.0'
+  LCLVersion = '1.2.0.3'
   object Label1: TLabel
     Left = 8
-    Height = 20
+    Height = 17
     Top = 8
-    Width = 79
+    Width = 56
     Caption = 'Chapters'
     ParentColor = False
   end
@@ -26,7 +26,7 @@ object frmChapter: TfrmChapter
     Width = 100
     ItemHeight = 0
     OnClick = lstChaptersClick
-    ScrollWidth = 96
+    ScrollWidth = 98
     TabOrder = 0
     TopIndex = -1
   end
@@ -40,8 +40,8 @@ object frmChapter: TfrmChapter
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtTitle
     EditLabel.Left = 424
-    EditLabel.Height = 20
-    EditLabel.Top = 9
+    EditLabel.Height = 17
+    EditLabel.Top = 12
     EditLabel.Width = 80
     EditLabel.Caption = 'Chapter Title'
     EditLabel.ParentColor = False
@@ -57,8 +57,8 @@ object frmChapter: TfrmChapter
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtSubtitle
     EditLabel.Left = 424
-    EditLabel.Height = 20
-    EditLabel.Top = 65
+    EditLabel.Height = 17
+    EditLabel.Top = 68
     EditLabel.Width = 80
     EditLabel.Caption = 'Subtitle'
     EditLabel.ParentColor = False
@@ -68,32 +68,32 @@ object frmChapter: TfrmChapter
     Left = 424
     Height = 27
     Top = 144
-    Width = 80
+    Width = 232
     EditLabel.AnchorSideLeft.Control = txtFilename
     EditLabel.AnchorSideRight.Control = txtFilename
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtFilename
     EditLabel.Left = 424
-    EditLabel.Height = 20
-    EditLabel.Top = 121
-    EditLabel.Width = 80
+    EditLabel.Height = 17
+    EditLabel.Top = 124
+    EditLabel.Width = 232
     EditLabel.Caption = 'Filename (without extensions)'
     EditLabel.ParentColor = False
     TabOrder = 3
   end
   object chkIsABook: TCheckBox
     Left = 424
-    Height = 21
+    Height = 20
     Top = 184
-    Width = 280
+    Width = 211
     Caption = 'This Chapter is a Book Divider'
     TabOrder = 4
   end
   object chkSubtitleFirst: TCheckBox
     Left = 424
-    Height = 21
+    Height = 20
     Top = 216
-    Width = 237
+    Width = 180
     Caption = 'Place Subtitle above Title'
     TabOrder = 5
   end
