@@ -38,7 +38,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="24">
+    <Units Count="26">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -197,9 +197,25 @@
         <Filename Value="fbaredit.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmBareEditor"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fbaredit"/>
       </Unit23>
+      <Unit24>
+        <Filename Value="fimprof.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmImportProfile"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fimprof"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="fstorypr.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmStoryProfiles"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fstorypr"/>
+      </Unit25>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

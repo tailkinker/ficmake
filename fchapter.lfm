@@ -1,7 +1,7 @@
 object frmChapter: TfrmChapter
-  Left = 411
+  Left = 340
   Height = 400
-  Top = 570
+  Top = 572
   Width = 780
   ClientHeight = 400
   ClientWidth = 780

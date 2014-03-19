@@ -65,6 +65,7 @@ type
       procedure Load (var t : text); virtual;
       procedure Save (var t : text); virtual;
       procedure Edit; virtual;
+      function Duplicate : tBaseProfile; virtual;
   end;
 
   tPDFProfile = class (tBaseProfile)
@@ -107,6 +108,7 @@ type
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
       procedure Edit; override;
+      function Duplicate : tPDFProfile; override;
   end;
 
   tHTMLProfile = class (tBaseProfile)
@@ -133,6 +135,7 @@ type
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
       procedure Edit; override;
+      function Duplicate : tHTMLProfile; override;
   end;
 
   tTextProfile = class (tBaseProfile)
@@ -150,6 +153,7 @@ type
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
       procedure Edit; override;
+      function Duplicate : tTextProfile; override;
   end;
 
   tEPubProfile = class (tBaseProfile)
@@ -165,6 +169,7 @@ type
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
       procedure Edit; override;
+      function Duplicate : tEPubProfile; override;
   end;
 
   tProfileList = class (tObject)
@@ -201,7 +206,7 @@ implementation
 
 uses
   forms, fpdfpro, fhtmlpro, ftextpro, fepubpro,
-  dgroff;
+  dgroff, gtools;
 
 {$region tBaseProfile}
 
@@ -236,7 +241,12 @@ begin
   RunError (211);
 end;
 
-{$endregion}
+function tBaseProfile.Duplicate : tBaseProfile;
+begin
+  RunError (211);
+end;
+
+{$endregion tBaseProfile}
 
 {$region tPDFProfile}
 
@@ -817,6 +827,32 @@ begin
   Dialog.Destroy;
 end;
 
+function tPDFProfile.Duplicate : tPDFProfile;
+var
+  dup : tPDFProfile;
+begin
+  dup := tPDFProfile.Create;
+  dup.Name := Name;
+  dup.OutputDir := OutputDir;
+  dup.UsePreconv := UsePreconv;
+  dup.Separator := Separator;
+  dup.GroffFonts := GroffFonts;
+  dup.PageSize := PageSize;
+  dup.PageH := PageH;
+  dup.PageV := PageV;
+  dup.Columns := Columns;
+  dup.OuterMargin := OuterMargin;
+  dup.InnerMargin := InnerMargin;
+  dup.TopMargin := TopMargin;
+  dup.BottomMargin := BottomMargin;
+  dup.H1Mode := H1Mode;
+  dup.OneColumnTitlePage := OneColumnTitlePage;
+  dup.Landscape := Landscape;
+  dup.UseTBL := UseTBL;
+  dup.UseEQN := UseEQN;
+  Duplicate := dup;
+end;
+
 {$endregion}
 
 {$region tHTMLProfile}
@@ -1168,6 +1204,29 @@ begin
   Dialog.Destroy;
 end;
 
+function tHTMLProfile.Duplicate : tHTMLProfile;
+var
+  dup : tHTMLProfile;
+begin
+  dup := tHTMLProfile.Create;
+  dup.Name := Name;
+  dup.OutputDir := OutputDir;
+  dup.UsePreconv := UsePreconv;
+  dup.Separator := Separator;
+
+  dup.BulkHTML := BulkHTML;
+  dup.DisclaimerInIndex := DisclaimerInIndex;
+  dup.DisclaimerInChapter := DisclaimerInChapter;
+  dup.BookFilesInIndex := BookFilesInIndex;
+  dup.SingleLineBooks := SingleLineBooks;
+  dup.SeparateBookFiles := SeparateBookFiles;
+  dup.IsFFNet := IsFFNet;
+  dup.BackLink := BackLink;
+  dup.BackLinkText := BackLinkText;
+
+  Duplicate := dup;
+end;
+
 {$endregion}
 
 {$region tTextProfile}
@@ -1290,6 +1349,23 @@ begin
   Dialog.Destroy;
 end;
 
+function tTextProfile.Duplicate : tTextProfile;
+var
+  dup : tTextProfile;
+begin
+  dup := tTextProfile.Create;
+  dup.Name := Name;
+  dup.OutputDir := OutputDir;
+  dup.UsePreconv := UsePreconv;
+  dup.Separator := Separator;
+
+  dup.BulkText := BulkText;
+  dup.FFMLCompliant := FFMLCompliant;
+  dup.UseTBL := UseTBL;
+
+  Duplicate := dup;
+end;
+
 {$endregion}
 
 {$region tEPubProfile}
@@ -1400,6 +1476,22 @@ begin
   Dialog.Destroy;
 end;
 
+function tEPubProfile.Duplicate : tEPubProfile;
+var
+  dup : tEPubProfile;
+begin
+  dup := tEPubProfile.Create;
+  dup.Name := Name;
+  dup.OutputDir := OutputDir;
+  dup.UsePreconv := UsePreconv;
+  dup.Separator := Separator;
+
+  dup.BlurbInEPub := BlurbInEPub;
+  dup.EPubSeries := EPubSeries;
+
+  Duplicate := dup;
+end;
+
 {$endregion}
 
 {$region tProfileList}
@@ -1505,7 +1597,7 @@ begin
       if (s = '[Profile]') then repeat
         // Version 1.0.x Profiles List cannot be easily read and converted at
         // this time.
-      	readln (s);
+      	readln (t, s);
       until (s = '[end]') else if (s = '[Profile PDF]') then begin
       	index := length (t_Profiles);
         SetLength (t_Profiles, index + 1);

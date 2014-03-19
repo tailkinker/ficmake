@@ -56,6 +56,7 @@ type
     procedure btnDeleteProfileClick (Sender : TObject );
     procedure btnDeleteVolumeClick (Sender : TObject );
     procedure btnOptionsClick (Sender : TObject );
+    procedure btnSaveProfilesClick(Sender: TObject);
     procedure btnSaveVolumesClick (Sender : TObject );
     procedure btnSelectDirClick(Sender: TObject);
     procedure chkHTMLIndexChange (Sender : TObject );
@@ -86,7 +87,7 @@ implementation
 
 uses
   LCLType,
-  fnewvol, foptions, fstory, fnewprof, fpdfpro, fhtmlpro, doption;
+  fnewvol, foptions, fstory, fnewprof, doption;
 
 {$R *.lfm}
 
@@ -146,7 +147,6 @@ end;
 
 procedure TfrmVolume.lstGlobalProfilesDblClick(Sender: TObject);
 var
-  Dialog : TForm;
   index : integer;
   s : string;
 begin
@@ -155,22 +155,8 @@ begin
     s := lstGlobalProfiles.Items [index];
     Profiles.Select (s);
     Profiles.Current.Edit;
-    {
-    case (Profiles.Current.ProfileType) of
-    ptPDF: begin
-        Dialog := TfrmPDFProfile.Create (Application);
-        TfrmPDFProfile (Dialog).Profile := tPDFProfile (Profiles.Current);
-        Dialog.ShowModal;
-        Dialog.Destroy;
-      end;
-    ptHTML: begin
-        Dialog := TfrmHTMLProfile.Create (Application);
-        TfrmHTMLProfile (Dialog).Profile := tHTMLProfile (Profiles.Current);
-        Dialog.ShowModal;
-        Dialog.Destroy;
-      end;
-    end;
-    }
+    Profiles.MarkDirty;
+    btnSaveProfiles.Enabled := TRUE;
   end;
 end;
 
@@ -226,13 +212,15 @@ begin
       else
     	  index += 1;
     until (Present or (index >= Screen.FormCount));
-    if (Present) then
+    if (Present) then begin
+      Screen.Forms [index].Show;
       Screen.Forms [index].BringToFront
-    else begin
+    end else begin
       NewStoryForm := TfrmStory.Create (Application);
       NewStoryForm.Caption := FormCaption;
       NewStoryForm.SetBaseDir (Volumes.Current.BaseDir);
       NewStoryForm.ForceLoadStoryList;
+      NewStoryForm.GlobalProfiles := Profiles;
       NewStoryForm.Show;
     end;
   end;
@@ -315,6 +303,8 @@ begin
     if (Application.MessageBox (pchar(s), 'Delete Profile',
     	MB_ICONQUESTION + MB_YESNO) = IDYES) then
     	Profiles.Delete;
+      btnSaveProfiles.Enabled := TRUE;
+      Profiles.MarkDirty;
   end;
   btnDeleteProfile.Enabled := FALSE;
   PopulateProfileList;
@@ -328,6 +318,8 @@ begin
   if (Dialog.ShowModal = mrOK) then begin
     Profiles.Add (Dialog.NewProfile);
     Profiles.Edit;
+    Profiles.MarkDirty;
+    btnSaveProfiles.Enabled := TRUE;
   end;
   Dialog.Destroy;
   PopulateProfileList;
@@ -361,6 +353,12 @@ begin
   Top := (Screen.Height - Height) div 2;
 end;
 
+procedure TfrmVolume.btnSaveProfilesClick(Sender: TObject);
+begin
+  Profiles.Save;
+  btnSaveProfiles.Enabled := FALSE;
+end;
+
 procedure TfrmVolume.btnSaveVolumesClick (Sender : TObject );
 begin
   Volumes.SaveVolumeList;
@@ -369,6 +367,8 @@ end;
 
 procedure TfrmVolume.FormCreate (Sender : TObject );
 begin
+  Width := InitialX;
+  Height := InitialY;
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
 
@@ -377,6 +377,8 @@ begin
   PopulateVolumeList;
 
   Profiles := tProfileList.Create;
+  Profiles.BaseDir := GetEnvironmentVariable ('HOME') + '/.ficmake';
+  Profiles.Load;
   PopulateProfileList;
 end;
 
@@ -399,7 +401,6 @@ begin
   if (Profiles.Count > 0) then
     for index := 0 to (Profiles.Count - 1) do
       lstGlobalProfiles.Items.Add (Profiles.Name (index));
-
 end;
 
 end.

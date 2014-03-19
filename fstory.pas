@@ -25,45 +25,59 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, Buttons, gstory;
+  ExtCtrls, Buttons, gstory, gprofile;
 
 type
 
   { TfrmStory }
 
   TfrmStory = class (TForm )
+    btnAddProfile: TBitBtn;
+    btnImportProfile: TBitBtn;
     btnAddStory : TBitBtn;
     btnBlurb : TButton;
     btnBuild : TButton;
     btnCredits : TButton;
+    btnDeleteProfile: TBitBtn;
     btnProfiles : TButton;
     btnDeleteStory : TBitBtn;
     btnDisclaimer : TButton;
     btnEditChapters : TButton;
     btnEditStory : TButton;
     btnMake : TButton;
+    btnSaveProfiles: TBitBtn;
     btnSaveStories : TBitBtn;
     Label1 : TLabel;
     labProfiles : TLabel;
     lstProfiles : TListBox;
     lstStories : TListBox;
     txtTitle : TLabeledEdit;
+    procedure btnAddProfileClick(Sender: TObject);
     procedure btnAddStoryClick (Sender : TObject );
     procedure btnBlurbClick(Sender: TObject);
     procedure btnCreditsClick(Sender: TObject);
+    procedure btnDeleteProfileClick(Sender: TObject);
     procedure btnDeleteStoryClick (Sender : TObject );
     procedure btnDisclaimerClick(Sender: TObject);
     procedure btnEditChaptersClick (Sender : TObject );
     procedure btnEditStoryClick (Sender : TObject );
+    procedure btnImportProfileClick(Sender: TObject);
+    procedure btnProfilesClick(Sender: TObject);
+    procedure btnSaveProfilesClick(Sender: TObject);
     procedure btnSaveStoriesClick (Sender : TObject );
     procedure FormClose (Sender : TObject; var CloseAction : TCloseAction );
     procedure FormCreate (Sender : TObject );
     procedure FormResize (Sender : TObject );
+    procedure lstProfilesClick(Sender: TObject);
+    procedure lstProfilesDblClick(Sender: TObject);
     procedure lstStoriesClick (Sender : TObject );
   private
     Stories : tStoryList;
+    Profiles : tProfileList;
     procedure PopulateStoryList;
+    procedure PopulateProfileList;
   public
+    GlobalProfiles : tProfileList;
     procedure SetBaseDir (aDir : string);
     procedure ForceLoadStoryList;
   end;
@@ -72,7 +86,8 @@ implementation
 
 uses
   LCLType,
-  fchapter, fnewfic, fficinfo, fbaredit, doption;
+  fchapter, fnewfic, fficinfo, fbaredit, fnewprof, fimprof, fstorypr,
+  doption;
 
 {$R *.lfm}
 
@@ -85,6 +100,7 @@ begin
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
   Stories := tStoryList.Create;
+  Profiles := tProfileList.Create;
 end;
 
 procedure TfrmStory.btnAddStoryClick (Sender : TObject );
@@ -96,6 +112,21 @@ begin
   	Stories.NewStory (Dialog.txtName.Text);
   Dialog.Destroy;
   PopulateStoryList;
+end;
+
+procedure TfrmStory.btnAddProfileClick(Sender: TObject);
+var
+  Dialog : TfrmNewProfile;
+begin
+	Dialog := TfrmNewProfile.Create (Application);
+  if (Dialog.ShowModal = mrOK) then begin
+    Profiles.Add (Dialog.NewProfile);
+    Profiles.Edit;
+    Profiles.MarkDirty;
+    btnSaveProfiles.Enabled := TRUE;
+  end;
+  Dialog.Destroy;
+  PopulateProfileList;
 end;
 
 procedure TfrmStory.btnBlurbClick(Sender: TObject);
@@ -114,6 +145,23 @@ begin
     Filename := Stories.Current.SourceDir + '/credits.so';
     ShowModal;
   end;
+end;
+
+procedure TfrmStory.btnDeleteProfileClick(Sender: TObject);
+var
+  s : string;
+begin
+  if (Profiles.Current <> nil) then begin
+    s := 'Are you sure you wish to delete the Profile "'
+    	+ Profiles.Current.Name + '"?';
+    if (Application.MessageBox (pchar(s), 'Delete Profile',
+    	MB_ICONQUESTION + MB_YESNO) = IDYES) then
+    	Profiles.Delete;
+      btnSaveProfiles.Enabled := TRUE;
+      Profiles.MarkDirty;
+  end;
+  btnDeleteProfile.Enabled := FALSE;
+  PopulateProfileList;
 end;
 
 procedure TfrmStory.btnDeleteStoryClick (Sender : TObject );
@@ -180,6 +228,36 @@ begin
   btnSaveStories.Enabled := true;
 end;
 
+procedure TfrmStory.btnImportProfileClick(Sender: TObject);
+var
+  NewDialog : TfrmImportProfile;
+begin
+  NewDialog := TfrmImportProfile.Create (Application);
+  NewDialog.Profiles := GlobalProfiles;
+  if (NewDialog.ShowModal = mrOK) then begin
+    Profiles.Add (NewDialog.SelectedProfile);
+    Profiles.MarkDirty;
+    btnSaveProfiles.Enabled := TRUE;
+    PopulateProfileList;
+  end;
+  NewDialog.Free;
+end;
+
+procedure TfrmStory.btnProfilesClick(Sender: TObject);
+begin
+  with (TfrmStoryProfiles.Create (Application)) do begin
+    GlobalProfiles := Self.Profiles;
+    BaseDir := Stories.Current.SourceDir;
+    ShowModal;
+  end;
+end;
+
+procedure TfrmStory.btnSaveProfilesClick(Sender: TObject);
+begin
+  Profiles.Save;
+  btnSaveProfiles.Enabled := FALSE;
+end;
+
 procedure TfrmStory.btnSaveStoriesClick (Sender : TObject );
 begin
   Stories.SaveStoryList;
@@ -229,12 +307,56 @@ begin
   btnProfiles.Width := x;
   btnProfiles.Left := y;
 
+  btnImportProfile.Left := (Width - btnImportProfile.Width) - 8;
+  btnImportProfile.Top := lstProfiles.Top - (btnImportProfile.Height + 8);
+  btnAddProfile.Left := lstProfiles.Left;
+  btnDeleteProfile.Left := (Width - btnDeleteProfile.Width) - 8;
+  btnAddProfile.Top := Height - 44;
+  btnDeleteProfile.Top := Height - 44;
+  btnSaveProfiles.Top := Height - 44;
+  btnSaveProfiles.Left := ((lstProfiles.Width - btnSaveProfiles.Width)
+  	div 3 * 2) + lstProfiles.Left;
+  btnImportProfile.Left := ((lstProfiles.Width - btnSaveProfiles.Width)
+  	div 3) + lstProfiles.Left;
+  btnImportProfile.Top := Height - 44;
+
   btnAddStory.Left := 8;
   btnAddStory.Top := Height - 44;
   btnDeleteStory.Left := (x - btnDeleteStory.Width) + 8;
   btnDeleteStory.Top := Height - 44;
   btnSaveStories.Left := (lstStories.Width - btnSaveStories.Width) div 2 + 8;
   btnSaveStories.Top := Height - 44;
+end;
+
+procedure TfrmStory.lstProfilesClick(Sender: TObject);
+var
+  index : integer;
+  s : string;
+begin
+	index := lstProfiles.ItemIndex;
+  btnDeleteProfile.Enabled := FALSE;
+
+  if (index in [0..lstProfiles.Items.Count]) then begin
+    s := lstProfiles.Items [index];
+    Profiles.Select (s);
+    btnDeleteProfile.Enabled := TRUE;
+  end;
+end;
+
+procedure TfrmStory.lstProfilesDblClick(Sender: TObject);
+var
+  index : integer;
+  s : string;
+begin
+  index := lstProfiles.ItemIndex;
+  if (index in [0..lstProfiles.Items.Count]) then begin
+    s := lstProfiles.Items [index];
+    Profiles.Select (s);
+    Profiles.Current.Edit;
+    Profiles.MarkDirty;
+    btnSaveProfiles.Enabled := TRUE;
+    PopulateProfileList;
+  end;
 end;
 
 procedure TfrmStory.lstStoriesClick (Sender : TObject );
@@ -277,8 +399,12 @@ end;
 
 procedure TfrmStory.SetBaseDir (aDir : string);
 begin
-  if (Stories <> nil) then
+  if (Stories <> nil) then begin
   	Stories.BaseDir := aDir;
+    Profiles.BaseDir := aDir;
+    Profiles.Load;
+    PopulateProfileList;
+  end;
 end;
 
 procedure TfrmStory.PopulateStoryList;
@@ -290,6 +416,16 @@ begin
     for index := 0 to (Stories.Count - 1) do
   		lstStories.Items.Add (Stories.StoryTitle (index));
   btnSaveStories.Enabled := Stories.Dirty;
+end;
+
+procedure TfrmStory.PopulateProfileList;
+var
+  index : integer;
+begin
+  lstProfiles.Items.Clear;
+  if (Profiles.Count > 0) then
+    for index := 0 to (Profiles.Count - 1) do
+      lstProfiles.Items.Add (Profiles.Name (index));
 end;
 
 procedure TfrmStory.ForceLoadStoryList;

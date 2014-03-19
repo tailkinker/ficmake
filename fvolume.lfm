@@ -1,7 +1,7 @@
 object frmVolume: TfrmVolume
-  Left = 320
+  Left = 340
   Height = 400
-  Top = 166
+  Top = 148
   Width = 780
   Caption = 'Ficmake v1.1.0'
   ClientHeight = 400
@@ -1011,6 +1011,7 @@ object frmVolume: TfrmVolume
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
+    OnClick = btnSaveProfilesClick
     TabOrder = 14
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
