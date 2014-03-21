@@ -34,6 +34,7 @@ type
   TfrmOptions = class (TForm )
     btnGuess : TButton;
     btnOk : TButton;
+    chkOpenLogOnStart: TCheckBox;
     radScreen : TRadioGroup;
     procedure btnGuessClick (Sender : TObject );
     procedure FormCreate (Sender : TObject );
@@ -95,7 +96,7 @@ begin
       s += ' (P)';
     radScreen.Items.Add (s);
   end;
-  Width := radScreen.Width + 16;
+  Width := radScreen.Width + 24 + chkOpenLogOnStart.Width;
   Height := radScreen.Height + 48;
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
@@ -136,5 +137,10 @@ begin
   InitialY := ((Initials [optScreenSize, 1] div 10) - 8) * 10;
 end;
 
+// Everything from here...
+begin
+  InitialX := 780;
+  InitialY := 420;
+// ..to here is to be deleted from production code.
 end.
 

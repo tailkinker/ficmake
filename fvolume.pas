@@ -349,6 +349,7 @@ begin
   Dialog.Destroy;
   Width := InitialX;
   Height := InitialY;
+  writeln (Screen.Width, ' x ', Screen.Height);
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
 end;

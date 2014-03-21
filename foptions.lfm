@@ -1,12 +1,12 @@
 object frmOptions: TfrmOptions
-  Left = 1532
-  Height = 201
-  Top = 855
-  Width = 346
+  Left = 1088
+  Height = 200
+  Top = 148
+  Width = 522
   BorderStyle = bsDialog
   Caption = 'Options'
-  ClientHeight = 201
-  ClientWidth = 346
+  ClientHeight = 200
+  ClientWidth = 522
   OnCreate = FormCreate
   OnResize = FormResize
   LCLVersion = '1.2.0.3'
@@ -63,5 +63,13 @@ object frmOptions: TfrmOptions
     Caption = 'Guess'
     OnClick = btnGuessClick
     TabOrder = 2
+  end
+  object chkOpenLogOnStart: TCheckBox
+    Left = 256
+    Height = 20
+    Top = 16
+    Width = 251
+    Caption = 'Open Log Window on program start'
+    TabOrder = 3
   end
 end
