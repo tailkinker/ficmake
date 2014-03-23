@@ -29,14 +29,32 @@ uses
 var
   ScaleType : byte = 0;
   ScaleMult : real = 72000.0;
-  InitialX,
-  InitialY : integer;
+  optInitialX,
+  optInitialY : integer;
   optScreenSize : integer = 0;
   optFontSize : integer = 12;
+  optAssumeMakeOnSave : boolean = FALSE;
+  optOpenLogOnStart : boolean = FALSE;
+
+const
+  MaxResolution = 9;
+  Initials : array [0..MaxResolution, 0..1] of integer = (
+	  (  800,  480 ), // 800x480
+	  (  800,  600 ), // 800x600
+	  ( 1024,  600 ), // 1024x600
+	  ( 1024,  768 ), // 1024x768
+	  ( 1280,  720 ), // 1280x720
+	  ( 1280, 1024 ), // 1280x1024
+	  ( 1440,  900 ), // 1440x900
+	  ( 1600,  900 ), // 1600x900
+	  ( 1920, 1080 ), // 1920x1080
+	  ( 1024, 1280 )  // 1024x1280
+  );
 
 procedure LoadOptions;
 procedure SaveOptions;
 procedure SetScale (aScale : byte);
+procedure SetScreenSize;
 
 implementation
 
@@ -85,7 +103,10 @@ begin
         Trim (v);
 
   		// Select Variable
-      if (k = 'Measurement') then begin
+      if (k = 'Screen Size') then begin
+        val (v, optScreenSize);
+        SetScreenSize;
+      end else if (k = 'Measurement') then begin
         if (v = 'in') then
         	SetScale (0)
         else if (v = 'cm') then
@@ -119,6 +140,7 @@ begin
   rewrite (t);
 
   // Save all Options
+  writeln (t, 'Screen Size = ', optScreenSize);
   write (t, 'Measurement = ');
   case ScaleType of
     0:
@@ -128,8 +150,9 @@ begin
     2:
       writeln (t, 'pt');
   end;
-  write (t, 'Font Size = ', optFontSize);
-
+  writeln (t, 'Font Size = ', optFontSize);
+  writeln (t, 'Open Log On Start = ', optOpenLogOnStart);
+  writeln (t, 'Assume Make On Save = ', optAssumeMakeOnSave);
   // Close out the list
   close (t);
 end;
@@ -145,6 +168,12 @@ begin
     2 : // Points
       ScaleMult := 1000;
   end;
+end;
+
+procedure SetScreenSize;
+begin
+  optInitialX := ((Initials [optScreenSize, 0] div 10) - 2) * 10;
+  optInitialY := ((Initials [optScreenSize, 1] div 10) - 8) * 10;
 end;
 
 end.

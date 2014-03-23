@@ -34,11 +34,17 @@ type
   TfrmOptions = class (TForm )
     btnGuess : TButton;
     btnOk : TButton;
+    chkAssumeMakeOnSave: TCheckBox;
     chkOpenLogOnStart: TCheckBox;
+    txtFontSize: TLabeledEdit;
     radScreen : TRadioGroup;
     procedure btnGuessClick (Sender : TObject );
+    procedure btnOkClick(Sender: TObject);
+    procedure chkAssumeMakeOnSaveChange(Sender: TObject);
+    procedure chkOpenLogOnStartChange(Sender: TObject);
     procedure FormCreate (Sender : TObject );
     procedure FormResize (Sender : TObject );
+    procedure txtFontSizeChange(Sender: TObject);
     procedure radScreenClick (Sender : TObject );
   private
     { private declarations }
@@ -51,20 +57,6 @@ implementation
 uses
   doption;
 
-const
-  MaxResolution = 9;
-  Initials : array [0..MaxResolution, 0..1] of integer = (
-	  (  800,  480 ), // 800x480
-	  (  800,  600 ), // 800x600
-	  ( 1024,  600 ), // 1024x600
-	  ( 1024,  768 ), // 1024x768
-	  ( 1280,  720 ), // 1280x720
-	  ( 1280, 1024 ), // 1280x1024
-	  ( 1440,  900 ), // 1440x900
-	  ( 1600,  900 ), // 1600x900
-	  ( 1920, 1080 ), // 1920x1080
-	  ( 1024, 1280 )  // 1024x1280
-  );
 
 {$R *.lfm}
 
@@ -75,6 +67,21 @@ begin
   btnOk.Left := (Width - btnOk.Width) - 8;
   btnOk.Top := (Height - btnOk.Height) - 8;
   btnGuess.Top := (radScreen.Height + 16);
+end;
+
+procedure TfrmOptions.txtFontSizeChange(Sender: TObject);
+var
+  v : integer;
+begin
+  val (txtFontSize.Text, v);
+  if (v = 0) then begin
+    txtFontSize.Color := clRed;
+    btnOK.Enabled := FALSE;
+  end else begin
+    optFontSize := v;
+    txtFontSize.Color := clDefault;
+    btnOK.Enabled := TRUE
+  end;
 end;
 
 procedure TfrmOptions.FormCreate (Sender : TObject );
@@ -96,6 +103,16 @@ begin
       s += ' (P)';
     radScreen.Items.Add (s);
   end;
+  radScreen.ItemIndex := optScreenSize;
+
+  // Check Boxes
+  chkAssumeMakeOnSave.Checked := optAssumeMakeOnSave;
+  chkOpenLogOnStart.Checked := optOpenLogOnStart;
+
+  // Font Size
+  str (optFontSize, s);
+  txtFontSize.Text := s;
+
   Width := radScreen.Width + 24 + chkOpenLogOnStart.Width;
   Height := radScreen.Height + 48;
   Left := (Screen.Width - Width) div 2;
@@ -130,17 +147,31 @@ begin
   radScreen.ItemIndex := closest;
 end;
 
+procedure TfrmOptions.btnOkClick(Sender: TObject);
+begin
+  SaveOptions;
+end;
+
+procedure TfrmOptions.chkAssumeMakeOnSaveChange(Sender: TObject);
+begin
+  optAssumeMakeOnSave := chkAssumeMakeOnSave.Checked;
+end;
+
+procedure TfrmOptions.chkOpenLogOnStartChange(Sender: TObject);
+begin
+  optOpenLogOnStart := chkOpenLogOnStart.Checked;
+end;
+
 procedure TfrmOptions.radScreenClick (Sender : TObject );
 begin
   optScreenSize := radScreen.ItemIndex;
-  InitialX := ((Initials [optScreenSize, 0] div 10) - 2) * 10;
-  InitialY := ((Initials [optScreenSize, 1] div 10) - 8) * 10;
+  SetScreenSize;
 end;
 
 // Everything from here...
 begin
-  InitialX := 780;
-  InitialY := 420;
+  optInitialX := 780;
+  optInitialY := 420;
 // ..to here is to be deleted from production code.
 end.
 

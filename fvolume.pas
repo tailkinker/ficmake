@@ -347,9 +347,8 @@ begin
 	Dialog := TfrmOptions.Create (Application);
   Dialog.ShowModal;
   Dialog.Destroy;
-  Width := InitialX;
-  Height := InitialY;
-  writeln (Screen.Width, ' x ', Screen.Height);
+  Width := optInitialX;
+  Height := optInitialY;
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
 end;
@@ -368,8 +367,9 @@ end;
 
 procedure TfrmVolume.FormCreate (Sender : TObject );
 begin
-  Width := InitialX;
-  Height := InitialY;
+  LoadOptions;
+  Width := optInitialX;
+  Height := optInitialY;
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
 

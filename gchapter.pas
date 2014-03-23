@@ -59,6 +59,7 @@ type
       procedure New (aChapterName : string);
       procedure Delete;
       procedure Select (aChapterName : string);
+      procedure SelectAt (aChapterIndex : integer);
       procedure Load;
       procedure Save;
       function Name (index : integer) : string;
@@ -275,6 +276,11 @@ begin
     close (t);
     t_dirty := FALSE;
   end;
+end;
+
+procedure tChapterList.SelectAt (aChapterIndex : integer);
+begin
+  t_current_chapter := t_chapters [aChapterIndex];
 end;
 
 function tChapterList.Name (index : integer) : string;

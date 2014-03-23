@@ -49,6 +49,7 @@ type
     procedure FormCreate (Sender : TObject );
     procedure FormResize (Sender : TObject );
     procedure lstChaptersClick (Sender : TObject );
+    procedure lstChaptersDblClick(Sender: TObject);
   private
     Chapters : tChapterList;
     t_shortname : string;
@@ -63,7 +64,7 @@ implementation
 
 uses
   LCLType,
-  doption, fnewchap;
+  doption, fnewchap, feditor;
 
 {$R *.lfm}
 
@@ -111,8 +112,8 @@ end;
 
 procedure TfrmChapter.FormCreate (Sender : TObject );
 begin
-  Width := InitialX;
-  Height := InitialY;
+  Width := optInitialX;
+  Height := optInitialY;
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
   Chapters := tChapterList.Create;
@@ -176,6 +177,40 @@ begin
       txtFilename.Enabled := TRUE;
       chkIsABook.Enabled := TRUE;
       chkSubtitleFirst.Enabled := TRUE;
+    end;
+  end;
+end;
+
+procedure TfrmChapter.lstChaptersDblClick(Sender: TObject);
+var
+  NewEditor : TfrmEditor;
+  CurrentCaption,
+  FormCaption : string;
+  index : integer;
+  Present : boolean;
+begin
+  if (Chapters.Current <> nil) then begin
+	  FormCaption := 'Chapter "' + Chapters.Current.Title + '"';
+    index := 0;
+    Present := false;
+    repeat
+      CurrentCaption := Screen.Forms [index].Caption;
+      if (copy (CurrentCaption, 1, 1) = '*') then
+        delete (CurrentCaption, 1, 1);
+      if (CurrentCaption = FormCaption) then
+        Present := true
+      else
+    	  index += 1;
+    until (Present or (index >= Screen.FormCount));
+    if (Present) then begin
+      Screen.Forms [index].Show;
+      Screen.Forms [index].BringToFront
+    end else begin
+      NewEditor := TfrmEditor.Create (Application);
+      NewEditor.Caption := FormCaption;
+      NewEditor.BaseDir := Chapters.BaseDir;
+      NewEditor.Filename := Chapters.Current.Filename;
+      NewEditor.Show;
     end;
   end;
 end;

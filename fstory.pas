@@ -71,6 +71,7 @@ type
     procedure lstProfilesClick(Sender: TObject);
     procedure lstProfilesDblClick(Sender: TObject);
     procedure lstStoriesClick (Sender : TObject );
+    procedure lstStoriesDblClick(Sender: TObject);
   private
     Stories : tStoryList;
     Profiles : tProfileList;
@@ -95,8 +96,8 @@ uses
 
 procedure TfrmStory.FormCreate (Sender : TObject );
 begin
-  Width := InitialX;
-  Height := InitialY;
+  Width := optInitialX;
+  Height := optInitialY;
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
   Stories := tStoryList.Create;
@@ -394,6 +395,34 @@ begin
       btnCredits.Enabled := TRUE;
       btnProfiles.Enabled := TRUE;
     end;
+  end;
+end;
+
+procedure TfrmStory.lstStoriesDblClick(Sender: TObject);
+var
+  NewForm : TfrmChapter;
+  FormCaption : string;
+  index : integer;
+  Present : boolean;
+begin
+	FormCaption := 'Story "' + Stories.Current.Title + '"';
+  index := 0;
+  Present := false;
+  repeat
+    if (Screen.Forms [index].Caption = FormCaption) then
+      Present := true
+    else
+    	index += 1;
+  until (Present or (index >= Screen.FormCount));
+  if (Present) then
+    Screen.Forms [index].BringToFront
+  else begin
+    NewForm := TfrmChapter.Create (Application);
+    NewForm.Caption := FormCaption;
+    NewForm.SetBaseDir (Stories.Current.SourceDir);
+    NewForm.ForceChapterListLoad;
+    NewForm.ShortName := Stories.Current.ShortName;
+    NewForm.Show;
   end;
 end;
 

@@ -10,7 +10,7 @@ uses
   Forms, fvolume, gprofile, gvolume, gtools, fnewvol, fstory, gstory, fnewfic,
   foptions, fficinfo, gchapter, fchapter, fnewchap, dgroff, fnewprof, fpdfpro,
   doption, dtools, fhdhelp, fhtmlpro, ftextpro, fepubpro, fbaredit, fimprof,
-  fstorypr;
+  fstorypr, feditor;
 
 {$R *.res}
 

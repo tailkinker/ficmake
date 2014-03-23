@@ -26,6 +26,7 @@ object frmChapter: TfrmChapter
     Width = 100
     ItemHeight = 0
     OnClick = lstChaptersClick
+    OnDblClick = lstChaptersDblClick
     ScrollWidth = 98
     TabOrder = 0
     TopIndex = -1

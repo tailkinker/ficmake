@@ -80,10 +80,11 @@ end;
 
 procedure TfrmBareEditor.FormCreate(Sender: TObject);
 begin
-  Width := InitialX;
-  Height := InitialY;
+  Width := optInitialX;
+  Height := optInitialY;
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
+  txtEditor.Font.Size := optFontSize;
 end;
 
 procedure TfrmBareEditor.FormResize(Sender: TObject);

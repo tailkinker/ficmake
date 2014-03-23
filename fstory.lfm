@@ -26,6 +26,7 @@ object frmStory: TfrmStory
     Width = 100
     ItemHeight = 0
     OnClick = lstStoriesClick
+    OnDblClick = lstStoriesDblClick
     ScrollWidth = 98
     Sorted = True
     TabOrder = 0

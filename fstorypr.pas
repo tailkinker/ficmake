@@ -62,8 +62,8 @@ end;
 
 procedure TfrmStoryProfiles.FormCreate(Sender: TObject);
 begin
-  Width := InitialX div 2;
-  Height := InitialY;
+  Width := optInitialX div 2;
+  Height := optInitialY;
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
   Profiles := tProfileList.Create;

@@ -143,6 +143,8 @@ type
       t_flags : array [0..2] of boolean;
       procedure SetFlag (index : integer; aflag : boolean);
       function GetFlag (index : integer) : boolean;
+      procedure WriteBulk (aStory : tStory);
+      procedure WriteChapters (aStory : tStory);
     public
       class function ProfileType : integer; override;
       property BulkText      : boolean index 0 read GetFlag write SetFlag;
@@ -206,7 +208,7 @@ implementation
 
 uses
   forms, fpdfpro, fhtmlpro, ftextpro, fepubpro,
-  dgroff, gtools;
+  dgroff, gtools, gchapter;
 
 {$region tBaseProfile}
 
@@ -1259,7 +1261,10 @@ end;
 
 procedure tTextProfile.Make (aStory : tStory);
 begin
-  RunError (211);
+  if (BulkText) then
+    WriteBulk (aStory)
+  else
+    WriteChapters (aStory);
 end;
 
 procedure tTextProfile.Load (var t : text);
@@ -1364,6 +1369,522 @@ begin
   dup.UseTBL := UseTBL;
 
   Duplicate := dup;
+end;
+
+procedure tTextProfile.WriteBulk (aStory : tStory);
+var
+  index : integer;
+  pathname,
+  filename,
+  cfilename,
+  tfilename,
+  ofilename: string;
+  x : text;
+  linelength,
+  colwidth : real;
+  UsesBooks : boolean = false;
+  Chapters : tChapterList;
+begin
+  Chapters := tChapterList.Create;
+  Chapters.BaseDir := aStory.SourceDir;
+  Chapters.Load;
+
+  pathname := '  ->  Bulk Text Profile "' + Name + '"...';
+  // frmMain.txtBuildLog.Lines.Add (pathname);
+
+  // Check to see if any chapter files are book dividers
+  for index := 0 to (Chapters.Count - 1) do begin
+    Chapters.SelectAt (index);
+    if (Chapters.Current.IsABook) then
+      UsesBooks := true;
+  end;
+
+  pathname := aStory.SourceDir + '/';
+  ofilename := StripSpaces (aStory.LongName + '-' + Name);
+  filename := pathname + '/' + ofilename + '.ms';
+
+  // Sizes are expressed in points
+  linelength := 540;
+  colwidth := linelength;
+
+  assign (x, filename);
+  rewrite (x);
+
+  // Page Dimensions
+  writeln (x, '.hlm 0');
+  writeln (x, '.open TOC ', ofilename, '.toc');
+  writeln (x, '.write TOC .LP');
+  writeln (x, '.write TOC .ta ', colwidth:0:3, 'pR');
+  writeln (x, '.write TOC .tc .');
+  if (FFMLCompliant) then begin
+    writeln (x, '.nr PO 0p');
+    writeln (x, '.po 0p');
+    writeln (x, '.hm 0p');
+    writeln (x, '.fm 0p');
+    writeln (x, '.nr HM 0p');
+    writeln (x, '.nr FM 0p');
+    writeln (x, '.EH ****');
+    writeln (x, '.OH ****');
+    writeln (x, '.EF ****');
+    writeln (x, '.OF ****')
+  end else begin
+    writeln (x, '.po 36p');
+    writeln (x, '.nr PO 36p');
+    writeln (x, '.hm 36p');
+    writeln (x, '.fm 36p');
+    writeln (x, '.nr HM 36p');
+    writeln (x, '.nr FM 36p');
+    writeln (x, '.EH *', aStory.Title, '***');
+    writeln (x, '.OH ***', aStory.Author, '*');
+    writeln (x, '.EF **%**');
+    writeln (x, '.OF **%**');
+  end;
+  writeln (x, '.ll 540p');
+  writeln (x, '.pl 792p');
+  writeln (x, '.nr LL 540p');
+  writeln (x, '.nr PL 792p');
+
+  { Anti-Formatting }
+  writeln (x, '.de B');
+  writeln (x, '..');
+  writeln (x, '.de I');
+  writeln (x, '..');
+  writeln (x, '.de BI');
+  writeln (x, '..');
+
+  { Cross-Reference support }
+  writeln (x, '.so ', ofilename, '.ref');
+  writeln (x, '.de XREFSTART');
+  writeln (x, '.open XREFS \\$1');
+  writeln (x, '.write XREFS ".de XREF');
+  writeln (x, '..');
+  writeln (x, '.de XREFSTOP');
+  writeln (x, '.write XREFS "..');
+  writeln (x, '.close XREFS');
+  writeln (x, '..');
+  writeln (x, '.de BOOKMARK');
+  writeln (x, '.write XREFS .if ''\\\\\\\\$1''\\$1'' \\n[%]\\\\\\\\$2');
+  writeln (x, '..');
+  writeln (x, '.XREFSTART ', ofilename, '.ref');
+
+  { Header Zero }
+  if (UsesBooks) then
+  	begin
+  		writeln (x, '.de H0');
+  		writeln (x, '.LP');
+  		writeln (x, '.sp 0.5i');
+  		writeln (x, '\\$1');
+  		writeln (x, '.write TOC .br');
+  		writeln (x, '.ie !''\\$2'''' \');
+  		writeln (x, '.write TOC \\$1:  \\$2', #9, '\\n[%]');
+  		writeln (x, '.el \');
+  		writeln (x, '.write TOC \\$1', #9, '\\n[%]');
+  		writeln (x, '.LP');
+  		writeln (x, '.sp 0.5i');
+  		writeln (x, '.ps 28');
+  		writeln (x, '.ce');
+  		writeln (x, '\\$2');
+  		writeln (x, '..');
+  	end;
+
+  { Header One }
+  writeln (x, '.de H1');
+  writeln (x, '.LP');
+  writeln (x, '.ne 1i');
+  writeln (x, '.sp 0.2i');
+  writeln (x, '\\$1');
+  writeln (x, '.sp 0.15i');
+  writeln (x, '.write TOC .br');
+  if (UsesBooks) then
+  	writeln (x, '.write TOC \ \ \ \ \\$1', #9, '\\n[%]')
+  else
+  	writeln (x, '.write TOC \\$1', #9, '\\n[%]');
+  writeln (x, '..');
+
+  { Header Two }
+  writeln (x, '.de H2');
+  writeln (x, '.LP');
+  writeln (x, '.ne 1i');
+  writeln (x, '.sp 0.1i');
+  writeln (x, '\\$1');
+  writeln (x, '.write TOC .br');
+  if (UsesBooks) then
+  	writeln (x, '.write TOC \ \ \ \ \ \ \ \ \\$1', #9, '\\n[%]')
+  else
+  	writeln (x, '.write TOC \ \ \ \ \\$1', #9, '\\n[%]');
+  writeln (x, '..');
+
+  { Header Three }
+  writeln (x, '.de H3');
+  writeln (x, '.LP');
+  writeln (x, '.ne 0.5i');
+  writeln (x, '.sp 0.1i');
+  writeln (x, '\\$1');
+  writeln (x, '..');
+
+  { Header Four }
+  writeln (x, '.de H4');
+  writeln (x, '.LP');
+  writeln (x, '.ne 0.5i');
+  writeln (x, '.sp 0.1i');
+  writeln (x, '\\$1');
+  writeln (x, '..');
+
+  { Header Five }
+  writeln (x, '.de H5');
+  writeln (x, '.LP');
+  writeln (x, '.ne 0.5i');
+  writeln (x, '.sp 0.1i');
+  writeln (x, '\\$1');
+  writeln (x, '..');
+
+  { Custom One }
+  writeln (x, '.de CP1');
+  writeln (x, '..');
+
+  { Custom Two }
+  writeln (x, '.de CP2');
+  writeln (x, '..');
+
+  { Custom Three }
+  writeln (x, '.de CP3');
+  writeln (x, '..');
+
+  { Separator }
+  writeln (x, '.de SEP');
+  writeln (x, '.LP');
+  writeln (x, '.ce');
+  writeln (x, Separator);
+  writeln (x, '');
+  writeln (x, '..');
+
+  // No support for JPEG, but we add the request so it doesn't bork.
+  writeln (x, '.de JPEG');
+  writeln (x, '..');
+
+  if ((aStory.Subtitle <> '') AND (aStory.SubtitleFirst)) then begin
+    writeln (x, '.sp 0.5i');
+    writeln (x, '.ce');
+    writeln (x, aStory.Subtitle);
+  end;
+
+  writeln (x, '.ad b');
+  writeln (x, '.sp 0.2i');
+  writeln (x, '.ce');
+  writeln (x, aStory.Title);
+
+  if ((aStory.Subtitle <> '') AND (not aStory.SubtitleFirst)) then begin
+  	writeln (x, '.sp 0.5i');
+  	writeln (x, '.ce');
+  	writeln (x, aStory.Subtitle);
+  end;
+
+  writeln (x, '.sp 0.5i');
+  writeln (x, '.ce');
+  writeln (x, 'by ', aStory.Author);
+
+  writeln (x, '.sp 0.5i');
+  writeln (x, '.PP');
+  tfilename := pathname + '/blurb.so';
+  if (FileExists (tfilename)) then begin
+  	writeln (x, '.so blurb.so');
+  	writeln (x, '.PP');
+  end;
+
+  tfilename := pathname + '/disclaimer.so';
+  if (FileExists (tfilename)) then begin
+    writeln (x, '.B1');
+  	writeln (x, '.so disclaimer.so');
+  	writeln (x, '.B2');
+  end;
+
+  tfilename := pathname + '/credits.so';
+  if (FileExists (tfilename)) then
+  	begin
+  		writeln (x, '.LP');
+  		writeln (x, '.so credits.so');
+  	end;
+
+  writeln (x, '.LP');
+  writeln (x, '.ne 9i');
+  writeln (x, '.ce');
+  writeln (x, 'Table of Contents');
+  writeln (x, '.so ', ofilename, '.toc');
+
+  // Now write the chapters
+
+  for index := 0 to (Chapters.Count - 1) do begin
+    Chapters.SelectAt (index);
+
+    writeln (x, '.LP');
+    writeln (x, '.bp');
+
+    cfilename := Chapters.Current.Filename;
+    if (FileExists (pathname + '/' + cfilename + '.co')) then begin
+      writeln (x, '.so ' + cfilename + '.co');
+    end;
+    if ((Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+      writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+    writeln (x, '.H1 "', Chapters.Current.Title, '"');
+    if (not (Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+      writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+    writeln (x, '.so ', cfilename + '.so');
+
+    if (FileExists (pathname + '/' + cfilename + '.tr')) then begin
+      writeln (x, '.LP');
+      writeln (x, '.SEP');
+      writeln (x, '.LP');
+      writeln (x, '.H3 "' + aStory.TrailerHeader + '"');
+      writeln (x, '.so ' + cfilename + '.tr');
+    end;
+
+    if (FileExists (pathname + '/' + cfilename + '.om')) then begin
+      writeln (x, '.LP');
+      writeln (x, '.SEP');
+      writeln (x, '.LP');
+      writeln (x, '.H3 "' + aStory.OmakeHeader + '"');
+      writeln (x, '.so ' + cfilename + '.om');
+    end;
+
+    if (FileExists (pathname + '/' + cfilename + '.an')) then begin
+      writeln (x, '.LP');
+      writeln (x, '.SEP');
+      writeln (x, '.LP');
+      writeln (x, '.H3 "Author''s Notes"');
+      writeln (x, '.so ' + cfilename + '.an');
+    end;
+  end;
+  writeln (X, '.XREFSTOP');
+  writeln (x, '.close TOC');
+  close (x);
+end;
+
+procedure tTextProfile.WriteChapters (aStory : tStory);
+var
+  index : integer;
+  pathname,
+  filename,
+  cfilename,
+  ofilename: string;
+  x : text;
+  UsesBooks : boolean = false;
+  Chapters : tChapterList;
+begin
+  Chapters := tChapterList.Create;
+  Chapters.BaseDir := aStory.SourceDir;
+  Chapters.Load;
+
+  pathname := '  ->  Text Profile "' + Name + '"...';
+  //frmMain.txtBuildLog.Lines.Add (pathname);
+
+  // Check to see if any chapter files are book dividers
+  for index := 0 to (Chapters.Count - 1) do begin
+    Chapters.SelectAt (index);
+    if (Chapters.Current.IsABook) then
+      UsesBooks := true;
+  end;
+
+	for index := 0 to (Chapters.Count - 1) do begin
+    Chapters.SelectAt (index);
+    pathname := aStory.SourceDir + '/';
+    ofilename := StripSpaces (Chapters.Current.Filename + '-' + Name);
+    filename := pathname + '/' + ofilename + '.ms';
+    cfilename := Chapters.Current.Filename;
+
+    assign (x, filename);
+    rewrite (x);
+
+    // Page Dimensions
+	  writeln (x, '.hlm 0');
+	  writeln (x, '.ad l');
+	  if (FFMLCompliant) then begin
+    	writeln (x, '.nr PO 0p');
+      writeln (x, '.po 0p');
+  	  writeln (x, '.hm 0p');
+  	  writeln (x, '.fm 0p');
+  	  writeln (x, '.nr HM 0p');
+  	  writeln (x, '.nr FM 0p');
+  	  writeln (x, '.EH ****');
+  	  writeln (x, '.OH ****');
+  	  writeln (x, '.EF ****');
+  	  writeln (x, '.OF ****')
+    end else begin
+      writeln (x, '.po 36p');
+      writeln (x, '.nr PO 36p');
+  	  writeln (x, '.hm 36p');
+  	  writeln (x, '.fm 36p');
+  	  writeln (x, '.nr HM 36p');
+  	  writeln (x, '.nr FM 36p');
+  	  writeln (x, '.EH *', aStory.Title, '***');
+  	  writeln (x, '.OH ***', aStory.Author, '*');
+  	  writeln (x, '.EF **%**');
+  	  writeln (x, '.OF **%**');
+    end;
+		writeln (x, '.ll 540p');
+	  writeln (x, '.pl 792p');
+	  writeln (x, '.nr LL 540p');
+	  writeln (x, '.nr PL 792p');
+
+    { Anti-Formatting }
+    writeln (x, '.de B');
+    writeln (x, '..');
+    writeln (x, '.de I');
+    writeln (x, '..');
+    writeln (x, '.de BI');
+    writeln (x, '..');
+
+	  { Header Zero }
+	  if (UsesBooks) then
+		  begin
+			  writeln (x, '.de H0');
+			  writeln (x, '.LP');
+			  writeln (x, '.sp 0.5i');
+			  writeln (x, '\\$1');
+			  writeln (x, '.LP');
+			  writeln (x, '.sp 0.5i');
+			  writeln (x, '.ps 28');
+			  writeln (x, '.ce');
+			  writeln (x, '\\$2');
+			  writeln (x, '..');
+		  end;
+
+	  { Header One }
+	  writeln (x, '.de H1');
+	  writeln (x, '.LP');
+	  writeln (x, '.ne 1i');
+	  writeln (x, '.sp 0.2i');
+	  writeln (x, '\\$1');
+	  writeln (x, '.sp 0.15i');
+	  writeln (x, '..');
+
+	  { Header Two }
+	  writeln (x, '.de H2');
+	  writeln (x, '.LP');
+	  writeln (x, '.ne 1i');
+	  writeln (x, '.sp 0.1i');
+	  writeln (x, '\\$1');
+	  writeln (x, '..');
+
+	  { Header Three }
+	  writeln (x, '.de H3');
+	  writeln (x, '.LP');
+	  writeln (x, '.ne 0.5i');
+	  writeln (x, '.sp 0.1i');
+	  writeln (x, '\\$1');
+	  writeln (x, '..');
+
+	  { Header Four }
+	  writeln (x, '.de H4');
+	  writeln (x, '.LP');
+	  writeln (x, '.ne 0.5i');
+	  writeln (x, '.sp 0.1i');
+	  writeln (x, '\\$1');
+	  writeln (x, '..');
+
+	  { Header Five }
+	  writeln (x, '.de H5');
+	  writeln (x, '.LP');
+	  writeln (x, '.ne 0.5i');
+	  writeln (x, '.sp 0.1i');
+	  writeln (x, '\\$1');
+	  writeln (x, '..');
+
+	  { Custom One }
+	  writeln (x, '.de CP1');
+	  writeln (x, '..');
+
+	  { Custom Two }
+	  writeln (x, '.de CP2');
+	  writeln (x, '..');
+
+	  { Custom Three }
+	  writeln (x, '.de CP3');
+	  writeln (x, '..');
+
+	  { Separator }
+	  writeln (x, '.de SEP');
+	  writeln (x, '.LP');
+	  writeln (x, '.ce');
+	  writeln (x, Separator);
+	  writeln (x, '');
+	  writeln (x, '..');
+
+    // No support for JPEG, but we add the request so it doesn't bork.
+	  writeln (x, '.de JPEG');
+	  writeln (x, '..');
+
+	  writeln (x, '.ad b');
+	  writeln (x, '.sp 0.2i');
+		writeln (x, '.ce');
+		writeln (x, aStory.Title);
+
+    if (aStory.Subtitle <> '') then begin
+	    writeln (x, '.sp 0.5i');
+	    writeln (x, '.ce');
+	    writeln (x, aStory.Subtitle);
+    end;
+
+	  writeln (x, '.sp 0.5i');
+	  writeln (x, '.ce');
+	  writeln (x, 'by ', aStory.Author);
+
+	  writeln (x, '.sp 0.5i');
+
+    {
+    if (FileExists ('blurb.so')) then begin
+	    writeln (x, '.so blurb.so');
+	    writeln (x, '.PP');
+    end;
+    }
+    if (FileExists (pathname + 'disclaimer.so')) then begin
+  	  writeln (x, '.PP');
+      writeln (x, '.B1');
+	    writeln (x, '.so disclaimer.so');
+	    writeln (x, '.B2');
+    end;
+    {
+	  if (FileExists (pathname + 'credits.so')) then
+		  begin
+			  writeln (x, '.LP');
+			  writeln (x, '.so credits.so');
+		  end;
+    }
+
+    if (FileExists (pathname + '/' + cfilename + '.co')) then begin
+      writeln (x, '.so ' + cfilename + '.co');
+    end;
+    if ((Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+      writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+    writeln (x, '.H1 "', Chapters.Current.Title, '"');
+    if (not (Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+      writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+    writeln (x, '.so ', cfilename + '.so');
+
+    if (FileExists (pathname + '/' + cfilename + '.tr')) then begin
+      writeln (x, '.LP');
+      writeln (x, '.SEP');
+      writeln (x, '.LP');
+      writeln (x, '.H3 "' + aStory.TrailerHeader + '"');
+      writeln (x, '.so ' + cfilename + '.tr');
+    end;
+
+    if (FileExists (pathname + '/' + cfilename + '.om')) then begin
+      writeln (x, '.LP');
+      writeln (x, '.SEP');
+      writeln (x, '.LP');
+      writeln (x, '.H3 "' + aStory.OmakeHeader + '"');
+      writeln (x, '.so ' + cfilename + '.om');
+    end;
+
+    if (FileExists (pathname + '/' + cfilename + '.an')) then begin
+      writeln (x, '.LP');
+      writeln (x, '.SEP');
+      writeln (x, '.LP');
+      writeln (x, '.H3 "Author''s Notes"');
+      writeln (x, '.so ' + cfilename + '.an');
+    end;
+    close (x);
+  end;
 end;
 
 {$endregion}
