@@ -36,6 +36,7 @@ type
     btnOk : TButton;
     chkAssumeMakeOnSave: TCheckBox;
     chkOpenLogOnStart: TCheckBox;
+    txtLoremIpsum: TMemo;
     txtFontSize: TLabeledEdit;
     radScreen : TRadioGroup;
     procedure btnGuessClick (Sender : TObject );
@@ -46,6 +47,7 @@ type
     procedure FormResize (Sender : TObject );
     procedure txtFontSizeChange(Sender: TObject);
     procedure radScreenClick (Sender : TObject );
+    procedure txtLoremIpsumChange(Sender: TObject);
   private
     { private declarations }
   public
@@ -67,6 +69,8 @@ begin
   btnOk.Left := (Width - btnOk.Width) - 8;
   btnOk.Top := (Height - btnOk.Height) - 8;
   btnGuess.Top := (radScreen.Height + 16);
+  txtLoremIpsum.Width := (Width - 16);
+  txtFontSize.Left := (Width - txtFontSize.Width) - 8;
 end;
 
 procedure TfrmOptions.txtFontSizeChange(Sender: TObject);
@@ -80,7 +84,8 @@ begin
   end else begin
     optFontSize := v;
     txtFontSize.Color := clDefault;
-    btnOK.Enabled := TRUE
+    btnOK.Enabled := TRUE;
+    txtLoremIpsum.Font.Size := v;
   end;
 end;
 
@@ -113,8 +118,9 @@ begin
   str (optFontSize, s);
   txtFontSize.Text := s;
 
-  Width := radScreen.Width + 24 + chkOpenLogOnStart.Width;
-  Height := radScreen.Height + 48;
+  Width := radScreen.Width + 36 + chkOpenLogOnStart.Width;
+  Height := (radScreen.Height + btnGuess.Height
+    + txtLoremIpsum.Height + btnOK.Height) + 48;
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
 end;
@@ -166,6 +172,11 @@ procedure TfrmOptions.radScreenClick (Sender : TObject );
 begin
   optScreenSize := radScreen.ItemIndex;
   SetScreenSize;
+end;
+
+procedure TfrmOptions.txtLoremIpsumChange(Sender: TObject);
+begin
+
 end;
 
 // Everything from here...

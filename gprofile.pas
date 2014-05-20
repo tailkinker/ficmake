@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils,
-  gstory;
+  gstory, gchapter;
 
 type
   tGroffFont = record
@@ -61,11 +61,12 @@ type
       property UsePreconv : boolean read t_preconv write t_preconv;
       property Separator : string read t_separator write t_separator;
       constructor Create; virtual;
-      procedure Make (aStory : tStory); virtual;
       procedure Load (var t : text); virtual;
       procedure Save (var t : text); virtual;
       procedure Edit; virtual;
       function Duplicate : tBaseProfile; virtual;
+      procedure Build (aStory : tStory); virtual;
+      procedure Make (aStory : tStory); virtual;
   end;
 
   tPDFProfile = class (tBaseProfile)
@@ -104,11 +105,12 @@ type
       property UseTBL             : boolean index 2 read GetFlag write SetFlag;
       property UseEQN             : boolean index 3 read GetFlag write SetFlag;
       constructor Create; override;
-      procedure Make (aStory : tStory); override;
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
       procedure Edit; override;
       function Duplicate : tPDFProfile; override;
+      procedure Build (aStory : tStory); override;
+      procedure Make (aStory : tStory); override;
   end;
 
   tHTMLProfile = class (tBaseProfile)
@@ -119,6 +121,10 @@ type
       function GetFlag (index : integer) : boolean;
       procedure SetString (index : integer; astring : string);
       function GetString (index : integer) : string;
+      procedure WriteBulk (aStory : tStory);
+      procedure WriteChapters (aStory : tStory);
+      procedure WriteIndex (aStory : tStory);
+      procedure WriteTopSo (var x : text);
     public
       class function ProfileType : integer; override;
       property BulkHTML            : boolean index 0 read GetFlag write SetFlag;
@@ -131,11 +137,12 @@ type
       property BackLink     : string index 0 read GetString write SetString;
       property BackLinkText : string index 1 read GetString write SetString;
       constructor Create; override;
-      procedure Make (aStory : tStory); override;
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
       procedure Edit; override;
       function Duplicate : tHTMLProfile; override;
+      procedure Build (aStory : tStory); override;
+      procedure Make (aStory : tStory); override;
   end;
 
   tTextProfile = class (tBaseProfile)
@@ -151,27 +158,30 @@ type
       property FFMLCompliant : boolean index 1 read GetFlag write SetFlag;
       property UseTBL        : boolean index 2 read GetFlag write SetFlag;
       constructor Create; override;
-      procedure Make (aStory : tStory); override;
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
       procedure Edit; override;
       function Duplicate : tTextProfile; override;
+      procedure Build (aStory : tStory); override;
+      procedure Make (aStory : tStory); override;
   end;
 
   tEPubProfile = class (tBaseProfile)
     private
       t_blurb : boolean;
       t_series : string;
+      procedure WriteTopSo (var x : text);
     public
       class function ProfileType : integer; override;
       property BlurbInEPub : boolean read t_blurb write t_blurb;
       property EPubSeries : string read t_series write t_series;
       constructor Create; override;
-      procedure Make (aStory : tStory); override;
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
       procedure Edit; override;
       function Duplicate : tEPubProfile; override;
+      procedure Build (aStory : tStory); override;
+      procedure Make (aStory : tStory); override;
   end;
 
   tProfileList = class (tObject)
@@ -190,6 +200,7 @@ type
       procedure Add (aProfile : tBaseProfile);
       procedure Delete;
       procedure Select (aProfileName : string);
+      procedure SelectAt (aIndex : integer);
       procedure Load;
       procedure Save;
       procedure Edit;
@@ -208,7 +219,7 @@ implementation
 
 uses
   forms, fpdfpro, fhtmlpro, ftextpro, fepubpro,
-  dgroff, gtools, gchapter;
+  dgroff, gtools;
 
 {$region tBaseProfile}
 
@@ -219,11 +230,6 @@ begin
 end;
 
 constructor tBaseProfile.Create;
-begin
-  RunError (211);
-end;
-
-procedure tBaseProfile.Make (aStory : tStory);
 begin
   RunError (211);
 end;
@@ -248,6 +254,16 @@ begin
   RunError (211);
 end;
 
+procedure tBaseProfile.Build (aStory : tStory);
+begin
+  RunError (211);
+end;
+
+procedure tBaseProfile.Make (aStory : tStory);
+begin
+  RunError (211);
+end;
+
 {$endregion tBaseProfile}
 
 {$region tPDFProfile}
@@ -261,8 +277,8 @@ procedure tPDFProfile.SetPageSize (aPageSize : byte);
 begin
   if (aPageSize in [0..PaperCount]) then begin
     t_pagesize := aPageSize;
-    t_PageH := PaperMeasurements [aPageSize, 0];
-    t_PageV := PaperMeasurements [aPageSize, 1];
+    t_PageH := trunc (PaperMeasurements [aPageSize, 0]);
+    t_PageV := trunc (PaperMeasurements [aPageSize, 1]);
   end;
 end;
 
@@ -451,11 +467,6 @@ end;
 function tPDFProfile.GetFlag (index : integer) : boolean;
 begin
 	GetFlag := t_flags [index];
-end;
-
-procedure tPDFProfile.Make (aStory : tStory);
-begin
-
 end;
 
 procedure tPDFProfile.Load (var t : text);
@@ -855,6 +866,637 @@ begin
   Duplicate := dup;
 end;
 
+procedure tPDFProfile.Build (aStory : tStory);
+var
+  Chapters : tChapterList;
+
+  function ExpandHeader (h : tGroffHeader) : string;
+  var
+    s,
+    t : string;
+    i : integer;
+  begin
+  	if (h.Enabled) then begin
+      t := '^';
+      s := h.Left;
+      i := 1;
+
+      if (length (s) > 0) then
+        repeat
+          if (s [i] = '%') then begin
+            i += 1;
+            if (i <= length (s)) then
+              case (UpCase (s [i])) of
+            	  'A' :
+                  t += aStory.Author;
+                'C' :
+                  t += Chapters.Current.Title;
+                'D' :
+                  t += Chapters.Current.Subtitle;
+                'P' :
+                  t += '%';
+                'T' :
+                  t += aStory.Title;
+                'U' :
+                  t += aStory.Subtitle;
+              end;
+        	  end
+          else
+          	t += s [i];
+          i += 1;
+        until (i > length (s));
+
+      t += '^';
+      s := h.Middle;
+      i := 1;
+      if (length (s) > 0) then
+        repeat
+          if (s [i] = '%') then begin
+            i += 1;
+            if (i <= length (s)) then
+              case (UpCase (s [i])) of
+            	  'A' :
+                  t += aStory.Author;
+                'C' :
+                  t += Chapters.Current.Title;
+                'D' :
+                  t += Chapters.Current.Subtitle;
+                'P' :
+                  t += '%';
+                'T' :
+                  t += aStory.Title;
+                'U' :
+                  t += aStory.Subtitle;
+              end;
+        	  end
+          else
+          	t += s [i];
+          i += 1;
+        until (i > length (s));
+
+      t += '^';
+      s := h.Right;
+      i := 1;
+      if (length (s) > 0) then
+        repeat
+          if (s [i] = '%') then begin
+            i += 1;
+            if (i <= length (s)) then
+              case (UpCase (s [i])) of
+            	  'A' :
+                  t += aStory.Author;
+                'C' :
+                  t += Chapters.Current.Title;
+                'D' :
+                  t += Chapters.Current.Subtitle;
+                'P' :
+                  t += '%';
+                'T' :
+                  t += aStory.Title;
+                'U' :
+                  t += aStory.Subtitle;
+              end;
+        	  end
+          else
+          	t += s [i];
+          i += 1;
+        until (i > length (s));
+
+      t += '^';
+    end else
+    	t := '^^^^';
+    ExpandHeader := t
+  end;
+
+var
+  UsesBooks : boolean = FALSE;
+  UsesBorders : boolean = FALSE;
+  index : integer;
+  s,
+  pathname,
+  filename,
+  cfilename,
+  ofilename : string;
+  x : text;
+  pagelength,
+  linelength,
+  colwidth : real;
+begin
+  // Load Chapters List
+  Chapters := tChapterList.Create;
+  Chapters.BaseDir := aStory.SourceDir;
+  Chapters.Load;
+
+  // Are any of the Chapters Book Dividers?
+  index := 0;
+  repeat
+    Chapters.SelectAt (index);
+    UsesBooks := (Chapters.Current.IsABook) OR UsesBooks;
+    index += 1;
+  until (index >= Chapters.Count);
+
+  // Do any of the Styles use Borders?
+  UsesBorders := false;
+  for index := 1 to 8 do begin
+    UsesBorders := UsesBorders OR t_fonts [index].Borders[0];
+    UsesBorders := UsesBorders OR t_fonts [index].Borders[1];
+    UsesBorders := UsesBorders OR t_fonts [index].Borders[2];
+    UsesBorders := UsesBorders OR t_fonts [index].Borders[3];
+  end;
+  Usetbl := Usetbl OR UsesBorders;
+
+  pathname := aStory.SourceDir + '/';
+  ofilename := StripSpaces (aStory.LongName + '-' + Name);
+  filename := pathname + '/' + ofilename + '.ms';
+
+  // Create Output File
+  assign (x, filename);
+  rewrite (x);
+
+  // Page Dimensions
+  writeln (x, '.hlm 0');
+  writeln (x, '.de BT');
+  writeln (x, '.ie o .tl \\*[pg*OF]');
+  writeln (x, '.el .tl \\*[pg*EF]');
+  writeln (x, '.ie e .nr PO ', (InnerMargin / 1000):0:3, 'p');
+  writeln (x, '.el .nr PO ', (OuterMargin / 1000):0:3, 'p');
+  writeln (x, '..');
+  writeln (x, '.ps ', t_fonts [0].Size);
+  writeln (x, '.fam ', T_Family [t_fonts [0].Family]);
+  writeln (x, '.open TOC ', ofilename, '.toc');
+  writeln (x, '.write TOC .LP');
+  writeln (x, '.write TOC .ta ', colwidth:0:3, 'pR');
+  writeln (x, '.write TOC .tc .');
+  writeln (x, '.ps ', t_fonts [0].size);
+  writeln (x, '.nr PS ', t_fonts [0].size);
+  writeln (x, '.ds FAM ', T_Family [t_fonts [0].family]);
+  writeln (x, '.po ', (InnerMargin / 1000):0:3, 'p');
+  writeln (x, '.ll ', linelength:0:3, 'p');
+  writeln (x, '.hm ', (TopMargin / 1000):0:3, 'p');
+  writeln (x, '.fm ', (BottomMargin / 1000):0:3, 'p');
+  writeln (x, '.pl ', pagelength:0:3, 'p');
+  writeln (x, '.nr PO ', (InnerMargin / 1000):0:3, 'p');
+  writeln (x, '.nr LL ', linelength:0:3, 'p');
+  writeln (x, '.nr HM ', (TopMargin / 1000):0:3, 'p');
+  writeln (x, '.nr FM ', (BottomMargin / 1000):0:3, 'p');
+  writeln (x, '.nr PL ', pagelength:0:3, 'p');
+  writeln (x, '.EH ****');
+  writeln (x, '.OH ****');
+  writeln (x, '.EF ****');
+  writeln (x, '.OF ****');
+
+  { Cross-Reference support }
+  writeln (x, '.so ', ofilename, '.ref');
+  writeln (x, '.de XREFSTART');
+  writeln (x, '.open XREFS \\$1');
+  writeln (x, '.write XREFS ".de XREF');
+  writeln (x, '..');
+  writeln (x, '.de XREFSTOP');
+  writeln (x, '.write XREFS "..');
+  writeln (x, '.close XREFS');
+  writeln (x, '..');
+  writeln (x, '.de BOOKMARK');
+  writeln (x, '.write XREFS .if ''\\\\\\\\$1''\\$1'' \\n[%]\\\\\\\\$2');
+  writeln (x, '..');
+  writeln (x, '.XREFSTART ', ofilename, '.ref');
+  writeln (x, '.eo');
+
+  { Header Zero }
+  if (UsesBooks) then begin
+		writeln (x, '.de H0 ..');
+		writeln (x, '.EH ****');
+		writeln (x, '.OH ****');
+		writeln (x, '.EF ****');
+		writeln (x, '.OF ****');
+		writeln (x, '.LP');
+	  writeln (x, '.sp ', t_fonts [3].SpaceAbove, 'p');
+		writeln (x, '.fam ', T_Family [t_fonts [3].family]);
+		writeln (x, '.ps ', t_fonts [3].size);
+		writeln (x, '.vs ', t_fonts [3].size + 2);
+    if (UsesBorders) then begin
+      writeln (x, '.TS');
+      writeln (x, ';');
+      if (t_fonts [3].Borders [2]) then
+        write (x, '| ');
+      if (t_fonts [3].Centered) then
+        write (x, 'cx')
+      else
+        write (x, 'lx');
+      if (t_fonts [3].Borders [3]) then
+        write (x, ' |');
+      writeln (x, '.');
+      if (t_fonts [3].Borders [0]) then
+        writeln (x, '_');
+      write (x, X_Fonts [t_fonts [3].Font]);
+		  writeln (x, '\$1');
+      if (t_fonts [3].Borders [1]) then
+        writeln (x, '_');
+      writeln (x, '.TE');
+    end else begin
+      if (t_fonts [3].Centered) then
+	      writeln (x, '.ce');
+      write (x, X_Fonts [t_fonts [3].Font]);
+		  writeln (x, '\$1');
+    end;
+		writeln (x, '.write TOC .br');
+		writeln (x, '.ie !''\$2'''' \');
+		writeln (x, '.write TOC \fB\$1:  \$2', #9, '\n[%]\fR');
+		writeln (x, '.LP');
+	  writeln (x, '.sp ', t_fonts [3].SpaceBelow, 'p');
+		writeln (x, '.ps ', t_fonts [3].size);
+		writeln (x, '.ce');
+		writeln (x, '\$2');
+		writeln (x, '.el \');
+		writeln (x, '.write TOC \fB\$1', #9, '\n[%]\fR');
+	  writeln (x, '.sp ', t_fonts [3].SpaceBelow, 'p');
+		writeln (x, '...');
+	end;
+
+  { Header One }
+  writeln (x, '.de H1 ..');
+  writeln (x, '.EH ****');
+  writeln (x, '.OH ****');
+  writeln (x, '.LP');
+  writeln (x, '.ne 1i');
+  writeln (x, '\&');
+  writeln (x, '.sp ', t_fonts [4].SpaceAbove, 'p');
+  {
+  if (HeadGraphic <> '') then
+	  begin
+		  write (x, '.PSPIC ');
+		  if (Desc.H1CenterMode > 1) then
+			  write (x, '-L ');
+		  writeln (x, Desc.HeadGraphic);
+		  writeln (x, '.sp -', t_fonts [1].size + 5, 'p');
+	  end;
+  }
+  writeln (x, '.fam ', T_Family [t_fonts [4].family]);
+  writeln (x, '.ps ', t_fonts [4].size);
+  writeln (x, '.vs ', t_fonts [4].size + 2);
+  if (UsesBorders) then begin
+  	writeln (x, '.TS');
+    writeln (x, ';');
+    if (t_fonts [4].Borders [2]) then
+      write (x, '| ');
+    if (t_fonts [4].Centered) then
+      write (x, 'cx')
+    else
+      write (x, 'lx');
+    if (t_fonts [4].Borders [3]) then
+      write (x, ' |');
+    writeln (x, '.');
+    if (t_fonts [4].Borders [0]) then
+    	writeln (x, '_');
+    write (x, X_Fonts [t_fonts [4].Font]);
+    writeln (x, '\$1');
+    if (t_fonts [4].Borders [1]) then
+    	writeln (x, '_');
+    writeln (x, '.TE');
+  end else begin
+    if (t_fonts [4].Centered) then
+	    writeln (x, '.ce');
+    write (x, X_Fonts [t_fonts [4].Font]);
+    writeln (x, '\$1\fR');
+  end;
+	writeln (x, '.sp ', t_fonts [4].SpaceBelow, 'p');
+//	  if ((Columns > 1) and (H1Mode in [0, 3])) then
+//		  writeln (x, '.MC ', colwidth:0:3, 'p 36p');
+  writeln (x, '.write TOC .br');
+  if (UsesBooks) then
+	  writeln (x, '.write TOC \ \ \ \ \$1', #9, '\n[%]')
+  else
+	  writeln (x, '.write TOC \fB\$1', #9, '\n[%]\fR');
+
+  writeln (x, '...');
+
+  { Header Two }
+  writeln (x, '.de H2 ..');
+  writeln (x, '.LP');
+  writeln (x, '.ne 1i');
+  writeln (x, '.sp ', t_fonts [5].SpaceAbove, 'p');
+  writeln (x, '.fam ', T_Family [t_fonts [5].family]);
+  writeln (x, '.ps ', t_fonts [5].size);
+  writeln (x, '.vs ', t_fonts [5].size + 2);
+  if (UsesBorders) then begin
+  	writeln (x, '.TS');
+    writeln (x, ';');
+    if (t_fonts [5].Borders [2]) then
+      write (x, '| ');
+    if (t_fonts [5].Centered) then
+      write (x, 'cx')
+    else
+      write (x, 'lx');
+    if (t_fonts [5].Borders [3]) then
+      write (x, ' |');
+    writeln (x, '.');
+    if (t_fonts [5].Borders [0]) then
+    	writeln (x, '_');
+    write (x, X_Fonts [t_fonts [5].Font]);
+    writeln (x, '\$1');
+    if (t_fonts [5].Borders [1]) then
+    	writeln (x, '_');
+    writeln (x, '.TE');
+  end else begin
+    if (t_fonts [5].Centered) then
+	    writeln (x, '.ce');
+    write (x, X_Fonts [t_fonts [5].Font]);
+    writeln (x, '\$1\fR');
+  end;
+  writeln (x, '.sp ', t_fonts [5].SpaceBelow, 'p');
+  writeln (x, '.write TOC .br');
+  if (UsesBooks) then
+	  writeln (x, '.write TOC \ \ \ \ \ \ \ \ \$1', #9, '\n[%]')
+  else
+	  writeln (x, '.write TOC \ \ \ \ \$1', #9, '\n[%]');
+  writeln (x, '...');
+
+  { Header Three }
+  writeln (x, '.de H3 ..');
+  writeln (x, '.LP');
+  writeln (x, '.ne 0.5i');
+  writeln (x, '.sp ', t_fonts [6].SpaceAbove, 'p');
+  writeln (x, '.fam ', T_Family [t_fonts [6].family]);
+  writeln (x, '.ps ', t_fonts [6].size);
+  writeln (x, '.vs ', t_fonts [6].size + 2);
+  if (UsesBorders) then begin
+  	writeln (x, '.TS');
+    writeln (x, ';');
+    if (t_fonts [6].Borders [2]) then
+      write (x, '| ');
+    if (t_fonts [6].Centered) then
+      write (x, 'cx')
+    else
+      write (x, 'lx');
+    if (t_fonts [6].Borders [3]) then
+      write (x, ' |');
+    writeln (x, '.');
+    if (t_fonts [6].Borders [0]) then
+    	writeln (x, '_');
+    write (x, X_Fonts [t_fonts [6].Font]);
+    writeln (x, '\$1');
+    if (t_fonts [6].Borders [1]) then
+    	writeln (x, '_');
+    writeln (x, '.TE');
+  end else begin
+    if (t_fonts [6].Centered) then
+	    writeln (x, '.ce');
+    write (x, X_Fonts [t_fonts [6].Font]);
+    writeln (x, '\$1\fR');
+  end;
+  writeln (x, '.sp ', t_fonts [6].SpaceBelow, 'p');
+  writeln (x, '...');
+
+  { Header Four }
+  writeln (x, '.de H4 ..');
+  writeln (x, '.LP');
+  writeln (x, '.ne 0.5i');
+  writeln (x, '.sp ', t_fonts [7].SpaceAbove, 'p');
+  writeln (x, '.fam ', T_Family [t_fonts [7].family]);
+  writeln (x, '.ps ', t_fonts [7].size);
+  writeln (x, '.vs ', t_fonts [7].size + 2);
+  if (UsesBorders) then begin
+    writeln (x, '.TS');
+    writeln (x, ';');
+    if (t_fonts [7].Borders [2]) then
+      write (x, '| ');
+    if (t_fonts [7].Centered) then
+      write (x, 'cx')
+    else
+      write (x, 'lx');
+    if (t_fonts [7].Borders [3]) then
+      write (x, ' |');
+    writeln (x, '.');
+    if (t_fonts [7].Borders [0]) then
+      writeln (x, '_');
+    write (x, X_Fonts [t_fonts [7].Font]);
+	  writeln (x, '\$1');
+    if (t_fonts [7].Borders [1]) then
+      writeln (x, '_');
+    writeln (x, '.TE');
+  end else begin
+	  if (t_fonts [7].Centered) then
+		  writeln (x, '.ce');
+    write (x, X_Fonts [t_fonts [7].Font]);
+    writeln (x, '\$1\fR');
+  end;
+  writeln (x, '.sp ', t_fonts [7].SpaceBelow, 'p');
+  writeln (x, '...');
+
+  { Header Five }
+  writeln (x, '.de H5 ..');
+  writeln (x, '.LP');
+  writeln (x, '.ne 0.5i');
+  writeln (x, '.sp ', t_fonts [8].SpaceAbove, 'p');
+  writeln (x, '.fam ', T_Family [t_fonts [8].family]);
+  writeln (x, '.ps ', t_fonts [8].size);
+  writeln (x, '.vs ', t_fonts [8].size + 2);
+  if (UsesBorders) then begin
+    writeln (x, '.TS');
+    writeln (x, ';');
+    if (t_fonts [8].Borders [2]) then
+      write (x, '| ');
+    if (t_fonts [8].Centered) then
+      write (x, 'cx')
+    else
+      write (x, 'lx');
+    if (t_fonts [8].Borders [3]) then
+      write (x, ' |');
+    writeln (x, '.');
+    if (t_fonts [8].Borders [0]) then
+      writeln (x, '_');
+    write (x, X_Fonts [t_fonts [8].Font]);
+	  writeln (x, '\$1');
+    if (t_fonts [8].Borders [1]) then
+      writeln (x, '_');
+    writeln (x, '.TE');
+  end else begin
+	  if (t_fonts [8].Centered) then
+		  writeln (x, '.ce');
+    write (x, X_Fonts [t_fonts [8].Font]);
+    writeln (x, '\$1\fR');
+  end;
+  writeln (x, '.sp ', t_fonts [8].SpaceBelow, 'p');
+  writeln (x, '...');
+  writeln (x, '.ec');
+
+  { Custom One }
+  writeln (x, '.de CP1');
+  writeln (x, '.fam ', T_Family [t_fonts [9].family]);
+  writeln (x, '.ps ', t_fonts [9].size);
+	if (t_fonts [9].Centered) then
+		writeln (x, '.ce');
+  writeln (x, R_Fonts [t_fonts [9].Font]);
+  writeln (x, '..');
+
+  { Custom Two }
+  writeln (x, '.de CP2');
+  writeln (x, '.fam ', T_Family [t_fonts [10].family]);
+  writeln (x, '.ps ', t_fonts [10].size);
+  if (t_fonts [10].Centered) then
+  	writeln (x, '.ce');
+  writeln (x, R_Fonts [t_fonts [10].Font]);
+  writeln (x, '..');
+
+  { Custom Three }
+  writeln (x, '.de CP3');
+  writeln (x, '.fam ', T_Family [t_fonts [11].family]);
+  writeln (x, '.ps ', t_fonts [11].size);
+  if (t_fonts [11].Centered) then
+  	writeln (x, '.ce');
+  writeln (x, R_Fonts [t_fonts [11].Font]);
+  writeln (x, '..');
+
+  { Separator }
+  writeln (x, '.de SEP');
+  writeln (x, '.LP');
+  writeln (x, '.ce');
+  writeln (x, Separator);
+  writeln (x, '');
+  writeln (x, '..');
+
+  // Primitive support for JPEG
+  writeln (x, '.de JPEG');
+  writeln (x, '.sy jpegtopnm \\$1 | pnmcrop | pnmtops -noturn -nosetpage > \\$1.ps');
+  writeln (x, '.PSPIC \\$1.ps');
+  writeln (x, '..');
+
+  // Title Page
+	if (Columns > 1) then
+	  if not (OneColumnTitlePage) then
+      writeln (x, '.MC ', colwidth:0:3, 'p 36p');
+
+  writeln (x, '.ad b');
+  writeln (x, '.sp ', t_fonts [1].SpaceAbove, 'p');
+  writeln (x, '.fam ', T_Family [t_fonts [1].family]);
+  writeln (x, '.ps ', t_fonts [1].size);
+
+  s := aStory.TitlePicture;
+  if (FileExists (s) and (s <> '')) then
+	  writeln (x, '.JPEG ', s);
+
+  if (aStory.SuppressTitles = FALSE) then
+	  begin
+		  writeln (x, '.ce');
+		  writeln (x, aStory.Title);
+      writeln (x, '.sp ', t_fonts [1].SpaceBelow, 'p');
+      if (aStory.Subtitle <> '') then begin
+        writeln (x, '.ps ', t_fonts [2].size);
+  	    writeln (x, '.fam ', T_Family [t_fonts [2].family]);
+  	    writeln (x, '.ce');
+  	    writeln (x, aStory.Subtitle);
+        writeln (x, '.sp ', t_fonts [2].SpaceBelow, 'p');
+      end;
+	  end;
+  writeln (x, '.sp ', t_fonts [1].SpaceBelow, 'p');
+
+  if (aStory.SuppressAuthor = FALSE) then begin
+    writeln (x, '.ps ', t_fonts [2].size);
+    writeln (x, '.fam ', T_Family [t_fonts [2].family]);
+    writeln (x, '.sp ', t_fonts [2].SpaceBelow, 'p');
+    writeln (x, '.ce');
+    writeln (x, 'by ', aStory.Author);
+  end;
+
+  writeln (x, '.sp ', t_fonts [2].SpaceBelow, 'p');
+  writeln (x, '.PP');
+  if (FileExists (pathname + 'blurb.so')) then begin
+    writeln (x, '.so blurb.so');
+    writeln (x, '.PP');
+  end;
+
+  if (FileExists (pathname + 'disclaimer.so')) then begin
+    writeln (x, '.B1');
+    writeln (x, '.so disclaimer.so');
+    writeln (x, '.B2');
+  end;
+
+  if (FileExists (pathname + 'credits.so')) then
+	  begin
+		  writeln (x, '.LP');
+		  writeln (x, '.so credits.so');
+	  end;
+
+  writeln (x, '.LP');
+  writeln (x, '.ne 9i');
+	if (Columns > 1) then
+	  if (OneColumnTitlePage) then
+      writeln (x, '.MC ', colwidth:0:3, 'p 36p');
+  writeln (x, '.ps ', t_fonts [2].size);
+  writeln (x, '.ce');
+  writeln (x, 'Table of Contents');
+  writeln (x, '.ps ', t_fonts [0].size);
+  writeln (x, '.so ', ofilename, '.toc');
+
+  // Now write the chapters
+
+  for index := 0 to (Chapters.Count - 1) do begin
+  	Chapters.SelectAt (index);
+
+    writeln (x, '.LP');
+    writeln (x, '.EH ' + ExpandHeader (EvenHeader));
+    writeln (x, '.OH ' + ExpandHeader (OddHeader));
+    writeln (x, '.bp');
+
+    cfilename := Chapters.Current.Filename;
+    if (FileExists (pathname + '/' + cfilename + '.co')) then begin
+      writeln (x, '.so ' + cfilename + '.co');
+    end;
+    if (Chapters.Current.IsABook) then begin
+      if ((Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+        writeln (x, '.H0 "', Chapters.Current.Subtitle, '" "', Chapters.Current.Title, '"')
+      else
+        writeln (x, '.H0 "', Chapters.Current.Title, '" "', Chapters.Current.Subtitle, '"')
+    end else begin
+      if ((Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+        writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+      writeln (x, '.H1 "', Chapters.Current.Title, '"');
+      if (not (Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+        writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+    end;
+    writeln (x, '.EH ' + ExpandHeader (EvenHeader));
+    writeln (x, '.OH ' + ExpandHeader (OddHeader));
+    writeln (x, '.EF ' + ExpandHeader (EvenFooter));
+    writeln (x, '.OF ' + ExpandHeader (OddFooter));
+
+    writeln (x, '.ps ', t_fonts [0].Size);
+    writeln (x, '.so ', cfilename + '.so');
+
+    if (FileExists (pathname + '/' + cfilename + '.tr')) then begin
+      writeln (x, '.LP');
+      writeln (x, '.SEP');
+      writeln (x, '.LP');
+      writeln (x, '.H3 "' + aStory.TrailerHeader + '"');
+      writeln (x, '.so ' + cfilename + '.tr');
+    end;
+
+    if (FileExists (pathname + '/' + cfilename + '.an')) then begin
+      writeln (x, '.LP');
+      writeln (x, '.SEP');
+      writeln (x, '.LP');
+      writeln (x, '.H3 "Author''s Notes"');
+      writeln (x, '.so ' + cfilename + '.an');
+    end;
+
+    if (FileExists (pathname + '/' + cfilename + '.om')) then begin
+      writeln (x, '.LP');
+      writeln (x, '.SEP');
+      writeln (x, '.LP');
+      writeln (x, '.H3 "' + aStory.OmakeHeader + '"');
+      writeln (x, '.so ' + cfilename + '.om');
+    end;
+  end;
+	writeln (X, '.XREFSTOP');
+	writeln (x, '.close TOC');
+  close (x);
+  Chapters.Free;
+end;
+
+procedure tPDFProfile.Make (aStory : tStory);
+begin
+
+end;
+
+
 {$endregion}
 
 {$region tHTMLProfile}
@@ -1025,11 +1667,6 @@ begin
 	GetString := t_strings [index];
 end;
 
-procedure tHTMLProfile.Make (aStory : tStory);
-begin
-
-end;
-
 procedure tHTMLProfile.Load (var t : text);
 var
   k,
@@ -1038,8 +1675,7 @@ var
   //v1,
 	s : string;
   //font : integer = -1;
-  i,
-  j: integer;
+  i : integer;
   Done : boolean;
 begin
   repeat
@@ -1229,6 +1865,434 @@ begin
   Duplicate := dup;
 end;
 
+procedure tHTMLProfile.WriteTopSo (var x : text);
+begin
+  writeln (x, '.hlm 0');
+  write (x, '.HTML <body style="font-family: verdana, sans-serif">');
+  writeln (x, '.de H0');
+  writeln (x, '.LP');
+  writeln (x, '.HTML <font color="0000D0" size=+4>');
+  writeln (x, '\\$1');
+  writeln (x, '.HTML </font>');
+  writeln (x, '..');
+
+  { Header One }
+  writeln (x, '.de H1');
+  writeln (x, '.LP');
+  writeln (x, '.HTML <font color="0000D0" size=+3>');
+  writeln (x, '\\$1');
+  writeln (x, '.HTML </font>');
+  writeln (x, '.sp 0.15i');
+  writeln (x, '..');
+
+  { Header Two }
+  writeln (x, '.de H2');
+  writeln (x, '.LP');
+  writeln (x, '.ne 1i');
+  writeln (x, '.sp 0.1i');
+  writeln (x, '.HTML <font color="0000D0" size=+2>');
+  writeln (x, '\\$1');
+  writeln (x, '.HTML </font>');
+  writeln (x, '..');
+
+  { Header Three }
+  writeln (x, '.de H3');
+  writeln (x, '.LP');
+  writeln (x, '.ne 0.5i');
+  writeln (x, '.sp 0.1i');
+  writeln (x, '.HTML <font color="0000D0" size=+1>');
+  writeln (x, '\\$1');
+  writeln (x, '.HTML </font>');
+  writeln (x, '..');
+
+  { Header Four }
+  writeln (x, '.de H4');
+  writeln (x, '.LP');
+  writeln (x, '.ne 0.5i');
+  writeln (x, '.sp 0.1i');
+  writeln (x, '.HTML <font color="0000D0">');
+  writeln (x, '\\$1');
+  writeln (x, '.HTML </font>');
+  writeln (x, '..');
+
+  { Header Five }
+  writeln (x, '.de H5');
+  writeln (x, '.LP');
+  writeln (x, '.ne 0.5i');
+  writeln (x, '.sp 0.1i');
+  writeln (x, '.HTML <font color="0000D0">');
+  writeln (x, '\\$1');
+  writeln (x, '.HTML </font>');
+  writeln (x, '..');
+
+  { Custom One }
+  writeln (x, '.de CP1');
+  writeln (x, '..');
+
+  { Custom Two }
+  writeln (x, '.de CP2');
+  writeln (x, '..');
+
+  { Custom Three }
+  writeln (x, '.de CP3');
+  writeln (x, '..');
+
+  { Separator }
+  writeln (x, '.de SEP');
+  writeln (x, '.LP');
+  writeln (x, '.ce');
+  if (IsFFNet) then
+    writeln (x, '.HTML "<HR>"')
+  else
+  	writeln (x, Separator);
+  writeln (x, '..');
+
+  // Primitive support for JPEG
+  writeln (x, '.de JPEG');
+  writeln (x, '.sy cp \\$1 ', OutputDir, '/\\$1');
+  writeln (x, '.HTML <IMG SRC="\\$1" NAME="\\$1" WIDTH=50% ALIGN=RIGHT>');
+  writeln (x, '..');
+end;
+
+procedure tHTMLProfile.WriteBulk (aStory : tStory);
+var
+  index : integer;
+  pathname,
+  filename,
+  cfilename,
+  ofilename: string;
+  x : text;
+  Chapters : tChapterList;
+begin
+  Chapters := tChapterList.Create;
+  Chapters.BaseDir := aStory.SourceDir;
+  Chapters.Load;
+
+  pathname := aStory.SourceDir + '/';
+  ofilename := StripSpaces (aStory.LongName + '-' + Name);
+  filename := pathname + '/' + ofilename + '.ms';
+
+  assign (x, filename);
+  rewrite (x);
+
+  WriteTopSo (x);
+
+  if ((aStory.Subtitle <> '') and (aStory.SubtitleFirst)) then begin
+  	writeln (x, '.HTML <font color="0000D0" size=+3>');
+  	writeln (x, '.sp 0.5i');
+  	writeln (x, aStory.Subtitle);
+    writeln (x, '.HTML </font>');
+  end;
+
+  writeln (x, '.ad b');
+  writeln (x, '.sp 0.2i');
+  writeln (x, '.HTML <font color="0000D0" size=+4>');
+  writeln (x, '.ce');
+  writeln (x, aStory.Title);
+  writeln (x, '.HTML </font>');
+
+  if ((aStory.Subtitle <> '') and not (aStory.SubtitleFirst)) then begin
+  	writeln (x, '.HTML <font color="0000D0" size=+3>');
+  	writeln (x, '.sp 0.5i');
+  	writeln (x, aStory.Subtitle);
+    writeln (x, '.HTML </font>');
+  end;
+
+  if not (aStory.SuppressAuthor) then begin
+    writeln (x, '.HTML <font color="0000D0" size=+3>');
+    writeln (x, '.sp 0.5i');
+    writeln (x, 'by ', aStory.Author);
+    writeln (x, '.HTML </font>');
+  end;
+
+  if (FileExists (pathname + 'blurb.so')) then begin
+  	writeln (x, '.so blurb.so');
+  	writeln (x, '.PP');
+  end;
+
+  if (FileExists (pathname + 'disclaimer.so')) then begin
+  	writeln (x, '.so disclaimer.so');
+  end;
+
+  if (FileExists (pathname + 'credits.so')) then begin
+  	writeln (x, '.LP');
+  	writeln (x, '.so credits.so');
+  end;
+
+  writeln (x, '.sp 0.5i');
+  writeln (x, '.PP');
+
+  // Now write the chapters
+
+  for index := 0 to (Chapters.Count - 1) do begin
+    Chapters.SelectAt (index);
+
+    writeln (x, '.LP');
+    writeln (x, '.SEP');
+
+    with (Chapters.Current) do begin
+      cfilename := Filename;
+      if (FileExists (pathname + '/' + cfilename + '.co')) then begin
+        writeln (x, '.so ' + cfilename + '.co');
+      end;
+      if ((SubtitleFirst) and (Subtitle <> '')) then
+        writeln (x, '.H3 "', Subtitle, '"');
+      writeln (x, '.H1 "', Title, '"');
+      if (not (SubtitleFirst) and (Subtitle <> '')) then
+        writeln (x, '.H3 "', Subtitle, '"');
+      writeln (x, '.so ', cfilename + '.so');
+
+      if (FileExists (pathname + '/' + cfilename + '.tr')) then begin
+        writeln (x, '.LP');
+        writeln (x, '.SEP');
+        writeln (x, '.LP');
+        writeln (x, '.H3 "' + aStory.TrailerHeader + '"');
+        writeln (x, '.so ' + cfilename + '.tr');
+      end;
+
+      if (FileExists (pathname + '/' + cfilename + '.an')) then begin
+        writeln (x, '.LP');
+        writeln (x, '.SEP');
+        writeln (x, '.LP');
+        writeln (x, '.H3 "Author''s Notes"');
+        writeln (x, '.so ' + cfilename + '.an');
+      end;
+
+      if (FileExists (pathname + '/' + cfilename + '.om')) then begin
+        writeln (x, '.LP');
+        writeln (x, '.SEP');
+        writeln (x, '.LP');
+        writeln (x, '.H3 "' + aStory.OmakeHeader + '"');
+        writeln (x, '.so ' + cfilename + '.om');
+      end;
+    end;
+  end;
+  close (x);
+  Chapters.Free;
+end;
+
+procedure tHTMLProfile.WriteChapters (aStory : tStory);
+var
+  index : integer;
+  pathname,
+  filename,
+  cfilename,
+  ofilename: string;
+  x : text;
+  Chapters : tChapterList;
+begin
+  Chapters := tChapterList.Create;
+  Chapters.BaseDir := aStory.SourceDir;
+  Chapters.Load;
+
+  for index := 0 to (Chapters.Count - 1) do begin
+    Chapters.SelectAt (index);
+
+    pathname := aStory.SourceDir + '/';
+    ofilename := StripSpaces (Chapters.Current.FileName);
+    filename := pathname + ofilename + '-' + StripSpaces (Name) + '.ms';
+
+    // Start creating the output file
+    assign (x, filename);
+    rewrite (x);
+
+    WriteTopSo (x);
+    writeln (x, '.de LINKS');
+    writeln (x, '.HTML <table style="border:1px 0 1px 0; width=100%">');
+    writeln (x, '.HTML <tr>');
+    writeln (x, '.HTML <td style="text-align:left">&href="\\$2">\\$1</a></td>');
+    writeln (x, '.HTML <td style="text-align:center">&href="', BackLink,
+      '">Index</a></td>');
+    writeln (x, '.HTML <td style="text-align:right">&href="\\$4">\\$3</a></td>');
+    writeln (x, '.HTML </tr>');
+    writeln (x, '.HTML </table>');
+    writeln (x, '..');
+
+	  writeln (x, '.ad b');
+
+    if ((aStory.Subtitle <> '') and (aStory.SubtitleFirst)) then begin
+    	writeln (x, '.HTML <font color="0000D0" size=+2>');
+    	writeln (x, '.sp 0.5i');
+    	writeln (x, aStory.Subtitle);
+      writeln (x, '.HTML </font>');
+    end;
+
+	  writeln (x, '.sp 0.2i');
+	  writeln (x, '.HTML <font color="0000D0" size=+3>');
+	  writeln (x, aStory.Title);
+		writeln (x, '.HTML </font>');
+
+    if ((aStory.Subtitle <> '') and not (aStory.SubtitleFirst)) then begin
+	    writeln (x, '.HTML <font color="0000D0" size=+2>');
+	    writeln (x, '.sp 0.5i');
+	    writeln (x, aStory.Subtitle);
+  		writeln (x, '.HTML </font>');
+    end;
+
+	  writeln (x, '.HTML <font color="0000D0" size=+2>');
+	  writeln (x, '.sp 0.5i');
+	  writeln (x, 'by ', aStory.Author);
+		writeln (x, '.HTML </font>');
+
+	  writeln (x, '.sp 0.5i');
+	  writeln (x, '.PP');
+
+    if (FileExists (pathname + 'blurb.so')) then begin
+	    writeln (x, '.so blurb.so');
+	    writeln (x, '.PP');
+    end;
+
+    if (FileExists (pathname + 'disclaimer.so')) then begin
+	    writeln (x, '.so disclaimer.so');
+    end;
+
+	  if (FileExists (pathname + 'credits.so')) then begin
+			writeln (x, '.LP');
+			writeln (x, '.so credits.so');
+		end;
+
+    writeln (x, '.LP');
+    writeln (x, '.SEP');
+
+    with (Chapters.Current) do begin
+      cfilename := Filename;
+      if (FileExists (pathname + '/' + cfilename + '.co')) then begin
+        writeln (x, '.so ' + cfilename + '.co');
+      end;
+      if ((SubtitleFirst) and (Subtitle <> '')) then
+        writeln (x, '.H3 "', Subtitle, '"');
+      writeln (x, '.H1 "', Title, '"');
+      if (not (SubtitleFirst) and (Subtitle <> '')) then
+        writeln (x, '.H3 "', Subtitle, '"');
+      writeln (x, '.so ', cfilename + '.so');
+
+      if (FileExists (pathname + '/' + cfilename + '.tr')) then begin
+        writeln (x, '.LP');
+        writeln (x, '.SEP');
+        writeln (x, '.LP');
+        writeln (x, '.H3 "' + aStory.TrailerHeader + '"');
+        writeln (x, '.so ' + cfilename + '.tr');
+      end;
+
+      if (FileExists (pathname + '/' + cfilename + '.an')) then begin
+        writeln (x, '.LP');
+        writeln (x, '.SEP');
+        writeln (x, '.LP');
+        writeln (x, '.H3 "Author''s Notes"');
+        writeln (x, '.so ' + cfilename + '.an');
+      end;
+
+      if (FileExists (pathname + '/' + cfilename + '.om')) then begin
+        writeln (x, '.LP');
+        writeln (x, '.SEP');
+        writeln (x, '.LP');
+        writeln (x, '.H3 "' + aStory.OmakeHeader + '"');
+        writeln (x, '.so ' + cfilename + '.om');
+      end;
+    end;
+    close (x);
+  end;
+  Chapters.Free;
+end;
+
+procedure tHTMLProfile.WriteIndex (aStory : tStory);
+var
+  index : integer;
+  pathname,
+  filename,
+  cfilename,
+  ofilename: string;
+  indexfile : text;
+  LastWasBook : boolean;
+  Chapters : tChapterList;
+begin
+  Chapters := tChapterList.Create;
+  Chapters.BaseDir := aStory.SourceDir;
+  Chapters.Load;
+
+  pathname := aStory.SourceDir + '/';
+  ofilename := StripSpaces (aStory.LongName + '-' + Name);
+  filename := pathname + '/' + ofilename + '.ms';
+
+  assign (indexfile, filename);
+  rewrite (indexfile);
+  WriteTopSo (indexfile);
+
+  // Title Pic
+  cfilename := aStory.TitlePicture;
+  if (FileExists (cfilename)) then begin
+  	writeln (indexfile, '.sy cp ', cfilename, ' ', cfilename);
+  	writeln (indexfile, '.HTML <p><IMG SRC="', cfilename, '" NAME="',
+      cfilename, '" WIDTH=50% ALIGN=CENTER></p>')
+  end else
+  	writeln (indexfile, '.H1 "', aStory.Title, '"');
+
+  if (FileExists (pathname + 'blurb.so')) then begin
+    writeln (indexfile, '.PP');
+    writeln (indexfile, '.so blurb.so');
+  end;
+  if ((DisclaimerInIndex) and (FileExists (pathname + 'disclaimer.so'))) then begin
+    writeln (indexfile, '.PP');
+  	writeln (indexfile, '.so disclaimer.so');
+  end;
+  writeln (indexfile, '.HR');
+
+  // Now write the chapters
+  LastWasBook := FALSE;
+
+  for index := 0 to (Chapters.Count - 1) do begin
+    Chapters.SelectAt (index);
+    if (not (SingleLineBooks)) then
+  		  writeln (indexfile, '.LP');
+
+    with (Chapters.Current) do begin
+      cfilename := aStory.LongName + '/' + Filename + '.htm';
+      if (IsABook) then begin
+        if (not (SingleLineBooks)) then
+  			  writeln (indexfile);
+  		  writeln (indexfile, '.H2 "', Title, '"');
+  		  if ((BookFilesInIndex) and
+          (FileExists (pathname + Filename + '.so'))) then begin
+          writeln (indexfile, '.LP');
+  			  writeln (indexfile, '.so ', Filename + '.so');
+  		  end
+      end else begin
+  			if ((not (LastWasBook)) AND (SingleLineBooks)) then
+  				writeln (indexfile, ' ,');
+  			write (indexfile, '.URL ', aStory.LongName, '/', Filename,
+          '.htm "', Title, '"');
+  			if (not (SingleLineBooks)) then
+  				writeln (indexfile);
+  		end;
+  	  LastWasBook := IsABook;
+  	  writeln (indexfile);
+    end
+  end;
+
+  if (FileExists(pathname + 'credits.so')) then begin
+    writeln (indexfile, '.HR');
+    writeln (indexfile, '.so credits.so');
+  end;
+  writeln (indexfile, '.HR');
+  writeln (indexfile, '.URL ', BackLink, ' "', BackLinkText, '"');
+  close (indexfile);
+end;
+
+procedure tHTMLProfile.Build (aStory : tStory);
+begin
+  if (BulkHTML) then
+    WriteBulk (aStory)
+  else begin
+    WriteChapters (aStory);
+    WriteIndex (aStory)
+  end
+end;
+
+procedure tHTMLProfile.Make (aStory : tStory);
+begin
+
+end;
+
 {$endregion}
 
 {$region tTextProfile}
@@ -1257,14 +2321,6 @@ end;
 function tTextProfile.GetFlag (index : integer) : boolean;
 begin
 	GetFlag := t_flags [index];
-end;
-
-procedure tTextProfile.Make (aStory : tStory);
-begin
-  if (BulkText) then
-    WriteBulk (aStory)
-  else
-    WriteChapters (aStory);
 end;
 
 procedure tTextProfile.Load (var t : text);
@@ -1388,9 +2444,6 @@ begin
   Chapters := tChapterList.Create;
   Chapters.BaseDir := aStory.SourceDir;
   Chapters.Load;
-
-  pathname := '  ->  Bulk Text Profile "' + Name + '"...';
-  // frmMain.txtBuildLog.Lines.Add (pathname);
 
   // Check to see if any chapter files are book dividers
   for index := 0 to (Chapters.Count - 1) do begin
@@ -1675,7 +2728,6 @@ begin
   Chapters.Load;
 
   pathname := '  ->  Text Profile "' + Name + '"...';
-  //frmMain.txtBuildLog.Lines.Add (pathname);
 
   // Check to see if any chapter files are book dividers
   for index := 0 to (Chapters.Count - 1) do begin
@@ -1887,6 +2939,20 @@ begin
   end;
 end;
 
+
+procedure tTextProfile.Build (aStory : tStory);
+begin
+  if (BulkText) then
+    WriteBulk (aStory)
+  else
+    WriteChapters (aStory);
+end;
+
+procedure tTextProfile.Make (aStory : tStory);
+begin
+
+end;
+
 {$endregion}
 
 {$region tEPubProfile}
@@ -1904,11 +2970,6 @@ begin
 
   BlurbInEPub := false;
   EPubSeries := '';
-end;
-
-procedure tEPubProfile.Make (aStory : tStory);
-begin
-
 end;
 
 procedure tEPubProfile.Load (var t : text);
@@ -1964,10 +3025,6 @@ begin
 end;
 
 procedure tEPubProfile.Save (var t : text);
-var
-  j,
-  k,
-  l : integer;
 begin
   writeln (t, '[Profile EPub]');
   writeln (t, 'Name = ', Name);
@@ -2011,6 +3068,257 @@ begin
   dup.EPubSeries := EPubSeries;
 
   Duplicate := dup;
+end;
+
+procedure tEPubProfile.WriteTopSo (var x : text);
+begin
+  writeln (x, '.de H0');
+  writeln (x, '.LP');
+  writeln (x, '\fB\\$1\fR');
+  writeln (x, '..');
+
+  { Header One }
+  writeln (x, '.de H1');
+  writeln (x, '.LP');
+  writeln (x, '\fB\\$1\fR');
+  writeln (x, '.sp 0.15i');
+  writeln (x, '..');
+
+  { Header Two }
+  writeln (x, '.de H2');
+  writeln (x, '.LP');
+  writeln (x, '.sp 0.1i');
+  writeln (x, '\fB\\$1\fR');
+  writeln (x, '..');
+
+  { Header Three }
+  writeln (x, '.de H3');
+  writeln (x, '.LP');
+  writeln (x, '.sp 0.1i');
+  writeln (x, '\fB\\$1\fR');
+  writeln (x, '..');
+
+  { Header Four }
+  writeln (x, '.de H4');
+  writeln (x, '.LP');
+  writeln (x, '.ne 0.5i');
+  writeln (x, '.sp 0.1i');
+  writeln (x, '\fI\\$1\fR');
+  writeln (x, '..');
+
+  { Header Five }
+  writeln (x, '.de H5');
+  writeln (x, '.LP');
+  writeln (x, '.ne 0.5i');
+  writeln (x, '.sp 0.1i');
+  writeln (x, '\fB\\$1\fR');
+  writeln (x, '..');
+
+  { Custom One }
+  writeln (x, '.de CP1');
+  writeln (x, '..');
+
+  { Custom Two }
+  writeln (x, '.de CP2');
+  writeln (x, '..');
+
+  { Custom Three }
+  writeln (x, '.de CP3');
+  writeln (x, '..');
+
+  { Separator }
+  writeln (x, '.de SEP');
+  writeln (x, '.LP');
+  writeln (x, '.ce');
+  writeln (x, Separator);
+  writeln (x, '..');
+
+  // Primitive support for JPEG
+  writeln (x, '.de JPEG');
+  writeln (x, '..');
+end;
+
+procedure tEPubProfile.Build (aStory : tStory);
+var
+  playorder,
+  index : integer;
+  s,
+  t,
+  pathname,
+  outpath,
+  filename,
+  cfilename,
+  ofilename: string;
+  x,
+  y: text;
+  Chapters : tChapterList;
+begin
+  Chapters := tChapterList.Create;
+  Chapters.BaseDir := aStory.SourceDir;
+  Chapters.Load;
+
+  pathname := aStory.SourceDir + '/';
+  outpath := StripSpaces (OutputDir + '/' + aStory.LongName);
+  ofilename := StripSpaces (aStory.LongName + '-' + Name);
+  filename := pathname + '/' + ofilename + '.ms';
+
+  if (not (DirectoryExists (outpath))) then begin
+    mkdir (outpath);
+
+    t := outpath + '/OEBPS';
+    if (not (DirectoryExists (t))) then
+      mkdir (t);
+
+    t := outpath + '/OEBPS/Text';
+    if (not (DirectoryExists (t))) then
+      mkdir (t);
+
+    t := outpath + '/META-INF';
+    if (not (DirectoryExists (t))) then
+      mkdir (t);
+  end;
+
+  // Next, write the supporting files
+
+	// mimetype
+  assign (x, outpath + '/mimetype');
+  rewrite (x);
+  write (x, 'application/epub+zip');
+  close (x);
+
+	// container.xml
+  assign (x, outpath + '/META-INF/container.xml');
+  rewrite (x);
+  writeln (x, '<?xml version="1.0"?>');
+	writeln (x, '<container version="1.0" ',
+  	'xmlns="urn:oasis:names:tc:opendocument:xmlns:container">');
+  writeln (x, #9, '<rootfiles>');
+  writeln (x, #9, #9, '<rootfile full-path="OEBPS/content.opf" ',
+  	'media-type="application/oebps-package+xml"/>');
+  writeln (x, #9, '</rootfiles>');
+	writeln (x, '</container>');
+  close (x);
+
+  // content.opf
+  assign (x, outpath + '/OEBPS/content.opf');
+  rewrite (x);
+
+  writeln (x, '<?xml version="1.0"?>');
+  writeln (x, '<package xmlns="http://www.idpf.org/2007/opf" ',
+  	'unique-identifier="BookID" version="2.0">');
+  writeln (x, #9, '<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" ',
+    'xmlns:opf="http://www.idpf.org/2007/opf">');
+  writeln (x, #9, #9, '<dc:title>', aStory.Title, '</dc:title>');
+  if (FileExists (pathname + '/blurb.so')) then begin
+    writeln (x, #9, #9, '<dc:description>');
+    assign (y, pathname + '/blurb.so');
+    reset (y);
+    while (not (eof (y))) do begin
+      readln (y, s);
+      writeln (x, s);
+    end;
+    writeln (x, '</dc:description>');
+    close (y);
+  end;
+  writeln (x, #9, #9, '<dc:language>en</dc:language>');
+  writeln (x, #9, #9, '<dc:identifier id="BookId" ',
+  	'opf:scheme="ISBN">123456789X</dc:identifier>');
+  writeln (x, #9, #9, '<dc:creator opf:role="aut">', aStory.Author,
+    '</dc:creator>');
+  if (EPubSeries <> '') then
+    writeln (x, #9, #9, '<meta name="calibre:series" content="', EPubSeries,
+      '"/>');
+  writeln (x, #9, '</metadata>');
+
+  writeln (x, #9, '<manifest>');
+	writeln (x, #9, #9, '<item id="ncx" href="toc.ncx" ',
+    'media-type="application/x-dtbncx+xml"/>');
+  for index := 0 to (Chapters.Count - 1) do begin
+    Chapters.SelectAt (index);
+    writeln (x, #9, #9, '<item id="', Chapters.Current.Filename, '" ',
+	    'href="Text/', Chapters.Current.Filename, '.xhtml" ',
+  	  'media-type="application/xhtml+xml"/>');
+  end;
+  writeln (x, #9, '</manifest>');
+  writeln (x, #9, '<spine toc="ncx">');
+  for index := 0 to (Chapters.Count - 1) do begin
+    Chapters.SelectAt (index);
+    writeln (x, #9, #9, '<itemref idref="', Chapters.Current.Filename, '"/>');
+  end;
+  writeln (x, #9, '</spine>');
+  writeln (x, '</package>');
+  close (x);
+
+  // toc.ncx
+  playorder := 1;
+  assign (x, outpath + '/OEBPS/toc.ncx');
+  rewrite (x);
+  writeln (x, '<?xml version="1.0" encoding="UTF-8"?>');
+  writeln (x, '<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">');
+  writeln (x, '');
+  writeln (x, '<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">');
+  writeln (x, #9, '<head>');
+  writeln (x, #9, #9, '<meta name="dtb:uid" content="123456789X"/>');
+  writeln (x, #9, #9, '<meta name="dtb:depth" content="1"/>');
+  writeln (x, #9, #9, '<meta name="dtb:totalPageCount" content="0"/>');
+  writeln (x, #9, #9, '<meta name="dtb:maxPageNumber" content="0"/>');
+  writeln (x, #9, '</head> ');
+  writeln (x, #9, '<docTitle>');
+  writeln (x, #9, #9, '<text>', aStory.Title, '</text>');
+  writeln (x, #9, '</docTitle>');
+  writeln (x, #9, '<navMap>');
+
+  playorder := 1;
+  for index := 0 to (Chapters.Count - 1) do begin
+    Chapters.SelectAt (index);
+    writeln (x, #9, #9, '<navPoint id="', Chapters.Current.Filename,
+      '" playOrder="', playorder, '">');
+    writeln (x, #9, #9, #9, '<navLabel>');
+    writeln (x, #9, #9, #9, #9, '<text>', Chapters.Current.Title, '</text>');
+    writeln (x, #9, #9, #9, '</navLabel>');
+    writeln (x, #9, #9, #9, '<content src="Text/', Chapters.Current.Filename,
+      '.xhtml"/>');
+    writeln (x, #9, #9, '</navPoint>');
+    playorder += 1;
+  end;
+  writeln (x, #9, '</navMap>');
+  writeln (x, '</ncx>');
+  close (x);
+
+  // Now write the individual chapter files
+  for index := 0 to (Chapters.Count - 1) do begin
+    Chapters.SelectAt (index);
+
+    pathname := aStory.SourceDir + '/';
+    ofilename := StripSpaces (Chapters.Current.FileName);
+    filename := pathname + ofilename + '-' + StripSpaces (Name) + '.ms';
+
+    assign (x, filename);
+    rewrite (x);
+
+    WriteTopSo (x);
+    writeln (x, '.ad b');
+
+    with (Chapters.Current) do begin
+      cfilename := Filename;
+      if ((SubtitleFirst) and (Subtitle <> '')) then
+        writeln (x, '.H3 "', Subtitle, '"');
+      writeln (x, '.H1 "', Title, '"');
+      if (not (SubtitleFirst) and (Subtitle <> '')) then
+        writeln (x, '.H3 "', Subtitle, '"');
+      if (FileExists (pathname + '/' + cfilename + '.co')) then begin
+        writeln (x, '.so ' + cfilename + '.co');
+        writeln (x, '.SEP');
+      end;
+    end;
+    writeln (x, '.so ', cfilename + '.so');
+    close (x);
+  end;
+end;
+
+procedure tEPubProfile.Make (aStory : tStory);
+begin
+
 end;
 
 {$endregion}
@@ -2082,6 +3390,11 @@ begin
   end;
   if found then
     t_current_Profile := t_Profiles [index];
+end;
+
+procedure tProfileList.SelectAt (aIndex : integer);
+begin
+  t_current_Profile := t_Profiles [aIndex];
 end;
 
 procedure tProfileList.Load;

@@ -38,7 +38,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="27">
+    <Units Count="28">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -225,6 +225,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="feditor"/>
       </Unit26>
+      <Unit27>
+        <Filename Value="gmake.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="gmake"/>
+      </Unit27>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

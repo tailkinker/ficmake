@@ -1,15 +1,15 @@
 object frmOptions: TfrmOptions
-  Left = 1088
-  Height = 200
-  Top = 148
+  Left = 1286
+  Height = 365
+  Top = 694
   Width = 522
   BorderStyle = bsDialog
   Caption = 'Options'
-  ClientHeight = 200
+  ClientHeight = 365
   ClientWidth = 522
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.2.2.0'
   object radScreen: TRadioGroup
     Left = 8
     Height = 131
@@ -46,9 +46,9 @@ object frmOptions: TfrmOptions
     TabOrder = 0
   end
   object btnOk: TButton
-    Left = 237
+    Left = 407
     Height = 25
-    Top = 168
+    Top = 336
     Width = 100
     Caption = 'OK'
     Default = True
@@ -59,7 +59,7 @@ object frmOptions: TfrmOptions
   object btnGuess: TButton
     Left = 8
     Height = 25
-    Top = 168
+    Top = 144
     Width = 100
     Caption = 'Guess'
     OnClick = btnGuessClick
@@ -84,9 +84,9 @@ object frmOptions: TfrmOptions
     TabOrder = 4
   end
   object txtFontSize: TLabeledEdit
-    Left = 328
+    Left = 447
     Height = 27
-    Top = 72
+    Top = 142
     Width = 60
     Alignment = taCenter
     EditLabel.AnchorSideTop.Control = txtFontSize
@@ -94,15 +94,27 @@ object frmOptions: TfrmOptions
     EditLabel.AnchorSideRight.Control = txtFontSize
     EditLabel.AnchorSideBottom.Control = txtFontSize
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 263
+    EditLabel.Left = 383
     EditLabel.Height = 17
-    EditLabel.Top = 77
-    EditLabel.Width = 62
+    EditLabel.Top = 147
+    EditLabel.Width = 61
     EditLabel.Caption = 'Font Size:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
     TabOrder = 5
     Text = '12'
     OnChange = txtFontSizeChange
+  end
+  object txtLoremIpsum: TMemo
+    Left = 8
+    Height = 155
+    Top = 184
+    Width = 499
+    Lines.Strings = (
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna  aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco nisi ut aliquip ex ea commodo consequat.'
+    )
+    OnChange = txtLoremIpsumChange
+    ReadOnly = True
+    TabOrder = 6
   end
 end

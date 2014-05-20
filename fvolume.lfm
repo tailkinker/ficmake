@@ -1,7 +1,7 @@
 object frmVolume: TfrmVolume
-  Left = 340
+  Left = 667
   Height = 400
-  Top = 148
+  Top = 868
   Width = 780
   Caption = 'Ficmake v1.1.0'
   ClientHeight = 400
@@ -11,7 +11,7 @@ object frmVolume: TfrmVolume
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.2.2.0'
   object lstVolumes: TListBox
     Left = 8
     Height = 80
@@ -29,7 +29,7 @@ object frmVolume: TfrmVolume
     Left = 8
     Height = 17
     Top = 152
-    Width = 55
+    Width = 54
     Caption = 'Volumes'
     ParentColor = False
   end

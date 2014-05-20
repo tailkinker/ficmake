@@ -1,7 +1,7 @@
 object frmStory: TfrmStory
-  Left = 340
+  Left = 412
   Height = 400
-  Top = 572
+  Top = 811
   Width = 780
   ClientHeight = 400
   ClientWidth = 780
@@ -10,7 +10,7 @@ object frmStory: TfrmStory
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.2.2.0'
   object Label1: TLabel
     Left = 8
     Height = 17
@@ -556,7 +556,7 @@ object frmStory: TfrmStory
     Left = 616
     Height = 17
     Top = 72
-    Width = 100
+    Width = 99
     Caption = 'Volume Profiles'
     ParentColor = False
   end

@@ -73,13 +73,14 @@ type
       procedure LoadStoryList;
       procedure SaveStoryList;
       function StoryTitle (index : integer) : string;
+      procedure Build;
   end;
 {$endregion}
 
 implementation
 
 uses
-  gtools;
+  gtools, gprofile;
 
 {$region tStory}
 
@@ -188,6 +189,7 @@ begin
     writeln (t, 'Subtitle Above Title');
   writeln (t, '[end]');
 end;
+
 
 {$endregion}
 
@@ -324,6 +326,11 @@ end;
 function tStoryList.StoryTitle (index : integer) : string;
 begin
 	StoryTitle := t_stories [index].Title;
+end;
+
+procedure tStoryList.Build;
+begin
+
 end;
 
 {$endregion}

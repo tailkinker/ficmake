@@ -41,7 +41,6 @@ type
       property GenerateIndexFile : boolean read t_index write t_index default false;
       procedure Load (var t : text);
       procedure Save (var t : text);
-      procedure Make;
   end;
 
   tVolumeList = class (tObject)
@@ -128,10 +127,6 @@ begin
   writeln (t, '[end]');
 end;
 
-procedure tVolume.Make;
-begin
-
-end;
 {$endregion}
 
 {$region tVolumeList}

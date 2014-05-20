@@ -1,7 +1,7 @@
 object frmEditor: TfrmEditor
-  Left = 654
+  Left = 340
   Height = 420
-  Top = 372
+  Top = 359
   Width = 780
   Caption = 'frmEditor'
   ClientHeight = 395
@@ -20,7 +20,7 @@ object frmEditor: TfrmEditor
     Width = 768
     OnChange = tabEditorsChange
     TabHeight = 30
-    TabIndex = 0
+    TabIndex = 1
     Tabs.Strings = (
       'Cold Open'
       'Chapter Body'
