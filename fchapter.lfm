@@ -1,7 +1,7 @@
 object frmChapter: TfrmChapter
-  Left = 340
+  Left = 450
   Height = 400
-  Top = 572
+  Top = 852
   Width = 780
   ClientHeight = 400
   ClientWidth = 780
@@ -10,7 +10,7 @@ object frmChapter: TfrmChapter
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.2.2.0'
   object Label1: TLabel
     Left = 8
     Height = 17

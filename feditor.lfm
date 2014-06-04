@@ -1,7 +1,7 @@
 object frmEditor: TfrmEditor
-  Left = 340
+  Left = 478
   Height = 420
-  Top = 359
+  Top = 854
   Width = 780
   Caption = 'frmEditor'
   ClientHeight = 395
@@ -12,7 +12,7 @@ object frmEditor: TfrmEditor
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.2.2.0'
   object tabEditors: TTabControl
     Left = 8
     Height = 384
@@ -20,7 +20,7 @@ object frmEditor: TfrmEditor
     Width = 768
     OnChange = tabEditorsChange
     TabHeight = 30
-    TabIndex = 1
+    TabIndex = 0
     Tabs.Strings = (
       'Cold Open'
       'Chapter Body'
