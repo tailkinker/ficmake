@@ -92,7 +92,7 @@ begin
       i := 0;
       repeat
         inc (i);
-      until (copy (s, i, 1) = '=');
+      until ((copy (s, i, 1) = '=') or (i > length (s)));
 
    		// Split Keyline
       k := copy (s, 1, i - 1);
@@ -106,6 +106,10 @@ begin
       if (k = 'Screen Size') then begin
         val (v, optScreenSize);
         SetScreenSize;
+      end else if (k = 'Open Log On Start') then begin
+        optOpenLogOnStart := TRUE
+      end else if (k = 'Assume Make On Save') then begin
+        optAssumeMakeOnSave := TRUE
       end else if (k = 'Measurement') then begin
         if (v = 'in') then
         	SetScale (0)
@@ -151,8 +155,10 @@ begin
       writeln (t, 'pt');
   end;
   writeln (t, 'Font Size = ', optFontSize);
-  writeln (t, 'Open Log On Start = ', optOpenLogOnStart);
-  writeln (t, 'Assume Make On Save = ', optAssumeMakeOnSave);
+  if (optOpenLogOnStart) then
+    writeln (t, 'Open Log On Start');
+  if (optAssumeMakeOnSave) then
+    writeln (t, 'Assume Make On Save');
   // Close out the list
   close (t);
 end;

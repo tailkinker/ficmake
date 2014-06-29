@@ -10,7 +10,7 @@ uses
   Forms, fvolume, gprofile, gvolume, gtools, fnewvol, fstory, gstory, fnewfic,
   foptions, fficinfo, gchapter, fchapter, fnewchap, dgroff, fnewprof, fpdfpro,
   doption, dtools, fhdhelp, fhtmlpro, ftextpro, fepubpro, fbaredit, fimprof,
-  fstorypr, feditor, gmake;
+  fstorypr, feditor, gmake, flog, fothers, gothers;
 
 {$R *.res}
 
@@ -19,6 +19,7 @@ begin
   Application.Initialize;
   Application.CreateForm(TfrmVolume, frmVolume);
   Application.CreateForm(TfrmHeaderHelp, frmHeaderHelp);
+  Application.CreateForm(TfrmLog, frmLog);
   Application.Run;
 end.
 

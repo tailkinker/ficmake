@@ -1,21 +1,21 @@
 object frmPDFProfile: TfrmPDFProfile
-  Left = 384
+  Left = 383
   Height = 400
-  Top = 318
+  Top = 668
   Width = 780
   BorderStyle = bsDialog
   Caption = 'Edit PDF Profile'
   ClientHeight = 400
   ClientWidth = 780
   OnCreate = FormCreate
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.2.2.0'
   object pgPDF: TPageControl
     Left = 0
     Height = 296
     Top = 72
     Width = 780
-    ActivePage = tabPage
-    TabIndex = 0
+    ActivePage = tabStyles
+    TabIndex = 2
     TabOrder = 0
     TabPosition = tpLeft
     object tabPage: TTabSheet
@@ -462,7 +462,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 124
         Height = 17
         Top = 8
-        Width = 81
+        Width = 80
         Caption = 'Font Family:'
         Enabled = False
         ParentColor = False
@@ -496,7 +496,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 124
         Height = 20
         Top = 69
-        Width = 53
+        Width = 51
         Caption = 'Bold'
         Enabled = False
         Font.Style = [fsBold]
@@ -508,7 +508,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 196
         Height = 20
         Top = 69
-        Width = 60
+        Width = 61
         Caption = 'Italics'
         Enabled = False
         Font.Style = [fsItalic]
@@ -561,10 +561,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtFontSize
         EditLabel.AnchorSideBottom.Control = txtFontSize
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 123
+        EditLabel.Left = 124
         EditLabel.Height = 17
         EditLabel.Top = 100
-        EditLabel.Width = 62
+        EditLabel.Width = 61
         EditLabel.Caption = 'Font Size:'
         EditLabel.ParentColor = False
         Enabled = False
@@ -623,6 +623,7 @@ object frmPDFProfile: TfrmPDFProfile
         Top = 259
         Width = 80
         Enabled = False
+        OnChange = btnBordersTopChange
         TabOrder = 10
       end
       object btnBordersLeft: TToggleBox
@@ -632,6 +633,7 @@ object frmPDFProfile: TfrmPDFProfile
         Top = 223
         Width = 24
         Enabled = False
+        OnChange = btnBordersTopChange
         TabOrder = 11
       end
       object btnBordersRight: TToggleBox
@@ -641,13 +643,14 @@ object frmPDFProfile: TfrmPDFProfile
         Top = 223
         Width = 24
         Enabled = False
+        OnChange = btnBordersTopChange
         TabOrder = 12
       end
       object chkTitlePageOneColumn: TCheckBox
         Left = 420
         Height = 20
         Hint = 'The first page of the document will be only '#10'one column, regardless of the number of '#10'columns selected.'
-        Top = 191
+        Top = 184
         Width = 212
         Caption = 'Title Page is One Column Only'
         Enabled = False
@@ -754,6 +757,32 @@ object frmPDFProfile: TfrmPDFProfile
         ParentShowHint = False
         ShowHint = True
         TabOrder = 18
+      end
+      object radForceFirstPage: TRadioGroup
+        Left = 424
+        Height = 39
+        Top = 209
+        Width = 198
+        AutoFill = True
+        AutoSize = True
+        Caption = 'Force First Page of Chapters'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.HorizontalSpacing = 12
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 3
+        ClientHeight = 20
+        ClientWidth = 194
+        Columns = 3
+        Items.Strings = (
+          'None'
+          'Odd'
+          'Even'
+        )
+        TabOrder = 19
       end
     end
   end

@@ -81,6 +81,8 @@ object frmEditor: TfrmEditor
       end
       object mnuEditWords: TMenuItem
         Caption = 'Word Count'
+        ShortCut = 4183
+        OnClick = mnuEditWordsClick
       end
     end
     object mnuFormat: TMenuItem
@@ -100,10 +102,12 @@ object frmEditor: TfrmEditor
       Caption = '&Build'
       object mnuBuildBuild: TMenuItem
         Caption = 'Build &Document'
+        OnClick = mnuBuildBuildClick
       end
       object mntBuildMake: TMenuItem
         Caption = 'Make Document'
         ShortCut = 32845
+        OnClick = mntBuildMakeClick
       end
       object mnuMakeOnSave: TMenuItem
         Caption = 'Make On Save'

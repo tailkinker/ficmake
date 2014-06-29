@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ComCtrls, StdCtrls, Menus;
+  ComCtrls, StdCtrls, Menus,
+  gstory;
 
 type
 
@@ -35,9 +36,12 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure mntBuildMakeClick(Sender: TObject);
+    procedure mnuBuildBuildClick(Sender: TObject);
     procedure mnuEditCopyClick(Sender: TObject);
     procedure mnuEditCutClick(Sender: TObject);
     procedure mnuEditPasteClick(Sender: TObject);
+    procedure mnuEditWordsClick(Sender: TObject);
     procedure mnuFileCloseClick(Sender: TObject);
     procedure mnuFileDeleteClick(Sender: TObject);
     procedure mnuFileSaveClick(Sender: TObject);
@@ -61,20 +65,18 @@ type
     procedure SetDirty (aDirty : boolean);
   public
     { public declarations }
+    Story : tStory;
     property BaseDir : string read t_basedir write SetBaseDir;
     property Filename : string read t_filename write SetFileName;
     property MakeOnSave : boolean read t_makeonsave write t_makeonsave;
     property Dirty : boolean read t_dirty write SetDirty;
   end;
 
-var
-  frmEditor: TfrmEditor;
-
 implementation
 
 uses
   LCLType,
-  doption;
+  doption, flog, gprofile, gmake, gtools;
 
 {$R *.lfm}
 
@@ -135,6 +137,40 @@ begin
   txtEditor.Top := tabEditors.TabHeight;
 end;
 
+procedure TfrmEditor.mntBuildMakeClick(Sender: TObject);
+begin
+  frmLog.Show;
+  frmLog.BringToFront;
+  frmLog.txtLog.Lines.Clear;
+  Make (Story.SourceDir);
+end;
+
+procedure TfrmEditor.mnuBuildBuildClick(Sender: TObject);
+var
+  s : string;
+  limit,
+  index : integer;
+  StoryProfiles : tProfileList;
+begin
+  s := 'For Story ''' + Story.Title + ''':';
+  frmLog.Show;
+  frmLog.BringToFront;
+  frmLog.txtLog.Lines.Clear;
+  frmLog.txtLog.Lines.Add (s);
+
+  StoryProfiles := tProfileList.Create;
+  StoryProfiles.BaseDir := Story.SourceDir;
+  StoryProfiles.Load;
+  limit := StoryProfiles.Count;
+  if (limit > 0) then
+    for index := 0 to (limit - 1) do begin
+      StoryProfiles.SelectAt (index);
+      StoryProfiles.Current.Build (Story);
+    end;
+  StoryProfiles.Free;
+  WriteStoryMake (Story);
+end;
+
 procedure TfrmEditor.mnuEditCopyClick(Sender: TObject);
 begin
   txtEditor.CopyToClipboard;
@@ -148,6 +184,44 @@ end;
 procedure TfrmEditor.mnuEditPasteClick(Sender: TObject);
 begin
   txtEditor.PasteFromClipboard;
+end;
+
+procedure TfrmEditor.mnuEditWordsClick(Sender: TObject);
+var
+  i,
+  j,
+  words : longint;
+  s : string;
+  m : pchar;
+  OnWord,
+  LastOnWord : boolean;
+begin
+  words := 0;
+	if (txtEditor.Lines.Count > 0) then begin
+    for i := 0 to txtEditor.Lines.Count do begin
+      s := txtEditor.Lines.Strings [i];
+      if (length (s) > 0) then
+          if (not (s [1] = '.')) then begin
+          j := 1;
+          OnWord := false;
+          while (j < length (s)) do begin
+            LastOnWord := OnWord;
+            if (s [j] <> ' ') then
+              OnWord := true
+            else
+              OnWord := false;
+            if ((OnWord) and not (LastOnWord)) then
+              words += 1;
+            j += 1;
+          end;
+        end;
+    end;
+  end;
+
+  s := 'Word Count:  ' + InsertCommas (words);
+  m := pchar (s);
+  Application.MessageBox (m, 'Word Count', MB_ICONINFORMATION + MB_OK);
+  txtEditor.SetFocus;
 end;
 
 procedure TfrmEditor.mnuFileCloseClick(Sender: TObject);
@@ -289,6 +363,8 @@ begin
   end;
   txtEditor.Lines.SaveToFile (CurrentFileName);
   Dirty := FALSE;
+  if (mnuMakeOnSave.Checked) then
+    Make (Story.SourceDir);
 end;
 
 end.

@@ -55,6 +55,7 @@ type
     cmbH1CenterMode: TComboBox;
     Label10: TLabel;
     Label9: TLabel;
+    radForceFirstPage: TRadioGroup;
     txtSeparator: TLabeledEdit;
     Panel1: TPanel;
     btnBordersTop: TToggleBox;
@@ -381,6 +382,7 @@ procedure TfrmPDFProfile.btnBordersTopChange(Sender: TObject);
 begin
   Profile.GroffFonts [CurrentFont].Borders [TToggleBox (Sender).Tag] :=
     TToggleBox (Sender).Checked;
+  chkCallTBL.Checked := chkCallTBL.Checked OR (TToggleBox (Sender).Checked);
 end;
 
 procedure TfrmPDFProfile.btnCloseClick(Sender: TObject);

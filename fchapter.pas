@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, Buttons, gchapter;
+  ExtCtrls, Buttons, gchapter, gstory, gprofile;
 
 type
 
@@ -35,6 +35,8 @@ type
     btnAddChapter : TBitBtn;
     btnDeleteChapter : TBitBtn;
     btnSaveChapters : TBitBtn;
+    btnBuild: TButton;
+    btnMake: TButton;
     chkIsABook : TCheckBox;
     chkSubtitleFirst : TCheckBox;
     Label1 : TLabel;
@@ -43,7 +45,9 @@ type
     txtSubtitle : TLabeledEdit;
     txtTitle : TLabeledEdit;
     procedure btnAddChapterClick (Sender : TObject );
+    procedure btnBuildClick(Sender: TObject);
     procedure btnDeleteChapterClick (Sender : TObject );
+    procedure btnMakeClick(Sender: TObject);
     procedure btnSaveChaptersClick (Sender : TObject );
     procedure FormClose (Sender : TObject; var CloseAction : TCloseAction );
     procedure FormCreate (Sender : TObject );
@@ -55,6 +59,7 @@ type
     t_shortname : string;
     procedure PopulateChapterList;
   public
+    Story : tStory;
     property ShortName : string read t_shortname write t_shortname;
     procedure SetBaseDir (aDir : string);
     procedure ForceChapterListLoad;
@@ -64,7 +69,7 @@ implementation
 
 uses
   LCLType,
-  doption, fnewchap, feditor;
+  doption, gmake, fnewchap, feditor, flog;
 
 {$R *.lfm}
 
@@ -89,6 +94,32 @@ begin
   PopulateChapterList;
 end;
 
+procedure TfrmChapter.btnBuildClick(Sender: TObject);
+var
+  StoryProfiles : tProfileList;
+  limit,
+  index : integer;
+  s : string;
+begin
+  s := 'For Story ''' + Story.Title + ''':';
+  frmLog.Show;
+  frmLog.BringToFront;
+  frmLog.txtLog.Lines.Clear;
+  frmLog.txtLog.Lines.Add (s);
+
+  StoryProfiles := tProfileList.Create;
+  StoryProfiles.BaseDir := Story.SourceDir;
+  StoryProfiles.Load;
+  limit := StoryProfiles.Count;
+  if (limit > 0) then
+    for index := 0 to (limit - 1) do begin
+      StoryProfiles.SelectAt (index);
+      StoryProfiles.Current.Build (Story);
+    end;
+  StoryProfiles.Free;
+  WriteStoryMake (Story);
+end;
+
 procedure TfrmChapter.btnDeleteChapterClick (Sender : TObject );
 var
   s : string;
@@ -102,6 +133,14 @@ begin
     end;
   btnDeleteChapter.Enabled := FALSE;
   PopulateChapterList;
+end;
+
+procedure TfrmChapter.btnMakeClick(Sender: TObject);
+begin
+  frmLog.Show;
+  frmLog.BringToFront;
+  frmLog.txtLog.Lines.Clear;
+  Make (Story.SourceDir);
 end;
 
 procedure TfrmChapter.btnSaveChaptersClick (Sender : TObject );
@@ -143,6 +182,15 @@ begin
   btnDeleteChapter.Top := Height - 44;
   btnSaveChapters.Left := (lstChapters.Width - btnSaveChapters.Width) div 2 + 8;
   btnSaveChapters.Top := Height - 44;
+
+  btnBuild.Left := col + 16;
+  btnBuild.Top := Height - 80;
+  btnBuild.Width := col * 2 + 8;
+  btnBuild.Caption := 'Build "' + Story.Title + '"';
+  btnMake.Left := col + 16;
+  btnMake.Width := col * 2 + 8;
+  btnMake.Top := Height - 40;
+  btnMake.Caption := 'Run Make on "' + Story.Title + '"';
 end;
 
 procedure TfrmChapter.lstChaptersClick (Sender : TObject );
@@ -210,6 +258,7 @@ begin
       NewEditor.Caption := FormCaption;
       NewEditor.BaseDir := Chapters.BaseDir;
       NewEditor.Filename := Chapters.Current.Filename;
+      NewEditor.Story := Story;
       NewEditor.Show;
     end;
   end;

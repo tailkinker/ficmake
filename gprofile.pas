@@ -75,7 +75,8 @@ type
       t_pagesize : byte;
       t_PageH,
       t_PageV : longint;
-      t_columns : byte;
+      t_columns,
+      t_forcefirstpage : byte;
       t_margins : array [0..3] of longint;
       t_H1Mode : byte;
       t_flags : array [0..3] of boolean;
@@ -100,6 +101,8 @@ type
       property TopMargin    : longint index 2 read GetMargin write SetMargin;
       property BottomMargin : longint index 3 read GetMargin write SetMargin;
       property H1Mode : byte read t_H1Mode write t_H1Mode;
+      property ForceFirstPage : byte read t_forcefirstpage
+        write t_forcefirstpage default 0;
       property OneColumnTitlePage : boolean index 0 read GetFlag write SetFlag;
       property Landscape          : boolean index 1 read GetFlag write SetFlag;
       property UseTBL             : boolean index 2 read GetFlag write SetFlag;
@@ -218,7 +221,7 @@ const
 implementation
 
 uses
-  forms, fpdfpro, fhtmlpro, ftextpro, fepubpro,
+  forms, fpdfpro, fhtmlpro, ftextpro, fepubpro, flog,
   dgroff, gtools;
 
 {$region tBaseProfile}
@@ -289,6 +292,7 @@ begin
   Useeqn := false;
   Usepreconv := false;
   Usetbl := false;
+  ForceFirstPage := 0;
 
   // Font 0 - Plain Text
   GroffFonts [0].Family := 6; // Times New Roman
@@ -615,6 +619,11 @@ begin
       end else if (k = 'H1 Mode') then begin
         val (v, r);
         H1Mode := r
+      end else if (k = 'Force First Page') then begin
+        if (v = 'Odd') then
+          ForceFirstPage := 1
+        else if (v = 'Even') then
+          ForceFirstPage := 2
       end else if (k = 'Odd Header') then begin
         if (v = 'Disabled') then
           OddHeader.Enabled := false
@@ -787,6 +796,13 @@ begin
   writeln (t, 'Top Margin = ', TopMargin);
   writeln (t, 'Bottom Margin = ', BottomMargin);
   writeln (t, 'H1 Mode = ', H1Mode);
+  if (ForceFirstPage > 0) then begin
+    write (t, 'Force First Page = ');
+    if (ForceFirstPage = 1) then
+      writeln (t, 'Odd')
+    else
+      writeln (t, 'Even');
+  end;
   if (OneColumnTitlePage) then
     writeln (t, 'One Column Title Page');
 
@@ -859,6 +875,7 @@ begin
   dup.TopMargin := TopMargin;
   dup.BottomMargin := BottomMargin;
   dup.H1Mode := H1Mode;
+  dup.ForceFirstPage := ForceFirstPage;
   dup.OneColumnTitlePage := OneColumnTitlePage;
   dup.Landscape := Landscape;
   dup.UseTBL := UseTBL;
@@ -982,6 +999,10 @@ var
   linelength,
   colwidth : real;
 begin
+  // Mark the Log
+  s := ' -> Creating PDF for Profile ''' + Name + '''';
+  frmLog.txtLog.Lines.Add (s);
+
   // Load Chapters List
   Chapters := tChapterList.Create;
   Chapters.BaseDir := aStory.SourceDir;
@@ -1008,6 +1029,11 @@ begin
   pathname := aStory.SourceDir + '/';
   ofilename := StripSpaces (aStory.LongName + '-' + Name);
   filename := pathname + '/' + ofilename + '.ms';
+
+  // Page Size Information
+	pagelength := PageV / 1000;
+  linelength := (PageH - (InnerMargin + OuterMargin)) / 1000;
+  colwidth := (linelength - 36 * (Columns - 1)) / Columns;
 
   // Create Output File
   assign (x, filename);
@@ -1432,6 +1458,18 @@ begin
   for index := 0 to (Chapters.Count - 1) do begin
   	Chapters.SelectAt (index);
 
+    if (ForceFirstPage = 1) then begin
+      writeln (x, '.if e');
+      writeln (x, '\ ');
+      writeln (x, '.bp');
+      writeln (x, '..');
+    end else if (ForceFirstPage = 2) then begin
+      writeln (x, '.if o');
+      writeln (x, '\ ');
+      writeln (x, '.bp');
+      writeln (x, '..');
+    end;
+
     writeln (x, '.LP');
     writeln (x, '.EH ' + ExpandHeader (EvenHeader));
     writeln (x, '.OH ' + ExpandHeader (OddHeader));
@@ -1676,7 +1714,7 @@ var
 	s : string;
   //font : integer = -1;
   i : integer;
-  Done : boolean;
+  Done : boolean = FALSE;
 begin
   repeat
     // Read Keyline
@@ -1957,6 +1995,7 @@ end;
 procedure tHTMLProfile.WriteBulk (aStory : tStory);
 var
   index : integer;
+  s,
   pathname,
   filename,
   cfilename,
@@ -1964,6 +2003,10 @@ var
   x : text;
   Chapters : tChapterList;
 begin
+  // Mark the Log
+  s := ' -> Creating Bulk HTML for Profile ''' + Name + '''';
+  frmLog.txtLog.Lines.Add (s);
+
   Chapters := tChapterList.Create;
   Chapters.BaseDir := aStory.SourceDir;
   Chapters.Load;
@@ -2074,6 +2117,7 @@ end;
 procedure tHTMLProfile.WriteChapters (aStory : tStory);
 var
   index : integer;
+  s,
   pathname,
   filename,
   cfilename,
@@ -2081,6 +2125,10 @@ var
   x : text;
   Chapters : tChapterList;
 begin
+  // Mark the Log
+  s := ' -> Creating HTML Chapters for Profile ''' + Name + '''';
+  frmLog.txtLog.Lines.Add (s);
+
   Chapters := tChapterList.Create;
   Chapters.BaseDir := aStory.SourceDir;
   Chapters.Load;
@@ -2198,6 +2246,7 @@ end;
 procedure tHTMLProfile.WriteIndex (aStory : tStory);
 var
   index : integer;
+  s,
   pathname,
   filename,
   cfilename,
@@ -2206,6 +2255,10 @@ var
   LastWasBook : boolean;
   Chapters : tChapterList;
 begin
+  // Mark the Log
+  s := ' -> Creating HTML Index for Profile ''' + Name + '''';
+  frmLog.txtLog.Lines.Add (s);
+
   Chapters := tChapterList.Create;
   Chapters.BaseDir := aStory.SourceDir;
   Chapters.Load;
@@ -2430,6 +2483,7 @@ end;
 procedure tTextProfile.WriteBulk (aStory : tStory);
 var
   index : integer;
+  s,
   pathname,
   filename,
   cfilename,
@@ -2441,6 +2495,10 @@ var
   UsesBooks : boolean = false;
   Chapters : tChapterList;
 begin
+  // Mark the Log
+  s := ' -> Creating Bulk Text for Profile ''' + Name + '''';
+  frmLog.txtLog.Lines.Add (s);
+
   Chapters := tChapterList.Create;
   Chapters.BaseDir := aStory.SourceDir;
   Chapters.Load;
@@ -2715,6 +2773,7 @@ end;
 procedure tTextProfile.WriteChapters (aStory : tStory);
 var
   index : integer;
+  s,
   pathname,
   filename,
   cfilename,
@@ -2723,6 +2782,10 @@ var
   UsesBooks : boolean = false;
   Chapters : tChapterList;
 begin
+  // Mark the Log
+  s := ' -> Creating Text Chapters for Profile ''' + Name + '''';
+  frmLog.txtLog.Lines.Add (s);
+
   Chapters := tChapterList.Create;
   Chapters.BaseDir := aStory.SourceDir;
   Chapters.Load;
@@ -2978,7 +3041,7 @@ var
   v,
 	s : string;
   i : integer;
-  Done : boolean;
+  Done : boolean = FALSE;
 begin
   repeat
     // Read Keyline
@@ -3153,6 +3216,10 @@ var
   y: text;
   Chapters : tChapterList;
 begin
+  // Mark the Log
+  s := ' -> Creating EPub for Profile ''' + Name + '''';
+  frmLog.txtLog.Lines.Add (s);
+
   Chapters := tChapterList.Create;
   Chapters.BaseDir := aStory.SourceDir;
   Chapters.Load;
@@ -3428,11 +3495,13 @@ begin
           Done := true;
       until ((copy (s, 1, 8)  = '[Profile') or Done);
 
-      if (s = '[Profile]') then repeat
-        // Version 1.0.x Profiles List cannot be easily read and converted at
-        // this time.
-      	readln (t, s);
-      until (s = '[end]') else if (s = '[Profile PDF]') then begin
+      if (s = '[Profile]') then
+        repeat
+          // Version 1.0.x Profiles List cannot be easily read and converted at
+          // this time.
+      	  readln (t, s);
+        until (s = '[end]')
+      else if (s = '[Profile PDF]') then begin
       	index := length (t_Profiles);
         SetLength (t_Profiles, index + 1);
         t_Profiles [index] := tPDFProfile.Create;

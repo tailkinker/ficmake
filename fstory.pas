@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, Buttons, gstory, gprofile;
+  ExtCtrls, Buttons, gstory, gprofile, gvolume;
 
 type
 
@@ -33,6 +33,7 @@ type
 
   TfrmStory = class (TForm )
     btnAddProfile: TBitBtn;
+    btnOtherFiles: TButton;
     btnImportProfile: TBitBtn;
     btnAddStory : TBitBtn;
     btnBlurb : TButton;
@@ -55,6 +56,7 @@ type
     procedure btnAddProfileClick(Sender: TObject);
     procedure btnAddStoryClick (Sender : TObject );
     procedure btnBlurbClick(Sender: TObject);
+    procedure btnBuildClick(Sender: TObject);
     procedure btnCreditsClick(Sender: TObject);
     procedure btnDeleteProfileClick(Sender: TObject);
     procedure btnDeleteStoryClick (Sender : TObject );
@@ -62,6 +64,8 @@ type
     procedure btnEditChaptersClick (Sender : TObject );
     procedure btnEditStoryClick (Sender : TObject );
     procedure btnImportProfileClick(Sender: TObject);
+    procedure btnMakeClick(Sender: TObject);
+    procedure btnOtherFilesClick(Sender: TObject);
     procedure btnProfilesClick(Sender: TObject);
     procedure btnSaveProfilesClick(Sender: TObject);
     procedure btnSaveStoriesClick (Sender : TObject );
@@ -79,6 +83,7 @@ type
     procedure PopulateProfileList;
   public
     GlobalProfiles : tProfileList;
+    Volume : tVolume;
     procedure SetBaseDir (aDir : string);
     procedure ForceLoadStoryList;
   end;
@@ -87,8 +92,9 @@ implementation
 
 uses
   LCLType,
-  fchapter, fnewfic, fficinfo, fbaredit, fnewprof, fimprof, fstorypr,
-  doption;
+  fchapter, fnewfic, fficinfo, fbaredit, fnewprof, fimprof, fstorypr, flog,
+  fothers,
+  doption, gmake;
 
 {$R *.lfm}
 
@@ -137,6 +143,36 @@ begin
     Filename := Stories.Current.SourceDir + '/blurb.so';
     ShowModal;
   end;
+end;
+
+procedure TfrmStory.btnBuildClick(Sender: TObject);
+var
+  index_story,
+  index_profile : integer;
+  s : string;
+  ProfileList : tProfileList;
+begin
+  // Load Volume Profile List
+  ProfileList := tProfileList.Create;
+  ProfileList.BaseDir := Volume.BaseDir;
+  ProfileList.Load;
+
+  frmLog.txtLog.Lines.Clear;
+  frmLog.Show;
+  frmLog.BringToFront;
+  if ((Stories.Count > 0) and (ProfileList.Count > 0)) then begin
+    for index_story := 0 to (Stories.Count - 1) do begin
+      Stories.SelectAt (index_story);
+      s := 'For Story ''' + Stories.Current.Title + ''':';
+      frmLog.txtLog.Lines.Add (s);
+      for index_profile := 0 to (ProfileList.Count - 1) do begin
+        ProfileList.SelectAt (index_profile);
+        ProfileList.Current.Build (Stories.Current);
+      end;
+      WriteStoryMakeForVolume (Stories.Current, Volume);
+    end;
+  end;
+  WriteVolumeMake (Volume);
 end;
 
 procedure TfrmStory.btnCreditsClick(Sender: TObject);
@@ -205,9 +241,10 @@ begin
     else
     	index += 1;
   until (Present or (index >= Screen.FormCount));
-  if (Present) then
+  if (Present) then begin
+    Screen.Forms [index].Show;
     Screen.Forms [index].BringToFront
-  else begin
+  end else begin
     NewForm := TfrmChapter.Create (Application);
     NewForm.Caption := FormCaption;
     NewForm.SetBaseDir (Stories.Current.SourceDir);
@@ -242,6 +279,42 @@ begin
     PopulateProfileList;
   end;
   NewDialog.Free;
+end;
+
+procedure TfrmStory.btnMakeClick(Sender: TObject);
+begin
+  frmLog.Show;
+  frmLog.BringToFront;
+  frmLog.txtLog.Lines.Clear;
+  Make (Volume.BaseDir);
+end;
+
+procedure TfrmStory.btnOtherFilesClick(Sender: TObject);
+var
+  NewForm : TfrmOtherFiles;
+  FormCaption : string;
+  index : integer;
+  Present : boolean;
+begin
+	FormCaption := 'Dependant Files for "' + Stories.Current.Title + '"';
+  index := 0;
+  Present := false;
+  repeat
+    if (Screen.Forms [index].Caption = FormCaption) then
+      Present := true
+    else
+    	index += 1;
+  until (Present or (index >= Screen.FormCount));
+  if (Present) then begin
+    Screen.Forms [index].Show;
+    Screen.Forms [index].BringToFront
+  end else begin
+    NewForm := TfrmOtherFiles.Create (Application);
+    NewForm.Caption := FormCaption;
+    NewForm.SetBaseDir (Stories.Current.SourceDir);
+    NewForm.ForceFileListLoad;
+    NewForm.Show;
+  end;
 end;
 
 procedure TfrmStory.btnProfilesClick(Sender: TObject);
@@ -307,6 +380,8 @@ begin
   btnMake.Left := y;
   btnProfiles.Width := x;
   btnProfiles.Left := y;
+  btnOtherFiles.Left := y;
+  btnOtherFiles.Width := x;
 
   btnImportProfile.Left := (Width - btnImportProfile.Width) - 8;
   btnImportProfile.Top := lstProfiles.Top - (btnImportProfile.Height + 8);
@@ -327,6 +402,11 @@ begin
   btnDeleteStory.Top := Height - 44;
   btnSaveStories.Left := (lstStories.Width - btnSaveStories.Width) div 2 + 8;
   btnSaveStories.Top := Height - 44;
+
+  btnBuild.Caption := 'Build "' + Volume.VolumeName + '"';
+  btnBuild.Enabled := TRUE;
+  btnMake.Caption := 'Run Make on "' + Volume.VolumeName + '"';
+  btnMake.Enabled := TRUE;
 end;
 
 procedure TfrmStory.lstProfilesClick(Sender: TObject);
@@ -380,6 +460,7 @@ begin
     btnDisclaimer.Enabled := FALSE;
     btnCredits.Enabled := FALSE;
     btnProfiles.Enabled := FALSE;
+    btnOtherFiles.Enabled := FALSE;
 
     // Load Controls
     txtTitle.Text := Stories.Current.Title;
@@ -394,6 +475,7 @@ begin
       btnDisclaimer.Enabled := TRUE;
       btnCredits.Enabled := TRUE;
       btnProfiles.Enabled := TRUE;
+      btnOtherFiles.Enabled := TRUE;
     end;
   end;
 end;
@@ -414,14 +496,16 @@ begin
     else
     	index += 1;
   until (Present or (index >= Screen.FormCount));
-  if (Present) then
+  if (Present) then begin
+    Screen.Forms [index].Show;
     Screen.Forms [index].BringToFront
-  else begin
+  end else begin
     NewForm := TfrmChapter.Create (Application);
     NewForm.Caption := FormCaption;
     NewForm.SetBaseDir (Stories.Current.SourceDir);
     NewForm.ForceChapterListLoad;
     NewForm.ShortName := Stories.Current.ShortName;
+    NewForm.Story := Stories.Current;
     NewForm.Show;
   end;
 end;

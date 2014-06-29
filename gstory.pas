@@ -70,6 +70,7 @@ type
       procedure NewStory (aTitle : string);
       procedure DeleteStory;
       procedure SelectStory (aTitle : string);
+      procedure SelectAt (aIndex : integer);
       procedure LoadStoryList;
       procedure SaveStoryList;
       function StoryTitle (index : integer) : string;
@@ -190,7 +191,6 @@ begin
   writeln (t, '[end]');
 end;
 
-
 {$endregion}
 
 {$region tStoryList}
@@ -248,6 +248,11 @@ begin
   end;
   if found then
     t_current_story := t_stories [index];
+end;
+
+procedure tStoryList.SelectAt (aIndex : integer);
+begin
+  t_current_story := t_stories [aIndex];
 end;
 
 procedure tStoryList.LoadStoryList;

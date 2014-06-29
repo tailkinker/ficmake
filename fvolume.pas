@@ -26,6 +26,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Buttons,
+  flog,
   gvolume, gprofile;
 
 type
@@ -214,13 +215,14 @@ begin
     until (Present or (index >= Screen.FormCount));
     if (Present) then begin
       Screen.Forms [index].Show;
-      Screen.Forms [index].BringToFront
+      Screen.Forms [index].BringToFront;
     end else begin
       NewStoryForm := TfrmStory.Create (Application);
       NewStoryForm.Caption := FormCaption;
       NewStoryForm.SetBaseDir (Volumes.Current.BaseDir);
       NewStoryForm.ForceLoadStoryList;
       NewStoryForm.GlobalProfiles := Profiles;
+      NewStoryForm.Volume := Volumes.Current;
       NewStoryForm.Show;
     end;
   end;

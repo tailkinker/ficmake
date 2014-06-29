@@ -33,12 +33,15 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="1">
+    <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="LCL"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
     </RequiredPackages>
-    <Units Count="28">
+    <Units Count="31">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -230,6 +233,27 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="gmake"/>
       </Unit27>
+      <Unit28>
+        <Filename Value="flog.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmLog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="flog"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="fothers.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmOtherFiles"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="fothers"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="gothers.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="gothers"/>
+      </Unit30>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

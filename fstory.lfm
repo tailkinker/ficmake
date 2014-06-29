@@ -1,7 +1,7 @@
 object frmStory: TfrmStory
-  Left = 412
+  Left = 707
   Height = 400
-  Top = 811
+  Top = 772
   Width = 780
   ClientHeight = 400
   ClientWidth = 780
@@ -10,12 +10,12 @@ object frmStory: TfrmStory
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.2.0'
+  LCLVersion = '1.2.4.0'
   object Label1: TLabel
     Left = 8
     Height = 17
     Top = 8
-    Width = 43
+    Width = 42
     Caption = 'Stories'
     ParentColor = False
   end
@@ -64,8 +64,8 @@ object frmStory: TfrmStory
   end
   object btnEditStory: TButton
     Left = 288
-    Height = 25
-    Top = 88
+    Height = 32
+    Top = 72
     Width = 200
     Caption = 'Story Information'
     Enabled = False
@@ -74,8 +74,8 @@ object frmStory: TfrmStory
   end
   object btnEditChapters: TButton
     Left = 288
-    Height = 25
-    Top = 128
+    Height = 32
+    Top = 104
     Width = 200
     Caption = 'Chapter List'
     Enabled = False
@@ -84,8 +84,8 @@ object frmStory: TfrmStory
   end
   object btnBlurb: TButton
     Left = 288
-    Height = 25
-    Top = 208
+    Height = 32
+    Top = 168
     Width = 200
     Caption = 'Story Blurb'
     Enabled = False
@@ -94,8 +94,8 @@ object frmStory: TfrmStory
   end
   object btnDisclaimer: TButton
     Left = 288
-    Height = 25
-    Top = 248
+    Height = 32
+    Top = 200
     Width = 200
     Caption = 'Disclaimer'
     Enabled = False
@@ -104,8 +104,8 @@ object frmStory: TfrmStory
   end
   object btnCredits: TButton
     Left = 288
-    Height = 25
-    Top = 288
+    Height = 32
+    Top = 232
     Width = 200
     Caption = 'Credits'
     Enabled = False
@@ -114,20 +114,22 @@ object frmStory: TfrmStory
   end
   object btnBuild: TButton
     Left = 288
-    Height = 25
+    Height = 32
     Top = 328
     Width = 200
     Caption = 'Build Volume'
     Enabled = False
+    OnClick = btnBuildClick
     TabOrder = 8
   end
   object btnMake: TButton
     Left = 288
-    Height = 25
-    Top = 368
+    Height = 32
+    Top = 360
     Width = 200
     Caption = 'Run Make on Volume'
     Enabled = False
+    OnClick = btnMakeClick
     TabOrder = 9
   end
   object btnAddStory: TBitBtn
@@ -556,14 +558,14 @@ object frmStory: TfrmStory
     Left = 616
     Height = 17
     Top = 72
-    Width = 99
+    Width = 97
     Caption = 'Volume Profiles'
     ParentColor = False
   end
   object btnProfiles: TButton
     Left = 288
-    Height = 25
-    Top = 168
+    Height = 32
+    Top = 136
     Width = 200
     Caption = 'Story Profiles'
     Enabled = False
@@ -1131,5 +1133,15 @@ object frmStory: TfrmStory
     }
     OnClick = btnImportProfileClick
     TabOrder = 17
+  end
+  object btnOtherFiles: TButton
+    Left = 288
+    Height = 32
+    Top = 264
+    Width = 200
+    Caption = 'Dependant Files'
+    Enabled = False
+    OnClick = btnOtherFilesClick
+    TabOrder = 18
   end
 end

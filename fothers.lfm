@@ -1,104 +1,29 @@
-object frmChapter: TfrmChapter
-  Left = 654
-  Height = 400
-  Top = 913
+object frmOtherFiles: TfrmOtherFiles
+  Left = 340
+  Height = 420
+  Top = 694
   Width = 780
-  ClientHeight = 400
+  Caption = 'Other Files'
+  ClientHeight = 420
   ClientWidth = 780
-  Constraints.MinHeight = 400
+  Constraints.MinHeight = 420
   Constraints.MinWidth = 780
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.2.0'
-  object Label1: TLabel
-    Left = 8
-    Height = 17
-    Top = 8
-    Width = 56
-    Caption = 'Chapters'
-    ParentColor = False
-  end
-  object lstChapters: TListBox
-    Left = 8
+  LCLVersion = '1.2.4.0'
+  object lstOtherFiles: TListBox
+    Left = 29
     Height = 80
-    Top = 32
+    Top = 30
     Width = 100
     ItemHeight = 0
-    OnClick = lstChaptersClick
-    OnDblClick = lstChaptersDblClick
+    OnClick = lstOtherFilesClick
     ScrollWidth = 98
     TabOrder = 0
     TopIndex = -1
   end
-  object txtTitle: TLabeledEdit
-    Left = 424
-    Height = 27
-    Top = 32
-    Width = 80
-    EditLabel.AnchorSideLeft.Control = txtTitle
-    EditLabel.AnchorSideRight.Control = txtTitle
-    EditLabel.AnchorSideRight.Side = asrBottom
-    EditLabel.AnchorSideBottom.Control = txtTitle
-    EditLabel.Left = 424
-    EditLabel.Height = 17
-    EditLabel.Top = 12
-    EditLabel.Width = 80
-    EditLabel.Caption = 'Chapter Title'
-    EditLabel.ParentColor = False
-    TabOrder = 1
-  end
-  object txtSubtitle: TLabeledEdit
-    Left = 424
-    Height = 27
-    Top = 88
-    Width = 80
-    EditLabel.AnchorSideLeft.Control = txtSubtitle
-    EditLabel.AnchorSideRight.Control = txtSubtitle
-    EditLabel.AnchorSideRight.Side = asrBottom
-    EditLabel.AnchorSideBottom.Control = txtSubtitle
-    EditLabel.Left = 424
-    EditLabel.Height = 17
-    EditLabel.Top = 68
-    EditLabel.Width = 80
-    EditLabel.Caption = 'Subtitle'
-    EditLabel.ParentColor = False
-    TabOrder = 2
-  end
-  object txtFilename: TLabeledEdit
-    Left = 424
-    Height = 27
-    Top = 144
-    Width = 232
-    EditLabel.AnchorSideLeft.Control = txtFilename
-    EditLabel.AnchorSideRight.Control = txtFilename
-    EditLabel.AnchorSideRight.Side = asrBottom
-    EditLabel.AnchorSideBottom.Control = txtFilename
-    EditLabel.Left = 424
-    EditLabel.Height = 17
-    EditLabel.Top = 124
-    EditLabel.Width = 232
-    EditLabel.Caption = 'Filename (without extensions)'
-    EditLabel.ParentColor = False
-    TabOrder = 3
-  end
-  object chkIsABook: TCheckBox
-    Left = 424
-    Height = 20
-    Top = 184
-    Width = 211
-    Caption = 'This Chapter is a Book Divider'
-    TabOrder = 4
-  end
-  object chkSubtitleFirst: TCheckBox
-    Left = 424
-    Height = 20
-    Top = 216
-    Width = 180
-    Caption = 'Place Subtitle above Title'
-    TabOrder = 5
-  end
-  object btnAddChapter: TBitBtn
+  object btnAddFile: TBitBtn
     Left = 8
     Height = 36
     Top = 320
@@ -235,10 +160,10 @@ object frmChapter: TfrmChapter
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
-    OnClick = btnAddChapterClick
-    TabOrder = 6
+    OnClick = btnAddFileClick
+    TabOrder = 1
   end
-  object btnDeleteChapter: TBitBtn
+  object btnDeleteFile: TBitBtn
     Left = 184
     Height = 36
     Top = 320
@@ -376,10 +301,10 @@ object frmChapter: TfrmChapter
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
-    OnClick = btnDeleteChapterClick
-    TabOrder = 7
+    OnClick = btnDeleteFileClick
+    TabOrder = 2
   end
-  object btnSaveChapters: TBitBtn
+  object btnSaveList: TBitBtn
     Left = 96
     Height = 36
     Top = 320
@@ -517,25 +442,40 @@ object frmChapter: TfrmChapter
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
-    OnClick = btnSaveChaptersClick
-    TabOrder = 8
+    OnClick = btnSaveListClick
+    TabOrder = 3
   end
-  object btnBuild: TButton
-    Left = 424
-    Height = 32
-    Top = 248
-    Width = 200
-    Caption = 'Build Story'
-    OnClick = btnBuildClick
-    TabOrder = 9
+  object txtFileName: TLabeledEdit
+    Left = 384
+    Height = 27
+    Top = 32
+    Width = 80
+    EditLabel.AnchorSideLeft.Control = txtFileName
+    EditLabel.AnchorSideTop.Side = asrCenter
+    EditLabel.AnchorSideRight.Control = txtFileName
+    EditLabel.AnchorSideRight.Side = asrBottom
+    EditLabel.AnchorSideBottom.Control = txtFileName
+    EditLabel.Left = 384
+    EditLabel.Height = 17
+    EditLabel.Top = 12
+    EditLabel.Width = 80
+    EditLabel.Caption = 'Filename: '
+    EditLabel.ParentColor = False
+    Enabled = False
+    TabOrder = 4
+    OnChange = txtFileNameChange
   end
-  object btnMake: TButton
-    Left = 424
-    Height = 32
-    Top = 288
-    Width = 200
-    Caption = 'Make'
-    OnClick = btnMakeClick
-    TabOrder = 10
+  object btnPickFile: TButton
+    Left = 577
+    Height = 25
+    Top = 118
+    Width = 100
+    Caption = 'Select File'
+    OnClick = btnPickFileClick
+    TabOrder = 5
+  end
+  object OpenDialog1: TOpenDialog
+    left = 56
+    top = 144
   end
 end
