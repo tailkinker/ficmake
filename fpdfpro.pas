@@ -129,6 +129,7 @@ type
     procedure cmbPageSizeUnitsChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure lstStylesClick(Sender: TObject);
+    procedure radForceFirstPageClick(Sender: TObject);
     procedure txtBottomMarginChange(Sender: TObject);
     procedure txtEvenFooterLeftChange(Sender: TObject);
     procedure txtEvenFooterMiddleChange(Sender: TObject);
@@ -254,6 +255,12 @@ begin
   end;
 end;
 
+procedure TfrmPDFProfile.radForceFirstPageClick(Sender: TObject);
+begin
+  if (radForceFirstPage.Enabled) then
+    Profile.ForceFirstPage := radForceFirstPage.ItemIndex;
+end;
+
 procedure TfrmPDFProfile.txtBottomMarginChange(Sender: TObject);
 var
   n : real;
@@ -367,6 +374,12 @@ begin
   chkTitlePageOneColumn.Checked := aProfile.OneColumnTitlePage;
   if (aProfile.Columns > 1) then
     chkTitlePageOneColumn.Enabled := TRUE;
+
+  // Other Crap
+  radForceFirstPage.ItemIndex := aProfile.ForceFirstPage;
+  chkCallPreconv.Checked := aProfile.UsePreconv;
+  chkCallTBL.Checked := aProfile.UseTBL;
+  chkCallEQN.Checked := aProfile.UseEQN;
 
   ChangePaperSize;
 end;

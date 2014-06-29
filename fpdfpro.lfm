@@ -8,7 +8,7 @@ object frmPDFProfile: TfrmPDFProfile
   ClientHeight = 400
   ClientWidth = 780
   OnCreate = FormCreate
-  LCLVersion = '1.2.2.0'
+  LCLVersion = '1.2.4.0'
   object pgPDF: TPageControl
     Left = 0
     Height = 296
@@ -21,7 +21,7 @@ object frmPDFProfile: TfrmPDFProfile
     object tabPage: TTabSheet
       Caption = 'Page'
       ClientHeight = 294
-      ClientWidth = 719
+      ClientWidth = 722
       object labPageSize: TLabel
         Left = 20
         Height = 17
@@ -248,7 +248,7 @@ object frmPDFProfile: TfrmPDFProfile
     object tabContent: TTabSheet
       Caption = 'Content'
       ClientHeight = 294
-      ClientWidth = 719
+      ClientWidth = 722
       object chkOddHeaderEnable: TCheckBox
         Left = 8
         Height = 20
@@ -433,7 +433,7 @@ object frmPDFProfile: TfrmPDFProfile
     object tabStyles: TTabSheet
       Caption = 'Styles'
       ClientHeight = 294
-      ClientWidth = 719
+      ClientWidth = 722
       object lstStyles: TListBox
         Left = 8
         Height = 280
@@ -462,7 +462,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 124
         Height = 17
         Top = 8
-        Width = 80
+        Width = 75
         Caption = 'Font Family:'
         Enabled = False
         ParentColor = False
@@ -496,7 +496,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 124
         Height = 20
         Top = 69
-        Width = 51
+        Width = 49
         Caption = 'Bold'
         Enabled = False
         Font.Style = [fsBold]
@@ -508,7 +508,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 196
         Height = 20
         Top = 69
-        Width = 61
+        Width = 58
         Caption = 'Italics'
         Enabled = False
         Font.Style = [fsItalic]
@@ -520,7 +520,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 265
         Height = 20
         Top = 69
-        Width = 79
+        Width = 78
         Caption = 'Centered'
         Enabled = False
         OnChange = chkFontCenteredChange
@@ -537,10 +537,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtSpaceAbove
         EditLabel.AnchorSideBottom.Control = txtSpaceAbove
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 245
+        EditLabel.Left = 248
         EditLabel.Height = 17
         EditLabel.Top = 100
-        EditLabel.Width = 84
+        EditLabel.Width = 81
         EditLabel.Caption = 'Space Above:'
         EditLabel.ParentColor = False
         Enabled = False
@@ -561,10 +561,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtFontSize
         EditLabel.AnchorSideBottom.Control = txtFontSize
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 124
+        EditLabel.Left = 126
         EditLabel.Height = 17
         EditLabel.Top = 100
-        EditLabel.Width = 61
+        EditLabel.Width = 59
         EditLabel.Caption = 'Font Size:'
         EditLabel.ParentColor = False
         Enabled = False
@@ -584,10 +584,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtSpaceBelow
         EditLabel.AnchorSideBottom.Control = txtSpaceBelow
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 246
+        EditLabel.Left = 250
         EditLabel.Height = 17
         EditLabel.Top = 132
-        EditLabel.Width = 83
+        EditLabel.Width = 79
         EditLabel.Caption = 'Space Below:'
         EditLabel.ParentColor = False
         Enabled = False
@@ -651,7 +651,7 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 20
         Hint = 'The first page of the document will be only '#10'one column, regardless of the number of '#10'columns selected.'
         Top = 184
-        Width = 212
+        Width = 204
         Caption = 'Title Page is One Column Only'
         Enabled = False
         OnChange = chkTitlePageOneColumnChange
@@ -663,7 +663,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 420
         Height = 17
         Top = 8
-        Width = 172
+        Width = 167
         Caption = 'Heading 1 Centering Mode:'
         Enabled = False
         ParentColor = False
@@ -708,10 +708,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtSpaceReserved
         EditLabel.AnchorSideBottom.Control = txtSpaceReserved
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 123
+        EditLabel.Left = 125
         EditLabel.Height = 17
         EditLabel.Top = 132
-        EditLabel.Width = 62
+        EditLabel.Width = 60
         EditLabel.Caption = 'Reserved:'
         EditLabel.ParentColor = False
         Enabled = False
@@ -727,7 +727,7 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 20
         Hint = 'When building the file, call the groff preconv pre-processor.'#10'This pre-processor converts non-ASCII characters to groff characters.'
         Top = 263
-        Width = 102
+        Width = 97
         Caption = 'Call Preconv'
         OnChange = chkCallPreconvChange
         ParentShowHint = False
@@ -739,7 +739,7 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 20
         Hint = 'When building the file, call the groff tbl pre-processor.'#10'This pre-processor is used to construct tables.'
         Top = 263
-        Width = 74
+        Width = 72
         Caption = 'Call TBL'
         OnChange = chkCallTBLChange
         ParentShowHint = False
@@ -751,7 +751,7 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 20
         Hint = 'When building the file, call the groff eqn pre-processor.'#10'This pre-processor is used to typeset mathematical formulae.'
         Top = 263
-        Width = 77
+        Width = 75
         Caption = 'Call EQN'
         OnChange = chkCallEQNChange
         ParentShowHint = False
@@ -762,7 +762,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 424
         Height = 39
         Top = 209
-        Width = 198
+        Width = 193
         AutoFill = True
         AutoSize = True
         Caption = 'Force First Page of Chapters'
@@ -775,13 +775,14 @@ object frmPDFProfile: TfrmPDFProfile
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 3
         ClientHeight = 20
-        ClientWidth = 194
+        ClientWidth = 189
         Columns = 3
         Items.Strings = (
           'None'
           'Odd'
           'Even'
         )
+        OnClick = radForceFirstPageClick
         TabOrder = 19
       end
     end
@@ -796,10 +797,10 @@ object frmPDFProfile: TfrmPDFProfile
     EditLabel.AnchorSideRight.Control = txtName
     EditLabel.AnchorSideBottom.Control = txtName
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 30
+    EditLabel.Left = 33
     EditLabel.Height = 17
     EditLabel.Top = 13
-    EditLabel.Width = 87
+    EditLabel.Width = 84
     EditLabel.Caption = 'Profile Name:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
@@ -816,10 +817,10 @@ object frmPDFProfile: TfrmPDFProfile
     EditLabel.AnchorSideRight.Control = txtOutDir
     EditLabel.AnchorSideBottom.Control = txtOutDir
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 42
+    EditLabel.Left = 47
     EditLabel.Height = 17
     EditLabel.Top = 45
-    EditLabel.Width = 115
+    EditLabel.Width = 110
     EditLabel.Caption = 'Output Directory: '
     EditLabel.ParentColor = False
     LabelPosition = lpLeft

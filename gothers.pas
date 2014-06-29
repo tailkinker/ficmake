@@ -72,8 +72,6 @@ begin
 end;
 
 procedure tOtherFile.Save (var t : text);
-var
-  index : integer;
 begin
   writeln (t, 'Filename = ', Filename);
 end;
