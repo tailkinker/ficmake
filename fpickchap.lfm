@@ -1,0 +1,45 @@
+object frmPickChapter: TfrmPickChapter
+  Left = 581
+  Height = 420
+  Top = 912
+  Width = 360
+  BorderStyle = bsDialog
+  Caption = 'Select Chapter'
+  ClientHeight = 420
+  ClientWidth = 360
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '1.2.4.0'
+  object lstChapters: TListBox
+    Left = 8
+    Height = 368
+    Top = 8
+    Width = 344
+    ItemHeight = 0
+    OnClick = lstChaptersClick
+    OnDblClick = lstChaptersDblClick
+    ScrollWidth = 342
+    TabOrder = 0
+    TopIndex = -1
+  end
+  object btnOK: TButton
+    Left = 144
+    Height = 36
+    Top = 382
+    Width = 100
+    Caption = 'OK'
+    Default = True
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object btnCancel: TButton
+    Left = 252
+    Height = 36
+    Top = 382
+    Width = 100
+    Cancel = True
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 2
+  end
+end
