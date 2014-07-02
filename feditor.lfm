@@ -1,7 +1,7 @@
 object frmEditor: TfrmEditor
-  Left = 478
+  Left = 369
   Height = 420
-  Top = 854
+  Top = 719
   Width = 780
   Caption = 'frmEditor'
   ClientHeight = 395
@@ -12,7 +12,7 @@ object frmEditor: TfrmEditor
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.2.0'
+  LCLVersion = '1.2.4.0'
   object tabEditors: TTabControl
     Left = 8
     Height = 384
@@ -47,6 +47,10 @@ object frmEditor: TfrmEditor
     top = 409
     object mnuFile: TMenuItem
       Caption = 'File'
+      object mnuFileOpen: TMenuItem
+        Caption = 'Open...'
+        OnClick = mnuFileOpenClick
+      end
       object mnuFileSave: TMenuItem
         Caption = '&Save'
         ShortCut = 16467

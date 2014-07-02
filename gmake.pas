@@ -179,7 +179,7 @@ begin
         writeln (x);
         write (x, StoryProfileName + '.ps: $(CHAPTERS) ');
         if (DependList.Count > 0) then
-          write (x, '$(OTHERFILES ');
+          write (x, '$(OTHERFILES) ');
         write (x, StoryProfileName + '.ms');
         if (FileExists (SourcePath + '/disclaimer.so')) then
           write (x, ' disclaimer.so');
@@ -218,7 +218,7 @@ begin
         if (THTMLProfile (Profiles.Current).BulkHTML) then
           write (x, ' $(CHAPTERS)');
         if (DependList.Count > 0) then
-          write (x, '$(OTHERFILES ');
+          write (x, '$(OTHERFILES) ');
         if (FileExists (SourcePath + '/disclaimer.so')) then
           write (x, ' disclaimer.so');
         if (FileExists (SourcePath + '/blurb.so')) then
@@ -273,7 +273,7 @@ begin
         if (tTextProfile (Profiles.Current).BulkText) then begin
           write (x, OutputPath + '/' + StoryName + '.txt: $(CHAPTERS) ');
           if (DependList.Count > 0) then
-            write (x, '$(OTHERFILES ');
+            write (x, '$(OTHERFILES) ');
         	write (x, StoryProfileName + '.ms');
           if (FileExists (SourcePath + '/disclaimer.so')) then
             write (x, ' disclaimer.so');
@@ -307,7 +307,7 @@ begin
               + Chapters.Current.Filename + '.txt: ');
             write (x, Chapters.Current.Filename + '-' + ProfileName + '.ms ');
             if (DependList.Count > 0) then
-              write (x, '$(OTHERFILES ');
+              write (x, '$(OTHERFILES) ');
             s := SourcePath + '/' + Chapters.Current.Filename + '.co';
             if (FileExists (s)) then
               write (x, Chapters.Current.Filename + '.co ');
@@ -366,7 +366,7 @@ begin
             Chapters.Current.Filename + '.xhtml: ');
           write (x, Chapters.Current.Filename + '-' + ProfileName + '.ms ');
           if (DependList.Count > 0) then
-            write (x, '$(OTHERFILES ');
+            write (x, '$(OTHERFILES) ');
         	write (x, StoryProfileName + '.ms');
           s := SourcePath + '/' + Chapters.Current.Filename + '.co';
           if (FileExists (s)) then

@@ -15,6 +15,7 @@ type
 
   TfrmEditor = class(TForm)
     MainMenu1: TMainMenu;
+    mnuFileOpen: TMenuItem;
     mnuMakeOnSave: TMenuItem;
     mnuFileClose: TMenuItem;
     mnuBuildBuild: TMenuItem;
@@ -44,6 +45,7 @@ type
     procedure mnuEditWordsClick(Sender: TObject);
     procedure mnuFileCloseClick(Sender: TObject);
     procedure mnuFileDeleteClick(Sender: TObject);
+    procedure mnuFileOpenClick(Sender: TObject);
     procedure mnuFileSaveClick(Sender: TObject);
     procedure mnuFormatBoldClick(Sender: TObject);
     procedure mnuFormatItalicsClick(Sender: TObject);
@@ -76,7 +78,8 @@ implementation
 
 uses
   LCLType,
-  doption, flog, gprofile, gmake, gtools;
+  doption, flog, fpickchap,
+  gprofile, gmake, gtools, gchapter;
 
 {$R *.lfm}
 
@@ -248,6 +251,22 @@ begin
     end;
 end;
 
+procedure TfrmEditor.mnuFileOpenClick(Sender: TObject);
+begin
+  if Dirty then
+    if (Application.MessageBox ('Save this Chapter before continuing?',
+      'Save Chapter', MB_ICONQUESTION + MB_YESNO) = IDYES) then
+        SaveCurrentEdit;
+  with (TfrmPickChapter.Create (Application)) do begin
+    BaseDir := self.BaseDir;
+    if (ShowModal = mrOK) then begin
+      self.Filename := Filename;
+      LoadFromFile;
+    end;
+    Destroy;
+  end;
+end;
+
 procedure TfrmEditor.mnuFileSaveClick(Sender: TObject);
 begin
   SaveCurrentEdit;
@@ -330,6 +349,7 @@ end;
 procedure TfrmEditor.LoadFromFile;
 var
   CurrentFileName : string;
+  Start : tPoint;
 begin
   txtEditor.Lines.Clear;
   mnuFileDelete.Enabled := FALSE;
@@ -346,6 +366,9 @@ begin
     txtEditor.Lines.LoadFromFile (CurrentFileName);
     if (t_tab <> 1) then
       mnuFileDelete.Enabled := TRUE;
+    Start.X := 0;
+    Start.Y := 0;
+    txtEditor.CaretPos := Start;
   end;
 end;
 

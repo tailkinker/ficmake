@@ -52,7 +52,7 @@ procedure TfrmOtherFiles.FormResize(Sender: TObject);
 var
   x : integer;
 begin
-  x := (Width - 24) div 3;
+  x := (Width - 24) div 2;
   lstOtherFiles.Left := 8;
   lstOtherFiles.Top := 8;
   lstOtherFiles.Height := Height - 60;
@@ -60,10 +60,11 @@ begin
 
   btnAddFile.Top := Height - 44;
   btnAddFile.Left := 8;
-  btnSaveList.Top := Height - 44;
-  btnSaveList.Left := ((x - 8) div 2) - 10;
   btnDeleteFile.Top := Height - 44;
-  btnDeleteFile.Left := x - 36;
+  btnDeleteFile.Left := (lstOtherFiles.Left + lstOtherFiles.Width)
+    - btnDeleteFile.Width;
+  btnSaveList.Top := Height - 44;
+  btnSaveList.Left := (btnDeleteFile.Left - 8) div 2 + 8;
 
   x += 16;
   txtFileName.Top := 32;
@@ -75,11 +76,13 @@ end;
 
 procedure TfrmOtherFiles.txtFileNameChange(Sender: TObject);
 begin
-  if (List.Current <> nil) then begin
-    List.Current.Filename := txtFileName.Text;
-    List.MarkDirty;
-    btnSaveList.Enabled := TRUE;
-  end;
+  if (txtFileName.Enabled) then
+    if (List.Current <> nil) then begin
+      List.Current.Filename := txtFileName.Text;
+      List.MarkDirty;
+      btnSaveList.Enabled := TRUE;
+      PopulateFileList;
+    end;
 end;
 
 procedure TfrmOtherFiles.lstOtherFilesClick(Sender: TObject);
@@ -133,10 +136,14 @@ end;
 
 procedure TfrmOtherFiles.btnAddFileClick(Sender: TObject);
 begin
-  List.New ('<NEW ENTRY>');
-  List.MarkDirty;
-  PopulateFileList;
-  btnSaveList.Enabled := TRUE;
+  if (OpenDialog1.Execute) then begin
+    List.New ('<NEW ENTRY>');
+    List.Current.Filename := OpenDialog1.Filename;
+    List.MarkDirty;
+    btnSaveList.Enabled := TRUE;
+    PopulateFileList;
+    btnSaveList.Enabled := TRUE;
+  end;
 end;
 
 procedure TfrmOtherFiles.btnSaveListClick(Sender: TObject);

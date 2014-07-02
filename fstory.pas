@@ -81,6 +81,7 @@ type
     Profiles : tProfileList;
     procedure PopulateStoryList;
     procedure PopulateProfileList;
+    procedure OpenChapterList;
   public
     GlobalProfiles : tProfileList;
     Volume : tVolume;
@@ -112,13 +113,22 @@ end;
 
 procedure TfrmStory.btnAddStoryClick (Sender : TObject );
 var
-  Dialog : TfrmNewStory;
+  NewStory : TfrmNewStory;
+  StoryInfo : TfrmStoryInfo;
 begin
-	Dialog := TfrmNewStory.Create (Application);
-  if (Dialog.ShowModal = mrOK) then
-  	Stories.NewStory (Dialog.txtName.Text);
-  Dialog.Destroy;
+	NewStory := TfrmNewStory.Create (Application);
+  if (NewStory.ShowModal = mrOK) then begin
+  	Stories.NewStory (NewStory.txtName.Text);
+    StoryInfo := TfrmStoryInfo.Create (Application);
+    StoryInfo.Story := Stories.Current;
+    StoryInfo.ShowModal;
+    StoryInfo.Destroy;
+    Stories.SetDirty;
+    btnSaveStories.Enabled := true;
+  end;
+  NewStory.Destroy;
   PopulateStoryList;
+
 end;
 
 procedure TfrmStory.btnAddProfileClick(Sender: TObject);
@@ -226,32 +236,8 @@ begin
 end;
 
 procedure TfrmStory.btnEditChaptersClick (Sender : TObject );
-var
-  NewForm : TfrmChapter;
-  FormCaption : string;
-  index : integer;
-  Present : boolean;
 begin
-	FormCaption := 'Story "' + Stories.Current.Title + '"';
-  index := 0;
-  Present := false;
-  repeat
-    if (Screen.Forms [index].Caption = FormCaption) then
-      Present := true
-    else
-    	index += 1;
-  until (Present or (index >= Screen.FormCount));
-  if (Present) then begin
-    Screen.Forms [index].Show;
-    Screen.Forms [index].BringToFront
-  end else begin
-    NewForm := TfrmChapter.Create (Application);
-    NewForm.Caption := FormCaption;
-    NewForm.SetBaseDir (Stories.Current.SourceDir);
-    NewForm.ForceChapterListLoad;
-    NewForm.ShortName := Stories.Current.ShortName;
-    NewForm.Show;
-  end;
+  OpenChapterList;
 end;
 
 procedure TfrmStory.btnEditStoryClick (Sender : TObject );
@@ -481,33 +467,8 @@ begin
 end;
 
 procedure TfrmStory.lstStoriesDblClick(Sender: TObject);
-var
-  NewForm : TfrmChapter;
-  FormCaption : string;
-  index : integer;
-  Present : boolean;
 begin
-	FormCaption := 'Story "' + Stories.Current.Title + '"';
-  index := 0;
-  Present := false;
-  repeat
-    if (Screen.Forms [index].Caption = FormCaption) then
-      Present := true
-    else
-    	index += 1;
-  until (Present or (index >= Screen.FormCount));
-  if (Present) then begin
-    Screen.Forms [index].Show;
-    Screen.Forms [index].BringToFront
-  end else begin
-    NewForm := TfrmChapter.Create (Application);
-    NewForm.Caption := FormCaption;
-    NewForm.SetBaseDir (Stories.Current.SourceDir);
-    NewForm.ForceChapterListLoad;
-    NewForm.ShortName := Stories.Current.ShortName;
-    NewForm.Story := Stories.Current;
-    NewForm.Show;
-  end;
+  OpenChapterList;
 end;
 
 procedure TfrmStory.SetBaseDir (aDir : string);
@@ -546,6 +507,36 @@ begin
   if (Stories.BaseDir <> '') then
     Stories.LoadStoryList;
   PopulateStoryList;
+end;
+
+procedure TfrmStory.OpenChapterList;
+var
+  NewForm : TfrmChapter;
+  FormCaption : string;
+  index : integer;
+  Present : boolean;
+begin
+	FormCaption := 'Story "' + Stories.Current.Title + '"';
+  index := 0;
+  Present := false;
+  repeat
+    if (Screen.Forms [index].Caption = FormCaption) then
+      Present := true
+    else
+    	index += 1;
+  until (Present or (index >= Screen.FormCount));
+  if (Present) then begin
+    Screen.Forms [index].Show;
+    Screen.Forms [index].BringToFront
+  end else begin
+    NewForm := TfrmChapter.Create (Application);
+    NewForm.Story := Stories.Current;
+    NewForm.Caption := FormCaption;
+    NewForm.SetBaseDir (Stories.Current.SourceDir);
+    NewForm.ForceChapterListLoad;
+    NewForm.ShortName := Stories.Current.ShortName;
+    NewForm.Show;
+  end;
 end;
 
 end.

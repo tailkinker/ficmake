@@ -32,7 +32,9 @@ type
   { TfrmChapter }
 
   TfrmChapter = class (TForm )
+    btnChapterUp: TBitBtn;
     btnAddChapter : TBitBtn;
+    btnChapterDown: TBitBtn;
     btnDeleteChapter : TBitBtn;
     btnSaveChapters : TBitBtn;
     btnBuild: TButton;
@@ -46,6 +48,8 @@ type
     txtTitle : TLabeledEdit;
     procedure btnAddChapterClick (Sender : TObject );
     procedure btnBuildClick(Sender: TObject);
+    procedure btnChapterDownClick(Sender: TObject);
+    procedure btnChapterUpClick(Sender: TObject);
     procedure btnDeleteChapterClick (Sender : TObject );
     procedure btnMakeClick(Sender: TObject);
     procedure btnSaveChaptersClick (Sender : TObject );
@@ -54,6 +58,9 @@ type
     procedure FormResize (Sender : TObject );
     procedure lstChaptersClick (Sender : TObject );
     procedure lstChaptersDblClick(Sender: TObject);
+    procedure txtFilenameChange(Sender: TObject);
+    procedure txtSubtitleChange(Sender: TObject);
+    procedure txtTitleChange(Sender: TObject);
   private
     Chapters : tChapterList;
     t_shortname : string;
@@ -120,6 +127,28 @@ begin
   WriteStoryMake (Story);
 end;
 
+procedure TfrmChapter.btnChapterDownClick(Sender: TObject);
+begin
+  if (lstChapters.ItemIndex < (Chapters.Count - 1)) then begin
+  	Chapters.MoveChapterDown;
+    PopulateChapterList;
+    Chapters.MarkDirty;
+    btnSaveChapters.Enabled := TRUE;
+    lstChapters.ItemIndex := Chapters.CurrentIndex;
+  end;
+end;
+
+procedure TfrmChapter.btnChapterUpClick(Sender: TObject);
+begin
+  if (lstChapters.ItemIndex > 0) then begin
+  	Chapters.MoveChapterUp;
+    PopulateChapterList;
+    Chapters.MarkDirty;
+    btnSaveChapters.Enabled := TRUE;
+    lstChapters.ItemIndex := Chapters.CurrentIndex;
+  end;
+end;
+
 procedure TfrmChapter.btnDeleteChapterClick (Sender : TObject );
 var
   s : string;
@@ -173,8 +202,10 @@ begin
   txtSubtitle.Width := col * 2 + 8;
   txtFilename.Left := col + 16;
   txtFilename.Width := col * 2 + 8;
-  chkIsABook.Left := col + 16;
-  chkSubtitleFirst.Left := col + 16;
+  chkIsABook.Left := col + 80;
+  chkSubtitleFirst.Left := col + 80;
+  btnChapterUp.Left := col + 16;
+  btnChapterDown.Left := col + 16;
 
   btnAddChapter.Left := 8;
   btnAddChapter.Top := Height - 44;
@@ -262,6 +293,37 @@ begin
       NewEditor.Show;
     end;
   end;
+end;
+
+procedure TfrmChapter.txtFilenameChange(Sender: TObject);
+begin
+  if (txtFilename.Enabled) then
+    if (Chapters.Current <> nil) then begin
+      Chapters.Current.Filename := txtFilename.Text;
+      btnSaveChapters.Enabled := TRUE;
+      Chapters.MarkDirty
+    end;
+end;
+
+procedure TfrmChapter.txtSubtitleChange(Sender: TObject);
+begin
+  if (txtSubtitle.Enabled) then
+    if (Chapters.Current <> nil) then begin
+      Chapters.Current.Subtitle := txtSubtitle.Text;
+      btnSaveChapters.Enabled := TRUE;
+      Chapters.MarkDirty
+    end;
+end;
+
+procedure TfrmChapter.txtTitleChange(Sender: TObject);
+begin
+  if (txtTitle.Enabled) then
+    if (Chapters.Current <> nil) then begin
+      Chapters.Current.Title := txtTitle.Text;
+      btnSaveChapters.Enabled := TRUE;
+      Chapters.MarkDirty;
+      PopulateChapterList;
+    end;
 end;
 
 procedure TfrmChapter.ForceChapterListLoad;

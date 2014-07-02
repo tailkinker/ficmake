@@ -14,8 +14,8 @@ object frmPDFProfile: TfrmPDFProfile
     Height = 296
     Top = 72
     Width = 780
-    ActivePage = tabStyles
-    TabIndex = 2
+    ActivePage = tabContent
+    TabIndex = 1
     TabOrder = 0
     TabPosition = tpLeft
     object tabPage: TTabSheet
@@ -253,7 +253,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 8
         Height = 20
         Top = 7
-        Width = 179
+        Width = 174
         Caption = 'Enable Odd-Page Header'
         OnChange = chkOddHeaderEnableChange
         TabOrder = 0
@@ -290,7 +290,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 8
         Height = 20
         Top = 71
-        Width = 185
+        Width = 179
         Caption = 'Enable Even-Page Header'
         OnChange = chkEvenHeaderEnableChange
         TabOrder = 4
@@ -327,7 +327,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 8
         Height = 20
         Top = 135
-        Width = 173
+        Width = 168
         Caption = 'Enable Odd-Page Footer'
         OnChange = chkOddFooterEnableChange
         TabOrder = 8
@@ -365,7 +365,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 8
         Height = 20
         Top = 199
-        Width = 179
+        Width = 173
         Caption = 'Enable Even-Page Footer'
         OnChange = chkEvenFooterEnableChange
         TabOrder = 12
@@ -418,10 +418,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtSeparator
         EditLabel.AnchorSideBottom.Control = txtSeparator
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 58
+        EditLabel.Left = 62
         EditLabel.Height = 17
         EditLabel.Top = 263
-        EditLabel.Width = 175
+        EditLabel.Width = 171
         EditLabel.Caption = 'Separator for .SEP requests:'
         EditLabel.ParentColor = False
         LabelPosition = lpLeft

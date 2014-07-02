@@ -46,6 +46,7 @@ type
 
   tChapterList = class (tObject)
     private
+      t_index : integer;
       t_dirty : boolean;
       t_chapters : array of tChapter;
       t_current_chapter : tChapter;
@@ -56,6 +57,7 @@ type
       property Count : integer read GetChapterCount;
       property Dirty : boolean read t_dirty;
       property BaseDir : string read t_basedir write t_basedir;
+      property CurrentIndex : integer read t_index;
       procedure New (aChapterName : string);
       procedure Delete;
       procedure Select (aChapterName : string);
@@ -64,6 +66,8 @@ type
       procedure Save;
       function Name (index : integer) : string;
       procedure MarkDirty;
+      procedure MoveChapterUp;
+      procedure MoveChapterDown;
   end;
 
 implementation
@@ -169,6 +173,7 @@ begin
   SetLength (t_chapters, index + 1);
   t_chapters [index] := tChapter.Create;
   t_current_chapter := t_chapters [index];
+  t_index := index;
   t_current_chapter.Title := aChapterName;
   MarkDirty;
 end;
@@ -187,6 +192,8 @@ begin
     t_chapters [index] := t_chapters [last];
   SetLength (t_chapters, last);
   MarkDirty;
+  t_current_chapter := nil;
+  t_index := -1; // No chapter selected after a Delete;
 end;
 
 procedure tChapterList.Select (aChapterName : string);
@@ -203,8 +210,10 @@ begin
     else
     	index += 1;
   end;
-  if found then
+  if found then begin
     t_current_chapter := t_chapters [index];
+    t_index := index
+  end;
 end;
 
 procedure tChapterList.Load;
@@ -248,6 +257,7 @@ begin
 
     close (t);
   end;
+  t_index := -1; // No selection after a load.
 end;
 
 procedure tChapterList.Save;
@@ -281,6 +291,7 @@ end;
 procedure tChapterList.SelectAt (aChapterIndex : integer);
 begin
   t_current_chapter := t_chapters [aChapterIndex];
+  t_index := aChapterIndex;
 end;
 
 function tChapterList.Name (index : integer) : string;
@@ -291,6 +302,30 @@ end;
 procedure tChapterList.MarkDirty;
 begin
 	t_dirty := true;
+end;
+
+procedure tChapterList.MoveChapterUp;
+var
+  tempChapter : tChapter;
+begin
+  if (t_index > 0) then begin
+    tempChapter := t_chapters [t_index];
+    t_chapters [t_index] := t_chapters [t_index - 1];
+    t_chapters [t_index - 1] := tempChapter;
+    t_index -= 1;
+  end;
+end;
+
+procedure tChapterList.MoveChapterDown;
+var
+  tempChapter : tChapter;
+begin
+  if (t_index < (Count - 1)) then begin
+    tempChapter := t_chapters [t_index];
+    t_chapters [t_index] := t_chapters [t_index + 1];
+    t_chapters [t_index + 1] := tempChapter;
+    t_index += 1;
+  end;
 end;
 
 {$endregion}
