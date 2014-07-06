@@ -232,7 +232,6 @@ procedure tVolumeList.SaveVolumeList;
 var
   filename : string;
   index : integer;
-  Done : boolean;
   t : text;
 begin
   // Verify that the directory exists, and create it if it doesn't

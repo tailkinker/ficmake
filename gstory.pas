@@ -81,7 +81,7 @@ type
 implementation
 
 uses
-  gtools, gprofile;
+  gtools;
 
 {$region tStory}
 

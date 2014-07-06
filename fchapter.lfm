@@ -91,6 +91,7 @@ object frmChapter: TfrmChapter
     Top = 192
     Width = 204
     Caption = 'This Chapter is a Book Divider'
+    OnChange = chkIsABookChange
     TabOrder = 4
   end
   object chkSubtitleFirst: TCheckBox
@@ -99,6 +100,7 @@ object frmChapter: TfrmChapter
     Top = 224
     Width = 175
     Caption = 'Place Subtitle above Title'
+    OnChange = chkSubtitleFirstChange
     TabOrder = 5
   end
   object btnAddChapter: TBitBtn

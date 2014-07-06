@@ -141,8 +141,6 @@ begin
 end;
 
 procedure tChapter.Save (var t : text);
-var
-  index : integer;
 begin
   writeln (t, '[Chapter]');
   writeln (t, 'Title = ', Title);

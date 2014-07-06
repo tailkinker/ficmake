@@ -53,6 +53,8 @@ type
     procedure btnDeleteChapterClick (Sender : TObject );
     procedure btnMakeClick(Sender: TObject);
     procedure btnSaveChaptersClick (Sender : TObject );
+    procedure chkIsABookChange(Sender: TObject);
+    procedure chkSubtitleFirstChange(Sender: TObject);
     procedure FormClose (Sender : TObject; var CloseAction : TCloseAction );
     procedure FormCreate (Sender : TObject );
     procedure FormResize (Sender : TObject );
@@ -176,6 +178,18 @@ procedure TfrmChapter.btnSaveChaptersClick (Sender : TObject );
 begin
   Chapters.Save;
   btnSaveChapters.Enabled := FALSE;
+end;
+
+procedure TfrmChapter.chkIsABookChange(Sender: TObject);
+begin
+  if (chkIsABook.Enabled) then
+    Chapters.Current.IsABook := chkIsABook.Checked;
+end;
+
+procedure TfrmChapter.chkSubtitleFirstChange(Sender: TObject);
+begin
+  if (chkSubtitleFirst.Enabled) then
+    Chapters.Current.SubtitleFirst:=chkSubtitleFirst.Checked;
 end;
 
 procedure TfrmChapter.FormCreate (Sender : TObject );

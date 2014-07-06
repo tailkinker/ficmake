@@ -408,8 +408,7 @@ var
   StoryProfileName,
   SourcePath,
   SourceFileName,
-  OutputPath,
-  OutputFileName : string;
+  OutputPath : string;
 begin
   // Load Chapters and Profiles
   Chapters := tChapterList.Create;

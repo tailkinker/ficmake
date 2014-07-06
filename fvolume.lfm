@@ -11,7 +11,7 @@ object frmVolume: TfrmVolume
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.2.0'
+  LCLVersion = '1.2.4.0'
   object lstVolumes: TListBox
     Left = 8
     Height = 80
@@ -29,7 +29,7 @@ object frmVolume: TfrmVolume
     Left = 8
     Height = 17
     Top = 152
-    Width = 54
+    Width = 53
     Caption = 'Volumes'
     ParentColor = False
   end
@@ -94,7 +94,7 @@ object frmVolume: TfrmVolume
     Left = 8
     Height = 20
     Top = 120
-    Width = 344
+    Width = 337
     Caption = 'HTML Profiles in this Volume generate Index pages'
     Enabled = False
     OnChange = chkHTMLIndexChange
@@ -418,7 +418,7 @@ object frmVolume: TfrmVolume
     Left = 288
     Height = 17
     Top = 152
-    Width = 93
+    Width = 89
     Caption = 'Global Profiles'
     ParentColor = False
   end

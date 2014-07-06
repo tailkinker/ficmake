@@ -383,6 +383,12 @@ begin
   Profiles.BaseDir := GetEnvironmentVariable ('HOME') + '/.ficmake';
   Profiles.Load;
   PopulateProfileList;
+
+  if (optOpenLogOnStart) then begin
+    frmLog.Show;
+    frmLog.BringToFront;
+    frmLog.txtLog.Lines.Clear;
+  end;
 end;
 
 procedure TfrmVolume.PopulateVolumeList;

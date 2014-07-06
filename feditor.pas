@@ -79,7 +79,7 @@ implementation
 uses
   LCLType,
   doption, flog, fpickchap,
-  gprofile, gmake, gtools, gchapter;
+  gprofile, gmake, gtools;
 
 {$R *.lfm}
 

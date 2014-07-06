@@ -174,15 +174,12 @@ implementation
 
 uses
   fhdhelp,
-  dgroff, dtools, doption,
+  dgroff, doption,
   gtools;
 
 {$R *.lfm}
 
 procedure TfrmPDFProfile.FormCreate(Sender: TObject);
-var
-  x,
-  y : integer;
 begin
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
@@ -190,8 +187,6 @@ begin
 end;
 
 procedure TfrmPDFProfile.lstStylesClick(Sender: TObject);
-var
-  index : integer;
 begin
   chkFontCentered.Enabled := FALSE;
   cmbH1CenterMode.Enabled := FALSE;
