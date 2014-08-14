@@ -71,13 +71,17 @@ begin
       ptHTML : begin
         if (tHTMLProfile (Profiles.Current).BulkHTML) then
           write (x, #9, OutputPath + aStory.LongName + '.htm')
-        else
+        else begin
+          if not (tHtmlProfile (Profiles.Current).IsFFNet) then
+            write (x, #9, OutputPath + aStory.LongName + '.htm');
           for index1 := 0 to (Chapters.Count - 1) do begin
             Chapters.SelectAt (index1);
-            write (x, #9, OutputPath + Chapters.Current.Filename + '.htm');
+            write (x, #9, OutputPath + aStory.LongName + '/'
+            	+ Chapters.Current.Filename + '.htm');
             if (index1 < (Chapters.Count - 1)) then
               writeln (x, ' \');
-          end;
+          end
+        end
       end;
       ptText : begin
         if (tTextProfile(Profiles.Current).BulkText) then
@@ -367,7 +371,7 @@ begin
           write (x, Chapters.Current.Filename + '-' + ProfileName + '.ms ');
           if (DependList.Count > 0) then
             write (x, '$(OTHERFILES) ');
-        	write (x, StoryProfileName + '.ms');
+//        	write (x, StoryProfileName + '.ms ');
           s := SourcePath + '/' + Chapters.Current.Filename + '.co';
           if (FileExists (s)) then
             write (x, Chapters.Current.Filename + '.co ');
@@ -437,8 +441,9 @@ begin
       ptHTML : begin
         if (tHTMLProfile (Profiles.Current).BulkHTML) then
           write (x, #9, OutputPath + aStory.LongName + '.htm')
-        else
-          write (x, #9, OutputPath + aStory.LongName + '.htm');
+        else begin
+          if not (tHTMLProfile (Profiles.Current).IsFFNet) then
+            write (x, #9, OutputPath + aStory.LongName + '.htm');
           for index1 := 0 to (Chapters.Count - 1) do begin
             Chapters.SelectAt (index1);
             write (x, #9, OutputPath + aStory.LongName + '/'
@@ -446,6 +451,7 @@ begin
             if (index1 < (Chapters.Count - 1)) then
               writeln (x, ' \');
           end;
+        end;
       end;
       ptText : begin
         if (tTextProfile(Profiles.Current).BulkText) then

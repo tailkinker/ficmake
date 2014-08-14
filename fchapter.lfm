@@ -88,7 +88,7 @@ object frmChapter: TfrmChapter
   object chkIsABook: TCheckBox
     Left = 488
     Height = 20
-    Top = 192
+    Top = 184
     Width = 204
     Caption = 'This Chapter is a Book Divider'
     OnChange = chkIsABookChange
@@ -97,7 +97,7 @@ object frmChapter: TfrmChapter
   object chkSubtitleFirst: TCheckBox
     Left = 488
     Height = 20
-    Top = 224
+    Top = 216
     Width = 175
     Caption = 'Place Subtitle above Title'
     OnChange = chkSubtitleFirstChange
@@ -686,7 +686,7 @@ object frmChapter: TfrmChapter
   object btnChapterDown: TBitBtn
     Left = 424
     Height = 36
-    Top = 224
+    Top = 232
     Width = 60
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
@@ -822,5 +822,24 @@ object frmChapter: TfrmChapter
     }
     OnClick = btnChapterDownClick
     TabOrder = 12
+  end
+  object chkNoTitle: TCheckBox
+    AnchorSideLeft.Control = chkSubtitleFirst
+    Left = 488
+    Height = 20
+    Top = 248
+    Width = 167
+    Caption = 'Suppress Chapter Titles'
+    OnChange = chkNoTitleChange
+    TabOrder = 13
+  end
+  object btnStoryProfiles: TButton
+    Left = 424
+    Height = 32
+    Top = 288
+    Width = 200
+    Caption = 'Story Profiles'
+    OnClick = btnStoryProfilesClick
+    TabOrder = 14
   end
 end

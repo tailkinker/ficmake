@@ -39,6 +39,8 @@ type
     btnSaveChapters : TBitBtn;
     btnBuild: TButton;
     btnMake: TButton;
+    btnStoryProfiles: TButton;
+    chkNoTitle: TCheckBox;
     chkIsABook : TCheckBox;
     chkSubtitleFirst : TCheckBox;
     Label1 : TLabel;
@@ -53,7 +55,9 @@ type
     procedure btnDeleteChapterClick (Sender : TObject );
     procedure btnMakeClick(Sender: TObject);
     procedure btnSaveChaptersClick (Sender : TObject );
+    procedure btnStoryProfilesClick(Sender: TObject);
     procedure chkIsABookChange(Sender: TObject);
+    procedure chkNoTitleChange(Sender: TObject);
     procedure chkSubtitleFirstChange(Sender: TObject);
     procedure FormClose (Sender : TObject; var CloseAction : TCloseAction );
     procedure FormCreate (Sender : TObject );
@@ -69,6 +73,7 @@ type
     procedure PopulateChapterList;
   public
     Story : tStory;
+    Profiles : tProfileList;
     property ShortName : string read t_shortname write t_shortname;
     procedure SetBaseDir (aDir : string);
     procedure ForceChapterListLoad;
@@ -78,7 +83,7 @@ implementation
 
 uses
   LCLType,
-  doption, gmake, fnewchap, feditor, flog;
+  doption, gmake, fstorypr, fnewchap, feditor, flog;
 
 {$R *.lfm}
 
@@ -110,6 +115,16 @@ var
   index : integer;
   s : string;
 begin
+  if (Chapters.Dirty) then begin
+    s := 'Your Chapters List has not been saved.  Building the document without'
+      + ' first saving the Chapters List will not update the document.  Do you '
+      + 'wish to save the Chapters List before Building?';
+    if (Application.MessageBox (pchar (s), 'Save Chapters List',
+      MB_ICONQUESTION + MB_YESNO) = IDYES) then begin
+        Chapters.Save;
+        btnSaveChapters.Enabled := FALSE;
+      end;
+  end;
   s := 'For Story ''' + Story.Title + ''':';
   frmLog.Show;
   frmLog.BringToFront;
@@ -180,10 +195,25 @@ begin
   btnSaveChapters.Enabled := FALSE;
 end;
 
+procedure TfrmChapter.btnStoryProfilesClick(Sender: TObject);
+begin
+  with (TfrmStoryProfiles.Create (Application)) do begin
+    GlobalProfiles := Self.Profiles;
+    BaseDir := Story.SourceDir;
+    ShowModal;
+  end;
+end;
+
 procedure TfrmChapter.chkIsABookChange(Sender: TObject);
 begin
   if (chkIsABook.Enabled) then
     Chapters.Current.IsABook := chkIsABook.Checked;
+end;
+
+procedure TfrmChapter.chkNoTitleChange(Sender: TObject);
+begin
+  if (chkNoTitle.Enabled) then
+    Chapters.Current.SuppressTitle := chkNoTitle.Checked;
 end;
 
 procedure TfrmChapter.chkSubtitleFirstChange(Sender: TObject);
@@ -228,6 +258,9 @@ begin
   btnSaveChapters.Left := (lstChapters.Width - btnSaveChapters.Width) div 2 + 8;
   btnSaveChapters.Top := Height - 44;
 
+  btnStoryProfiles.Left := col + 16;
+  btnStoryProfiles.Top := Height - 120;
+  btnStoryProfiles.Width := col * 2 + 8;
   btnBuild.Left := col + 16;
   btnBuild.Top := Height - 80;
   btnBuild.Width := col * 2 + 8;
@@ -255,6 +288,7 @@ begin
     txtFilename.Enabled := FALSE;
     chkIsABook.Enabled := FALSE;
     chkSubtitleFirst.Enabled := FALSE;
+    chkNoTitle.Enabled := FALSE;
 
     if (Chapters.Current <> nil) then begin
       // Load Controls
@@ -263,6 +297,7 @@ begin
       txtFilename.Text := Chapters.Current.Filename;
       chkIsABook.Checked := Chapters.Current.IsABook;
       chkSubtitleFirst.Checked := Chapters.Current.SubtitleFirst;
+      chkNoTitle.Checked := Chapters.Current.SuppressTitle;
 
       // Enable Controls
       txtTitle.Enabled := TRUE;
@@ -270,6 +305,7 @@ begin
       txtFilename.Enabled := TRUE;
       chkIsABook.Enabled := TRUE;
       chkSubtitleFirst.Enabled := TRUE;
+      chkNoTitle.Enabled := TRUE;
     end;
   end;
 end;

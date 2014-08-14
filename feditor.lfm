@@ -1,7 +1,7 @@
 object frmEditor: TfrmEditor
-  Left = 369
+  Left = 512
   Height = 420
-  Top = 719
+  Top = 768
   Width = 780
   Caption = 'frmEditor'
   ClientHeight = 395
@@ -14,10 +14,16 @@ object frmEditor: TfrmEditor
   OnResize = FormResize
   LCLVersion = '1.2.4.0'
   object tabEditors: TTabControl
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
     Left = 8
-    Height = 384
+    Height = 379
     Top = 8
-    Width = 768
+    Width = 764
     OnChange = tabEditorsChange
     TabHeight = 30
     TabIndex = 0
@@ -28,13 +34,22 @@ object frmEditor: TfrmEditor
       'Omake'
       'Author''s Notes'
     )
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Around = 8
     TabOrder = 0
     object txtEditor: TMemo
-      Left = 0
-      Height = 362
-      Top = 24
-      Width = 766
-      Font.Height = -14
+      AnchorSideLeft.Control = tabEditors
+      AnchorSideTop.Control = tabEditors
+      AnchorSideRight.Control = tabEditors
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = tabEditors
+      AnchorSideBottom.Side = asrBottom
+      Left = 2
+      Height = 347
+      Top = 30
+      Width = 760
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      Font.Height = -25
       OnChange = txtEditorChange
       OnKeyPress = txtEditorKeyPress
       ParentFont = False
@@ -85,7 +100,7 @@ object frmEditor: TfrmEditor
       end
       object mnuEditWords: TMenuItem
         Caption = 'Word Count'
-        ShortCut = 4183
+        ShortCut = 16471
         OnClick = mnuEditWordsClick
       end
     end
@@ -108,10 +123,10 @@ object frmEditor: TfrmEditor
         Caption = 'Build &Document'
         OnClick = mnuBuildBuildClick
       end
-      object mntBuildMake: TMenuItem
+      object mnuBuildMake: TMenuItem
         Caption = 'Make Document'
         ShortCut = 32845
-        OnClick = mntBuildMakeClick
+        OnClick = mnuBuildMakeClick
       end
       object mnuMakeOnSave: TMenuItem
         Caption = 'Make On Save'

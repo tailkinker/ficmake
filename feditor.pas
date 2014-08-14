@@ -19,7 +19,7 @@ type
     mnuMakeOnSave: TMenuItem;
     mnuFileClose: TMenuItem;
     mnuBuildBuild: TMenuItem;
-    mntBuildMake: TMenuItem;
+    mnuBuildMake: TMenuItem;
     mnuFormatBold: TMenuItem;
     mnuFormatItalics: TMenuItem;
     mnuFormat: TMenuItem;
@@ -37,7 +37,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
-    procedure mntBuildMakeClick(Sender: TObject);
+    procedure mnuBuildMakeClick(Sender: TObject);
     procedure mnuBuildBuildClick(Sender: TObject);
     procedure mnuEditCopyClick(Sender: TObject);
     procedure mnuEditCutClick(Sender: TObject);
@@ -131,16 +131,18 @@ end;
 
 procedure TfrmEditor.FormResize(Sender: TObject);
 begin
+  txtEditor.Font.Size := optFontSize;
+  {
   tabEditors.Height := Height - (tabEditors.TabHeight + 16);
   tabEditors.Width := Width - 16;
-  txtEditor.Font.Size := optFontSize;
   txtEditor.Width := tabEditors.Width;
   txtEditor.Height := tabEditors.Height - (tabEditors.TabHeight + 8);
   txtEditor.Left := 0;
   txtEditor.Top := tabEditors.TabHeight;
+  }
 end;
 
-procedure TfrmEditor.mntBuildMakeClick(Sender: TObject);
+procedure TfrmEditor.mnuBuildMakeClick(Sender: TObject);
 begin
   frmLog.Show;
   frmLog.BringToFront;

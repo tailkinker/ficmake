@@ -176,13 +176,15 @@ string into a useable filename.
 var
   index : integer;
 begin
-  index := 1;
-  repeat
-  	if (s [index] in [#32, '''', '"']) then
-      delete (s, index, 1)
-    else
-      inc (index);
-  until (index > length (s));
+  if (length (s) > 0) then begin
+    index := 1;
+    repeat
+  	  if (s [index] in [#32, '''', '"']) then
+        delete (s, index, 1)
+      else
+        inc (index);
+    until (index > length (s));
+  end;
   StripSpaces := s;
 end;
 

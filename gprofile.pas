@@ -1458,6 +1458,10 @@ begin
   for index := 0 to (Chapters.Count - 1) do begin
   	Chapters.SelectAt (index);
 
+    writeln (x, '.LP');
+    writeln (x, '.EH ' + ExpandHeader (EvenHeader));
+    writeln (x, '.OH ' + ExpandHeader (OddHeader));
+    writeln (x, '.bp');
     if (ForceFirstPage = 1) then begin
       writeln (x, '.if e');
       writeln (x, '\ ');
@@ -1470,27 +1474,23 @@ begin
       writeln (x, '..');
     end;
 
-    writeln (x, '.LP');
-    writeln (x, '.EH ' + ExpandHeader (EvenHeader));
-    writeln (x, '.OH ' + ExpandHeader (OddHeader));
-    writeln (x, '.bp');
-
     cfilename := Chapters.Current.Filename;
     if (FileExists (pathname + '/' + cfilename + '.co')) then begin
       writeln (x, '.so ' + cfilename + '.co');
     end;
-    if (Chapters.Current.IsABook) then begin
-      if ((Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
-        writeln (x, '.H0 "', Chapters.Current.Subtitle, '" "', Chapters.Current.Title, '"')
-      else
-        writeln (x, '.H0 "', Chapters.Current.Title, '" "', Chapters.Current.Subtitle, '"')
-    end else begin
-      if ((Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
-        writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
-      writeln (x, '.H1 "', Chapters.Current.Title, '"');
-      if (not (Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
-        writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
-    end;
+    if not (Chapters.Current.SuppressTitle) then
+      if (Chapters.Current.IsABook) then begin
+        if ((Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+          writeln (x, '.H0 "', Chapters.Current.Subtitle, '" "', Chapters.Current.Title, '"')
+        else
+          writeln (x, '.H0 "', Chapters.Current.Title, '" "', Chapters.Current.Subtitle, '"')
+      end else begin
+        if ((Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+          writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+        writeln (x, '.H1 "', Chapters.Current.Title, '"');
+        if (not (Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+          writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+      end;
     writeln (x, '.EH ' + ExpandHeader (EvenHeader));
     writeln (x, '.OH ' + ExpandHeader (OddHeader));
     writeln (x, '.EF ' + ExpandHeader (EvenFooter));
@@ -2078,11 +2078,13 @@ begin
       if (FileExists (pathname + '/' + cfilename + '.co')) then begin
         writeln (x, '.so ' + cfilename + '.co');
       end;
-      if ((SubtitleFirst) and (Subtitle <> '')) then
-        writeln (x, '.H3 "', Subtitle, '"');
-      writeln (x, '.H1 "', Title, '"');
-      if (not (SubtitleFirst) and (Subtitle <> '')) then
-        writeln (x, '.H3 "', Subtitle, '"');
+      if not (SuppressTitle) then begin
+        if ((SubtitleFirst) and (Subtitle <> '')) then
+          writeln (x, '.H3 "', Subtitle, '"');
+        writeln (x, '.H1 "', Title, '"');
+        if (not (SubtitleFirst) and (Subtitle <> '')) then
+          writeln (x, '.H3 "', Subtitle, '"');
+      end;
       writeln (x, '.so ', cfilename + '.so');
 
       if (FileExists (pathname + '/' + cfilename + '.tr')) then begin
@@ -2207,11 +2209,14 @@ begin
       if (FileExists (pathname + '/' + cfilename + '.co')) then begin
         writeln (x, '.so ' + cfilename + '.co');
       end;
-      if ((SubtitleFirst) and (Subtitle <> '')) then
-        writeln (x, '.H3 "', Subtitle, '"');
-      writeln (x, '.H1 "', Title, '"');
-      if (not (SubtitleFirst) and (Subtitle <> '')) then
-        writeln (x, '.H3 "', Subtitle, '"');
+
+      if not (SuppressTitle) then begin
+        if ((SubtitleFirst) and (Subtitle <> '')) then
+          writeln (x, '.H3 "', Subtitle, '"');
+        writeln (x, '.H1 "', Title, '"');
+        if (not (SubtitleFirst) and (Subtitle <> '')) then
+          writeln (x, '.H3 "', Subtitle, '"');
+      end;
       writeln (x, '.so ', cfilename + '.so');
 
       if (FileExists (pathname + '/' + cfilename + '.tr')) then begin
@@ -2734,11 +2739,14 @@ begin
     if (FileExists (pathname + '/' + cfilename + '.co')) then begin
       writeln (x, '.so ' + cfilename + '.co');
     end;
-    if ((Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
-      writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
-    writeln (x, '.H1 "', Chapters.Current.Title, '"');
-    if (not (Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
-      writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+
+    if not (Chapters.Current.SuppressTitle) then begin
+      if ((Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+        writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+      writeln (x, '.H1 "', Chapters.Current.Title, '"');
+      if (not (Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+        writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+    end;
     writeln (x, '.so ', cfilename + '.so');
 
     if (FileExists (pathname + '/' + cfilename + '.tr')) then begin
@@ -2968,11 +2976,14 @@ begin
     if (FileExists (pathname + '/' + cfilename + '.co')) then begin
       writeln (x, '.so ' + cfilename + '.co');
     end;
-    if ((Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
-      writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
-    writeln (x, '.H1 "', Chapters.Current.Title, '"');
-    if (not (Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
-      writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+
+    if not (Chapters.Current.SuppressTitle) then begin
+      if ((Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+        writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+      writeln (x, '.H1 "', Chapters.Current.Title, '"');
+      if (not (Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
+        writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
+    end;
     writeln (x, '.so ', cfilename + '.so');
 
     if (FileExists (pathname + '/' + cfilename + '.tr')) then begin
@@ -3368,11 +3379,14 @@ begin
 
     with (Chapters.Current) do begin
       cfilename := Filename;
-      if ((SubtitleFirst) and (Subtitle <> '')) then
-        writeln (x, '.H3 "', Subtitle, '"');
-      writeln (x, '.H1 "', Title, '"');
-      if (not (SubtitleFirst) and (Subtitle <> '')) then
-        writeln (x, '.H3 "', Subtitle, '"');
+
+      if not (SuppressTitle) then begin
+        if ((SubtitleFirst) and (Subtitle <> '')) then
+          writeln (x, '.H3 "', Subtitle, '"');
+        writeln (x, '.H1 "', Title, '"');
+        if (not (SubtitleFirst) and (Subtitle <> '')) then
+          writeln (x, '.H3 "', Subtitle, '"');
+      end;
       if (FileExists (pathname + '/' + cfilename + '.co')) then begin
         writeln (x, '.so ' + cfilename + '.co');
         writeln (x, '.SEP');

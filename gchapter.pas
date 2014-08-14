@@ -31,7 +31,8 @@ type
     private
       t_strings : array [0..2] of string;
       t_book : boolean;
-      t_subfirst : boolean;
+      t_subfirst,
+      t_notitle : boolean;
       procedure SetString (index : integer; aData : string);
       function GetString (index : integer) : string;
     public
@@ -40,6 +41,7 @@ type
       property Filename : string index 2 read GetString write SetString;
       property IsABook : boolean read t_book write t_book;
       property SubtitleFirst : boolean read t_subfirst write t_subfirst;
+      property SuppressTitle : boolean read t_notitle write t_notitle;
       procedure Load (var t : text);
       procedure Save (var t : text);
   end;
@@ -98,6 +100,7 @@ begin
   Done := false;
   IsABook := FALSE;
   SubtitleFirst := FALSE;
+  SuppressTitle := FALSE;
 
   repeat
     // Read Keyline
@@ -135,7 +138,8 @@ begin
       end else if (k = 'Subtitle First') then begin
         if not (Upcase (v) = 'FALSE') then
           SubtitleFirst := TRUE
-      end
+      end else if (k = 'Suppress Title') then
+        SuppressTitle := TRUE;
     end;
   until Done;
 end;
@@ -151,6 +155,8 @@ begin
     writeln (t, 'Book Divider');
   if (SubtitleFirst) then
     writeln (t, 'Subtitle First');
+  if (SuppressTitle) then
+    writeln (t, 'Suppress Title');
   writeln (t, '[end]');
 end;
 
