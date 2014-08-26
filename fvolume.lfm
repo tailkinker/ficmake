@@ -862,6 +862,7 @@ object frmVolume: TfrmVolume
     Top = 88
     Width = 100
     Caption = 'About'
+    OnClick = btnAboutClick
     TabOrder = 12
   end
   object btnOptions: TButton

@@ -52,6 +52,7 @@ type
     lstVolumes: TListBox;
     txtDirectory: TLabeledEdit;
     txtAuthor: TLabeledEdit;
+    procedure btnAboutClick(Sender: TObject);
     procedure btnAddProfileClick (Sender : TObject );
     procedure btnAddVolumeClick (Sender : TObject );
     procedure btnDeleteProfileClick (Sender : TObject );
@@ -88,7 +89,10 @@ implementation
 
 uses
   LCLType,
-  fnewvol, foptions, fstory, fnewprof, doption;
+  fabout, fnewvol, foptions, fstory, fnewprof, doption;
+
+const
+  Version = '1.1.3';
 
 {$R *.lfm}
 
@@ -325,6 +329,15 @@ begin
   end;
   Dialog.Destroy;
   PopulateProfileList;
+end;
+
+procedure TfrmVolume.btnAboutClick(Sender: TObject);
+begin
+  with (TfrmAbout.Create (Application)) do begin
+    labVersion.Caption := labVersion.Caption + Version;
+    ShowModal;
+    Free
+  end;
 end;
 
 procedure TfrmVolume.btnDeleteVolumeClick (Sender : TObject );
