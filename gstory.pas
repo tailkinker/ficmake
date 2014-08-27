@@ -33,7 +33,8 @@ type
       t_strings : array [0..9] of string;
       t_notitle,
       t_noauthor,
-      t_subfirst: boolean;
+      t_subfirst,
+      t_autofilename : boolean;
       procedure SetString (index : integer; aData : string);
       function GetString (index : integer) : string;
     public
@@ -50,6 +51,7 @@ type
       property SuppressTitles : boolean read t_notitle write t_notitle;
       property SuppressAuthor : boolean read t_noauthor write t_noauthor;
       property SubtitleFirst  : boolean read t_subfirst write t_subfirst;
+      property AutoFileName   : boolean read t_autofilename write t_autofilename;
       procedure Load (var t : text);
       procedure Save (var t : text);
   end;
@@ -160,6 +162,8 @@ begin
         SuppressAuthor := TRUE
       else if (k = 'Subtitle Above Title') then
         SubtitleFirst := TRUE
+      else if (k = 'Automatic File Names') then
+        AutoFileName := TRUE;
     end;
   until Done;
 end;
@@ -188,6 +192,8 @@ begin
     writeln (t, 'Suppress Author');
   if (SubtitleFirst) then
     writeln (t, 'Subtitle Above Title');
+  if (AutoFileName) then
+    writeln (t, 'Automatic File Names');
   writeln (t, '[end]');
 end;
 

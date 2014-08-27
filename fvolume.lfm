@@ -3,7 +3,7 @@ object frmVolume: TfrmVolume
   Height = 400
   Top = 868
   Width = 780
-  Caption = 'Ficmake v1.1.0'
+  Caption = 'Ficmake v'
   ClientHeight = 400
   ClientWidth = 780
   Constraints.MinHeight = 400

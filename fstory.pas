@@ -128,7 +128,6 @@ begin
   end;
   NewStory.Destroy;
   PopulateStoryList;
-
 end;
 
 procedure TfrmStory.btnAddProfileClick(Sender: TObject);

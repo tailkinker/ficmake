@@ -382,6 +382,7 @@ end;
 
 procedure TfrmVolume.FormCreate (Sender : TObject );
 begin
+  Caption := Caption + Version;
   LoadOptions;
   Width := optInitialX;
   Height := optInitialY;

@@ -1,7 +1,7 @@
 object frmStoryInfo: TfrmStoryInfo
-  Left = 785
+  Left = 788
   Height = 400
-  Top = 495
+  Top = 791
   Width = 780
   BorderStyle = bsDialog
   ClientHeight = 400
@@ -9,7 +9,7 @@ object frmStoryInfo: TfrmStoryInfo
   Constraints.MinHeight = 400
   Constraints.MinWidth = 780
   OnResize = FormResize
-  LCLVersion = '1.0.14.0'
+  LCLVersion = '1.2.4.0'
   object txtSubtitle: TLabeledEdit
     Left = 8
     Height = 27
@@ -20,8 +20,8 @@ object frmStoryInfo: TfrmStoryInfo
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtSubtitle
     EditLabel.Left = 8
-    EditLabel.Height = 20
-    EditLabel.Top = 9
+    EditLabel.Height = 17
+    EditLabel.Top = 12
     EditLabel.Width = 378
     EditLabel.Caption = 'Subtitle'
     EditLabel.ParentColor = False
@@ -38,8 +38,8 @@ object frmStoryInfo: TfrmStoryInfo
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtAuthor
     EditLabel.Left = 8
-    EditLabel.Height = 20
-    EditLabel.Top = 65
+    EditLabel.Height = 17
+    EditLabel.Top = 68
     EditLabel.Width = 378
     EditLabel.Caption = 'Author'
     EditLabel.ParentColor = False
@@ -56,8 +56,8 @@ object frmStoryInfo: TfrmStoryInfo
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtLongName
     EditLabel.Left = 398
-    EditLabel.Height = 20
-    EditLabel.Top = 9
+    EditLabel.Height = 17
+    EditLabel.Top = 12
     EditLabel.Width = 378
     EditLabel.Caption = 'Output File Pattern'
     EditLabel.ParentColor = False
@@ -74,8 +74,8 @@ object frmStoryInfo: TfrmStoryInfo
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtShortName
     EditLabel.Left = 398
-    EditLabel.Height = 20
-    EditLabel.Top = 65
+    EditLabel.Height = 17
+    EditLabel.Top = 68
     EditLabel.Width = 378
     EditLabel.Caption = 'Input File Pattern'
     EditLabel.ParentColor = False
@@ -92,8 +92,8 @@ object frmStoryInfo: TfrmStoryInfo
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtSourceDir
     EditLabel.Left = 8
-    EditLabel.Height = 20
-    EditLabel.Top = 121
+    EditLabel.Height = 17
+    EditLabel.Top = 124
     EditLabel.Width = 354
     EditLabel.Caption = 'Source Directory'
     EditLabel.ParentColor = False
@@ -110,8 +110,8 @@ object frmStoryInfo: TfrmStoryInfo
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtOmakeHeader
     EditLabel.Left = 398
-    EditLabel.Height = 20
-    EditLabel.Top = 121
+    EditLabel.Height = 17
+    EditLabel.Top = 124
     EditLabel.Width = 378
     EditLabel.Caption = 'Omake Header'
     EditLabel.ParentColor = False
@@ -128,8 +128,8 @@ object frmStoryInfo: TfrmStoryInfo
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtTrailerHeader
     EditLabel.Left = 398
-    EditLabel.Height = 20
-    EditLabel.Top = 177
+    EditLabel.Height = 17
+    EditLabel.Top = 180
     EditLabel.Width = 378
     EditLabel.Caption = 'Trailer Header'
     EditLabel.ParentColor = False
@@ -146,8 +146,8 @@ object frmStoryInfo: TfrmStoryInfo
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtTitlePicture
     EditLabel.Left = 8
-    EditLabel.Height = 20
-    EditLabel.Top = 177
+    EditLabel.Height = 17
+    EditLabel.Top = 180
     EditLabel.Width = 354
     EditLabel.Caption = 'Titles Picture'
     EditLabel.ParentColor = False
@@ -164,8 +164,8 @@ object frmStoryInfo: TfrmStoryInfo
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtCoverPicture
     EditLabel.Left = 8
-    EditLabel.Height = 20
-    EditLabel.Top = 233
+    EditLabel.Height = 17
+    EditLabel.Top = 236
     EditLabel.Width = 354
     EditLabel.Caption = 'Cover Picture'
     EditLabel.ParentColor = False
@@ -174,27 +174,27 @@ object frmStoryInfo: TfrmStoryInfo
   end
   object chkSuppressTitles: TCheckBox
     Left = 8
-    Height = 21
+    Height = 20
     Top = 304
-    Width = 269
+    Width = 197
     Caption = 'Suppress Titles on Title Page'
     OnChange = chkSuppressTitlesChange
     TabOrder = 9
   end
   object chkSuppressAuthor: TCheckBox
     Left = 8
-    Height = 21
+    Height = 20
     Top = 336
-    Width = 334
+    Width = 246
     Caption = 'Suppress Author Name on Title Page'
     OnChange = chkSuppressAuthorChange
     TabOrder = 10
   end
   object chkSubtitleFirst: TCheckBox
     Left = 8
-    Height = 21
+    Height = 20
     Top = 368
-    Width = 237
+    Width = 175
     Caption = 'Place Subtitle above Title'
     OnChange = chkSubtitleFirstChange
     TabOrder = 11
@@ -303,7 +303,17 @@ object frmStoryInfo: TfrmStoryInfo
     Caption = 'OK'
     Default = True
     ModalResult = 1
+    OnClick = btnOkClick
     TabOrder = 15
+  end
+  object chkAutoFileName: TCheckBox
+    Left = 400
+    Height = 20
+    Top = 257
+    Width = 282
+    Caption = 'Automatically create numbered file names'
+    OnChange = chkAutoFileNameChange
+    TabOrder = 16
   end
   object OpenPicture: TOpenPictureDialog
     left = 896

@@ -36,6 +36,7 @@ type
     btnOpenSource : TBitBtn;
     btnOpenTitle : TBitBtn;
     btnOpenCover : TBitBtn;
+    chkAutoFileName: TCheckBox;
     chkSubtitleFirst : TCheckBox;
     chkSuppressAuthor : TCheckBox;
     chkSuppressTitles : TCheckBox;
@@ -50,9 +51,11 @@ type
     txtSubtitle : TLabeledEdit;
     txtTitlePicture : TLabeledEdit;
     txtTrailerHeader : TLabeledEdit;
+    procedure btnOkClick(Sender: TObject);
     procedure btnOpenCoverClick (Sender : TObject );
     procedure btnOpenSourceClick (Sender : TObject );
     procedure btnOpenTitleClick (Sender : TObject );
+    procedure chkAutoFileNameChange(Sender: TObject);
     procedure chkSubtitleFirstChange (Sender : TObject );
     procedure chkSuppressAuthorChange (Sender : TObject );
     procedure chkSuppressTitlesChange (Sender : TObject );
@@ -75,6 +78,9 @@ type
 
 implementation
 
+uses
+  LCLType;
+
 {$R *.lfm}
 
 procedure TfrmStoryInfo.btnOpenSourceClick (Sender : TObject );
@@ -91,11 +97,27 @@ begin
   end;
 end;
 
+procedure TfrmStoryInfo.btnOkClick(Sender: TObject);
+begin
+  if (FileExists (Story.SourceDir + '/stories.fic')) then
+    Application.MessageBox (
+      'The selected Source Directory is a Volume Directory.  Please select a different Source Directory.',
+      'Error', MB_ICONEXCLAMATION + MB_OK)
+  else
+    Close;
+end;
+
 procedure TfrmStoryInfo.btnOpenTitleClick (Sender : TObject );
 begin
   if (OpenPicture.Execute) then begin
     txtTitlePicture.Text := OpenPicture.Filename;
   end;
+end;
+
+procedure TfrmStoryInfo.chkAutoFileNameChange(Sender: TObject);
+begin
+  if (chkAutoFileName.Enabled) then
+    Story.AutoFileName := chkAutoFileName.Checked;
 end;
 
 procedure TfrmStoryInfo.chkSubtitleFirstChange (Sender : TObject );
@@ -158,6 +180,13 @@ procedure TfrmStoryInfo.txtSourceDirChange (Sender : TObject );
 begin
   if (txtSourceDir.Enabled) then
   	Story.SourceDir := txtSourceDir.Text;
+  if (FileExists (Story.SourceDir + '/stories.fic')) then begin
+    txtSourceDir.Color := clRed;
+    btnOK.Enabled := FALSE
+  end else begin
+    txtSourceDir.Color := clDefault;
+    btnOK.Enabled := TRUE
+  end;
 end;
 
 procedure TfrmStoryInfo.txtSubtitleChange (Sender : TObject );
@@ -197,6 +226,7 @@ begin
     chkSubtitleFirst.Enabled := FALSE;
     chkSuppressTitles.Enabled := FALSE;
     chkSuppressAuthor.Enabled := FALSE;
+    chkAutoFileName.Enabled := FALSE;
 
     // Load all controls
     txtSubtitle.Text := t_story.Subtitle;
@@ -211,6 +241,7 @@ begin
     chkSubtitleFirst.Checked := t_story.SubtitleFirst;
     chkSuppressTitles.Checked := t_story.SuppressTitles;
     chkSuppressAuthor.Checked := t_story.SuppressAuthor;
+    chkAutoFileName.Checked := t_story.AutoFileName;
 
     // Enable all controls
     txtSubtitle.Enabled := TRUE;
@@ -225,6 +256,7 @@ begin
     chkSubtitleFirst.Enabled := TRUE;
     chkSuppressTitles.Enabled := TRUE;
     chkSuppressAuthor.Enabled := TRUE;
+    chkAutoFileName.Enabled := TRUE;
   end;
 end;
 

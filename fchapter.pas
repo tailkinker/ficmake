@@ -100,10 +100,20 @@ end;
 procedure TfrmChapter.btnAddChapterClick (Sender : TObject );
 var
   Dialog : TfrmNewChapter;
+  t : string;
 begin
 	Dialog := TfrmNewChapter.Create (Application);
-  if (Dialog.ShowModal = mrOK) then
+  if (Dialog.ShowModal = mrOK) then begin
   	Chapters.New (Dialog.txtName.Text);
+    Chapters.SelectAt (Chapters.Count - 1);
+    if (Story.AutoFileName) then begin
+      str (Chapters.Count, t);
+      while (length (t) < 4) do
+        t := '0' + t;
+      Chapters.Current.Filename := Story.ShortName + t;
+    end;
+    btnSaveChapters.Enabled := TRUE;
+  end;
   Dialog.Destroy;
   PopulateChapterList;
 end;
@@ -278,34 +288,36 @@ var
 begin
   index := lstChapters.ItemIndex;
   btnDeleteChapter.Enabled := FALSE;
-  s := lstChapters.Items [index];
-  if (s <> '') then begin
-    Chapters.Select (s);
+  if (index > -1) then begin
+    s := lstChapters.Items [index];
+    if (s <> '') then begin
+      Chapters.Select (s);
 
-    // Disable Controls
-    txtTitle.Enabled := FALSE;
-    txtSubtitle.Enabled := FALSE;
-    txtFilename.Enabled := FALSE;
-    chkIsABook.Enabled := FALSE;
-    chkSubtitleFirst.Enabled := FALSE;
-    chkNoTitle.Enabled := FALSE;
+      // Disable Controls
+      txtTitle.Enabled := FALSE;
+      txtSubtitle.Enabled := FALSE;
+      txtFilename.Enabled := FALSE;
+      chkIsABook.Enabled := FALSE;
+      chkSubtitleFirst.Enabled := FALSE;
+      chkNoTitle.Enabled := FALSE;
 
-    if (Chapters.Current <> nil) then begin
-      // Load Controls
-      txtTitle.Text := Chapters.Current.Title;
-      txtSubtitle.Text := Chapters.Current.Subtitle;
-      txtFilename.Text := Chapters.Current.Filename;
-      chkIsABook.Checked := Chapters.Current.IsABook;
-      chkSubtitleFirst.Checked := Chapters.Current.SubtitleFirst;
-      chkNoTitle.Checked := Chapters.Current.SuppressTitle;
+      if (Chapters.Current <> nil) then begin
+        // Load Controls
+        txtTitle.Text := Chapters.Current.Title;
+        txtSubtitle.Text := Chapters.Current.Subtitle;
+        txtFilename.Text := Chapters.Current.Filename;
+        chkIsABook.Checked := Chapters.Current.IsABook;
+        chkSubtitleFirst.Checked := Chapters.Current.SubtitleFirst;
+        chkNoTitle.Checked := Chapters.Current.SuppressTitle;
 
-      // Enable Controls
-      txtTitle.Enabled := TRUE;
-      txtSubtitle.Enabled := TRUE;
-      txtFilename.Enabled := TRUE;
-      chkIsABook.Enabled := TRUE;
-      chkSubtitleFirst.Enabled := TRUE;
-      chkNoTitle.Enabled := TRUE;
+        // Enable Controls
+        txtTitle.Enabled := TRUE;
+        txtSubtitle.Enabled := TRUE;
+        txtFilename.Enabled := TRUE;
+        chkIsABook.Enabled := TRUE;
+        chkSubtitleFirst.Enabled := TRUE;
+        chkNoTitle.Enabled := TRUE;
+      end;
     end;
   end;
 end;
