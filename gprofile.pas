@@ -297,7 +297,7 @@ begin
   // Font 0 - Plain Text
   GroffFonts [0].Family := 6; // Times New Roman
   GroffFonts [0].Font := 0; // Regular
-  GroffFonts [0].Size := 12;
+  GroffFonts [0].Size := 10;
   GroffFonts [0].Centered := false;
   GroffFonts [0].SpaceAbove := 0;
   GroffFonts [0].SpaceBelow := 0;
@@ -310,7 +310,7 @@ begin
   // Font 1 - Title
   GroffFonts [1].Family := 3; // Helvetica
   GroffFonts [1].Font := 0; // Regular
-  GroffFonts [1].Size := 28;
+  GroffFonts [1].Size := 18;
   GroffFonts [1].Centered := true;
   GroffFonts [1].SpaceAbove := 18;
   GroffFonts [1].SpaceBelow := 18;
@@ -323,7 +323,7 @@ begin
   // Font 2 - Subtitle
   GroffFonts [2].Family := 3; // Helvetica
   GroffFonts [2].Font := 0; // Regular
-  GroffFonts [2].Size := 18;
+  GroffFonts [2].Size := 14;
   GroffFonts [2].Centered := true;
   GroffFonts [2].SpaceAbove := 18;
   GroffFonts [2].SpaceBelow := 18;
@@ -336,7 +336,7 @@ begin
   // Font 3 - Heading 0
   GroffFonts [3].Family := 3; // Helvetica
   GroffFonts [3].Font := 1; // Bold
-  GroffFonts [3].Size := 28;
+  GroffFonts [3].Size := 18;
   GroffFonts [3].Centered := true;
   GroffFonts [3].SpaceAbove := 18;
   GroffFonts [3].SpaceBelow := 18;
@@ -349,7 +349,7 @@ begin
   // Font 4 - Heading 1
   GroffFonts [4].Family := 3; // Helvetica
   GroffFonts [4].Font := 1; // Bold
-  GroffFonts [4].Size := 18;
+  GroffFonts [4].Size := 14;
   GroffFonts [4].Centered := true;
   GroffFonts [4].SpaceAbove := 0;
   GroffFonts [4].SpaceBelow := 18;
@@ -362,7 +362,7 @@ begin
   // Font 5 - Heading 2
   GroffFonts [5].Family := 3; // Helvetica
   GroffFonts [5].Font := 1; // Bold
-  GroffFonts [5].Size := 14;
+  GroffFonts [5].Size := 12;
   GroffFonts [5].Centered := true;
   GroffFonts [5].SpaceAbove := 0;
   GroffFonts [5].SpaceBelow := 0;
@@ -374,7 +374,7 @@ begin
 
   // Font 6 - Heading 3
   GroffFonts [6].Family := 3; // Helvetica
-  GroffFonts [6].Font := 1; // Bold
+  GroffFonts [6].Font := 2; // Italics
   GroffFonts [6].Size := 12;
   GroffFonts [6].Centered := true;
   GroffFonts [6].SpaceAbove := 0;
@@ -387,8 +387,8 @@ begin
 
   // Font 7 - Heading 4
   GroffFonts [7].Family := 3; // Helvetica
-  GroffFonts [7].Font := 2; // Italics
-  GroffFonts [7].Size := 12;
+  GroffFonts [7].Font := 1; // Bold
+  GroffFonts [7].Size := 11;
   GroffFonts [7].Centered := false;
   GroffFonts [7].SpaceAbove := 0;
   GroffFonts [7].SpaceBelow := 0;
@@ -400,8 +400,8 @@ begin
 
   // Font 8 - Heading 5
   GroffFonts [8].Family := 6; // Times New Roman
-  GroffFonts [8].Font := 1; // Bold
-  GroffFonts [8].Size := 12;
+  GroffFonts [8].Font := 2; // Italics
+  GroffFonts [8].Size := 11;
   GroffFonts [8].Centered := false;
   GroffFonts [8].SpaceAbove := 0;
   GroffFonts [8].SpaceBelow := 0;
@@ -479,13 +479,14 @@ var
   v,
   k1,
   v1,
-	s : string;
+  s : string;
   font : integer = -1;
   i,
   j: integer;
   r : longint;
   Done : boolean;
 begin
+  Done := false;
   repeat
     // Read Keyline
     readln (t, s);
@@ -893,7 +894,7 @@ var
     t : string;
     i : integer;
   begin
-  	if (h.Enabled) then begin
+    if (h.Enabled) then begin
       t := '^';
       s := h.Left;
       i := 1;
@@ -1089,16 +1090,16 @@ begin
 
   { Header Zero }
   if (UsesBooks) then begin
-		writeln (x, '.de H0 ..');
-		writeln (x, '.EH ****');
-		writeln (x, '.OH ****');
-		writeln (x, '.EF ****');
-		writeln (x, '.OF ****');
-		writeln (x, '.LP');
-	  writeln (x, '.sp ', t_fonts [3].SpaceAbove, 'p');
-		writeln (x, '.fam ', T_Family [t_fonts [3].family]);
-		writeln (x, '.ps ', t_fonts [3].size);
-		writeln (x, '.vs ', t_fonts [3].size + 2);
+    writeln (x, '.de H0 ..');
+    writeln (x, '.EH ****');
+    writeln (x, '.OH ****');
+    writeln (x, '.EF ****');
+    writeln (x, '.OF ****');
+    writeln (x, '.LP');
+    writeln (x, '.sp ', t_fonts [3].SpaceAbove, 'p');
+    writeln (x, '.fam ', T_Family [t_fonts [3].family]);
+    writeln (x, '.ps ', t_fonts [3].size);
+    writeln (x, '.vs ', t_fonts [3].size + 2);
     if (UsesBorders) then begin
       writeln (x, '.TS');
       writeln (x, ';');
@@ -1711,11 +1712,12 @@ var
   v,
   //k1,
   //v1,
-	s : string;
+  s : string;
   //font : integer = -1;
   i : integer;
-  Done : boolean = FALSE;
+  Done : boolean;
 begin
+  Done := false;
   repeat
     // Read Keyline
     readln (t, s);
@@ -2385,10 +2387,11 @@ procedure tTextProfile.Load (var t : text);
 var
   k,
   v,
-	s : string;
+  s : string;
   i : integer;
   Done : boolean;
 begin
+  Done := false;
   repeat
     // Read Keyline
     readln (t, s);
@@ -3050,10 +3053,11 @@ procedure tEPubProfile.Load (var t : text);
 var
   k,
   v,
-	s : string;
+  s : string;
   i : integer;
-  Done : boolean = FALSE;
+  Done : boolean;
 begin
+  Done := false;
   repeat
     // Read Keyline
     readln (t, s);

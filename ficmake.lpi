@@ -45,7 +45,6 @@
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ficmake"/>
       </Unit0>
       <Unit1>
         <Filename Value="fvolume.pas"/>
@@ -76,7 +75,6 @@
         <ComponentName Value="frmNewVolume"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fnewvol"/>
       </Unit5>
       <Unit6>
         <Filename Value="fstory.pas"/>
@@ -288,12 +286,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">
