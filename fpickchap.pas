@@ -20,6 +20,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure lstChaptersClick(Sender: TObject);
     procedure lstChaptersDblClick(Sender: TObject);
+    procedure lstChaptersKeyPress(Sender: TObject; var Key: char);
   private
     { private declarations }
     t_basedir : string;
@@ -63,6 +64,12 @@ begin
       t_chapterpick := Chapters.Current.Filename;
     end;
   ModalResult := mrOk;
+end;
+
+procedure TfrmPickChapter.lstChaptersKeyPress(Sender: TObject; var Key: char);
+begin
+  if (Key = #13) then
+    lstChaptersDblClick (Sender);
 end;
 
 procedure TfrmPickChapter.SetBaseDir (aDir : string);

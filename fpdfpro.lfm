@@ -1,38 +1,38 @@
 object frmPDFProfile: TfrmPDFProfile
-  Left = 383
+  Left = 242
   Height = 400
-  Top = 668
+  Top = 141
   Width = 780
   BorderStyle = bsDialog
   Caption = 'Edit PDF Profile'
   ClientHeight = 400
   ClientWidth = 780
   OnCreate = FormCreate
-  LCLVersion = '1.2.4.0'
+  LCLVersion = '1.4.0.4'
   object pgPDF: TPageControl
     Left = 0
     Height = 296
     Top = 72
     Width = 780
-    ActivePage = tabContent
-    TabIndex = 1
+    ActivePage = tabStyles
+    TabIndex = 2
     TabOrder = 0
     TabPosition = tpLeft
     object tabPage: TTabSheet
       Caption = 'Page'
-      ClientHeight = 294
-      ClientWidth = 722
+      ClientHeight = 292
+      ClientWidth = 708
       object labPageSize: TLabel
         Left = 20
         Height = 17
         Top = 10
-        Width = 62
+        Width = 69
         Caption = 'Page Size:'
         ParentColor = False
       end
       object cmbPageSize: TComboBox
         Left = 116
-        Height = 25
+        Height = 27
         Top = 6
         Width = 124
         ItemHeight = 0
@@ -60,16 +60,16 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkLandscape: TCheckBox
         Left = 125
-        Height = 20
+        Height = 21
         Top = 38
-        Width = 91
+        Width = 98
         Caption = 'Landscape'
         OnChange = chkLandscapeChange
         TabOrder = 1
       end
       object txtPDFWidth: TEdit
         Left = 48
-        Height = 27
+        Height = 25
         Top = 63
         Width = 80
         Enabled = False
@@ -78,7 +78,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtPDFHeight: TEdit
         Left = 160
-        Height = 27
+        Height = 25
         Top = 63
         Width = 80
         Enabled = False
@@ -87,7 +87,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object cmbPageSizeUnits: TComboBox
         Left = 160
-        Height = 25
+        Height = 27
         Top = 94
         Width = 80
         ItemHeight = 0
@@ -106,7 +106,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 100
         Height = 17
         Top = 100
-        Width = 38
+        Width = 39
         Caption = 'Units:'
         ParentColor = False
       end
@@ -114,13 +114,13 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 139
         Height = 17
         Top = 69
-        Width = 9
+        Width = 8
         Caption = 'X'
         ParentColor = False
       end
       object cmbColumns: TComboBox
         Left = 188
-        Height = 25
+        Height = 27
         Top = 127
         Width = 52
         ItemHeight = 0
@@ -139,13 +139,13 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 104
         Height = 17
         Top = 132
-        Width = 60
+        Width = 65
         Caption = 'Columns:'
         ParentColor = False
       end
       object txtOutsideMargin: TEdit
         Left = 160
-        Height = 27
+        Height = 25
         Top = 166
         Width = 80
         OnChange = txtOutsideMarginChange
@@ -154,7 +154,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtInsideMargin: TEdit
         Left = 160
-        Height = 27
+        Height = 25
         Top = 198
         Width = 80
         OnChange = txtInsideMarginChange
@@ -163,7 +163,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtTopMargin: TEdit
         Left = 160
-        Height = 27
+        Height = 25
         Top = 230
         Width = 80
         OnChange = txtTopMarginChange
@@ -172,7 +172,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtBottomMargin: TEdit
         Left = 160
-        Height = 27
+        Height = 25
         Top = 262
         Width = 80
         OnChange = txtBottomMarginChange
@@ -183,7 +183,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 16
         Height = 17
         Top = 171
-        Width = 102
+        Width = 110
         Caption = 'Outside Margin:'
         ParentColor = False
       end
@@ -191,7 +191,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 28
         Height = 17
         Top = 203
-        Width = 93
+        Width = 95
         Caption = 'Inside Margin:'
         ParentColor = False
       end
@@ -199,7 +199,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 48
         Height = 17
         Top = 235
-        Width = 78
+        Width = 81
         Caption = 'Top Margin:'
         ParentColor = False
       end
@@ -207,7 +207,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 21
         Height = 17
         Top = 267
-        Width = 102
+        Width = 108
         Caption = 'Bottom Margin:'
         ParentColor = False
       end
@@ -247,20 +247,20 @@ object frmPDFProfile: TfrmPDFProfile
     end
     object tabContent: TTabSheet
       Caption = 'Content'
-      ClientHeight = 294
-      ClientWidth = 722
+      ClientHeight = 292
+      ClientWidth = 708
       object chkOddHeaderEnable: TCheckBox
         Left = 8
-        Height = 20
+        Height = 21
         Top = 7
-        Width = 174
+        Width = 200
         Caption = 'Enable Odd-Page Header'
         OnChange = chkOddHeaderEnableChange
         TabOrder = 0
       end
       object txtOddHeaderLeft: TEdit
         Left = 8
-        Height = 27
+        Height = 25
         Top = 31
         Width = 220
         Enabled = False
@@ -269,7 +269,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtOddHeaderMiddle: TEdit
         Left = 236
-        Height = 27
+        Height = 25
         Top = 31
         Width = 220
         Enabled = False
@@ -278,7 +278,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtOddHeaderRight: TEdit
         Left = 464
-        Height = 27
+        Height = 25
         Top = 31
         Width = 220
         Enabled = False
@@ -288,16 +288,16 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkEvenHeaderEnable: TCheckBox
         Left = 8
-        Height = 20
+        Height = 21
         Top = 71
-        Width = 179
+        Width = 204
         Caption = 'Enable Even-Page Header'
         OnChange = chkEvenHeaderEnableChange
         TabOrder = 4
       end
       object txtEvenHeaderLeft: TEdit
         Left = 8
-        Height = 27
+        Height = 25
         Top = 95
         Width = 220
         Enabled = False
@@ -307,7 +307,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtEvenHeaderMiddle: TEdit
         Left = 236
-        Height = 27
+        Height = 25
         Top = 95
         Width = 220
         Enabled = False
@@ -316,7 +316,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtEvenHeaderRight: TEdit
         Left = 464
-        Height = 27
+        Height = 25
         Top = 95
         Width = 220
         Enabled = False
@@ -325,16 +325,16 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkOddFooterEnable: TCheckBox
         Left = 8
-        Height = 20
+        Height = 21
         Top = 135
-        Width = 168
+        Width = 195
         Caption = 'Enable Odd-Page Footer'
         OnChange = chkOddFooterEnableChange
         TabOrder = 8
       end
       object txtOddFooterLeft: TEdit
         Left = 8
-        Height = 27
+        Height = 25
         Top = 159
         Width = 220
         Enabled = False
@@ -344,7 +344,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtOddFooterMiddle: TEdit
         Left = 236
-        Height = 27
+        Height = 25
         Top = 159
         Width = 220
         Enabled = False
@@ -353,7 +353,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtOddFooterRight: TEdit
         Left = 464
-        Height = 27
+        Height = 25
         Top = 159
         Width = 220
         Enabled = False
@@ -363,16 +363,16 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkEvenFooterEnable: TCheckBox
         Left = 8
-        Height = 20
+        Height = 21
         Top = 199
-        Width = 173
+        Width = 199
         Caption = 'Enable Even-Page Footer'
         OnChange = chkEvenFooterEnableChange
         TabOrder = 12
       end
       object txtEvenFooterLeft: TEdit
         Left = 8
-        Height = 27
+        Height = 25
         Top = 223
         Width = 220
         Enabled = False
@@ -382,7 +382,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtEvenFooterMiddle: TEdit
         Left = 236
-        Height = 27
+        Height = 25
         Top = 223
         Width = 220
         Enabled = False
@@ -391,7 +391,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtEvenFooterRight: TEdit
         Left = 464
-        Height = 27
+        Height = 25
         Top = 223
         Width = 220
         Enabled = False
@@ -410,7 +410,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtSeparator: TLabeledEdit
         Left = 236
-        Height = 27
+        Height = 25
         Top = 258
         Width = 220
         EditLabel.AnchorSideTop.Control = txtSeparator
@@ -418,10 +418,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtSeparator
         EditLabel.AnchorSideBottom.Control = txtSeparator
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 62
+        EditLabel.Left = 38
         EditLabel.Height = 17
-        EditLabel.Top = 263
-        EditLabel.Width = 171
+        EditLabel.Top = 262
+        EditLabel.Width = 195
         EditLabel.Caption = 'Separator for .SEP requests:'
         EditLabel.ParentColor = False
         LabelPosition = lpLeft
@@ -432,8 +432,8 @@ object frmPDFProfile: TfrmPDFProfile
     end
     object tabStyles: TTabSheet
       Caption = 'Styles'
-      ClientHeight = 294
-      ClientWidth = 722
+      ClientHeight = 292
+      ClientWidth = 708
       object lstStyles: TListBox
         Left = 8
         Height = 280
@@ -455,21 +455,21 @@ object frmPDFProfile: TfrmPDFProfile
         )
         ItemHeight = 23
         OnClick = lstStylesClick
-        ScrollWidth = 98
+        ScrollWidth = 80
         TabOrder = 0
       end
       object Label2: TLabel
         Left = 124
         Height = 17
         Top = 8
-        Width = 75
+        Width = 81
         Caption = 'Font Family:'
         Enabled = False
         ParentColor = False
       end
       object cmbFontFamily: TComboBox
         Left = 124
-        Height = 25
+        Height = 27
         Hint = 'Selects the font family used with this style'
         Top = 31
         Width = 220
@@ -494,9 +494,9 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkFontBold: TCheckBox
         Left = 124
-        Height = 20
+        Height = 21
         Top = 69
-        Width = 49
+        Width = 55
         Caption = 'Bold'
         Enabled = False
         Font.Style = [fsBold]
@@ -506,9 +506,9 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkFontItalics: TCheckBox
         Left = 196
-        Height = 20
+        Height = 21
         Top = 69
-        Width = 58
+        Width = 63
         Caption = 'Italics'
         Enabled = False
         Font.Style = [fsItalic]
@@ -518,9 +518,9 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkFontCentered: TCheckBox
         Left = 265
-        Height = 20
+        Height = 21
         Top = 69
-        Width = 78
+        Width = 90
         Caption = 'Centered'
         Enabled = False
         OnChange = chkFontCenteredChange
@@ -528,7 +528,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtSpaceAbove: TLabeledEdit
         Left = 332
-        Height = 27
+        Height = 25
         Hint = 'Insert this much space above this paragraph.'
         Top = 95
         Width = 50
@@ -537,10 +537,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtSpaceAbove
         EditLabel.AnchorSideBottom.Control = txtSpaceAbove
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 248
+        EditLabel.Left = 237
         EditLabel.Height = 17
-        EditLabel.Top = 100
-        EditLabel.Width = 81
+        EditLabel.Top = 99
+        EditLabel.Width = 92
         EditLabel.Caption = 'Space Above:'
         EditLabel.ParentColor = False
         Enabled = False
@@ -553,7 +553,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtFontSize: TLabeledEdit
         Left = 188
-        Height = 27
+        Height = 25
         Top = 95
         Width = 50
         EditLabel.AnchorSideTop.Control = txtFontSize
@@ -561,10 +561,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtFontSize
         EditLabel.AnchorSideBottom.Control = txtFontSize
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 126
+        EditLabel.Left = 119
         EditLabel.Height = 17
-        EditLabel.Top = 100
-        EditLabel.Width = 59
+        EditLabel.Top = 99
+        EditLabel.Width = 66
         EditLabel.Caption = 'Font Size:'
         EditLabel.ParentColor = False
         Enabled = False
@@ -575,7 +575,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtSpaceBelow: TLabeledEdit
         Left = 332
-        Height = 27
+        Height = 25
         Hint = 'Insert this much space below the paragraph.'
         Top = 127
         Width = 50
@@ -584,10 +584,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtSpaceBelow
         EditLabel.AnchorSideBottom.Control = txtSpaceBelow
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 250
+        EditLabel.Left = 235
         EditLabel.Height = 17
-        EditLabel.Top = 132
-        EditLabel.Width = 79
+        EditLabel.Top = 131
+        EditLabel.Width = 94
         EditLabel.Caption = 'Space Below:'
         EditLabel.ParentColor = False
         Enabled = False
@@ -648,10 +648,10 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkTitlePageOneColumn: TCheckBox
         Left = 420
-        Height = 20
+        Height = 21
         Hint = 'The first page of the document will be only '#10'one column, regardless of the number of '#10'columns selected.'
         Top = 184
-        Width = 204
+        Width = 230
         Caption = 'Title Page is One Column Only'
         Enabled = False
         OnChange = chkTitlePageOneColumnChange
@@ -663,14 +663,14 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 420
         Height = 17
         Top = 8
-        Width = 167
+        Width = 189
         Caption = 'Heading 1 Centering Mode:'
         Enabled = False
         ParentColor = False
       end
       object cmbH1CenterMode: TComboBox
         Left = 420
-        Height = 25
+        Height = 27
         Top = 32
         Width = 240
         Enabled = False
@@ -699,7 +699,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtSpaceReserved: TLabeledEdit
         Left = 188
-        Height = 27
+        Height = 25
         Hint = 'If there is not at least this much space '#10'remaining on the page when this header '#10'style is called, force a column break.'
         Top = 127
         Width = 50
@@ -708,10 +708,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtSpaceReserved
         EditLabel.AnchorSideBottom.Control = txtSpaceReserved
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 125
+        EditLabel.Left = 117
         EditLabel.Height = 17
-        EditLabel.Top = 132
-        EditLabel.Width = 60
+        EditLabel.Top = 131
+        EditLabel.Width = 68
         EditLabel.Caption = 'Reserved:'
         EditLabel.ParentColor = False
         Enabled = False
@@ -724,10 +724,10 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkCallPreconv: TCheckBox
         Left = 420
-        Height = 20
+        Height = 21
         Hint = 'When building the file, call the groff preconv pre-processor.'#10'This pre-processor converts non-ASCII characters to groff characters.'
         Top = 263
-        Width = 97
+        Width = 109
         Caption = 'Call Preconv'
         OnChange = chkCallPreconvChange
         ParentShowHint = False
@@ -736,10 +736,10 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkCallTBL: TCheckBox
         Left = 540
-        Height = 20
+        Height = 21
         Hint = 'When building the file, call the groff tbl pre-processor.'#10'This pre-processor is used to construct tables.'
         Top = 263
-        Width = 72
+        Width = 79
         Caption = 'Call TBL'
         OnChange = chkCallTBLChange
         ParentShowHint = False
@@ -748,10 +748,10 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkCallEQN: TCheckBox
         Left = 628
-        Height = 20
+        Height = 21
         Hint = 'When building the file, call the groff eqn pre-processor.'#10'This pre-processor is used to typeset mathematical formulae.'
         Top = 263
-        Width = 75
+        Width = 84
         Caption = 'Call EQN'
         OnChange = chkCallEQNChange
         ParentShowHint = False
@@ -760,9 +760,9 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object radForceFirstPage: TRadioGroup
         Left = 424
-        Height = 39
+        Height = 40
         Top = 209
-        Width = 193
+        Width = 211
         AutoFill = True
         AutoSize = True
         Caption = 'Force First Page of Chapters'
@@ -774,8 +774,8 @@ object frmPDFProfile: TfrmPDFProfile
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 3
-        ClientHeight = 20
-        ClientWidth = 189
+        ClientHeight = 21
+        ClientWidth = 207
         Columns = 3
         Items.Strings = (
           'None'
@@ -789,7 +789,7 @@ object frmPDFProfile: TfrmPDFProfile
   end
   object txtName: TLabeledEdit
     Left = 120
-    Height = 27
+    Height = 25
     Top = 8
     Width = 652
     EditLabel.AnchorSideTop.Control = txtName
@@ -797,10 +797,10 @@ object frmPDFProfile: TfrmPDFProfile
     EditLabel.AnchorSideRight.Control = txtName
     EditLabel.AnchorSideBottom.Control = txtName
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 33
+    EditLabel.Left = 23
     EditLabel.Height = 17
-    EditLabel.Top = 13
-    EditLabel.Width = 84
+    EditLabel.Top = 12
+    EditLabel.Width = 94
     EditLabel.Caption = 'Profile Name:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
@@ -809,7 +809,7 @@ object frmPDFProfile: TfrmPDFProfile
   end
   object txtOutDir: TLabeledEdit
     Left = 160
-    Height = 27
+    Height = 25
     Top = 40
     Width = 584
     EditLabel.AnchorSideTop.Control = txtOutDir
@@ -817,10 +817,10 @@ object frmPDFProfile: TfrmPDFProfile
     EditLabel.AnchorSideRight.Control = txtOutDir
     EditLabel.AnchorSideBottom.Control = txtOutDir
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 47
+    EditLabel.Left = 31
     EditLabel.Height = 17
-    EditLabel.Top = 45
-    EditLabel.Width = 110
+    EditLabel.Top = 44
+    EditLabel.Width = 126
     EditLabel.Caption = 'Output Directory: '
     EditLabel.ParentColor = False
     LabelPosition = lpLeft

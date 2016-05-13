@@ -1,14 +1,14 @@
 object frmImportProfile: TfrmImportProfile
-  Left = 1194
+  Left = 782
   Height = 320
-  Top = 473
+  Top = 221
   Width = 240
   BorderStyle = bsDialog
   Caption = 'Import Profile'
   ClientHeight = 320
   ClientWidth = 240
   OnCreate = FormCreate
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.4.0.4'
   object btnCancel: TButton
     Left = 157
     Height = 25
@@ -28,7 +28,8 @@ object frmImportProfile: TfrmImportProfile
     ItemHeight = 0
     OnClick = lstProfilesClick
     OnDblClick = lstProfilesDblClick
-    ScrollWidth = 222
+    OnKeyPress = lstProfilesKeyPress
+    ScrollWidth = 220
     TabOrder = 1
     TopIndex = -1
   end
@@ -36,7 +37,7 @@ object frmImportProfile: TfrmImportProfile
     Left = 8
     Height = 17
     Top = 8
-    Width = 145
+    Width = 160
     Caption = 'Select Profile to import'
     ParentColor = False
   end

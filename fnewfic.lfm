@@ -1,17 +1,17 @@
 object frmNewStory: TfrmNewStory
-  Left = 558
+  Left = 542
   Height = 104
-  Top = 721
+  Top = 437
   Width = 480
   BorderStyle = bsDialog
   Caption = 'Create New Story'
   ClientHeight = 104
   ClientWidth = 480
   OnCreate = FormCreate
-  LCLVersion = '1.2.4.0'
+  LCLVersion = '1.4.0.4'
   object txtName: TLabeledEdit
     Left = 8
-    Height = 27
+    Height = 25
     Top = 32
     Width = 464
     EditLabel.AnchorSideLeft.Control = txtName

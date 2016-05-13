@@ -67,8 +67,10 @@ type
     procedure FormResize(Sender: TObject);
     procedure lstGlobalProfilesClick (Sender : TObject );
     procedure lstGlobalProfilesDblClick(Sender: TObject);
+    procedure lstGlobalProfilesKeyPress(Sender: TObject; var Key: char);
     procedure lstVolumesClick (Sender : TObject );
     procedure lstVolumesDblClick (Sender : TObject );
+    procedure lstVolumesKeyPress(Sender: TObject; var Key: char);
     procedure txtAuthorChange (Sender : TObject );
     procedure txtDirectoryChange (Sender : TObject );
     procedure txtVolumeNameChange (Sender : TObject );
@@ -92,7 +94,7 @@ uses
   fabout, fnewvol, foptions, fstory, fnewprof, doption;
 
 const
-  Version = '1.1.3';
+  Version = '1.1.4';
 
 {$R *.lfm}
 
@@ -165,6 +167,12 @@ begin
   end;
 end;
 
+procedure TfrmVolume.lstGlobalProfilesKeyPress(Sender: TObject; var Key: char);
+begin
+  if (Key = #13) then
+     lstGlobalProfilesDblClick (Sender);
+end;
+
 procedure TfrmVolume.lstVolumesClick (Sender : TObject );
 var
   index : integer;
@@ -217,19 +225,30 @@ begin
       else
     	  index += 1;
     until (Present or (index >= Screen.FormCount));
-    if (Present) then begin
-      Screen.Forms [index].Show;
-      Screen.Forms [index].BringToFront;
-    end else begin
-      NewStoryForm := TfrmStory.Create (Application);
-      NewStoryForm.Caption := FormCaption;
-      NewStoryForm.SetBaseDir (Volumes.Current.BaseDir);
-      NewStoryForm.ForceLoadStoryList;
-      NewStoryForm.GlobalProfiles := Profiles;
-      NewStoryForm.Volume := Volumes.Current;
-      NewStoryForm.Show;
-    end;
+    if (DirectoryExists(Volumes.Current.BaseDir)) then begin
+      if (Present) then begin
+        Screen.Forms [index].Show;
+        Screen.Forms [index].BringToFront;
+      end else begin
+        NewStoryForm := TfrmStory.Create (Application);
+        NewStoryForm.Caption := FormCaption;
+        NewStoryForm.SetBaseDir (Volumes.Current.BaseDir);
+        NewStoryForm.ForceLoadStoryList;
+        NewStoryForm.GlobalProfiles := Profiles;
+        NewStoryForm.Volume := Volumes.Current;
+        NewStoryForm.Show;
+      end
+    end else
+      Application.MessageBox
+        ('Cannot open Volume with an invalid base directory',
+      	'Invalid Directory', MB_ICONQUESTION + MB_OK);
   end;
+end;
+
+procedure TfrmVolume.lstVolumesKeyPress(Sender: TObject; var Key: char);
+begin
+  if (Key = #13) then
+    lstVolumesDblClick (Sender);
 end;
 
 procedure TfrmVolume.txtAuthorChange (Sender : TObject );

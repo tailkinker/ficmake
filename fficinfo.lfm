@@ -1,7 +1,7 @@
 object frmStoryInfo: TfrmStoryInfo
-  Left = 788
+  Left = 202
   Height = 400
-  Top = 791
+  Top = 40
   Width = 780
   BorderStyle = bsDialog
   ClientHeight = 400
@@ -9,10 +9,10 @@ object frmStoryInfo: TfrmStoryInfo
   Constraints.MinHeight = 400
   Constraints.MinWidth = 780
   OnResize = FormResize
-  LCLVersion = '1.2.4.0'
+  LCLVersion = '1.4.0.4'
   object txtSubtitle: TLabeledEdit
     Left = 8
-    Height = 27
+    Height = 25
     Top = 32
     Width = 378
     EditLabel.AnchorSideLeft.Control = txtSubtitle
@@ -30,7 +30,7 @@ object frmStoryInfo: TfrmStoryInfo
   end
   object txtAuthor: TLabeledEdit
     Left = 8
-    Height = 27
+    Height = 25
     Top = 88
     Width = 378
     EditLabel.AnchorSideLeft.Control = txtAuthor
@@ -48,7 +48,7 @@ object frmStoryInfo: TfrmStoryInfo
   end
   object txtLongName: TLabeledEdit
     Left = 398
-    Height = 27
+    Height = 25
     Top = 32
     Width = 378
     EditLabel.AnchorSideLeft.Control = txtLongName
@@ -66,7 +66,7 @@ object frmStoryInfo: TfrmStoryInfo
   end
   object txtShortName: TLabeledEdit
     Left = 398
-    Height = 27
+    Height = 25
     Top = 88
     Width = 378
     EditLabel.AnchorSideLeft.Control = txtShortName
@@ -84,7 +84,7 @@ object frmStoryInfo: TfrmStoryInfo
   end
   object txtSourceDir: TLabeledEdit
     Left = 8
-    Height = 27
+    Height = 25
     Top = 144
     Width = 354
     EditLabel.AnchorSideLeft.Control = txtSourceDir
@@ -102,7 +102,7 @@ object frmStoryInfo: TfrmStoryInfo
   end
   object txtOmakeHeader: TLabeledEdit
     Left = 398
-    Height = 27
+    Height = 25
     Top = 144
     Width = 378
     EditLabel.AnchorSideLeft.Control = txtOmakeHeader
@@ -120,7 +120,7 @@ object frmStoryInfo: TfrmStoryInfo
   end
   object txtTrailerHeader: TLabeledEdit
     Left = 398
-    Height = 27
+    Height = 25
     Top = 200
     Width = 378
     EditLabel.AnchorSideLeft.Control = txtTrailerHeader
@@ -138,7 +138,7 @@ object frmStoryInfo: TfrmStoryInfo
   end
   object txtTitlePicture: TLabeledEdit
     Left = 8
-    Height = 27
+    Height = 25
     Top = 200
     Width = 354
     EditLabel.AnchorSideLeft.Control = txtTitlePicture
@@ -156,7 +156,7 @@ object frmStoryInfo: TfrmStoryInfo
   end
   object txtCoverPicture: TLabeledEdit
     Left = 8
-    Height = 27
+    Height = 25
     Top = 256
     Width = 354
     EditLabel.AnchorSideLeft.Control = txtCoverPicture
@@ -174,27 +174,27 @@ object frmStoryInfo: TfrmStoryInfo
   end
   object chkSuppressTitles: TCheckBox
     Left = 8
-    Height = 20
+    Height = 21
     Top = 304
-    Width = 197
+    Width = 221
     Caption = 'Suppress Titles on Title Page'
     OnChange = chkSuppressTitlesChange
     TabOrder = 9
   end
   object chkSuppressAuthor: TCheckBox
     Left = 8
-    Height = 20
+    Height = 21
     Top = 336
-    Width = 246
+    Width = 275
     Caption = 'Suppress Author Name on Title Page'
     OnChange = chkSuppressAuthorChange
     TabOrder = 10
   end
   object chkSubtitleFirst: TCheckBox
     Left = 8
-    Height = 20
+    Height = 21
     Top = 368
-    Width = 175
+    Width = 197
     Caption = 'Place Subtitle above Title'
     OnChange = chkSubtitleFirstChange
     TabOrder = 11
@@ -302,15 +302,14 @@ object frmStoryInfo: TfrmStoryInfo
     Width = 75
     Caption = 'OK'
     Default = True
-    ModalResult = 1
     OnClick = btnOkClick
     TabOrder = 15
   end
   object chkAutoFileName: TCheckBox
     Left = 400
-    Height = 20
+    Height = 21
     Top = 257
-    Width = 282
+    Width = 316
     Caption = 'Automatically create numbered file names'
     OnChange = chkAutoFileNameChange
     TabOrder = 16

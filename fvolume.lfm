@@ -1,7 +1,7 @@
 object frmVolume: TfrmVolume
-  Left = 667
+  Left = 242
   Height = 400
-  Top = 868
+  Top = 141
   Width = 780
   Caption = 'Ficmake v'
   ClientHeight = 400
@@ -11,7 +11,7 @@ object frmVolume: TfrmVolume
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.4.0'
+  LCLVersion = '1.4.0.4'
   object lstVolumes: TListBox
     Left = 8
     Height = 80
@@ -20,7 +20,8 @@ object frmVolume: TfrmVolume
     ItemHeight = 0
     OnClick = lstVolumesClick
     OnDblClick = lstVolumesDblClick
-    ScrollWidth = 98
+    OnKeyPress = lstVolumesKeyPress
+    ScrollWidth = 96
     Sorted = True
     TabOrder = 5
     TopIndex = -1
@@ -29,13 +30,13 @@ object frmVolume: TfrmVolume
     Left = 8
     Height = 17
     Top = 152
-    Width = 53
+    Width = 59
     Caption = 'Volumes'
     ParentColor = False
   end
   object txtVolumeName: TLabeledEdit
     Left = 8
-    Height = 27
+    Height = 25
     Top = 32
     Width = 80
     EditLabel.AnchorSideLeft.Control = txtVolumeName
@@ -54,7 +55,7 @@ object frmVolume: TfrmVolume
   end
   object txtDirectory: TLabeledEdit
     Left = 360
-    Height = 27
+    Height = 25
     Top = 32
     Width = 80
     EditLabel.AnchorSideLeft.Control = txtDirectory
@@ -73,7 +74,7 @@ object frmVolume: TfrmVolume
   end
   object txtAuthor: TLabeledEdit
     Left = 8
-    Height = 27
+    Height = 25
     Top = 88
     Width = 80
     EditLabel.AnchorSideLeft.Control = txtAuthor
@@ -92,9 +93,9 @@ object frmVolume: TfrmVolume
   end
   object chkHTMLIndex: TCheckBox
     Left = 8
-    Height = 20
+    Height = 21
     Top = 120
-    Width = 337
+    Width = 372
     Caption = 'HTML Profiles in this Volume generate Index pages'
     Enabled = False
     OnChange = chkHTMLIndexChange
@@ -418,7 +419,7 @@ object frmVolume: TfrmVolume
     Left = 288
     Height = 17
     Top = 152
-    Width = 89
+    Width = 100
     Caption = 'Global Profiles'
     ParentColor = False
   end
@@ -430,7 +431,8 @@ object frmVolume: TfrmVolume
     ItemHeight = 0
     OnClick = lstGlobalProfilesClick
     OnDblClick = lstGlobalProfilesDblClick
-    ScrollWidth = 98
+    OnKeyPress = lstGlobalProfilesKeyPress
+    ScrollWidth = 96
     TabOrder = 8
     TopIndex = -1
   end

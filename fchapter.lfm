@@ -1,7 +1,7 @@
 object frmChapter: TfrmChapter
-  Left = 654
+  Left = 242
   Height = 400
-  Top = 913
+  Top = 141
   Width = 780
   ClientHeight = 400
   ClientWidth = 780
@@ -10,12 +10,12 @@ object frmChapter: TfrmChapter
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.4.0'
+  LCLVersion = '1.4.0.4'
   object Label1: TLabel
     Left = 8
     Height = 17
     Top = 8
-    Width = 55
+    Width = 64
     Caption = 'Chapters'
     ParentColor = False
   end
@@ -27,13 +27,14 @@ object frmChapter: TfrmChapter
     ItemHeight = 0
     OnClick = lstChaptersClick
     OnDblClick = lstChaptersDblClick
-    ScrollWidth = 98
+    OnKeyPress = lstChaptersKeyPress
+    ScrollWidth = 96
     TabOrder = 0
     TopIndex = -1
   end
   object txtTitle: TLabeledEdit
     Left = 424
-    Height = 27
+    Height = 25
     Top = 32
     Width = 80
     EditLabel.AnchorSideLeft.Control = txtTitle
@@ -51,7 +52,7 @@ object frmChapter: TfrmChapter
   end
   object txtSubtitle: TLabeledEdit
     Left = 424
-    Height = 27
+    Height = 25
     Top = 88
     Width = 80
     EditLabel.AnchorSideLeft.Control = txtSubtitle
@@ -69,7 +70,7 @@ object frmChapter: TfrmChapter
   end
   object txtFilename: TLabeledEdit
     Left = 424
-    Height = 27
+    Height = 25
     Top = 144
     Width = 232
     EditLabel.AnchorSideLeft.Control = txtFilename
@@ -87,18 +88,18 @@ object frmChapter: TfrmChapter
   end
   object chkIsABook: TCheckBox
     Left = 488
-    Height = 20
+    Height = 21
     Top = 184
-    Width = 204
+    Width = 225
     Caption = 'This Chapter is a Book Divider'
     OnChange = chkIsABookChange
     TabOrder = 4
   end
   object chkSubtitleFirst: TCheckBox
     Left = 488
-    Height = 20
+    Height = 21
     Top = 216
-    Width = 175
+    Width = 197
     Caption = 'Place Subtitle above Title'
     OnChange = chkSubtitleFirstChange
     TabOrder = 5
@@ -826,9 +827,9 @@ object frmChapter: TfrmChapter
   object chkNoTitle: TCheckBox
     AnchorSideLeft.Control = chkSubtitleFirst
     Left = 488
-    Height = 20
+    Height = 21
     Top = 248
-    Width = 167
+    Width = 188
     Caption = 'Suppress Chapter Titles'
     OnChange = chkNoTitleChange
     TabOrder = 13

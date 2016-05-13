@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, StdCtrls,
+  Buttons, StdCtrls, LCLType,
   gprofile;
 
 type
@@ -82,7 +82,12 @@ end;
 
 procedure TfrmEPubProfile.btnCloseClick(Sender: TObject);
 begin
-  Hide;
+  if (DirectoryExists (Profile.OutputDir)) then
+    Hide
+  else
+    Application.MessageBox
+      ('Cannot save this profile with an invalid output directory',
+      'Invalid Directory', MB_ICONHAND + MB_OK);
 end;
 
 procedure TfrmEPubProfile.chkBlurbInEPubChange(Sender: TObject);

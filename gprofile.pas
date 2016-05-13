@@ -66,7 +66,6 @@ type
       procedure Edit; virtual;
       function Duplicate : tBaseProfile; virtual;
       procedure Build (aStory : tStory); virtual;
-      procedure Make (aStory : tStory); virtual;
   end;
 
   tPDFProfile = class (tBaseProfile)
@@ -113,7 +112,6 @@ type
       procedure Edit; override;
       function Duplicate : tPDFProfile; override;
       procedure Build (aStory : tStory); override;
-      procedure Make (aStory : tStory); override;
   end;
 
   tHTMLProfile = class (tBaseProfile)
@@ -145,7 +143,6 @@ type
       procedure Edit; override;
       function Duplicate : tHTMLProfile; override;
       procedure Build (aStory : tStory); override;
-      procedure Make (aStory : tStory); override;
   end;
 
   tTextProfile = class (tBaseProfile)
@@ -166,7 +163,6 @@ type
       procedure Edit; override;
       function Duplicate : tTextProfile; override;
       procedure Build (aStory : tStory); override;
-      procedure Make (aStory : tStory); override;
   end;
 
   tEPubProfile = class (tBaseProfile)
@@ -184,7 +180,6 @@ type
       procedure Edit; override;
       function Duplicate : tEPubProfile; override;
       procedure Build (aStory : tStory); override;
-      procedure Make (aStory : tStory); override;
   end;
 
   tProfileList = class (tObject)
@@ -258,11 +253,6 @@ begin
 end;
 
 procedure tBaseProfile.Build (aStory : tStory);
-begin
-  RunError (211);
-end;
-
-procedure tBaseProfile.Make (aStory : tStory);
 begin
   RunError (211);
 end;
@@ -1530,12 +1520,6 @@ begin
   Chapters.Free;
 end;
 
-procedure tPDFProfile.Make (aStory : tStory);
-begin
-
-end;
-
-
 {$endregion}
 
 {$region tHTMLProfile}
@@ -2348,11 +2332,6 @@ begin
   end
 end;
 
-procedure tHTMLProfile.Make (aStory : tStory);
-begin
-
-end;
-
 {$endregion}
 
 {$region tTextProfile}
@@ -3025,11 +3004,6 @@ begin
     WriteChapters (aStory);
 end;
 
-procedure tTextProfile.Make (aStory : tStory);
-begin
-
-end;
-
 {$endregion}
 
 {$region tEPubProfile}
@@ -3399,11 +3373,6 @@ begin
     writeln (x, '.so ', cfilename + '.so');
     close (x);
   end;
-end;
-
-procedure tEPubProfile.Make (aStory : tStory);
-begin
-
 end;
 
 {$endregion}

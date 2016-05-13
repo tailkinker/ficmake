@@ -1,7 +1,7 @@
 object frmPickChapter: TfrmPickChapter
   Left = 581
   Height = 420
-  Top = 912
+  Top = 121
   Width = 360
   BorderStyle = bsDialog
   Caption = 'Select Chapter'
@@ -9,7 +9,7 @@ object frmPickChapter: TfrmPickChapter
   ClientWidth = 360
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.2.4.0'
+  LCLVersion = '1.4.0.4'
   object lstChapters: TListBox
     Left = 8
     Height = 368
@@ -18,7 +18,8 @@ object frmPickChapter: TfrmPickChapter
     ItemHeight = 0
     OnClick = lstChaptersClick
     OnDblClick = lstChaptersDblClick
-    ScrollWidth = 342
+    OnKeyPress = lstChaptersKeyPress
+    ScrollWidth = 340
     TabOrder = 0
     TopIndex = -1
   end

@@ -64,6 +64,7 @@ type
     procedure FormResize (Sender : TObject );
     procedure lstChaptersClick (Sender : TObject );
     procedure lstChaptersDblClick(Sender: TObject);
+    procedure lstChaptersKeyPress(Sender: TObject; var Key: char);
     procedure txtFilenameChange(Sender: TObject);
     procedure txtSubtitleChange(Sender: TObject);
     procedure txtTitleChange(Sender: TObject);
@@ -355,6 +356,12 @@ begin
       NewEditor.Show;
     end;
   end;
+end;
+
+procedure TfrmChapter.lstChaptersKeyPress(Sender: TObject; var Key: char);
+begin
+  if (KEy = #13) then
+    lstChaptersDblClick (Sender);
 end;
 
 procedure TfrmChapter.txtFilenameChange(Sender: TObject);

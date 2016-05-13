@@ -1,17 +1,17 @@
 object frmEPubProfile: TfrmEPubProfile
-  Left = 574
+  Left = 206
   Height = 168
-  Top = 548
+  Top = 253
   Width = 780
   BorderStyle = bsDialog
   Caption = 'Edit EPub Profile'
   ClientHeight = 168
   ClientWidth = 780
   OnCreate = FormCreate
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.4.0.4'
   object txtName: TLabeledEdit
     Left = 128
-    Height = 27
+    Height = 25
     Top = 8
     Width = 652
     EditLabel.AnchorSideTop.Control = txtName
@@ -19,10 +19,10 @@ object frmEPubProfile: TfrmEPubProfile
     EditLabel.AnchorSideRight.Control = txtName
     EditLabel.AnchorSideBottom.Control = txtName
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 38
+    EditLabel.Left = 31
     EditLabel.Height = 17
-    EditLabel.Top = 13
-    EditLabel.Width = 87
+    EditLabel.Top = 12
+    EditLabel.Width = 94
     EditLabel.Caption = 'Profile Name:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
@@ -31,7 +31,7 @@ object frmEPubProfile: TfrmEPubProfile
   end
   object txtOutDir: TLabeledEdit
     Left = 168
-    Height = 27
+    Height = 25
     Top = 40
     Width = 584
     EditLabel.AnchorSideTop.Control = txtOutDir
@@ -39,10 +39,10 @@ object frmEPubProfile: TfrmEPubProfile
     EditLabel.AnchorSideRight.Control = txtOutDir
     EditLabel.AnchorSideBottom.Control = txtOutDir
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 50
+    EditLabel.Left = 39
     EditLabel.Height = 17
-    EditLabel.Top = 45
-    EditLabel.Width = 115
+    EditLabel.Top = 44
+    EditLabel.Width = 126
     EditLabel.Caption = 'Output Directory: '
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
@@ -83,17 +83,17 @@ object frmEPubProfile: TfrmEPubProfile
   end
   object chkUsePreconv: TCheckBox
     Left = 8
-    Height = 20
+    Height = 21
     Hint = 'When creating the output, call groff preconv pre-processor.'#10'This pre-processor converts characters that groff cannot handle into those that it can.'
     Top = 109
-    Width = 161
+    Width = 171
     Caption = 'Call Preconv on make'
     OnChange = chkUsePreconvChange
     TabOrder = 3
   end
   object txtSeparator: TLabeledEdit
     Left = 559
-    Height = 27
+    Height = 25
     Top = 105
     Width = 220
     EditLabel.AnchorSideTop.Control = txtSeparator
@@ -101,10 +101,10 @@ object frmEPubProfile: TfrmEPubProfile
     EditLabel.AnchorSideRight.Control = txtSeparator
     EditLabel.AnchorSideBottom.Control = txtSeparator
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 381
+    EditLabel.Left = 361
     EditLabel.Height = 17
-    EditLabel.Top = 110
-    EditLabel.Width = 175
+    EditLabel.Top = 109
+    EditLabel.Width = 195
     EditLabel.Caption = 'Separator for .SEP requests:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
@@ -124,7 +124,7 @@ object frmEPubProfile: TfrmEPubProfile
   end
   object txtEPubSeries: TLabeledEdit
     Left = 128
-    Height = 27
+    Height = 25
     Top = 72
     Width = 651
     EditLabel.AnchorSideTop.Control = txtEPubSeries
@@ -132,10 +132,10 @@ object frmEPubProfile: TfrmEPubProfile
     EditLabel.AnchorSideRight.Control = txtEPubSeries
     EditLabel.AnchorSideBottom.Control = txtEPubSeries
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 49
+    EditLabel.Left = 40
     EditLabel.Height = 17
-    EditLabel.Top = 77
-    EditLabel.Width = 76
+    EditLabel.Top = 76
+    EditLabel.Width = 85
     EditLabel.Caption = 'EPub Series:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
@@ -144,9 +144,9 @@ object frmEPubProfile: TfrmEPubProfile
   end
   object chkBlurbInEPub: TCheckBox
     Left = 192
-    Height = 20
+    Height = 21
     Top = 109
-    Width = 162
+    Width = 173
     Caption = 'Insert Blurb into EPub'
     OnChange = chkBlurbInEPubChange
     TabOrder = 7

@@ -41,6 +41,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure lstProfilesClick(Sender: TObject);
     procedure lstProfilesDblClick(Sender: TObject);
+    procedure lstProfilesKeyPress(Sender: TObject; var Key: char);
   private
     { private declarations }
     t_proflist : tProfileList;
@@ -103,6 +104,12 @@ begin
     Profiles.Select (s);
     btnImport.Enabled := TRUE;
   end;
+end;
+
+procedure TfrmImportProfile.lstProfilesKeyPress(Sender: TObject; var Key: char);
+begin
+  if (Key = #13) then
+    btnImportClick (Sender);
 end;
 
 procedure TfrmImportProfile.SetProfileList (aProf : tProfileList);

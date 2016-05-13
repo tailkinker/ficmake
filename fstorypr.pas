@@ -29,6 +29,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure lstProfilesClick(Sender: TObject);
     procedure lstProfilesDblClick(Sender: TObject);
+    procedure lstProfilesKeyPress(Sender: TObject; var Key: char);
   private
     { private declarations }
     t_basedir : string;
@@ -177,6 +178,12 @@ begin
     btnSaveProfiles.Enabled := TRUE;
     PopulateProfileList;
   end;
+end;
+
+procedure TfrmStoryProfiles.lstProfilesKeyPress(Sender: TObject; var Key: char);
+begin
+  if (Key = #13) then
+     lstProfilesDblClick (Sender);
 end;
 
 procedure TfrmStoryProfiles.PopulateProfileList;

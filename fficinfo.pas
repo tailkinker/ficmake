@@ -99,12 +99,27 @@ end;
 
 procedure TfrmStoryInfo.btnOkClick(Sender: TObject);
 begin
-  if (FileExists (Story.SourceDir + '/stories.fic')) then
+  if (Story.ShortName = '') then
     Application.MessageBox (
-      'The selected Source Directory is a Volume Directory.  Please select a different Source Directory.',
-      'Error', MB_ICONEXCLAMATION + MB_OK)
-  else
-    Close;
+      'Without a source file name, FicMake cannot create documents.',
+      'Error', MB_ICONHAND + MB_OK)
+  else if (Story.Title = '') then
+    Application.MessageBox (
+      'Without a title, FicMake cannot create documents.',
+      'Error', MB_ICONHAND + MB_OK)
+  else if (DirectoryExists (Story.SourceDir)) then begin
+    if (FileExists (Story.SourceDir + '/stories.fic')) then
+      Application.MessageBox (
+        'The selected Source Directory is a Volume Directory.  Please select a different Source Directory.',
+        'Error', MB_ICONEXCLAMATION + MB_OK)
+    else begin
+      ModalResult := mrOk;
+      Close
+    end;
+  end else
+    Application.MessageBox
+      ('Cannot save a story with an invalid source directory.',
+      'Invalid Directory', MB_ICONQUESTION + MB_OK);
 end;
 
 procedure TfrmStoryInfo.btnOpenTitleClick (Sender : TObject );

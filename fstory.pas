@@ -74,8 +74,11 @@ type
     procedure FormResize (Sender : TObject );
     procedure lstProfilesClick(Sender: TObject);
     procedure lstProfilesDblClick(Sender: TObject);
+    procedure lstProfilesEnter(Sender: TObject);
+    procedure lstProfilesKeyPress(Sender: TObject; var Key: char);
     procedure lstStoriesClick (Sender : TObject );
     procedure lstStoriesDblClick(Sender: TObject);
+    procedure lstStoriesKeyPress(Sender: TObject; var Key: char);
   private
     Stories : tStoryList;
     Profiles : tProfileList;
@@ -116,10 +119,11 @@ var
   NewStory : TfrmNewStory;
   StoryInfo : TfrmStoryInfo;
 begin
-	NewStory := TfrmNewStory.Create (Application);
+  NewStory := TfrmNewStory.Create (Application);
   if (NewStory.ShowModal = mrOK) then begin
-  	Stories.NewStory (NewStory.txtName.Text);
+    Stories.NewStory (NewStory.txtName.Text);
     StoryInfo := TfrmStoryInfo.Create (Application);
+    Stories.Current.Author := Volume.Author;
     StoryInfo.Story := Stories.Current;
     StoryInfo.ShowModal;
     StoryInfo.Destroy;
@@ -425,6 +429,17 @@ begin
   end;
 end;
 
+procedure TfrmStory.lstProfilesEnter(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmStory.lstProfilesKeyPress(Sender: TObject; var Key: char);
+begin
+  if (Key = #13) then
+    lstProfilesDblClick (Sender);
+end;
+
 procedure TfrmStory.lstStoriesClick (Sender : TObject );
 var
   index : integer;
@@ -468,6 +483,12 @@ end;
 procedure TfrmStory.lstStoriesDblClick(Sender: TObject);
 begin
   OpenChapterList;
+end;
+
+procedure TfrmStory.lstStoriesKeyPress(Sender: TObject; var Key: char);
+begin
+  if (Key = #13) then
+    lstStoriesDblClick (Sender);
 end;
 
 procedure TfrmStory.SetBaseDir (aDir : string);

@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ExtCtrls, StdCtrls, Buttons,
+  ExtCtrls, StdCtrls, Buttons, LCLType,
   gprofile;
 
 type
@@ -395,7 +395,12 @@ end;
 
 procedure TfrmPDFProfile.btnCloseClick(Sender: TObject);
 begin
-  Hide;
+  if (DirectoryExists (Profile.OutputDir)) then
+    Hide
+  else
+    Application.MessageBox
+      ('Cannot save this profile with an invalid output directory',
+      'Invalid Directory', MB_ICONHAND + MB_OK);
 end;
 
 procedure TfrmPDFProfile.btnVariableHelpClick(Sender: TObject);
