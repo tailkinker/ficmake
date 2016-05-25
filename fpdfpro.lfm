@@ -1,7 +1,7 @@
 object frmPDFProfile: TfrmPDFProfile
-  Left = 242
+  Left = 331
   Height = 400
-  Top = 141
+  Top = 129
   Width = 780
   BorderStyle = bsDialog
   Caption = 'Edit PDF Profile'
@@ -14,14 +14,14 @@ object frmPDFProfile: TfrmPDFProfile
     Height = 296
     Top = 72
     Width = 780
-    ActivePage = tabStyles
-    TabIndex = 2
+    ActivePage = tabParts
+    TabIndex = 3
     TabOrder = 0
     TabPosition = tpLeft
     object tabPage: TTabSheet
       Caption = 'Page'
       ClientHeight = 292
-      ClientWidth = 708
+      ClientWidth = 707
       object labPageSize: TLabel
         Left = 20
         Height = 17
@@ -246,9 +246,9 @@ object frmPDFProfile: TfrmPDFProfile
       end
     end
     object tabContent: TTabSheet
-      Caption = 'Content'
+      Caption = 'Headers'
       ClientHeight = 292
-      ClientWidth = 708
+      ClientWidth = 707
       object chkOddHeaderEnable: TCheckBox
         Left = 8
         Height = 21
@@ -433,7 +433,7 @@ object frmPDFProfile: TfrmPDFProfile
     object tabStyles: TTabSheet
       Caption = 'Styles'
       ClientHeight = 292
-      ClientWidth = 708
+      ClientWidth = 707
       object lstStyles: TListBox
         Left = 8
         Height = 280
@@ -784,6 +784,107 @@ object frmPDFProfile: TfrmPDFProfile
         )
         OnClick = radForceFirstPageClick
         TabOrder = 19
+      end
+    end
+    object tabParts: TTabSheet
+      Caption = 'Parts'
+      ClientHeight = 292
+      ClientWidth = 707
+      object Label11: TLabel
+        AnchorSideLeft.Control = tabParts
+        AnchorSideTop.Control = tabParts
+        Left = 8
+        Height = 17
+        Top = 12
+        Width = 188
+        BorderSpacing.Left = 8
+        BorderSpacing.Top = 12
+        Caption = 'Table of Contents Columns'
+        ParentColor = False
+      end
+      object cmbTOCColumns: TComboBox
+        AnchorSideLeft.Control = Label11
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = Label11
+        AnchorSideTop.Side = asrCenter
+        Left = 204
+        Height = 27
+        Top = 7
+        Width = 56
+        BorderSpacing.Left = 8
+        ItemHeight = 0
+        ItemIndex = 0
+        Items.Strings = (
+          '1'
+          '2'
+          '3'
+        )
+        OnChange = cmbTOCColumnsChange
+        Style = csDropDownList
+        TabOrder = 0
+        Text = '1'
+      end
+      object chkCrossRef: TCheckBox
+        AnchorSideLeft.Control = Label11
+        AnchorSideTop.Control = cmbTOCColumns
+        AnchorSideTop.Side = asrBottom
+        Left = 8
+        Height = 21
+        Top = 42
+        Width = 200
+        BorderSpacing.Top = 8
+        Caption = 'Cross-Reference Support'
+        OnChange = chkCrossRefChange
+        TabOrder = 1
+      end
+      object chkIndex: TCheckBox
+        AnchorSideLeft.Control = Label11
+        AnchorSideTop.Control = chkCrossRef
+        AnchorSideTop.Side = asrBottom
+        Left = 8
+        Height = 21
+        Top = 71
+        Width = 120
+        BorderSpacing.Top = 8
+        Caption = 'Index Support'
+        OnChange = chkIndexChange
+        TabOrder = 2
+      end
+      object cmbIndexColumns: TComboBox
+        AnchorSideLeft.Control = labIndexColumns
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkIndex
+        AnchorSideTop.Side = asrBottom
+        Left = 77
+        Height = 27
+        Top = 100
+        Width = 56
+        BorderSpacing.Left = 8
+        BorderSpacing.Top = 8
+        Enabled = False
+        ItemHeight = 0
+        ItemIndex = 0
+        Items.Strings = (
+          '1'
+          '2'
+          '3'
+        )
+        OnChange = cmbIndexColumnsChange
+        Style = csDropDownList
+        TabOrder = 3
+        Text = '1'
+      end
+      object labIndexColumns: TLabel
+        AnchorSideLeft.Control = Label11
+        AnchorSideTop.Control = cmbIndexColumns
+        AnchorSideTop.Side = asrCenter
+        Left = 8
+        Height = 17
+        Top = 105
+        Width = 61
+        Caption = 'Columns'
+        Enabled = False
+        ParentColor = False
       end
     end
   end

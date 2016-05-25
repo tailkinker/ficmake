@@ -22,6 +22,7 @@ unit gprofile;
 {$mode objfpc}{$H+}
 
 interface
+{$region interface}
 
 uses
   Classes, SysUtils,
@@ -77,8 +78,10 @@ type
       t_columns,
       t_forcefirstpage : byte;
       t_margins : array [0..3] of longint;
+      t_toccol,
+      t_indcol,
       t_H1Mode : byte;
-      t_flags : array [0..3] of boolean;
+      t_flags : array [0..5] of boolean;
       procedure SetMargin (index : integer; value : longint);
       function GetMargin (index : integer) : longint;
       procedure SetFlag (index : integer; aflag : boolean);
@@ -99,6 +102,8 @@ type
       property InnerMargin  : longint index 1 read GetMargin write SetMargin;
       property TopMargin    : longint index 2 read GetMargin write SetMargin;
       property BottomMargin : longint index 3 read GetMargin write SetMargin;
+      property ToCColumns   : byte read t_toccol write t_toccol default 1;
+      property IndexColumns : byte read t_indcol write t_indcol default 1;
       property H1Mode : byte read t_H1Mode write t_H1Mode;
       property ForceFirstPage : byte read t_forcefirstpage
         write t_forcefirstpage default 0;
@@ -106,6 +111,8 @@ type
       property Landscape          : boolean index 1 read GetFlag write SetFlag;
       property UseTBL             : boolean index 2 read GetFlag write SetFlag;
       property UseEQN             : boolean index 3 read GetFlag write SetFlag;
+      property CrossReference     : boolean index 4 read GetFlag write SetFlag;
+      property UseIndex              : boolean index 5 read GetFlag write SetFlag;
       constructor Create; override;
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
@@ -213,6 +220,8 @@ const
   ptText = 2;
   ptEPub = 3;
 
+{$endregion interface}
+
 implementation
 
 uses
@@ -282,7 +291,11 @@ begin
   Useeqn := false;
   Usepreconv := false;
   Usetbl := false;
+  CrossReference := false;
+  UseIndex := false;
   ForceFirstPage := 0;
+  ToCColumns := 1;
+  IndexColumns := 1;
 
   // Font 0 - Plain Text
   GroffFonts [0].Family := 6; // Times New Roman
@@ -730,6 +743,19 @@ begin
       end else if (k = 'One Column Title Page') then
         OneColumnTitlePage := TRUE
 
+      // ToC/Index
+  		else if (k = 'ToC Columns') then begin
+        val (v, r);
+        ToCColumns := r
+      end else if (k = 'Use Cross References') then
+        CrossReference := true
+      else if (k = 'Use Index') then
+        UseIndex := true
+      else if (k = 'Index Columns') then begin
+        val (v, r);
+        IndexColumns := r
+      end
+
       // Groff stuff
       else if (k = 'Call eqn') then
         Useeqn := true
@@ -825,6 +851,15 @@ begin
   else
     writeln (t, 'Disabled');
 
+  // ToC/Index
+  writeln (t, 'ToC Columns = ', ToCColumns);
+  if (CrossReference) then
+    writeln (t, 'Use Cross References');
+  if (UseIndex) then begin
+    writeln (t, 'Use Index');
+    writeln (t, 'Index Columns = ', IndexColumns);
+  end;
+
   // Groff Options
   if (Useeqn) then
     writeln (t, 'Call eqn');
@@ -871,6 +906,10 @@ begin
   dup.Landscape := Landscape;
   dup.UseTBL := UseTBL;
   dup.UseEQN := UseEQN;
+  dup.UseIndex := UseIndex;
+  dup.CrossReference := CrossReference;
+  dup.IndexColumns := IndexColumns;
+  dup.ToCColumns := ToCColumns;
   Duplicate := dup;
 end;
 
@@ -979,7 +1018,7 @@ var
 var
   UsesBooks : boolean = FALSE;
   UsesBorders : boolean = FALSE;
-  index : integer;
+  indx : integer;
   s,
   pathname,
   filename,
@@ -988,7 +1027,9 @@ var
   x : text;
   pagelength,
   linelength,
-  colwidth : real;
+  colwidth,
+  indcolwidth,
+  toccolwidth : real;
 begin
   // Mark the Log
   s := ' -> Creating PDF for Profile ''' + Name + '''';
@@ -1000,20 +1041,20 @@ begin
   Chapters.Load;
 
   // Are any of the Chapters Book Dividers?
-  index := 0;
+  indx := 0;
   repeat
-    Chapters.SelectAt (index);
+    Chapters.SelectAt (indx);
     UsesBooks := (Chapters.Current.IsABook) OR UsesBooks;
-    index += 1;
-  until (index >= Chapters.Count);
+    indx += 1;
+  until (indx >= Chapters.Count);
 
   // Do any of the Styles use Borders?
   UsesBorders := false;
-  for index := 1 to 8 do begin
-    UsesBorders := UsesBorders OR t_fonts [index].Borders[0];
-    UsesBorders := UsesBorders OR t_fonts [index].Borders[1];
-    UsesBorders := UsesBorders OR t_fonts [index].Borders[2];
-    UsesBorders := UsesBorders OR t_fonts [index].Borders[3];
+  for indx := 1 to 8 do begin
+    UsesBorders := UsesBorders OR t_fonts [indx].Borders[0];
+    UsesBorders := UsesBorders OR t_fonts [indx].Borders[1];
+    UsesBorders := UsesBorders OR t_fonts [indx].Borders[2];
+    UsesBorders := UsesBorders OR t_fonts [indx].Borders[3];
   end;
   Usetbl := Usetbl OR UsesBorders;
 
@@ -1025,6 +1066,8 @@ begin
 	pagelength := PageV / 1000;
   linelength := (PageH - (InnerMargin + OuterMargin)) / 1000;
   colwidth := (linelength - 36 * (Columns - 1)) / Columns;
+  toccolwidth := (linelength - 36 * (ToCColumns - 1)) / ToCColumns;
+  indcolwidth := (linelength - 36 * (IndexColumns - 1)) / IndexColumns;
 
   // Create Output File
   assign (x, filename);
@@ -1042,7 +1085,7 @@ begin
   writeln (x, '.fam ', T_Family [t_fonts [0].Family]);
   writeln (x, '.open TOC ', ofilename, '.toc');
   writeln (x, '.write TOC .LP');
-  writeln (x, '.write TOC .ta ', colwidth:0:3, 'pR');
+  writeln (x, '.write TOC .ta ', toccolwidth:0:3, 'pR');
   writeln (x, '.write TOC .tc .');
   writeln (x, '.ps ', t_fonts [0].size);
   writeln (x, '.nr PS ', t_fonts [0].size);
@@ -1062,20 +1105,45 @@ begin
   writeln (x, '.EF ****');
   writeln (x, '.OF ****');
 
-  { Cross-Reference support }
-  writeln (x, '.so ', ofilename, '.ref');
-  writeln (x, '.de XREFSTART');
-  writeln (x, '.open XREFS \\$1');
-  writeln (x, '.write XREFS ".de XREF');
-  writeln (x, '..');
-  writeln (x, '.de XREFSTOP');
-  writeln (x, '.write XREFS "..');
-  writeln (x, '.close XREFS');
-  writeln (x, '..');
-  writeln (x, '.de BOOKMARK');
-  writeln (x, '.write XREFS .if ''\\\\\\\\$1''\\$1'' \\n[%]\\\\\\\\$2');
-  writeln (x, '..');
-  writeln (x, '.XREFSTART ', ofilename, '.ref');
+  { Cross-Reference and Index support }
+  if (CrossReference) then
+    writeln (x, '.so ', ofilename, '.ref');
+  if (CrossReference OR UseIndex) then begin
+    writeln (x, '.de XREFSTART');
+	  if (CrossReference) then begin
+      writeln (x, '.open XREFS \\$1.ref');
+		  writeln (x, '.write XREFS ".de XREF');
+    end;
+		if (UseIndex) then begin
+      writeln (x, '.open INDEX \\$1.idx');
+		  writeln (x, '.write INDEX ".de IDXP');
+    end;
+	  writeln (x, '..');
+    writeln (x, '.de XREFSTOP');
+    if (CrossReference) then begin
+      writeln (x, '.write XREFS "..');
+	    writeln (x, '.close XREFS');
+    end;
+    if (UseIndex) then begin
+	    writeln (x, '.write INDEX "..');
+  	  writeln (x, '.close INDEX');
+    end;
+    writeln (x, '..');
+  end;
+  if (CrossReference) then begin
+	  writeln (x, '.de BOOKMARK');
+  	writeln (x, '.write XREFS .if ''\\\\\\\\$1''\\$1'' \\n[%]\\\\\\\\$2');
+  	if (UseIndex) then
+      writeln (x, '.write INDEX .if ''\\\\\\\\$1''\\$1''\\\\\\\\$2', #9, '\\n[%]');
+	  writeln (x, '..');
+  end;
+	if (UseIndex) then begin
+	  writeln (x, '.de IDX');
+  	writeln (x, '.write INDEX .if ''\\\\\\\\$1''\\$1''\\\\\\\\$2', #9, '\\n[%]');
+	  writeln (x, '..');
+  end;
+  if (CrossReference OR UseIndex) then
+    writeln (x, '.XREFSTART ', ofilename);
   writeln (x, '.eo');
 
   { Header Zero }
@@ -1436,18 +1504,18 @@ begin
   writeln (x, '.LP');
   writeln (x, '.ne 9i');
 	if (Columns > 1) then
-	  if (OneColumnTitlePage) then
-      writeln (x, '.MC ', colwidth:0:3, 'p 36p');
+    writeln (x, '.MC ', colwidth:0:3, 'p 36p');
   writeln (x, '.ps ', t_fonts [2].size);
   writeln (x, '.ce');
   writeln (x, 'Table of Contents');
   writeln (x, '.ps ', t_fonts [0].size);
+  writeln (x, '.MC ', toccolwidth:0:3, 'p 36p');
   writeln (x, '.so ', ofilename, '.toc');
 
   // Now write the chapters
 
-  for index := 0 to (Chapters.Count - 1) do begin
-  	Chapters.SelectAt (index);
+  for indx := 0 to (Chapters.Count - 1) do begin
+  	Chapters.SelectAt (indx);
 
     writeln (x, '.LP');
     writeln (x, '.EH ' + ExpandHeader (EvenHeader));
@@ -1514,8 +1582,38 @@ begin
       writeln (x, '.so ' + cfilename + '.om');
     end;
   end;
-	writeln (X, '.XREFSTOP');
+
+  if (CrossReference OR UseIndex) then
+    writeln (X, '.XREFSTOP');
 	writeln (x, '.close TOC');
+
+  if (UseIndex) then begin
+    writeln (x, '.LP');
+    writeln (x, '.EH ****');
+    writeln (x, '.OH ****');
+    writeln (x, '.bp');
+    writeln (x, '.EF ****');
+    writeln (x, '.OF ****');
+    if (ForceFirstPage = 1) then begin
+      writeln (x, '.if e');
+      writeln (x, '\ ');
+      writeln (x, '.bp');
+      writeln (x, '..');
+    end else if (ForceFirstPage = 2) then begin
+      writeln (x, '.if o');
+      writeln (x, '\ ');
+      writeln (x, '.bp');
+      writeln (x, '..');
+    end;
+    writeln (x, '.H1 "Index"');
+    writeln (x, '.MC ', indcolwidth, 'p 36p');
+    writeln (x, '.LP');
+    writeln (x, '.ta ', indcolwidth, 'pR');
+    writeln (x, '.tc .');
+    writeln (x, '.so ', ofilename, '.idx');
+  end;
+
+
   close (x);
   Chapters.Free;
 end;
@@ -2991,6 +3089,7 @@ begin
       writeln (x, '.H3 "Author''s Notes"');
       writeln (x, '.so ' + cfilename + '.an');
     end;
+
     close (x);
   end;
 end;

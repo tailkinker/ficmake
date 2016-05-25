@@ -36,6 +36,8 @@ type
     btnOutDir : TBitBtn;
     btnVariableHelp: TButton;
     btnClose: TButton;
+    chkIndex: TCheckBox;
+    chkCrossRef: TCheckBox;
     chkCallEQN: TCheckBox;
     chkCallTBL: TCheckBox;
     chkCallPreconv: TCheckBox;
@@ -53,9 +55,14 @@ type
     cmbPageSizeUnits : TComboBox;
     cmbFontFamily: TComboBox;
     cmbH1CenterMode: TComboBox;
+    cmbTOCColumns: TComboBox;
+    cmbIndexColumns: TComboBox;
     Label10: TLabel;
+    Label11: TLabel;
+    labIndexColumns: TLabel;
     Label9: TLabel;
     radForceFirstPage: TRadioGroup;
+    tabParts: TTabSheet;
     txtSeparator: TLabeledEdit;
     Panel1: TPanel;
     btnBordersTop: TToggleBox;
@@ -113,11 +120,13 @@ type
     procedure chkCallEQNChange(Sender: TObject);
     procedure chkCallPreconvChange(Sender: TObject);
     procedure chkCallTBLChange(Sender: TObject);
+    procedure chkCrossRefChange(Sender: TObject);
     procedure chkEvenFooterEnableChange(Sender: TObject);
     procedure chkEvenHeaderEnableChange(Sender: TObject);
     procedure chkFontBoldChange(Sender: TObject);
     procedure chkFontCenteredChange(Sender: TObject);
     procedure chkFontItalicsChange(Sender: TObject);
+    procedure chkIndexChange(Sender: TObject);
     procedure chkLandscapeChange(Sender: TObject);
     procedure chkOddFooterEnableChange(Sender: TObject);
     procedure chkOddHeaderEnableChange(Sender: TObject);
@@ -125,8 +134,10 @@ type
     procedure cmbColumnsChange(Sender: TObject);
     procedure cmbFontFamilyChange(Sender: TObject);
     procedure cmbH1CenterModeChange(Sender: TObject);
+    procedure cmbIndexColumnsChange(Sender: TObject);
     procedure cmbPageSizeChange(Sender: TObject);
     procedure cmbPageSizeUnitsChange(Sender: TObject);
+    procedure cmbTOCColumnsChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure lstStylesClick(Sender: TObject);
     procedure radForceFirstPageClick(Sender: TObject);
@@ -371,6 +382,12 @@ begin
     chkTitlePageOneColumn.Enabled := TRUE;
 
   // Other Crap
+  cmbToCColumns.ItemIndex := aProfile.ToCColumns - 1;
+  chkCrossRef.Checked := aProfile.CrossReference;
+  chkIndex.Checked := aProfile.UseIndex;
+  labIndexColumns.Enabled := aProfile.UseIndex;
+  cmbIndexColumns.ItemIndex := aProfile.IndexColumns - 1;
+  cmbIndexColumns.Enabled := aProfile.UseIndex;
   radForceFirstPage.ItemIndex := aProfile.ForceFirstPage;
   chkCallPreconv.Checked := aProfile.UsePreconv;
   chkCallTBL.Checked := aProfile.UseTBL;
@@ -423,6 +440,11 @@ begin
   Profile.UseTBL := chkCallTBL.Checked;
 end;
 
+procedure TfrmPDFProfile.chkCrossRefChange(Sender: TObject);
+begin
+  Profile.CrossReference := chkCrossRef.Checked;
+end;
+
 procedure TfrmPDFProfile.chkEvenFooterEnableChange(Sender: TObject);
 begin
   Profile.EvenFooter.Enabled := chkEvenFooterEnable.Checked;
@@ -460,6 +482,13 @@ begin
       Font := Font OR 2
     else
       Font := Font AND 253;
+end;
+
+procedure TfrmPDFProfile.chkIndexChange(Sender: TObject);
+begin
+  Profile.UseIndex := chkIndex.Checked;
+  labIndexColumns.Enabled := chkIndex.Checked;
+  cmbIndexColumns.Enabled := chkIndex.Checked;
 end;
 
 procedure TfrmPDFProfile.chkLandscapeChange(Sender: TObject);
@@ -508,6 +537,11 @@ begin
   Profile.H1Mode := cmbH1CenterMode.ItemIndex;
 end;
 
+procedure TfrmPDFProfile.cmbIndexColumnsChange(Sender: TObject);
+begin
+  Profile.IndexColumns := cmbIndexColumns.ItemIndex + 1;
+end;
+
 procedure TfrmPDFProfile.cmbPageSizeChange(Sender: TObject);
 begin
   Profile.PageSize := cmbPageSize.ItemIndex;
@@ -529,6 +563,11 @@ begin
     SetScale (cmbPageSizeUnits.ItemIndex);
   txtPDFHeight.Text := BasicReal (Profile.PageV / ScaleMult);
   txtPDFWidth.Text := BasicReal (Profile.PageH / ScaleMult);
+end;
+
+procedure TfrmPDFProfile.cmbTOCColumnsChange(Sender: TObject);
+begin
+  Profile.ToCColumns := cmbToCColumns.ItemIndex + 1;
 end;
 
 procedure TfrmPDFProfile.txtNameChange(Sender: TObject);

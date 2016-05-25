@@ -332,7 +332,7 @@ var
   Present : boolean;
 begin
   if (Chapters.Current <> nil) then begin
-	  FormCaption := 'Chapter "' + Chapters.Current.Title + '"';
+    FormCaption := 'Chapter "' + Chapters.Current.Title + '"';
     index := 0;
     Present := false;
     repeat
@@ -347,14 +347,19 @@ begin
     if (Present) then begin
       Screen.Forms [index].Show;
       Screen.Forms [index].BringToFront
-    end else begin
-      NewEditor := TfrmEditor.Create (Application);
-      NewEditor.Caption := FormCaption;
-      NewEditor.BaseDir := Chapters.BaseDir;
-      NewEditor.Filename := Chapters.Current.Filename;
-      NewEditor.Story := Story;
-      NewEditor.Show;
-    end;
+    end else
+      if (Chapters.Current.Filename = '') then
+        Application.MessageBox (
+          'Without a file name, FicMake cannot edit the current chapter!',
+          'NoFileName', MB_ICONHAND + MB_OK)
+      else begin
+        NewEditor := TfrmEditor.Create (Application);
+        NewEditor.Caption := FormCaption;
+        NewEditor.BaseDir := Chapters.BaseDir;
+        NewEditor.Filename := Chapters.Current.Filename;
+        NewEditor.Story := Story;
+        NewEditor.Show;
+      end;
   end;
 end;
 
