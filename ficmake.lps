@@ -30,14 +30,15 @@
         <Filename Value="gprofile.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="gprofile"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="26"/>
-        <TopLine Value="1073"/>
-        <CursorPos X="44" Y="1088"/>
-        <FoldState Value=" TJmF1c p0i,d1_U1 T3nE631232]Lv008021@"/>
+        <TopLine Value="1138"/>
+        <CursorPos Y="1154"/>
+        <FoldState Value=" TJmF1c T3nE63123'"/>
         <UsageCount Value="214"/>
         <Bookmarks Count="2">
-          <Item0 Y="1519" ID="1"/>
-          <Item1 X="30" Y="1201"/>
+          <Item0 Y="1528" ID="1"/>
+          <Item1 X="30" Y="1210"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit2>
@@ -56,7 +57,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="gtools"/>
         <EditorIndex Value="31"/>
-        <TopLine Value="146"/>
+        <TopLine Value="167"/>
         <CursorPos X="32" Y="186"/>
         <UsageCount Value="213"/>
         <Loaded Value="True"/>
@@ -192,10 +193,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="fpdfpro"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="18"/>
-        <TopLine Value="376"/>
-        <CursorPos X="58" Y="389"/>
+        <TopLine Value="385"/>
+        <CursorPos X="31" Y="394"/>
         <UsageCount Value="239"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -326,7 +326,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="gmake"/>
         <EditorIndex Value="30"/>
-        <TopLine Value="335"/>
+        <TopLine Value="356"/>
         <CursorPos X="3" Y="374"/>
         <UsageCount Value="268"/>
         <Loaded Value="True"/>

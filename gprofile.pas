@@ -1144,6 +1144,15 @@ begin
   end;
   if (CrossReference OR UseIndex) then
     writeln (x, '.XREFSTART ', ofilename);
+  if (UseIndex) then begin
+    writeln (x, '.de INDEX ..');
+    writeln (x, '.MC ', indcolwidth, 'p 36p');
+    writeln (x, '.LP');
+    writeln (x, '.ta ', indcolwidth, 'pR');
+    writeln (x, '.tc .');
+    writeln (x, '.so ', ofilename, '.idx');
+    writeln (x, '...');
+  end;
   writeln (x, '.eo');
 
   { Header Zero }
@@ -1586,33 +1595,6 @@ begin
   if (CrossReference OR UseIndex) then
     writeln (X, '.XREFSTOP');
 	writeln (x, '.close TOC');
-
-  if (UseIndex) then begin
-    writeln (x, '.LP');
-    writeln (x, '.EH ****');
-    writeln (x, '.OH ****');
-    writeln (x, '.bp');
-    writeln (x, '.EF ****');
-    writeln (x, '.OF ****');
-    if (ForceFirstPage = 1) then begin
-      writeln (x, '.if e');
-      writeln (x, '\ ');
-      writeln (x, '.bp');
-      writeln (x, '..');
-    end else if (ForceFirstPage = 2) then begin
-      writeln (x, '.if o');
-      writeln (x, '\ ');
-      writeln (x, '.bp');
-      writeln (x, '..');
-    end;
-    writeln (x, '.H1 "Index"');
-    writeln (x, '.MC ', indcolwidth, 'p 36p');
-    writeln (x, '.LP');
-    writeln (x, '.ta ', indcolwidth, 'pR');
-    writeln (x, '.tc .');
-    writeln (x, '.so ', ofilename, '.idx');
-  end;
-
 
   close (x);
   Chapters.Free;
