@@ -193,7 +193,7 @@ begin
           write (x, ' credits.so');
 
         writeln (x);
-        writeln (x, #9, 'rm -f ',StoryProfileName + '.ref');
+        writeln (x, #9, 'rm -f ',StoryProfileName + '.ref ', StoryProfileName + '.idx');
         writeln (x, #9, groffline, '-z ', StoryProfileName + '.ms > ',
         	StoryProfileName + '.ps');
         writeln (x, #9, groffline, '-z ', StoryProfileName + '.ms > ',

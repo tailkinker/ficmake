@@ -1108,14 +1108,16 @@ begin
   { Cross-Reference and Index support }
   if (CrossReference) then
     writeln (x, '.so ', ofilename, '.ref');
+  if (UseIndex) then
+    writeln (x, '.so ', ofilename, '.idx');
   if (CrossReference OR UseIndex) then begin
     writeln (x, '.de XREFSTART');
 	  if (CrossReference) then begin
-      writeln (x, '.open XREFS \\$1.ref');
+      writeln (x, '.open XREFS ', ofilename, '.ref');
 		  writeln (x, '.write XREFS ".de XREF');
     end;
 		if (UseIndex) then begin
-      writeln (x, '.open INDEX \\$1.idx');
+      writeln (x, '.open INDEX ', ofilename, '.idx');
 		  writeln (x, '.write INDEX ".de IDXP');
     end;
 	  writeln (x, '..');
@@ -1123,10 +1125,6 @@ begin
     if (CrossReference) then begin
       writeln (x, '.write XREFS "..');
 	    writeln (x, '.close XREFS');
-    end;
-    if (UseIndex) then begin
-	    writeln (x, '.write INDEX "..');
-  	  writeln (x, '.close INDEX');
     end;
     writeln (x, '..');
   end;
@@ -1145,12 +1143,13 @@ begin
   if (CrossReference OR UseIndex) then
     writeln (x, '.XREFSTART ', ofilename);
   if (UseIndex) then begin
-    writeln (x, '.de INDEX ..');
-    writeln (x, '.MC ', indcolwidth, 'p 36p');
+    writeln (x, '.de INDEXSTOP ..');
+    writeln (x, '.write INDEX "..');
+    writeln (x, '.close INDEX');
+    writeln (x, '.MC ', indcolwidth:0:3, 'p 36p');
     writeln (x, '.LP');
-    writeln (x, '.ta ', indcolwidth, 'pR');
+    writeln (x, '.ta ', indcolwidth:0:3, 'pR');
     writeln (x, '.tc .');
-    writeln (x, '.so ', ofilename, '.idx');
     writeln (x, '...');
   end;
   writeln (x, '.eo');
@@ -1520,6 +1519,7 @@ begin
   writeln (x, '.ps ', t_fonts [0].size);
   writeln (x, '.MC ', toccolwidth:0:3, 'p 36p');
   writeln (x, '.so ', ofilename, '.toc');
+  writeln (x, '.MC ', colwidth:0:3, 'p 36p');
 
   // Now write the chapters
 
