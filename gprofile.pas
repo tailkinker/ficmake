@@ -1972,7 +1972,7 @@ end;
 procedure tHTMLProfile.WriteTopSo (var x : text);
 begin
   writeln (x, '.hlm 0');
-  write (x, '.HTML <body style="font-family: verdana, sans-serif">');
+  writeln (x, '.HTML <body style="font-family: verdana, sans-serif">');
   writeln (x, '.de H0');
   writeln (x, '.LP');
   writeln (x, '.HTML <font color="0000D0" size=+4>');
