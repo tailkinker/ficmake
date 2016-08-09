@@ -94,7 +94,7 @@ uses
   fabout, fnewvol, foptions, fstory, fnewprof, doption;
 
 const
-  Version = '1.1.5';
+  Version = '1.1.6';
 
 {$R *.lfm}
 

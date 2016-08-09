@@ -42,6 +42,33 @@ type
 
   tGroffFontArray = array [0..11] of tGroffFont;
 
+
+  {
+  tGroffFont = class (tObject)
+    private
+      t_ffs : array [0..2] of byte;
+      t_bools : array [0..4] of boolean;
+      t_spaces : array [0..2] of longint;
+      function GetByte (index : integer) : byte;
+      procedure SetByte (a : byte; index : integer);
+      function GetBool (index : integer) : boolean;
+      procedure SetBool (a : boolean; index : integer);
+      function GetInt (index : integer) : longint;
+      procedure SetInt (a : longint; index : integer);
+    public
+      property Family : byte index 0 read GetByte write SetByte;
+      property Font : byte index 1 read GetByte write SetByte;
+      property Size : byte index 2 read GetByte write SetByte;
+      property Centered : boolean index 0 read GetBoool write SetBool;
+      property ReserveSpace : longint index 0 read GetInt write SetInt;
+      property SpaceAbove : longint index 1 read GetInt write SetInt;
+      property SpaceBelow : longint index 2 read GetInt write SetInt;
+      property TopBorder : boolean index 1 read GetBool write SetBool;
+      property BottomBorder : boolean index 2 read GetBool write SetBool;
+      property LeftBorder : boolean index 3 read GetBool write SetBool;
+      property RightBorder : boolean index 4 read GetBool write SetBool;
+  end;
+}
   tGroffHeader = record
     Enabled : boolean;
     Left,
@@ -71,7 +98,6 @@ type
 
   tPDFProfile = class (tBaseProfile)
     private
-      t_fonts : tGroffFontArray;
       t_pagesize : byte;
       t_PageH,
       t_PageV : longint;
@@ -92,8 +118,8 @@ type
       EvenHeader,
       OddFooter,
       EvenFooter : tGroffHeader;
+      GroffFonts : tGroffFontArray;
       class function ProfileType : integer; override;
-      property GroffFonts : tGroffFontArray read t_fonts write t_fonts;
       property PageSize : byte read t_pagesize write SetPageSize default 0;
       property PageH : longint read t_pageh write t_pageh default 612000;
       property PageV : longint read t_pagev write t_pagev default 792000;
@@ -227,6 +253,40 @@ implementation
 uses
   forms, fpdfpro, fhtmlpro, ftextpro, fepubpro, flog,
   dgroff, gtools;
+
+{$region tGroffFont }
+{
+function tGroffFont.GetByte (index : integer) : byte;
+begin
+  return (t_ffs [index])
+end;
+
+procedure tGroffFont.SetByte (a : byte; index : integer);
+begin
+  t_ffs [index] := a
+end;
+
+function tGroffFont.GetBool (index : integer) : boolean;
+begin
+  return (t_bools [index])
+end;
+
+procedure tGroffFont.SetBool (a : boolean; index : integer);
+begin
+  t_bools [index] := a
+end;
+
+function tGroffFont.GetInt (index : integer) : longint;
+begin
+  return (t_spaces [index])
+end;
+
+procedure tGroffFont.SetInt (a : longint; index : integer);
+begin
+  t_spaces [index] := a
+end;
+}
+{$endregion}
 
 {$region tBaseProfile}
 
@@ -1051,10 +1111,10 @@ begin
   // Do any of the Styles use Borders?
   UsesBorders := false;
   for indx := 1 to 8 do begin
-    UsesBorders := UsesBorders OR t_fonts [indx].Borders[0];
-    UsesBorders := UsesBorders OR t_fonts [indx].Borders[1];
-    UsesBorders := UsesBorders OR t_fonts [indx].Borders[2];
-    UsesBorders := UsesBorders OR t_fonts [indx].Borders[3];
+    UsesBorders := UsesBorders OR GroffFonts [indx].Borders[0];
+    UsesBorders := UsesBorders OR GroffFonts [indx].Borders[1];
+    UsesBorders := UsesBorders OR GroffFonts [indx].Borders[2];
+    UsesBorders := UsesBorders OR GroffFonts [indx].Borders[3];
   end;
   Usetbl := Usetbl OR UsesBorders;
 
@@ -1081,15 +1141,15 @@ begin
   writeln (x, '.ie e .nr PO ', (InnerMargin / 1000):0:3, 'p');
   writeln (x, '.el .nr PO ', (OuterMargin / 1000):0:3, 'p');
   writeln (x, '..');
-  writeln (x, '.ps ', t_fonts [0].Size);
-  writeln (x, '.fam ', T_Family [t_fonts [0].Family]);
+  writeln (x, '.ps ', GroffFonts [0].Size);
+  writeln (x, '.fam ', T_Family [GroffFonts [0].Family]);
   writeln (x, '.open TOC ', ofilename, '.toc');
   writeln (x, '.write TOC .LP');
   writeln (x, '.write TOC .ta ', toccolwidth:0:3, 'pR');
   writeln (x, '.write TOC .tc .');
-  writeln (x, '.ps ', t_fonts [0].size);
-  writeln (x, '.nr PS ', t_fonts [0].size);
-  writeln (x, '.ds FAM ', T_Family [t_fonts [0].family]);
+  writeln (x, '.ps ', GroffFonts [0].size);
+  writeln (x, '.nr PS ', GroffFonts [0].size);
+  writeln (x, '.ds FAM ', T_Family [GroffFonts [0].family]);
   writeln (x, '.po ', (InnerMargin / 1000):0:3, 'p');
   writeln (x, '.ll ', linelength:0:3, 'p');
   writeln (x, '.hm ', (TopMargin / 1000):0:3, 'p');
@@ -1162,46 +1222,46 @@ begin
     writeln (x, '.EF ****');
     writeln (x, '.OF ****');
     writeln (x, '.LP');
-    writeln (x, '.sp ', t_fonts [3].SpaceAbove, 'p');
-    writeln (x, '.fam ', T_Family [t_fonts [3].family]);
-    writeln (x, '.ps ', t_fonts [3].size);
-    writeln (x, '.vs ', t_fonts [3].size + 2);
+    writeln (x, '.sp ', GroffFonts [3].SpaceAbove, 'p');
+    writeln (x, '.fam ', T_Family [GroffFonts [3].family]);
+    writeln (x, '.ps ', GroffFonts [3].size);
+    writeln (x, '.vs ', GroffFonts [3].size + 2);
     if (UsesBorders) then begin
       writeln (x, '.TS');
       writeln (x, ';');
-      if (t_fonts [3].Borders [2]) then
+      if (GroffFonts [3].Borders [2]) then
         write (x, '| ');
-      if (t_fonts [3].Centered) then
+      if (GroffFonts [3].Centered) then
         write (x, 'cx')
       else
         write (x, 'lx');
-      if (t_fonts [3].Borders [3]) then
+      if (GroffFonts [3].Borders [3]) then
         write (x, ' |');
       writeln (x, '.');
-      if (t_fonts [3].Borders [0]) then
+      if (GroffFonts [3].Borders [0]) then
         writeln (x, '_');
-      write (x, X_Fonts [t_fonts [3].Font]);
+      write (x, X_Fonts [GroffFonts [3].Font]);
 		  writeln (x, '\$1');
-      if (t_fonts [3].Borders [1]) then
+      if (GroffFonts [3].Borders [1]) then
         writeln (x, '_');
       writeln (x, '.TE');
     end else begin
-      if (t_fonts [3].Centered) then
+      if (GroffFonts [3].Centered) then
 	      writeln (x, '.ce');
-      write (x, X_Fonts [t_fonts [3].Font]);
+      write (x, X_Fonts [GroffFonts [3].Font]);
 		  writeln (x, '\$1');
     end;
 		writeln (x, '.write TOC .br');
 		writeln (x, '.ie !''\$2'''' \');
 		writeln (x, '.write TOC \fB\$1:  \$2', #9, '\n[%]\fR');
 		writeln (x, '.LP');
-	  writeln (x, '.sp ', t_fonts [3].SpaceBelow, 'p');
-		writeln (x, '.ps ', t_fonts [3].size);
+	  writeln (x, '.sp ', GroffFonts [3].SpaceBelow, 'p');
+		writeln (x, '.ps ', GroffFonts [3].size);
 		writeln (x, '.ce');
 		writeln (x, '\$2');
 		writeln (x, '.el \');
 		writeln (x, '.write TOC \fB\$1', #9, '\n[%]\fR');
-	  writeln (x, '.sp ', t_fonts [3].SpaceBelow, 'p');
+	  writeln (x, '.sp ', GroffFonts [3].SpaceBelow, 'p');
 		writeln (x, '...');
 	end;
 
@@ -1212,7 +1272,7 @@ begin
   writeln (x, '.LP');
   writeln (x, '.ne 1i');
   writeln (x, '\&');
-  writeln (x, '.sp ', t_fonts [4].SpaceAbove, 'p');
+  writeln (x, '.sp ', GroffFonts [4].SpaceAbove, 'p');
   {
   if (HeadGraphic <> '') then
 	  begin
@@ -1220,38 +1280,38 @@ begin
 		  if (Desc.H1CenterMode > 1) then
 			  write (x, '-L ');
 		  writeln (x, Desc.HeadGraphic);
-		  writeln (x, '.sp -', t_fonts [1].size + 5, 'p');
+		  writeln (x, '.sp -', GroffFonts [1].size + 5, 'p');
 	  end;
   }
-  writeln (x, '.fam ', T_Family [t_fonts [4].family]);
-  writeln (x, '.ps ', t_fonts [4].size);
-  writeln (x, '.vs ', t_fonts [4].size + 2);
+  writeln (x, '.fam ', T_Family [GroffFonts [4].family]);
+  writeln (x, '.ps ', GroffFonts [4].size);
+  writeln (x, '.vs ', GroffFonts [4].size + 2);
   if (UsesBorders) then begin
   	writeln (x, '.TS');
     writeln (x, ';');
-    if (t_fonts [4].Borders [2]) then
+    if (GroffFonts [4].Borders [2]) then
       write (x, '| ');
-    if (t_fonts [4].Centered) then
+    if (GroffFonts [4].Centered) then
       write (x, 'cx')
     else
       write (x, 'lx');
-    if (t_fonts [4].Borders [3]) then
+    if (GroffFonts [4].Borders [3]) then
       write (x, ' |');
     writeln (x, '.');
-    if (t_fonts [4].Borders [0]) then
+    if (GroffFonts [4].Borders [0]) then
     	writeln (x, '_');
-    write (x, X_Fonts [t_fonts [4].Font]);
+    write (x, X_Fonts [GroffFonts [4].Font]);
     writeln (x, '\$1');
-    if (t_fonts [4].Borders [1]) then
+    if (GroffFonts [4].Borders [1]) then
     	writeln (x, '_');
     writeln (x, '.TE');
   end else begin
-    if (t_fonts [4].Centered) then
+    if (GroffFonts [4].Centered) then
 	    writeln (x, '.ce');
-    write (x, X_Fonts [t_fonts [4].Font]);
+    write (x, X_Fonts [GroffFonts [4].Font]);
     writeln (x, '\$1\fR');
   end;
-	writeln (x, '.sp ', t_fonts [4].SpaceBelow, 'p');
+	writeln (x, '.sp ', GroffFonts [4].SpaceBelow, 'p');
 //	  if ((Columns > 1) and (H1Mode in [0, 3])) then
 //		  writeln (x, '.MC ', colwidth:0:3, 'p 36p');
   writeln (x, '.write TOC .br');
@@ -1266,36 +1326,36 @@ begin
   writeln (x, '.de H2 ..');
   writeln (x, '.LP');
   writeln (x, '.ne 1i');
-  writeln (x, '.sp ', t_fonts [5].SpaceAbove, 'p');
-  writeln (x, '.fam ', T_Family [t_fonts [5].family]);
-  writeln (x, '.ps ', t_fonts [5].size);
-  writeln (x, '.vs ', t_fonts [5].size + 2);
+  writeln (x, '.sp ', GroffFonts [5].SpaceAbove, 'p');
+  writeln (x, '.fam ', T_Family [GroffFonts [5].family]);
+  writeln (x, '.ps ', GroffFonts [5].size);
+  writeln (x, '.vs ', GroffFonts [5].size + 2);
   if (UsesBorders) then begin
   	writeln (x, '.TS');
     writeln (x, ';');
-    if (t_fonts [5].Borders [2]) then
+    if (GroffFonts [5].Borders [2]) then
       write (x, '| ');
-    if (t_fonts [5].Centered) then
+    if (GroffFonts [5].Centered) then
       write (x, 'cx')
     else
       write (x, 'lx');
-    if (t_fonts [5].Borders [3]) then
+    if (GroffFonts [5].Borders [3]) then
       write (x, ' |');
     writeln (x, '.');
-    if (t_fonts [5].Borders [0]) then
+    if (GroffFonts [5].Borders [0]) then
     	writeln (x, '_');
-    write (x, X_Fonts [t_fonts [5].Font]);
+    write (x, X_Fonts [GroffFonts [5].Font]);
     writeln (x, '\$1');
-    if (t_fonts [5].Borders [1]) then
+    if (GroffFonts [5].Borders [1]) then
     	writeln (x, '_');
     writeln (x, '.TE');
   end else begin
-    if (t_fonts [5].Centered) then
+    if (GroffFonts [5].Centered) then
 	    writeln (x, '.ce');
-    write (x, X_Fonts [t_fonts [5].Font]);
+    write (x, X_Fonts [GroffFonts [5].Font]);
     writeln (x, '\$1\fR');
   end;
-  writeln (x, '.sp ', t_fonts [5].SpaceBelow, 'p');
+  writeln (x, '.sp ', GroffFonts [5].SpaceBelow, 'p');
   writeln (x, '.write TOC .br');
   if (UsesBooks) then
 	  writeln (x, '.write TOC \ \ \ \ \ \ \ \ \$1', #9, '\n[%]')
@@ -1307,136 +1367,136 @@ begin
   writeln (x, '.de H3 ..');
   writeln (x, '.LP');
   writeln (x, '.ne 0.5i');
-  writeln (x, '.sp ', t_fonts [6].SpaceAbove, 'p');
-  writeln (x, '.fam ', T_Family [t_fonts [6].family]);
-  writeln (x, '.ps ', t_fonts [6].size);
-  writeln (x, '.vs ', t_fonts [6].size + 2);
+  writeln (x, '.sp ', GroffFonts [6].SpaceAbove, 'p');
+  writeln (x, '.fam ', T_Family [GroffFonts [6].family]);
+  writeln (x, '.ps ', GroffFonts [6].size);
+  writeln (x, '.vs ', GroffFonts [6].size + 2);
   if (UsesBorders) then begin
   	writeln (x, '.TS');
     writeln (x, ';');
-    if (t_fonts [6].Borders [2]) then
+    if (GroffFonts [6].Borders [2]) then
       write (x, '| ');
-    if (t_fonts [6].Centered) then
+    if (GroffFonts [6].Centered) then
       write (x, 'cx')
     else
       write (x, 'lx');
-    if (t_fonts [6].Borders [3]) then
+    if (GroffFonts [6].Borders [3]) then
       write (x, ' |');
     writeln (x, '.');
-    if (t_fonts [6].Borders [0]) then
+    if (GroffFonts [6].Borders [0]) then
     	writeln (x, '_');
-    write (x, X_Fonts [t_fonts [6].Font]);
+    write (x, X_Fonts [GroffFonts [6].Font]);
     writeln (x, '\$1');
-    if (t_fonts [6].Borders [1]) then
+    if (GroffFonts [6].Borders [1]) then
     	writeln (x, '_');
     writeln (x, '.TE');
   end else begin
-    if (t_fonts [6].Centered) then
+    if (GroffFonts [6].Centered) then
 	    writeln (x, '.ce');
-    write (x, X_Fonts [t_fonts [6].Font]);
+    write (x, X_Fonts [GroffFonts [6].Font]);
     writeln (x, '\$1\fR');
   end;
-  writeln (x, '.sp ', t_fonts [6].SpaceBelow, 'p');
+  writeln (x, '.sp ', GroffFonts [6].SpaceBelow, 'p');
   writeln (x, '...');
 
   { Header Four }
   writeln (x, '.de H4 ..');
   writeln (x, '.LP');
   writeln (x, '.ne 0.5i');
-  writeln (x, '.sp ', t_fonts [7].SpaceAbove, 'p');
-  writeln (x, '.fam ', T_Family [t_fonts [7].family]);
-  writeln (x, '.ps ', t_fonts [7].size);
-  writeln (x, '.vs ', t_fonts [7].size + 2);
+  writeln (x, '.sp ', GroffFonts [7].SpaceAbove, 'p');
+  writeln (x, '.fam ', T_Family [GroffFonts [7].family]);
+  writeln (x, '.ps ', GroffFonts [7].size);
+  writeln (x, '.vs ', GroffFonts [7].size + 2);
   if (UsesBorders) then begin
     writeln (x, '.TS');
     writeln (x, ';');
-    if (t_fonts [7].Borders [2]) then
+    if (GroffFonts [7].Borders [2]) then
       write (x, '| ');
-    if (t_fonts [7].Centered) then
+    if (GroffFonts [7].Centered) then
       write (x, 'cx')
     else
       write (x, 'lx');
-    if (t_fonts [7].Borders [3]) then
+    if (GroffFonts [7].Borders [3]) then
       write (x, ' |');
     writeln (x, '.');
-    if (t_fonts [7].Borders [0]) then
+    if (GroffFonts [7].Borders [0]) then
       writeln (x, '_');
-    write (x, X_Fonts [t_fonts [7].Font]);
+    write (x, X_Fonts [GroffFonts [7].Font]);
 	  writeln (x, '\$1');
-    if (t_fonts [7].Borders [1]) then
+    if (GroffFonts [7].Borders [1]) then
       writeln (x, '_');
     writeln (x, '.TE');
   end else begin
-	  if (t_fonts [7].Centered) then
+	  if (GroffFonts [7].Centered) then
 		  writeln (x, '.ce');
-    write (x, X_Fonts [t_fonts [7].Font]);
+    write (x, X_Fonts [GroffFonts [7].Font]);
     writeln (x, '\$1\fR');
   end;
-  writeln (x, '.sp ', t_fonts [7].SpaceBelow, 'p');
+  writeln (x, '.sp ', GroffFonts [7].SpaceBelow, 'p');
   writeln (x, '...');
 
   { Header Five }
   writeln (x, '.de H5 ..');
   writeln (x, '.LP');
   writeln (x, '.ne 0.5i');
-  writeln (x, '.sp ', t_fonts [8].SpaceAbove, 'p');
-  writeln (x, '.fam ', T_Family [t_fonts [8].family]);
-  writeln (x, '.ps ', t_fonts [8].size);
-  writeln (x, '.vs ', t_fonts [8].size + 2);
+  writeln (x, '.sp ', GroffFonts [8].SpaceAbove, 'p');
+  writeln (x, '.fam ', T_Family [GroffFonts [8].family]);
+  writeln (x, '.ps ', GroffFonts [8].size);
+  writeln (x, '.vs ', GroffFonts [8].size + 2);
   if (UsesBorders) then begin
     writeln (x, '.TS');
     writeln (x, ';');
-    if (t_fonts [8].Borders [2]) then
+    if (GroffFonts [8].Borders [2]) then
       write (x, '| ');
-    if (t_fonts [8].Centered) then
+    if (GroffFonts [8].Centered) then
       write (x, 'cx')
     else
       write (x, 'lx');
-    if (t_fonts [8].Borders [3]) then
+    if (GroffFonts [8].Borders [3]) then
       write (x, ' |');
     writeln (x, '.');
-    if (t_fonts [8].Borders [0]) then
+    if (GroffFonts [8].Borders [0]) then
       writeln (x, '_');
-    write (x, X_Fonts [t_fonts [8].Font]);
+    write (x, X_Fonts [GroffFonts [8].Font]);
 	  writeln (x, '\$1');
-    if (t_fonts [8].Borders [1]) then
+    if (GroffFonts [8].Borders [1]) then
       writeln (x, '_');
     writeln (x, '.TE');
   end else begin
-	  if (t_fonts [8].Centered) then
+	  if (GroffFonts [8].Centered) then
 		  writeln (x, '.ce');
-    write (x, X_Fonts [t_fonts [8].Font]);
+    write (x, X_Fonts [GroffFonts [8].Font]);
     writeln (x, '\$1\fR');
   end;
-  writeln (x, '.sp ', t_fonts [8].SpaceBelow, 'p');
+  writeln (x, '.sp ', GroffFonts [8].SpaceBelow, 'p');
   writeln (x, '...');
   writeln (x, '.ec');
 
   { Custom One }
   writeln (x, '.de CP1');
-  writeln (x, '.fam ', T_Family [t_fonts [9].family]);
-  writeln (x, '.ps ', t_fonts [9].size);
-	if (t_fonts [9].Centered) then
+  writeln (x, '.fam ', T_Family [GroffFonts [9].family]);
+  writeln (x, '.ps ', GroffFonts [9].size);
+	if (GroffFonts [9].Centered) then
 		writeln (x, '.ce');
-  writeln (x, R_Fonts [t_fonts [9].Font]);
+  writeln (x, R_Fonts [GroffFonts [9].Font]);
   writeln (x, '..');
 
   { Custom Two }
   writeln (x, '.de CP2');
-  writeln (x, '.fam ', T_Family [t_fonts [10].family]);
-  writeln (x, '.ps ', t_fonts [10].size);
-  if (t_fonts [10].Centered) then
+  writeln (x, '.fam ', T_Family [GroffFonts [10].family]);
+  writeln (x, '.ps ', GroffFonts [10].size);
+  if (GroffFonts [10].Centered) then
   	writeln (x, '.ce');
-  writeln (x, R_Fonts [t_fonts [10].Font]);
+  writeln (x, R_Fonts [GroffFonts [10].Font]);
   writeln (x, '..');
 
   { Custom Three }
   writeln (x, '.de CP3');
-  writeln (x, '.fam ', T_Family [t_fonts [11].family]);
-  writeln (x, '.ps ', t_fonts [11].size);
-  if (t_fonts [11].Centered) then
+  writeln (x, '.fam ', T_Family [GroffFonts [11].family]);
+  writeln (x, '.ps ', GroffFonts [11].size);
+  if (GroffFonts [11].Centered) then
   	writeln (x, '.ce');
-  writeln (x, R_Fonts [t_fonts [11].Font]);
+  writeln (x, R_Fonts [GroffFonts [11].Font]);
   writeln (x, '..');
 
   { Separator }
@@ -1459,9 +1519,9 @@ begin
       writeln (x, '.MC ', colwidth:0:3, 'p 36p');
 
   writeln (x, '.ad b');
-  writeln (x, '.sp ', t_fonts [1].SpaceAbove, 'p');
-  writeln (x, '.fam ', T_Family [t_fonts [1].family]);
-  writeln (x, '.ps ', t_fonts [1].size);
+  writeln (x, '.sp ', GroffFonts [1].SpaceAbove, 'p');
+  writeln (x, '.fam ', T_Family [GroffFonts [1].family]);
+  writeln (x, '.ps ', GroffFonts [1].size);
 
   s := aStory.TitlePicture;
   if (FileExists (s) and (s <> '')) then
@@ -1471,26 +1531,26 @@ begin
 	  begin
 		  writeln (x, '.ce');
 		  writeln (x, aStory.Title);
-      writeln (x, '.sp ', t_fonts [1].SpaceBelow, 'p');
+      writeln (x, '.sp ', GroffFonts [1].SpaceBelow, 'p');
       if (aStory.Subtitle <> '') then begin
-        writeln (x, '.ps ', t_fonts [2].size);
-  	    writeln (x, '.fam ', T_Family [t_fonts [2].family]);
+        writeln (x, '.ps ', GroffFonts [2].size);
+  	    writeln (x, '.fam ', T_Family [GroffFonts [2].family]);
   	    writeln (x, '.ce');
   	    writeln (x, aStory.Subtitle);
-        writeln (x, '.sp ', t_fonts [2].SpaceBelow, 'p');
+        writeln (x, '.sp ', GroffFonts [2].SpaceBelow, 'p');
       end;
 	  end;
-  writeln (x, '.sp ', t_fonts [1].SpaceBelow, 'p');
+  writeln (x, '.sp ', GroffFonts [1].SpaceBelow, 'p');
 
   if (aStory.SuppressAuthor = FALSE) then begin
-    writeln (x, '.ps ', t_fonts [2].size);
-    writeln (x, '.fam ', T_Family [t_fonts [2].family]);
-    writeln (x, '.sp ', t_fonts [2].SpaceBelow, 'p');
+    writeln (x, '.ps ', GroffFonts [2].size);
+    writeln (x, '.fam ', T_Family [GroffFonts [2].family]);
+    writeln (x, '.sp ', GroffFonts [2].SpaceBelow, 'p');
     writeln (x, '.ce');
     writeln (x, 'by ', aStory.Author);
   end;
 
-  writeln (x, '.sp ', t_fonts [2].SpaceBelow, 'p');
+  writeln (x, '.sp ', GroffFonts [2].SpaceBelow, 'p');
   writeln (x, '.PP');
   if (FileExists (pathname + 'blurb.so')) then begin
     writeln (x, '.so blurb.so');
@@ -1513,10 +1573,10 @@ begin
   writeln (x, '.ne 9i');
 	if (Columns > 1) then
     writeln (x, '.MC ', colwidth:0:3, 'p 36p');
-  writeln (x, '.ps ', t_fonts [2].size);
+  writeln (x, '.ps ', GroffFonts [2].size);
   writeln (x, '.ce');
   writeln (x, 'Table of Contents');
-  writeln (x, '.ps ', t_fonts [0].size);
+  writeln (x, '.ps ', GroffFonts [0].size);
   writeln (x, '.MC ', toccolwidth:0:3, 'p 36p');
   writeln (x, '.so ', ofilename, '.toc');
   writeln (x, '.MC ', colwidth:0:3, 'p 36p');
@@ -1564,7 +1624,7 @@ begin
     writeln (x, '.EF ' + ExpandHeader (EvenFooter));
     writeln (x, '.OF ' + ExpandHeader (OddFooter));
 
-    writeln (x, '.ps ', t_fonts [0].Size);
+    writeln (x, '.ps ', GroffFonts [0].Size);
     writeln (x, '.so ', cfilename + '.so');
 
     if (FileExists (pathname + '/' + cfilename + '.tr')) then begin

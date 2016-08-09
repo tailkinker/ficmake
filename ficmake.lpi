@@ -52,22 +52,18 @@
         <ComponentName Value="frmVolume"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fvolume"/>
       </Unit1>
       <Unit2>
         <Filename Value="gprofile.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="gprofile"/>
       </Unit2>
       <Unit3>
         <Filename Value="gvolume.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="gvolume"/>
       </Unit3>
       <Unit4>
         <Filename Value="gtools.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="gtools"/>
       </Unit4>
       <Unit5>
         <Filename Value="fnewvol.pas"/>
@@ -82,12 +78,10 @@
         <ComponentName Value="frmStory"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fstory"/>
       </Unit6>
       <Unit7>
         <Filename Value="gstory.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="gstory"/>
       </Unit7>
       <Unit8>
         <Filename Value="fnewfic.pas"/>
@@ -95,7 +89,6 @@
         <ComponentName Value="frmNewStory"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fnewfic"/>
       </Unit8>
       <Unit9>
         <Filename Value="foptions.pas"/>
@@ -103,7 +96,6 @@
         <ComponentName Value="frmOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="foptions"/>
       </Unit9>
       <Unit10>
         <Filename Value="fficinfo.pas"/>
@@ -111,12 +103,10 @@
         <ComponentName Value="frmStoryInfo"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fficinfo"/>
       </Unit10>
       <Unit11>
         <Filename Value="gchapter.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="gchapter"/>
       </Unit11>
       <Unit12>
         <Filename Value="fchapter.pas"/>
@@ -124,19 +114,16 @@
         <ComponentName Value="frmChapter"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fchapter"/>
       </Unit12>
       <Unit13>
         <Filename Value="fnewchap.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmNewChapter"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fnewchap"/>
       </Unit13>
       <Unit14>
         <Filename Value="dgroff.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="dgroff"/>
       </Unit14>
       <Unit15>
         <Filename Value="fnewprof.pas"/>
@@ -144,7 +131,6 @@
         <ComponentName Value="frmNewProfile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fnewprof"/>
       </Unit15>
       <Unit16>
         <Filename Value="fpdfpro.pas"/>
@@ -152,17 +138,14 @@
         <ComponentName Value="frmPDFProfile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fpdfpro"/>
       </Unit16>
       <Unit17>
         <Filename Value="doption.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="doption"/>
       </Unit17>
       <Unit18>
         <Filename Value="dtools.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="dtools"/>
       </Unit18>
       <Unit19>
         <Filename Value="fhdhelp.pas"/>
@@ -170,7 +153,6 @@
         <ComponentName Value="frmHeaderHelp"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fhdhelp"/>
       </Unit19>
       <Unit20>
         <Filename Value="fhtmlpro.pas"/>
@@ -178,7 +160,6 @@
         <ComponentName Value="frmHTMLProfile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fhtmlpro"/>
       </Unit20>
       <Unit21>
         <Filename Value="ftextpro.pas"/>
@@ -186,7 +167,6 @@
         <ComponentName Value="frmTextProfile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ftextpro"/>
       </Unit21>
       <Unit22>
         <Filename Value="fepubpro.pas"/>
@@ -194,7 +174,6 @@
         <ComponentName Value="frmEPubProfile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fepubpro"/>
       </Unit22>
       <Unit23>
         <Filename Value="fbaredit.pas"/>
@@ -202,7 +181,6 @@
         <ComponentName Value="frmBareEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fbaredit"/>
       </Unit23>
       <Unit24>
         <Filename Value="fimprof.pas"/>
@@ -210,7 +188,6 @@
         <ComponentName Value="frmImportProfile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fimprof"/>
       </Unit24>
       <Unit25>
         <Filename Value="fstorypr.pas"/>
@@ -218,7 +195,6 @@
         <ComponentName Value="frmStoryProfiles"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fstorypr"/>
       </Unit25>
       <Unit26>
         <Filename Value="feditor.pas"/>
@@ -226,12 +202,10 @@
         <ComponentName Value="frmEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="feditor"/>
       </Unit26>
       <Unit27>
         <Filename Value="gmake.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="gmake"/>
       </Unit27>
       <Unit28>
         <Filename Value="flog.pas"/>
@@ -239,7 +213,6 @@
         <ComponentName Value="frmLog"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="flog"/>
       </Unit28>
       <Unit29>
         <Filename Value="fothers.pas"/>
@@ -247,12 +220,10 @@
         <ComponentName Value="frmOtherFiles"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fothers"/>
       </Unit29>
       <Unit30>
         <Filename Value="gothers.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="gothers"/>
       </Unit30>
       <Unit31>
         <Filename Value="fpickchap.pas"/>
@@ -260,7 +231,6 @@
         <ComponentName Value="frmPickChapter"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fpickchap"/>
       </Unit31>
       <Unit32>
         <Filename Value="fabout.pas"/>
@@ -268,7 +238,6 @@
         <ComponentName Value="frmAbout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fabout"/>
       </Unit32>
     </Units>
   </ProjectOptions>
