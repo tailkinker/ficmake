@@ -107,7 +107,7 @@ type
       t_toccol,
       t_indcol,
       t_H1Mode : byte;
-      t_flags : array [0..5] of boolean;
+      t_flags : array [0..6] of boolean;
       procedure SetMargin (index : integer; value : longint);
       function GetMargin (index : integer) : longint;
       procedure SetFlag (index : integer; aflag : boolean);
@@ -138,7 +138,8 @@ type
       property UseTBL             : boolean index 2 read GetFlag write SetFlag;
       property UseEQN             : boolean index 3 read GetFlag write SetFlag;
       property CrossReference     : boolean index 4 read GetFlag write SetFlag;
-      property UseIndex              : boolean index 5 read GetFlag write SetFlag;
+      property UseIndex           : boolean index 5 read GetFlag write SetFlag;
+      property UsePDFMark         : boolean index 6 read GetFlag write SetFlag;
       constructor Create; override;
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
@@ -353,6 +354,7 @@ begin
   Usetbl := false;
   CrossReference := false;
   UseIndex := false;
+  UsePDFMark := false;
   ForceFirstPage := 0;
   ToCColumns := 1;
   IndexColumns := 1;
@@ -823,7 +825,8 @@ begin
         Usepreconv := true
       else if (k = 'Call tbl') then
         Usetbl := true
-
+      else if (k = 'Use PDFMark') then
+        UsePDFMark := true
     end;
   until Done;
 end;
@@ -927,7 +930,8 @@ begin
     writeln (t, 'Call preconv');
   if (usetbl) then
     writeln (t, 'Call tbl');
-
+  if (UsePDFMark) then
+    writeln (t, 'Use PDFMark');
   writeln (t, '[end]');
   writeln (t);
 end;
@@ -970,6 +974,7 @@ begin
   dup.CrossReference := CrossReference;
   dup.IndexColumns := IndexColumns;
   dup.ToCColumns := ToCColumns;
+  dup.UsePDFMark := UsePDFMark;
   Duplicate := dup;
 end;
 
@@ -1226,6 +1231,8 @@ begin
     writeln (x, '.fam ', T_Family [GroffFonts [3].family]);
     writeln (x, '.ps ', GroffFonts [3].size);
     writeln (x, '.vs ', GroffFonts [3].size + 2);
+    if (UsePDFMark) then
+      writeln (x, '.pdfhref 0 1 \$1');
     if (UsesBorders) then begin
       writeln (x, '.TS');
       writeln (x, ';');
@@ -1272,6 +1279,11 @@ begin
   writeln (x, '.LP');
   writeln (x, '.ne 1i');
   writeln (x, '\&');
+  if (UsePDFMark) then
+	  if (UsesBooks) then
+      writeln (x, '.pdfhref 0 2 \$1')
+    else
+    	writeln (x, '.pdfhref 0 1 \$1');
   writeln (x, '.sp ', GroffFonts [4].SpaceAbove, 'p');
   {
   if (HeadGraphic <> '') then
@@ -1330,6 +1342,11 @@ begin
   writeln (x, '.fam ', T_Family [GroffFonts [5].family]);
   writeln (x, '.ps ', GroffFonts [5].size);
   writeln (x, '.vs ', GroffFonts [5].size + 2);
+  if (UsePDFMark) then
+	  if (UsesBooks) then
+      writeln (x, '.pdfhref 0 3 \$1')
+    else
+    	writeln (x, '.pdfhref 0 2 \$1');
   if (UsesBorders) then begin
   	writeln (x, '.TS');
     writeln (x, ';');
@@ -1371,6 +1388,9 @@ begin
   writeln (x, '.fam ', T_Family [GroffFonts [6].family]);
   writeln (x, '.ps ', GroffFonts [6].size);
   writeln (x, '.vs ', GroffFonts [6].size + 2);
+  if (UsePDFMark) then
+	  if not (UsesBooks) then
+      writeln (x, '.pdfhref 0 3 \$1');
   if (UsesBorders) then begin
   	writeln (x, '.TS');
     writeln (x, ';');

@@ -1,14 +1,14 @@
 object frmPDFProfile: TfrmPDFProfile
-  Left = 331
+  Left = 230
   Height = 400
-  Top = 129
+  Top = 119
   Width = 780
   BorderStyle = bsDialog
   Caption = 'Edit PDF Profile'
   ClientHeight = 400
   ClientWidth = 780
   OnCreate = FormCreate
-  LCLVersion = '1.4.0.4'
+  LCLVersion = '1.6.0.4'
   object pgPDF: TPageControl
     Left = 0
     Height = 296
@@ -21,7 +21,7 @@ object frmPDFProfile: TfrmPDFProfile
     object tabPage: TTabSheet
       Caption = 'Page'
       ClientHeight = 292
-      ClientWidth = 707
+      ClientWidth = 709
       object labPageSize: TLabel
         Left = 20
         Height = 17
@@ -248,7 +248,7 @@ object frmPDFProfile: TfrmPDFProfile
     object tabContent: TTabSheet
       Caption = 'Headers'
       ClientHeight = 292
-      ClientWidth = 707
+      ClientWidth = 709
       object chkOddHeaderEnable: TCheckBox
         Left = 8
         Height = 21
@@ -433,7 +433,7 @@ object frmPDFProfile: TfrmPDFProfile
     object tabStyles: TTabSheet
       Caption = 'Styles'
       ClientHeight = 292
-      ClientWidth = 707
+      ClientWidth = 709
       object lstStyles: TListBox
         Left = 8
         Height = 280
@@ -453,10 +453,11 @@ object frmPDFProfile: TfrmPDFProfile
           '.CP2'
           '.CP3'
         )
-        ItemHeight = 23
+        ItemHeight = 0
         OnClick = lstStylesClick
-        ScrollWidth = 80
+        ScrollWidth = 98
         TabOrder = 0
+        TopIndex = -1
       end
       object Label2: TLabel
         Left = 124
@@ -789,29 +790,28 @@ object frmPDFProfile: TfrmPDFProfile
     object tabParts: TTabSheet
       Caption = 'Parts'
       ClientHeight = 292
-      ClientWidth = 707
+      ClientWidth = 709
       object Label11: TLabel
         AnchorSideLeft.Control = tabParts
-        AnchorSideTop.Control = tabParts
+        AnchorSideTop.Control = cmbTOCColumns
+        AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 17
-        Top = 12
-        Width = 188
-        BorderSpacing.Left = 8
-        BorderSpacing.Top = 12
+        Top = 13
+        Width = 183
+        BorderSpacing.Around = 8
         Caption = 'Table of Contents Columns'
         ParentColor = False
       end
       object cmbTOCColumns: TComboBox
         AnchorSideLeft.Control = Label11
         AnchorSideLeft.Side = asrBottom
-        AnchorSideTop.Control = Label11
-        AnchorSideTop.Side = asrCenter
-        Left = 204
+        AnchorSideTop.Control = tabParts
+        Left = 199
         Height = 27
-        Top = 7
+        Top = 8
         Width = 56
-        BorderSpacing.Left = 8
+        BorderSpacing.Around = 8
         ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
@@ -829,9 +829,9 @@ object frmPDFProfile: TfrmPDFProfile
         AnchorSideTop.Control = cmbTOCColumns
         AnchorSideTop.Side = asrBottom
         Left = 8
-        Height = 21
-        Top = 42
-        Width = 200
+        Height = 24
+        Top = 43
+        Width = 196
         BorderSpacing.Top = 8
         Caption = 'Cross-Reference Support'
         OnChange = chkCrossRefChange
@@ -842,9 +842,9 @@ object frmPDFProfile: TfrmPDFProfile
         AnchorSideTop.Control = chkCrossRef
         AnchorSideTop.Side = asrBottom
         Left = 8
-        Height = 21
-        Top = 71
-        Width = 120
+        Height = 24
+        Top = 75
+        Width = 123
         BorderSpacing.Top = 8
         Caption = 'Index Support'
         OnChange = chkIndexChange
@@ -855,9 +855,9 @@ object frmPDFProfile: TfrmPDFProfile
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = chkIndex
         AnchorSideTop.Side = asrBottom
-        Left = 77
+        Left = 76
         Height = 27
-        Top = 100
+        Top = 107
         Width = 56
         BorderSpacing.Left = 8
         BorderSpacing.Top = 8
@@ -880,17 +880,30 @@ object frmPDFProfile: TfrmPDFProfile
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 17
-        Top = 105
-        Width = 61
+        Top = 112
+        Width = 60
         Caption = 'Columns'
         Enabled = False
         ParentColor = False
+      end
+      object chkPDFMark: TCheckBox
+        AnchorSideLeft.Control = cmbTOCColumns
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = tabParts
+        Left = 263
+        Height = 24
+        Top = 8
+        Width = 185
+        BorderSpacing.Around = 8
+        Caption = 'Enable PDF Bookmarks'
+        OnChange = chkPDFMarkChange
+        TabOrder = 4
       end
     end
   end
   object txtName: TLabeledEdit
     Left = 120
-    Height = 25
+    Height = 27
     Top = 8
     Width = 652
     EditLabel.AnchorSideTop.Control = txtName
@@ -898,10 +911,10 @@ object frmPDFProfile: TfrmPDFProfile
     EditLabel.AnchorSideRight.Control = txtName
     EditLabel.AnchorSideBottom.Control = txtName
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 23
+    EditLabel.Left = 24
     EditLabel.Height = 17
-    EditLabel.Top = 12
-    EditLabel.Width = 94
+    EditLabel.Top = 13
+    EditLabel.Width = 93
     EditLabel.Caption = 'Profile Name:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
@@ -910,7 +923,7 @@ object frmPDFProfile: TfrmPDFProfile
   end
   object txtOutDir: TLabeledEdit
     Left = 160
-    Height = 25
+    Height = 27
     Top = 40
     Width = 584
     EditLabel.AnchorSideTop.Control = txtOutDir
@@ -918,10 +931,10 @@ object frmPDFProfile: TfrmPDFProfile
     EditLabel.AnchorSideRight.Control = txtOutDir
     EditLabel.AnchorSideBottom.Control = txtOutDir
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 31
+    EditLabel.Left = 32
     EditLabel.Height = 17
-    EditLabel.Top = 44
-    EditLabel.Width = 126
+    EditLabel.Top = 45
+    EditLabel.Width = 125
     EditLabel.Caption = 'Output Directory: '
     EditLabel.ParentColor = False
     LabelPosition = lpLeft

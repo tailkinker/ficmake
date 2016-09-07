@@ -41,6 +41,7 @@ type
     chkCallEQN: TCheckBox;
     chkCallTBL: TCheckBox;
     chkCallPreconv: TCheckBox;
+    chkPDFMark: TCheckBox;
     chkTitlePageOneColumn: TCheckBox;
     chkFontCentered: TCheckBox;
     chkFontItalics: TCheckBox;
@@ -130,6 +131,7 @@ type
     procedure chkLandscapeChange(Sender: TObject);
     procedure chkOddFooterEnableChange(Sender: TObject);
     procedure chkOddHeaderEnableChange(Sender: TObject);
+    procedure chkPDFMarkChange(Sender: TObject);
     procedure chkTitlePageOneColumnChange(Sender: TObject);
     procedure cmbColumnsChange(Sender: TObject);
     procedure cmbFontFamilyChange(Sender: TObject);
@@ -392,7 +394,7 @@ begin
   chkCallPreconv.Checked := aProfile.UsePreconv;
   chkCallTBL.Checked := aProfile.UseTBL;
   chkCallEQN.Checked := aProfile.UseEQN;
-
+  chkPDFMark.Checked := aProfile.UsePDFMark;
   ChangePaperSize;
 end;
 
@@ -511,6 +513,11 @@ begin
   txtOddHeaderLeft.Enabled := Profile.OddHeader.Enabled;
   txtOddHeaderMiddle.Enabled := Profile.OddHeader.Enabled;
   txtOddHeaderRight.Enabled := Profile.OddHeader.Enabled;
+end;
+
+procedure TfrmPDFProfile.chkPDFMarkChange(Sender: TObject);
+begin
+  Profile.UsePDFMark := chkPDFMark.Checked;
 end;
 
 procedure TfrmPDFProfile.chkTitlePageOneColumnChange(Sender: TObject);
