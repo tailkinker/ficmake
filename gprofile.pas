@@ -1232,7 +1232,7 @@ begin
     writeln (x, '.ps ', GroffFonts [3].size);
     writeln (x, '.vs ', GroffFonts [3].size + 2);
     if (UsePDFMark) then
-      writeln (x, '.pdfhref 0 1 \$1');
+      writeln (x, '.pdfhref O 1 \$1');
     if (UsesBorders) then begin
       writeln (x, '.TS');
       writeln (x, ';');
@@ -1281,9 +1281,9 @@ begin
   writeln (x, '\&');
   if (UsePDFMark) then
 	  if (UsesBooks) then
-      writeln (x, '.pdfhref 0 2 \$1')
+      writeln (x, '.pdfhref O 2 \$1')
     else
-    	writeln (x, '.pdfhref 0 1 \$1');
+    	writeln (x, '.pdfhref O 1 \$1');
   writeln (x, '.sp ', GroffFonts [4].SpaceAbove, 'p');
   {
   if (HeadGraphic <> '') then
@@ -1344,9 +1344,9 @@ begin
   writeln (x, '.vs ', GroffFonts [5].size + 2);
   if (UsePDFMark) then
 	  if (UsesBooks) then
-      writeln (x, '.pdfhref 0 3 \$1')
+      writeln (x, '.pdfhref O 3 \$1')
     else
-    	writeln (x, '.pdfhref 0 2 \$1');
+    	writeln (x, '.pdfhref O 2 \$1');
   if (UsesBorders) then begin
   	writeln (x, '.TS');
     writeln (x, ';');
@@ -1390,7 +1390,7 @@ begin
   writeln (x, '.vs ', GroffFonts [6].size + 2);
   if (UsePDFMark) then
 	  if not (UsesBooks) then
-      writeln (x, '.pdfhref 0 3 \$1');
+      writeln (x, '.pdfhref O 3 \$1');
   if (UsesBorders) then begin
   	writeln (x, '.TS');
     writeln (x, ';');
