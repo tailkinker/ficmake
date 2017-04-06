@@ -14,8 +14,8 @@ object frmPDFProfile: TfrmPDFProfile
     Height = 296
     Top = 72
     Width = 780
-    ActivePage = tabParts
-    TabIndex = 3
+    ActivePage = tabStyles
+    TabIndex = 2
     TabOrder = 0
     TabPosition = tpLeft
     object tabPage: TTabSheet
@@ -453,17 +453,16 @@ object frmPDFProfile: TfrmPDFProfile
           '.CP2'
           '.CP3'
         )
-        ItemHeight = 0
+        ItemHeight = 23
         OnClick = lstStylesClick
         ScrollWidth = 98
         TabOrder = 0
-        TopIndex = -1
       end
       object Label2: TLabel
         Left = 124
         Height = 17
         Top = 8
-        Width = 81
+        Width = 82
         Caption = 'Font Family:'
         Enabled = False
         ParentColor = False
@@ -495,9 +494,9 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkFontBold: TCheckBox
         Left = 124
-        Height = 21
+        Height = 24
         Top = 69
-        Width = 55
+        Width = 59
         Caption = 'Bold'
         Enabled = False
         Font.Style = [fsBold]
@@ -507,9 +506,9 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkFontItalics: TCheckBox
         Left = 196
-        Height = 21
+        Height = 24
         Top = 69
-        Width = 63
+        Width = 65
         Caption = 'Italics'
         Enabled = False
         Font.Style = [fsItalic]
@@ -519,9 +518,9 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkFontCentered: TCheckBox
         Left = 265
-        Height = 21
+        Height = 24
         Top = 69
-        Width = 90
+        Width = 89
         Caption = 'Centered'
         Enabled = False
         OnChange = chkFontCenteredChange
@@ -529,7 +528,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtSpaceAbove: TLabeledEdit
         Left = 332
-        Height = 25
+        Height = 27
         Hint = 'Insert this much space above this paragraph.'
         Top = 95
         Width = 50
@@ -538,10 +537,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtSpaceAbove
         EditLabel.AnchorSideBottom.Control = txtSpaceAbove
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 237
+        EditLabel.Left = 238
         EditLabel.Height = 17
-        EditLabel.Top = 99
-        EditLabel.Width = 92
+        EditLabel.Top = 100
+        EditLabel.Width = 91
         EditLabel.Caption = 'Space Above:'
         EditLabel.ParentColor = False
         Enabled = False
@@ -554,7 +553,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtFontSize: TLabeledEdit
         Left = 188
-        Height = 25
+        Height = 27
         Top = 95
         Width = 50
         EditLabel.AnchorSideTop.Control = txtFontSize
@@ -564,7 +563,7 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideBottom.Side = asrBottom
         EditLabel.Left = 119
         EditLabel.Height = 17
-        EditLabel.Top = 99
+        EditLabel.Top = 100
         EditLabel.Width = 66
         EditLabel.Caption = 'Font Size:'
         EditLabel.ParentColor = False
@@ -576,7 +575,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtSpaceBelow: TLabeledEdit
         Left = 332
-        Height = 25
+        Height = 27
         Hint = 'Insert this much space below the paragraph.'
         Top = 127
         Width = 50
@@ -585,10 +584,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtSpaceBelow
         EditLabel.AnchorSideBottom.Control = txtSpaceBelow
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 235
+        EditLabel.Left = 239
         EditLabel.Height = 17
-        EditLabel.Top = 131
-        EditLabel.Width = 94
+        EditLabel.Top = 132
+        EditLabel.Width = 90
         EditLabel.Caption = 'Space Below:'
         EditLabel.ParentColor = False
         Enabled = False
@@ -649,7 +648,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkTitlePageOneColumn: TCheckBox
         Left = 420
-        Height = 21
+        Height = 24
         Hint = 'The first page of the document will be only '#10'one column, regardless of the number of '#10'columns selected.'
         Top = 184
         Width = 230
@@ -664,7 +663,7 @@ object frmPDFProfile: TfrmPDFProfile
         Left = 420
         Height = 17
         Top = 8
-        Width = 189
+        Width = 186
         Caption = 'Heading 1 Centering Mode:'
         Enabled = False
         ParentColor = False
@@ -700,7 +699,7 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object txtSpaceReserved: TLabeledEdit
         Left = 188
-        Height = 25
+        Height = 27
         Hint = 'If there is not at least this much space '#10'remaining on the page when this header '#10'style is called, force a column break.'
         Top = 127
         Width = 50
@@ -709,10 +708,10 @@ object frmPDFProfile: TfrmPDFProfile
         EditLabel.AnchorSideRight.Control = txtSpaceReserved
         EditLabel.AnchorSideBottom.Control = txtSpaceReserved
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 117
+        EditLabel.Left = 118
         EditLabel.Height = 17
-        EditLabel.Top = 131
-        EditLabel.Width = 68
+        EditLabel.Top = 132
+        EditLabel.Width = 67
         EditLabel.Caption = 'Reserved:'
         EditLabel.ParentColor = False
         Enabled = False
@@ -725,10 +724,10 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkCallPreconv: TCheckBox
         Left = 420
-        Height = 21
+        Height = 24
         Hint = 'When building the file, call the groff preconv pre-processor.'#10'This pre-processor converts non-ASCII characters to groff characters.'
         Top = 263
-        Width = 109
+        Width = 110
         Caption = 'Call Preconv'
         OnChange = chkCallPreconvChange
         ParentShowHint = False
@@ -737,10 +736,10 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkCallTBL: TCheckBox
         Left = 540
-        Height = 21
+        Height = 24
         Hint = 'When building the file, call the groff tbl pre-processor.'#10'This pre-processor is used to construct tables.'
         Top = 263
-        Width = 79
+        Width = 80
         Caption = 'Call TBL'
         OnChange = chkCallTBLChange
         ParentShowHint = False
@@ -749,10 +748,10 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object chkCallEQN: TCheckBox
         Left = 628
-        Height = 21
+        Height = 24
         Hint = 'When building the file, call the groff eqn pre-processor.'#10'This pre-processor is used to typeset mathematical formulae.'
         Top = 263
-        Width = 84
+        Width = 86
         Caption = 'Call EQN'
         OnChange = chkCallEQNChange
         ParentShowHint = False
@@ -761,9 +760,9 @@ object frmPDFProfile: TfrmPDFProfile
       end
       object radForceFirstPage: TRadioGroup
         Left = 424
-        Height = 40
+        Height = 43
         Top = 209
-        Width = 211
+        Width = 219
         AutoFill = True
         AutoSize = True
         Caption = 'Force First Page of Chapters'
@@ -775,8 +774,8 @@ object frmPDFProfile: TfrmPDFProfile
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 3
-        ClientHeight = 21
-        ClientWidth = 207
+        ClientHeight = 24
+        ClientWidth = 215
         Columns = 3
         Items.Strings = (
           'None'

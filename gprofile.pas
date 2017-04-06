@@ -1298,12 +1298,16 @@ begin
   writeln (x, '.fam ', T_Family [GroffFonts [4].family]);
   writeln (x, '.ps ', GroffFonts [4].size);
   writeln (x, '.vs ', GroffFonts [4].size + 2);
+//	if ((Columns > 1) and (H1Mode in [0, 2])) then
+//		writeln (x, '.MC ', colwidth:0:3, 'p 36p')
+//  else
+//    writeln (x, '.1C');
   if (UsesBorders) then begin
   	writeln (x, '.TS');
     writeln (x, ';');
     if (GroffFonts [4].Borders [2]) then
       write (x, '| ');
-    if (GroffFonts [4].Centered) then
+    if (H1Mode > 1) then
       write (x, 'cx')
     else
       write (x, 'lx');
@@ -1318,14 +1322,12 @@ begin
     	writeln (x, '_');
     writeln (x, '.TE');
   end else begin
-    if (GroffFonts [4].Centered) then
+    if (H1Mode > 1) then
 	    writeln (x, '.ce');
     write (x, X_Fonts [GroffFonts [4].Font]);
     writeln (x, '\$1\fR');
   end;
 	writeln (x, '.sp ', GroffFonts [4].SpaceBelow, 'p');
-//	  if ((Columns > 1) and (H1Mode in [0, 3])) then
-//		  writeln (x, '.MC ', colwidth:0:3, 'p 36p');
   writeln (x, '.write TOC .br');
   if (UsesBooks) then
 	  writeln (x, '.write TOC \ \ \ \ \$1', #9, '\n[%]')
@@ -1533,6 +1535,11 @@ begin
   writeln (x, '.PSPIC \\$1.ps');
   writeln (x, '..');
 
+
+  // This is where actual entries start being written - everything before this
+  // point was a macro.
+
+
   // Title Page
 	if (Columns > 1) then
 	  if not (OneColumnTitlePage) then
@@ -1589,17 +1596,25 @@ begin
 		  writeln (x, '.so credits.so');
 	  end;
 
+
+  // Table of Contents
+
   writeln (x, '.LP');
   writeln (x, '.ne 9i');
-	if (Columns > 1) then
-    writeln (x, '.MC ', colwidth:0:3, 'p 36p');
+  writeln (x, '.1C');
   writeln (x, '.ps ', GroffFonts [2].size);
   writeln (x, '.ce');
   writeln (x, 'Table of Contents');
   writeln (x, '.ps ', GroffFonts [0].size);
-  writeln (x, '.MC ', toccolwidth:0:3, 'p 36p');
+  if (ToCColumns <> Columns) then
+  	writeln (x, '.MC ', toccolwidth:0:3, 'p 36p')
+  else if (Columns > 1) then
+    writeln (x, '.MC ', colwidth:0:3, 'p 36p');
   writeln (x, '.so ', ofilename, '.toc');
-  writeln (x, '.MC ', colwidth:0:3, 'p 36p');
+  if (Columns = 1) then
+    writeln (x, '.1C')
+  else if (ToCColumns <> Columns) then
+	  writeln (x, '.MC ', colwidth:0:3, 'p 36p');
 
   // Now write the chapters
 
@@ -1609,6 +1624,10 @@ begin
     writeln (x, '.LP');
     writeln (x, '.EH ' + ExpandHeader (EvenHeader));
     writeln (x, '.OH ' + ExpandHeader (OddHeader));
+    if ((Columns > 1) and (H1Mode in [0, 2])) then
+    	writeln (x, '.MC ', colwidth:0:3, 'p 36p')
+    else
+      writeln (x, '.1C');
     writeln (x, '.bp');
     if (ForceFirstPage = 1) then begin
       writeln (x, '.if e');
@@ -1639,6 +1658,10 @@ begin
         if (not (Chapters.Current.SubtitleFirst) and (Chapters.Current.Subtitle <> '')) then
           writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
       end;
+
+    if ((Columns > 1) and (H1Mode in [1, 3])) then
+      writeln (x, '.MC ', colwidth:0:3, 'p 36p');
+
     writeln (x, '.EH ' + ExpandHeader (EvenHeader));
     writeln (x, '.OH ' + ExpandHeader (OddHeader));
     writeln (x, '.EF ' + ExpandHeader (EvenFooter));
