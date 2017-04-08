@@ -86,13 +86,13 @@ type
     txtOddFooterLeft: TEdit;
     txtOddFooterMiddle: TEdit;
     txtOddFooterRight: TEdit;
-    Label1 : TLabel;
-    Label3 : TLabel;
-    Label4 : TLabel;
-    Label5 : TLabel;
-    Label6 : TLabel;
-    Label7 : TLabel;
-    Label8 : TLabel;
+    labX : TLabel;
+    labUnits : TLabel;
+    labColumns : TLabel;
+    labOutsideMargin : TLabel;
+    labInsideMargin : TLabel;
+    labTopMargin : TLabel;
+    labBottomMargin : TLabel;
     labPageSize : TLabel;
     pgPDF : TPageControl;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
@@ -409,6 +409,10 @@ procedure TfrmPDFProfile.btnBordersTopChange(Sender: TObject);
 begin
   Profile.GroffFonts [CurrentFont].Borders [TToggleBox (Sender).Tag] :=
     TToggleBox (Sender).Checked;
+  if (TToggleBox(Sender).Checked) then
+    tToggleBox(Sender).Color := clBlack
+  else
+    tToggleBox(Sender).Color := clWhite;
   chkCallTBL.Checked := chkCallTBL.Checked OR (TToggleBox (Sender).Checked);
 end;
 

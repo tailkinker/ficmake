@@ -1,40 +1,54 @@
 object frmPDFProfile: TfrmPDFProfile
-  Left = 230
-  Height = 400
-  Top = 119
-  Width = 780
+  Left = 206
+  Height = 439
+  Top = 105
+  Width = 796
+  AutoSize = True
   BorderStyle = bsDialog
   Caption = 'Edit PDF Profile'
-  ClientHeight = 400
-  ClientWidth = 780
+  ClientHeight = 439
+  ClientWidth = 796
   OnCreate = FormCreate
   LCLVersion = '1.6.0.4'
   object pgPDF: TPageControl
-    Left = 0
-    Height = 296
-    Top = 72
-    Width = 780
-    ActivePage = tabStyles
-    TabIndex = 2
-    TabOrder = 0
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = txtOutDir
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 320
+    Top = 78
+    Width = 790
+    ActivePage = tabContent
+    BorderSpacing.Around = 8
+    TabIndex = 1
+    TabOrder = 3
     TabPosition = tpLeft
     object tabPage: TTabSheet
       Caption = 'Page'
-      ClientHeight = 292
-      ClientWidth = 709
+      ClientHeight = 316
+      ClientWidth = 719
       object labPageSize: TLabel
-        Left = 20
+        AnchorSideTop.Control = cmbPageSize
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = cmbPageSize
+        Left = 23
         Height = 17
-        Top = 10
-        Width = 69
+        Top = 13
+        Width = 68
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         Caption = 'Page Size:'
         ParentColor = False
       end
       object cmbPageSize: TComboBox
-        Left = 116
+        AnchorSideTop.Control = tabPage
+        AnchorSideRight.Control = sBackground
+        Left = 99
         Height = 27
-        Top = 6
+        Top = 8
         Width = 124
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
@@ -59,37 +73,57 @@ object frmPDFProfile: TfrmPDFProfile
         Text = 'Letter'
       end
       object chkLandscape: TCheckBox
-        Left = 125
-        Height = 21
-        Top = 38
-        Width = 98
+        AnchorSideTop.Control = cmbPageSize
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = sBackground
+        Left = 124
+        Height = 24
+        Top = 43
+        Width = 99
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         Caption = 'Landscape'
         OnChange = chkLandscapeChange
         TabOrder = 1
       end
       object txtPDFWidth: TEdit
-        Left = 48
-        Height = 25
-        Top = 63
+        AnchorSideTop.Control = chkLandscape
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = labX
+        Left = 38
+        Height = 27
+        Top = 75
         Width = 80
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtPDFWidthChange
         TabOrder = 2
       end
       object txtPDFHeight: TEdit
-        Left = 160
-        Height = 25
-        Top = 63
+        AnchorSideTop.Control = chkLandscape
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = sBackground
+        Left = 143
+        Height = 27
+        Top = 75
         Width = 80
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtPDFHeightChange
         TabOrder = 3
       end
       object cmbPageSizeUnits: TComboBox
-        Left = 160
+        AnchorSideTop.Control = txtPDFHeight
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = sBackground
+        Left = 143
         Height = 27
-        Top = 94
+        Top = 110
         Width = 80
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
@@ -102,27 +136,42 @@ object frmPDFProfile: TfrmPDFProfile
         TabOrder = 4
         Text = 'in.'
       end
-      object Label3: TLabel
-        Left = 100
+      object labUnits: TLabel
+        AnchorSideTop.Control = cmbPageSizeUnits
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = cmbPageSizeUnits
+        Left = 95
         Height = 17
-        Top = 100
-        Width = 39
+        Top = 115
+        Width = 40
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         Caption = 'Units:'
         ParentColor = False
       end
-      object Label1: TLabel
-        Left = 139
+      object labX: TLabel
+        AnchorSideTop.Control = txtPDFWidth
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = txtPDFHeight
+        Left = 126
         Height = 17
-        Top = 69
-        Width = 8
+        Top = 80
+        Width = 9
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         Caption = 'X'
         ParentColor = False
       end
       object cmbColumns: TComboBox
-        Left = 188
+        AnchorSideTop.Control = cmbPageSizeUnits
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = sBackground
+        Left = 171
         Height = 27
-        Top = 127
+        Top = 145
         Width = 52
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         ItemHeight = 0
         ItemIndex = 0
         Items.Strings = (
@@ -135,87 +184,139 @@ object frmPDFProfile: TfrmPDFProfile
         TabOrder = 5
         Text = '1'
       end
-      object Label4: TLabel
+      object labColumns: TLabel
+        AnchorSideTop.Control = cmbColumns
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = cmbColumns
         Left = 104
         Height = 17
-        Top = 132
-        Width = 65
+        Top = 150
+        Width = 59
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Around = 8
         Caption = 'Columns:'
         ParentColor = False
       end
       object txtOutsideMargin: TEdit
-        Left = 160
-        Height = 25
-        Top = 166
+        AnchorSideTop.Control = cmbColumns
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = sBackground
+        Left = 143
+        Height = 27
+        Top = 180
         Width = 80
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         OnChange = txtOutsideMarginChange
         TabOrder = 6
         Text = '1'
       end
       object txtInsideMargin: TEdit
-        Left = 160
-        Height = 25
-        Top = 198
+        AnchorSideTop.Control = txtOutsideMargin
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = sBackground
+        Left = 143
+        Height = 27
+        Top = 215
         Width = 80
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         OnChange = txtInsideMarginChange
         TabOrder = 7
         Text = '0.5'
       end
       object txtTopMargin: TEdit
-        Left = 160
-        Height = 25
-        Top = 230
+        AnchorSideTop.Control = txtInsideMargin
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = sBackground
+        Left = 143
+        Height = 27
+        Top = 250
         Width = 80
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         OnChange = txtTopMarginChange
         TabOrder = 8
         Text = '1'
       end
       object txtBottomMargin: TEdit
-        Left = 160
-        Height = 25
-        Top = 262
+        AnchorSideTop.Control = txtTopMargin
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = sBackground
+        Left = 143
+        Height = 27
+        Top = 285
         Width = 80
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         OnChange = txtBottomMarginChange
         TabOrder = 9
         Text = '1'
       end
-      object Label5: TLabel
-        Left = 16
+      object labOutsideMargin: TLabel
+        AnchorSideTop.Control = txtOutsideMargin
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = txtOutsideMargin
+        Left = 24
         Height = 17
-        Top = 171
-        Width = 110
+        Top = 185
+        Width = 111
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         Caption = 'Outside Margin:'
         ParentColor = False
       end
-      object Label6: TLabel
-        Left = 28
+      object labInsideMargin: TLabel
+        AnchorSideTop.Control = txtInsideMargin
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = txtInsideMargin
+        Left = 38
         Height = 17
-        Top = 203
-        Width = 95
+        Top = 220
+        Width = 97
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         Caption = 'Inside Margin:'
         ParentColor = False
       end
-      object Label7: TLabel
-        Left = 48
+      object labTopMargin: TLabel
+        AnchorSideTop.Control = txtTopMargin
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = txtTopMargin
+        Left = 54
         Height = 17
-        Top = 235
+        Top = 255
         Width = 81
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         Caption = 'Top Margin:'
         ParentColor = False
       end
-      object Label8: TLabel
-        Left = 21
+      object labBottomMargin: TLabel
+        AnchorSideTop.Control = txtBottomMargin
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = txtBottomMargin
+        Left = 26
         Height = 17
-        Top = 267
-        Width = 108
+        Top = 290
+        Width = 109
+        Anchors = [akTop, akRight]
+        BorderSpacing.Around = 8
         Caption = 'Bottom Margin:'
         ParentColor = False
       end
       object sBackground: TShape
-        Left = 250
-        Height = 280
-        Top = 6
-        Width = 458
+        AnchorSideTop.Control = tabPage
+        AnchorSideRight.Control = tabPage
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = tabPage
+        AnchorSideBottom.Side = asrBottom
+        Left = 231
+        Height = 300
+        Top = 8
+        Width = 480
+        Anchors = [akTop, akRight, akBottom]
+        BorderSpacing.Around = 8
         Brush.Color = 12628144
       end
       object sLeftPage: TShape
@@ -223,6 +324,7 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 194
         Top = 79
         Width = 134
+        BorderSpacing.Around = 8
         Brush.Color = 15132390
       end
       object sRightPage: TShape
@@ -230,6 +332,7 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 145
         Top = 109
         Width = 102
+        BorderSpacing.Around = 8
         Brush.Color = 15132390
       end
       object sLeftMargin: TShape
@@ -237,191 +340,269 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 37
         Top = 142
         Width = 36
+        BorderSpacing.Around = 8
       end
       object sRightMargin: TShape
         Left = 512
         Height = 37
         Top = 158
         Width = 36
+        BorderSpacing.Around = 8
       end
     end
     object tabContent: TTabSheet
       Caption = 'Headers'
-      ClientHeight = 292
-      ClientWidth = 709
+      ClientHeight = 316
+      ClientWidth = 719
       object chkOddHeaderEnable: TCheckBox
+        AnchorSideLeft.Control = tabContent
+        AnchorSideTop.Control = tabContent
         Left = 8
-        Height = 21
-        Top = 7
-        Width = 200
+        Height = 24
+        Top = 8
+        Width = 197
+        BorderSpacing.Around = 8
         Caption = 'Enable Odd-Page Header'
         OnChange = chkOddHeaderEnableChange
         TabOrder = 0
       end
       object txtOddHeaderLeft: TEdit
+        AnchorSideLeft.Control = tabContent
+        AnchorSideTop.Control = chkOddHeaderEnable
+        AnchorSideTop.Side = asrBottom
         Left = 8
-        Height = 25
-        Top = 31
+        Height = 27
+        Top = 40
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtOddHeaderLeftChange
         TabOrder = 1
       end
       object txtOddHeaderMiddle: TEdit
+        AnchorSideLeft.Control = txtOddHeaderLeft
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkOddHeaderEnable
+        AnchorSideTop.Side = asrBottom
         Left = 236
-        Height = 25
-        Top = 31
+        Height = 27
+        Top = 40
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtOddHeaderMiddleChange
         TabOrder = 2
       end
       object txtOddHeaderRight: TEdit
+        AnchorSideLeft.Control = txtOddHeaderMiddle
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkOddHeaderEnable
+        AnchorSideTop.Side = asrBottom
         Left = 464
-        Height = 25
-        Top = 31
+        Height = 27
+        Top = 40
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtOddHeaderRightChange
         TabOrder = 3
         Text = '%t'
       end
       object chkEvenHeaderEnable: TCheckBox
+        AnchorSideLeft.Control = tabContent
         Left = 8
-        Height = 21
+        Height = 24
         Top = 71
-        Width = 204
+        Width = 201
+        BorderSpacing.Around = 8
         Caption = 'Enable Even-Page Header'
         OnChange = chkEvenHeaderEnableChange
         TabOrder = 4
       end
       object txtEvenHeaderLeft: TEdit
+        AnchorSideLeft.Control = tabContent
+        AnchorSideTop.Control = chkEvenHeaderEnable
+        AnchorSideTop.Side = asrBottom
         Left = 8
-        Height = 25
-        Top = 95
+        Height = 27
+        Top = 103
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtEvenHeaderLeftChange
         TabOrder = 5
         Text = '%c'
       end
       object txtEvenHeaderMiddle: TEdit
+        AnchorSideLeft.Control = txtOddHeaderLeft
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkEvenHeaderEnable
+        AnchorSideTop.Side = asrBottom
         Left = 236
-        Height = 25
-        Top = 95
+        Height = 27
+        Top = 103
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtEvenHeaderMiddleChange
         TabOrder = 6
       end
       object txtEvenHeaderRight: TEdit
+        AnchorSideLeft.Control = txtEvenHeaderMiddle
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkEvenHeaderEnable
+        AnchorSideTop.Side = asrBottom
         Left = 464
-        Height = 25
-        Top = 95
+        Height = 27
+        Top = 103
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtEvenHeaderRightChange
         TabOrder = 7
       end
       object chkOddFooterEnable: TCheckBox
+        AnchorSideLeft.Control = tabContent
         Left = 8
-        Height = 21
+        Height = 24
         Top = 135
-        Width = 195
+        Width = 193
+        BorderSpacing.Around = 8
         Caption = 'Enable Odd-Page Footer'
         OnChange = chkOddFooterEnableChange
         TabOrder = 8
       end
       object txtOddFooterLeft: TEdit
+        AnchorSideLeft.Control = tabContent
+        AnchorSideTop.Control = chkOddFooterEnable
+        AnchorSideTop.Side = asrBottom
         Left = 8
-        Height = 25
-        Top = 159
+        Height = 27
+        Top = 167
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtOddFooterLeftChange
         TabOrder = 9
         Text = '%a'
       end
       object txtOddFooterMiddle: TEdit
+        AnchorSideLeft.Control = txtOddHeaderLeft
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkOddFooterEnable
+        AnchorSideTop.Side = asrBottom
         Left = 236
-        Height = 25
-        Top = 159
+        Height = 27
+        Top = 167
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtOddFooterMiddleChange
         TabOrder = 10
       end
       object txtOddFooterRight: TEdit
+        AnchorSideLeft.Control = txtOddFooterMiddle
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkOddFooterEnable
+        AnchorSideTop.Side = asrBottom
         Left = 464
-        Height = 25
-        Top = 159
+        Height = 27
+        Top = 167
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtOddFooterRightChange
         TabOrder = 11
         Text = '%p'
       end
       object chkEvenFooterEnable: TCheckBox
+        AnchorSideLeft.Control = tabContent
         Left = 8
-        Height = 21
+        Height = 24
         Top = 199
-        Width = 199
+        Width = 197
+        BorderSpacing.Around = 8
         Caption = 'Enable Even-Page Footer'
         OnChange = chkEvenFooterEnableChange
         TabOrder = 12
       end
       object txtEvenFooterLeft: TEdit
+        AnchorSideLeft.Control = tabContent
+        AnchorSideTop.Control = chkEvenFooterEnable
+        AnchorSideTop.Side = asrBottom
         Left = 8
-        Height = 25
-        Top = 223
+        Height = 27
+        Top = 231
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtEvenFooterLeftChange
         TabOrder = 13
         Text = '%p'
       end
       object txtEvenFooterMiddle: TEdit
+        AnchorSideLeft.Control = txtOddHeaderLeft
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkEvenFooterEnable
+        AnchorSideTop.Side = asrBottom
         Left = 236
-        Height = 25
-        Top = 223
+        Height = 27
+        Top = 231
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtEvenFooterMiddleChange
         TabOrder = 14
       end
       object txtEvenFooterRight: TEdit
+        AnchorSideLeft.Control = txtEvenFooterMiddle
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkEvenFooterEnable
+        AnchorSideTop.Side = asrBottom
         Left = 464
-        Height = 25
-        Top = 223
+        Height = 27
+        Top = 231
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         OnChange = txtEvenFooterRightChange
         TabOrder = 15
         Text = '%a'
       end
       object btnVariableHelp: TButton
+        AnchorSideTop.Control = txtEvenFooterRight
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = txtEvenFooterRight
+        AnchorSideRight.Side = asrBottom
         Left = 609
         Height = 25
-        Top = 260
+        Top = 266
         Width = 75
+        Anchors = [akTop, akRight]
+        BorderSpacing.Top = 8
         Caption = '&Help'
         OnClick = btnVariableHelpClick
         TabOrder = 16
       end
       object txtSeparator: TLabeledEdit
+        AnchorSideLeft.Control = txtOddHeaderLeft
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = txtEvenFooterMiddle
+        AnchorSideTop.Side = asrBottom
         Left = 236
-        Height = 25
-        Top = 258
+        Height = 27
+        Top = 266
         Width = 220
+        BorderSpacing.Around = 8
         EditLabel.AnchorSideTop.Control = txtSeparator
         EditLabel.AnchorSideTop.Side = asrCenter
         EditLabel.AnchorSideRight.Control = txtSeparator
         EditLabel.AnchorSideBottom.Control = txtSeparator
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 38
+        EditLabel.Left = 36
         EditLabel.Height = 17
-        EditLabel.Top = 262
-        EditLabel.Width = 195
+        EditLabel.Top = 271
+        EditLabel.Width = 192
         EditLabel.Caption = 'Separator for .SEP requests:'
         EditLabel.ParentColor = False
         LabelPosition = lpLeft
@@ -432,13 +613,16 @@ object frmPDFProfile: TfrmPDFProfile
     end
     object tabStyles: TTabSheet
       Caption = 'Styles'
-      ClientHeight = 292
-      ClientWidth = 709
+      ClientHeight = 316
+      ClientWidth = 719
       object lstStyles: TListBox
+        AnchorSideLeft.Control = tabStyles
+        AnchorSideTop.Control = tabStyles
         Left = 8
-        Height = 280
+        Height = 288
         Top = 8
         Width = 100
+        BorderSpacing.Around = 8
         Items.Strings = (
           'Text'
           'Title'
@@ -459,20 +643,29 @@ object frmPDFProfile: TfrmPDFProfile
         TabOrder = 0
       end
       object Label2: TLabel
-        Left = 124
+        AnchorSideLeft.Control = lstStyles
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = tabStyles
+        Left = 116
         Height = 17
         Top = 8
         Width = 82
+        BorderSpacing.Around = 8
         Caption = 'Font Family:'
         Enabled = False
         ParentColor = False
       end
       object cmbFontFamily: TComboBox
-        Left = 124
+        AnchorSideLeft.Control = lstStyles
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = Label2
+        AnchorSideTop.Side = asrBottom
+        Left = 116
         Height = 27
         Hint = 'Selects the font family used with this style'
-        Top = 31
+        Top = 33
         Width = 220
+        BorderSpacing.Around = 8
         Enabled = False
         ItemHeight = 0
         ItemIndex = 6
@@ -493,10 +686,15 @@ object frmPDFProfile: TfrmPDFProfile
         Text = 'Times New Roman'
       end
       object chkFontBold: TCheckBox
-        Left = 124
+        AnchorSideLeft.Control = lstStyles
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = cmbFontFamily
+        AnchorSideTop.Side = asrBottom
+        Left = 116
         Height = 24
-        Top = 69
+        Top = 68
         Width = 59
+        BorderSpacing.Around = 8
         Caption = 'Bold'
         Enabled = False
         Font.Style = [fsBold]
@@ -505,10 +703,15 @@ object frmPDFProfile: TfrmPDFProfile
         TabOrder = 2
       end
       object chkFontItalics: TCheckBox
-        Left = 196
+        AnchorSideLeft.Control = chkFontBold
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = cmbFontFamily
+        AnchorSideTop.Side = asrBottom
+        Left = 183
         Height = 24
-        Top = 69
+        Top = 68
         Width = 65
+        BorderSpacing.Around = 8
         Caption = 'Italics'
         Enabled = False
         Font.Style = [fsItalic]
@@ -517,29 +720,37 @@ object frmPDFProfile: TfrmPDFProfile
         TabOrder = 3
       end
       object chkFontCentered: TCheckBox
-        Left = 265
+        AnchorSideLeft.Control = chkFontItalics
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = cmbFontFamily
+        AnchorSideTop.Side = asrBottom
+        Left = 256
         Height = 24
-        Top = 69
+        Top = 68
         Width = 89
+        BorderSpacing.Around = 8
         Caption = 'Centered'
         Enabled = False
         OnChange = chkFontCenteredChange
         TabOrder = 4
       end
       object txtSpaceAbove: TLabeledEdit
+        AnchorSideTop.Control = chkFontBold
+        AnchorSideTop.Side = asrBottom
         Left = 332
         Height = 27
         Hint = 'Insert this much space above this paragraph.'
-        Top = 95
+        Top = 100
         Width = 50
+        BorderSpacing.Around = 8
         EditLabel.AnchorSideTop.Control = txtSpaceAbove
         EditLabel.AnchorSideTop.Side = asrCenter
         EditLabel.AnchorSideRight.Control = txtSpaceAbove
         EditLabel.AnchorSideBottom.Control = txtSpaceAbove
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 238
+        EditLabel.Left = 233
         EditLabel.Height = 17
-        EditLabel.Top = 100
+        EditLabel.Top = 105
         EditLabel.Width = 91
         EditLabel.Caption = 'Space Above:'
         EditLabel.ParentColor = False
@@ -547,46 +758,53 @@ object frmPDFProfile: TfrmPDFProfile
         LabelPosition = lpLeft
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 5
+        TabOrder = 6
         Text = '0'
         OnChange = txtSpaceAboveChange
       end
       object txtFontSize: TLabeledEdit
+        AnchorSideTop.Control = chkFontBold
+        AnchorSideTop.Side = asrBottom
         Left = 188
         Height = 27
-        Top = 95
+        Top = 100
         Width = 50
+        Anchors = [akTop]
+        BorderSpacing.Around = 8
         EditLabel.AnchorSideTop.Control = txtFontSize
         EditLabel.AnchorSideTop.Side = asrCenter
         EditLabel.AnchorSideRight.Control = txtFontSize
         EditLabel.AnchorSideBottom.Control = txtFontSize
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 119
+        EditLabel.Left = 114
         EditLabel.Height = 17
-        EditLabel.Top = 100
+        EditLabel.Top = 105
         EditLabel.Width = 66
         EditLabel.Caption = 'Font Size:'
         EditLabel.ParentColor = False
         Enabled = False
         LabelPosition = lpLeft
-        TabOrder = 6
+        TabOrder = 5
         Text = '12'
         OnChange = txtFontSizeChange
       end
       object txtSpaceBelow: TLabeledEdit
+        AnchorSideTop.Control = txtSpaceAbove
+        AnchorSideTop.Side = asrBottom
         Left = 332
         Height = 27
         Hint = 'Insert this much space below the paragraph.'
-        Top = 127
+        Top = 135
         Width = 50
+        BorderSpacing.Around = 8
         EditLabel.AnchorSideTop.Control = txtSpaceBelow
         EditLabel.AnchorSideTop.Side = asrCenter
         EditLabel.AnchorSideRight.Control = txtSpaceBelow
         EditLabel.AnchorSideBottom.Control = txtSpaceBelow
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 239
+        EditLabel.Left = 234
         EditLabel.Height = 17
-        EditLabel.Top = 132
+        EditLabel.Top = 140
         EditLabel.Width = 90
         EditLabel.Caption = 'Space Below:'
         EditLabel.ParentColor = False
@@ -603,18 +821,21 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 36
         Top = 223
         Width = 80
+        BorderSpacing.Around = 8
         Caption = 'Borders'
         Enabled = False
-        TabOrder = 8
+        TabOrder = 9
       end
       object btnBordersTop: TToggleBox
         Left = 174
         Height = 24
         Top = 199
         Width = 80
+        BorderSpacing.Around = 8
+        Color = clWhite
         Enabled = False
         OnChange = btnBordersTopChange
-        TabOrder = 9
+        TabOrder = 10
       end
       object btnBordersBottom: TToggleBox
         Tag = 1
@@ -622,9 +843,11 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 24
         Top = 259
         Width = 80
+        BorderSpacing.Around = 8
+        Color = clWhite
         Enabled = False
         OnChange = btnBordersTopChange
-        TabOrder = 10
+        TabOrder = 13
       end
       object btnBordersLeft: TToggleBox
         Tag = 2
@@ -632,6 +855,8 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 36
         Top = 223
         Width = 24
+        BorderSpacing.Around = 8
+        Color = clWhite
         Enabled = False
         OnChange = btnBordersTopChange
         TabOrder = 11
@@ -642,37 +867,54 @@ object frmPDFProfile: TfrmPDFProfile
         Height = 36
         Top = 223
         Width = 24
+        BorderSpacing.Around = 8
+        Color = clWhite
         Enabled = False
         OnChange = btnBordersTopChange
         TabOrder = 12
       end
       object chkTitlePageOneColumn: TCheckBox
-        Left = 420
+        AnchorSideLeft.Control = txtSpaceAbove
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = Label10
+        AnchorSideTop.Side = asrBottom
+        Left = 390
         Height = 24
         Hint = 'The first page of the document will be only '#10'one column, regardless of the number of '#10'columns selected.'
-        Top = 184
+        Top = 160
         Width = 230
+        BorderSpacing.Top = 8
+        BorderSpacing.Around = 8
         Caption = 'Title Page is One Column Only'
         Enabled = False
         OnChange = chkTitlePageOneColumnChange
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 13
+        TabOrder = 15
       end
       object Label9: TLabel
-        Left = 420
+        AnchorSideLeft.Control = txtSpaceBelow
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = tabStyles
+        Left = 390
         Height = 17
         Top = 8
         Width = 186
+        BorderSpacing.Around = 8
         Caption = 'Heading 1 Centering Mode:'
         Enabled = False
         ParentColor = False
       end
       object cmbH1CenterMode: TComboBox
-        Left = 420
+        AnchorSideLeft.Control = txtSpaceBelow
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = Label9
+        AnchorSideTop.Side = asrBottom
+        Left = 390
         Height = 27
-        Top = 32
+        Top = 33
         Width = 240
+        BorderSpacing.Around = 8
         Enabled = False
         ItemHeight = 0
         ItemIndex = 0
@@ -688,29 +930,40 @@ object frmPDFProfile: TfrmPDFProfile
         Text = 'Left Justify Over First Column'
       end
       object Label10: TLabel
-        Left = 420
-        Height = 102
-        Top = 71
-        Width = 264
-        AutoSize = False
+        AnchorSideLeft.Control = txtSpaceBelow
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = cmbH1CenterMode
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = tabStyles
+        AnchorSideRight.Side = asrBottom
+        Left = 390
+        Height = 68
+        Top = 76
+        Width = 321
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Top = 8
+        BorderSpacing.Around = 8
         Caption = 'Font Size, Space Reserved, Space Above, and Space Below must be entered in points, not in inches or centimeters.  There are 72 points to the inch, or 28.35 points to the centimeter.'
         ParentColor = False
         WordWrap = True
       end
       object txtSpaceReserved: TLabeledEdit
+        AnchorSideTop.Control = txtFontSize
+        AnchorSideTop.Side = asrBottom
         Left = 188
         Height = 27
         Hint = 'If there is not at least this much space '#10'remaining on the page when this header '#10'style is called, force a column break.'
-        Top = 127
+        Top = 135
         Width = 50
+        BorderSpacing.Around = 8
         EditLabel.AnchorSideTop.Control = txtSpaceReserved
         EditLabel.AnchorSideTop.Side = asrCenter
         EditLabel.AnchorSideRight.Control = txtSpaceReserved
         EditLabel.AnchorSideBottom.Control = txtSpaceReserved
         EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 118
+        EditLabel.Left = 113
         EditLabel.Height = 17
-        EditLabel.Top = 132
+        EditLabel.Top = 140
         EditLabel.Width = 67
         EditLabel.Caption = 'Reserved:'
         EditLabel.ParentColor = False
@@ -718,53 +971,77 @@ object frmPDFProfile: TfrmPDFProfile
         LabelPosition = lpLeft
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 15
+        TabOrder = 8
         Text = '0'
         OnChange = txtSpaceReservedChange
       end
       object chkCallPreconv: TCheckBox
-        Left = 420
+        AnchorSideLeft.Control = txtSpaceBelow
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = radForceFirstPage
+        AnchorSideTop.Side = asrBottom
+        Left = 390
         Height = 24
         Hint = 'When building the file, call the groff preconv pre-processor.'#10'This pre-processor converts non-ASCII characters to groff characters.'
-        Top = 263
+        Top = 259
         Width = 110
+        BorderSpacing.Top = 8
+        BorderSpacing.Around = 8
         Caption = 'Call Preconv'
         OnChange = chkCallPreconvChange
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 16
+        TabOrder = 17
       end
       object chkCallTBL: TCheckBox
-        Left = 540
+        AnchorSideLeft.Control = chkCallPreconv
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = radForceFirstPage
+        AnchorSideTop.Side = asrBottom
+        Left = 508
         Height = 24
         Hint = 'When building the file, call the groff tbl pre-processor.'#10'This pre-processor is used to construct tables.'
-        Top = 263
+        Top = 259
         Width = 80
+        BorderSpacing.Top = 8
+        BorderSpacing.Around = 8
         Caption = 'Call TBL'
         OnChange = chkCallTBLChange
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 17
+        TabOrder = 18
       end
       object chkCallEQN: TCheckBox
-        Left = 628
+        AnchorSideLeft.Control = chkCallTBL
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = radForceFirstPage
+        AnchorSideTop.Side = asrBottom
+        Left = 596
         Height = 24
         Hint = 'When building the file, call the groff eqn pre-processor.'#10'This pre-processor is used to typeset mathematical formulae.'
-        Top = 263
+        Top = 259
         Width = 86
+        BorderSpacing.Top = 8
+        BorderSpacing.Around = 8
         Caption = 'Call EQN'
         OnChange = chkCallEQNChange
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 18
+        TabOrder = 19
       end
       object radForceFirstPage: TRadioGroup
-        Left = 424
+        AnchorSideLeft.Control = txtSpaceBelow
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkTitlePageOneColumn
+        AnchorSideTop.Side = asrBottom
+        Left = 390
         Height = 43
-        Top = 209
+        Top = 200
         Width = 219
         AutoFill = True
         AutoSize = True
+        BorderSpacing.Top = 8
+        BorderSpacing.Around = 8
         Caption = 'Force First Page of Chapters'
         ChildSizing.LeftRightSpacing = 6
         ChildSizing.HorizontalSpacing = 12
@@ -783,13 +1060,13 @@ object frmPDFProfile: TfrmPDFProfile
           'Even'
         )
         OnClick = radForceFirstPageClick
-        TabOrder = 19
+        TabOrder = 16
       end
     end
     object tabParts: TTabSheet
       Caption = 'Parts'
-      ClientHeight = 292
-      ClientWidth = 709
+      ClientHeight = 316
+      ClientWidth = 719
       object Label11: TLabel
         AnchorSideLeft.Control = tabParts
         AnchorSideTop.Control = cmbTOCColumns
@@ -827,11 +1104,11 @@ object frmPDFProfile: TfrmPDFProfile
         AnchorSideLeft.Control = Label11
         AnchorSideTop.Control = cmbTOCColumns
         AnchorSideTop.Side = asrBottom
-        Left = 8
+        Left = 16
         Height = 24
         Top = 43
         Width = 196
-        BorderSpacing.Top = 8
+        BorderSpacing.Around = 8
         Caption = 'Cross-Reference Support'
         OnChange = chkCrossRefChange
         TabOrder = 1
@@ -840,11 +1117,11 @@ object frmPDFProfile: TfrmPDFProfile
         AnchorSideLeft.Control = Label11
         AnchorSideTop.Control = chkCrossRef
         AnchorSideTop.Side = asrBottom
-        Left = 8
+        Left = 16
         Height = 24
         Top = 75
         Width = 123
-        BorderSpacing.Top = 8
+        BorderSpacing.Around = 8
         Caption = 'Index Support'
         OnChange = chkIndexChange
         TabOrder = 2
@@ -854,12 +1131,12 @@ object frmPDFProfile: TfrmPDFProfile
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = chkIndex
         AnchorSideTop.Side = asrBottom
-        Left = 76
+        Left = 141
         Height = 27
         Top = 107
         Width = 56
         BorderSpacing.Left = 8
-        BorderSpacing.Top = 8
+        BorderSpacing.Around = 8
         Enabled = False
         ItemHeight = 0
         ItemIndex = 0
@@ -877,11 +1154,13 @@ object frmPDFProfile: TfrmPDFProfile
         AnchorSideLeft.Control = Label11
         AnchorSideTop.Control = cmbIndexColumns
         AnchorSideTop.Side = asrCenter
-        Left = 8
+        Left = 24
         Height = 17
         Top = 112
-        Width = 60
-        Caption = 'Columns'
+        Width = 101
+        BorderSpacing.Left = 8
+        BorderSpacing.Around = 8
+        Caption = 'Index Columns'
         Enabled = False
         ParentColor = False
       end
@@ -901,50 +1180,66 @@ object frmPDFProfile: TfrmPDFProfile
     end
   end
   object txtName: TLabeledEdit
-    Left = 120
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 136
     Height = 27
     Top = 8
     Width = 652
+    Anchors = [akTop, akRight]
+    BorderSpacing.Around = 8
     EditLabel.AnchorSideTop.Control = txtName
     EditLabel.AnchorSideTop.Side = asrCenter
     EditLabel.AnchorSideRight.Control = txtName
     EditLabel.AnchorSideBottom.Control = txtName
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 24
+    EditLabel.Left = 35
     EditLabel.Height = 17
     EditLabel.Top = 13
     EditLabel.Width = 93
     EditLabel.Caption = 'Profile Name:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
-    TabOrder = 1
+    TabOrder = 0
     OnChange = txtNameChange
   end
   object txtOutDir: TLabeledEdit
-    Left = 160
+    AnchorSideTop.Control = txtName
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = btnOutDir
+    Left = 169
     Height = 27
-    Top = 40
+    Top = 43
     Width = 584
+    Anchors = [akTop, akRight]
+    BorderSpacing.Around = 8
     EditLabel.AnchorSideTop.Control = txtOutDir
     EditLabel.AnchorSideTop.Side = asrCenter
     EditLabel.AnchorSideRight.Control = txtOutDir
     EditLabel.AnchorSideBottom.Control = txtOutDir
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 32
+    EditLabel.Left = 36
     EditLabel.Height = 17
-    EditLabel.Top = 45
+    EditLabel.Top = 48
     EditLabel.Width = 125
     EditLabel.Caption = 'Output Directory: '
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
-    TabOrder = 2
+    TabOrder = 1
     OnChange = txtOutDirChange
   end
   object btnOutDir: TBitBtn
-    Left = 744
+    AnchorSideTop.Control = txtName
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 761
     Height = 27
-    Top = 40
+    Top = 43
     Width = 27
+    Anchors = [akTop, akRight]
+    BorderSpacing.Around = 8
     Glyph.Data = {
       9E020000424D9E0200000000000036000000280000000E0000000B0000000100
       2000000000006802000064000000640000000000000000000000B9D8F3003B90
@@ -970,13 +1265,19 @@ object frmPDFProfile: TfrmPDFProfile
       DF00
     }
     OnClick = btnOutDirClick
-    TabOrder = 3
+    TabOrder = 2
   end
   object btnClose: TButton
-    Left = 704
+    AnchorSideTop.Control = pgPDF
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 713
     Height = 26
-    Top = 374
+    Top = 406
     Width = 75
+    Anchors = [akTop, akRight]
+    BorderSpacing.Around = 8
     Caption = 'Close'
     ModalResult = 1
     OnClick = btnCloseClick
@@ -984,6 +1285,6 @@ object frmPDFProfile: TfrmPDFProfile
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
     left = 56
-    top = 368
+    top = 400
   end
 end

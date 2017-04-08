@@ -1624,10 +1624,6 @@ begin
     writeln (x, '.LP');
     writeln (x, '.EH ' + ExpandHeader (EvenHeader));
     writeln (x, '.OH ' + ExpandHeader (OddHeader));
-    if ((Columns > 1) and (H1Mode in [0, 2])) then
-    	writeln (x, '.MC ', colwidth:0:3, 'p 36p')
-    else
-      writeln (x, '.1C');
     writeln (x, '.bp');
     if (ForceFirstPage = 1) then begin
       writeln (x, '.if e');
@@ -1640,6 +1636,12 @@ begin
       writeln (x, '.bp');
       writeln (x, '..');
     end;
+
+    //Columns for Header 1 - bugfix 08 April 2017
+    if ((Columns > 1) and (H1Mode in [0, 2])) then
+    	writeln (x, '.MC ', colwidth:0:3, 'p 36p')
+    else
+      writeln (x, '.1C');
 
     cfilename := Chapters.Current.Filename;
     if (FileExists (pathname + '/' + cfilename + '.co')) then begin
