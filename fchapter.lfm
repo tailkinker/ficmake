@@ -1,114 +1,83 @@
 object frmChapter: TfrmChapter
-  Left = 242
-  Height = 400
-  Top = 141
+  Left = 238
+  Height = 440
+  Top = 100
   Width = 780
-  ClientHeight = 400
+  ClientHeight = 440
   ClientWidth = 780
-  Constraints.MinHeight = 400
+  Constraints.MinHeight = 440
   Constraints.MinWidth = 780
   OnClose = FormClose
   OnCreate = FormCreate
-  OnResize = FormResize
-  LCLVersion = '1.4.0.4'
+  LCLVersion = '1.6.0.4'
   object Label1: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
     Left = 8
     Height = 17
     Top = 8
-    Width = 64
+    Width = 62
+    BorderSpacing.Around = 8
     Caption = 'Chapters'
     ParentColor = False
   end
   object lstChapters: TListBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Label1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideBottom.Control = btnAddChapter
     Left = 8
-    Height = 80
-    Top = 32
-    Width = 100
+    Height = 355
+    Top = 33
+    Width = 400
+    Anchors = [akTop, akLeft, akBottom]
+    BorderSpacing.Around = 8
     ItemHeight = 0
     OnClick = lstChaptersClick
     OnDblClick = lstChaptersDblClick
     OnKeyPress = lstChaptersKeyPress
-    ScrollWidth = 96
+    ScrollWidth = 398
     TabOrder = 0
     TopIndex = -1
   end
-  object txtTitle: TLabeledEdit
-    Left = 424
-    Height = 25
-    Top = 32
-    Width = 80
-    EditLabel.AnchorSideLeft.Control = txtTitle
-    EditLabel.AnchorSideRight.Control = txtTitle
-    EditLabel.AnchorSideRight.Side = asrBottom
-    EditLabel.AnchorSideBottom.Control = txtTitle
-    EditLabel.Left = 424
-    EditLabel.Height = 17
-    EditLabel.Top = 12
-    EditLabel.Width = 80
-    EditLabel.Caption = 'Chapter Title'
-    EditLabel.ParentColor = False
-    TabOrder = 1
-    OnChange = txtTitleChange
-  end
-  object txtSubtitle: TLabeledEdit
-    Left = 424
-    Height = 25
-    Top = 88
-    Width = 80
-    EditLabel.AnchorSideLeft.Control = txtSubtitle
-    EditLabel.AnchorSideRight.Control = txtSubtitle
-    EditLabel.AnchorSideRight.Side = asrBottom
-    EditLabel.AnchorSideBottom.Control = txtSubtitle
-    EditLabel.Left = 424
-    EditLabel.Height = 17
-    EditLabel.Top = 68
-    EditLabel.Width = 80
-    EditLabel.Caption = 'Subtitle'
-    EditLabel.ParentColor = False
-    TabOrder = 2
-    OnChange = txtSubtitleChange
-  end
-  object txtFilename: TLabeledEdit
-    Left = 424
-    Height = 25
-    Top = 144
-    Width = 232
-    EditLabel.AnchorSideLeft.Control = txtFilename
-    EditLabel.AnchorSideRight.Control = txtFilename
-    EditLabel.AnchorSideRight.Side = asrBottom
-    EditLabel.AnchorSideBottom.Control = txtFilename
-    EditLabel.Left = 424
-    EditLabel.Height = 17
-    EditLabel.Top = 124
-    EditLabel.Width = 232
-    EditLabel.Caption = 'Filename (without extensions)'
-    EditLabel.ParentColor = False
-    TabOrder = 3
-    OnChange = txtFilenameChange
-  end
   object chkIsABook: TCheckBox
-    Left = 488
-    Height = 21
-    Top = 184
-    Width = 225
+    AnchorSideLeft.Control = btnChapterUp
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = txtFileName
+    AnchorSideTop.Side = asrBottom
+    Left = 484
+    Height = 24
+    Top = 188
+    Width = 229
+    BorderSpacing.Around = 8
     Caption = 'This Chapter is a Book Divider'
     OnChange = chkIsABookChange
-    TabOrder = 4
+    TabOrder = 1
   end
   object chkSubtitleFirst: TCheckBox
-    Left = 488
-    Height = 21
-    Top = 216
+    AnchorSideLeft.Control = btnChapterUp
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = chkIsABook
+    AnchorSideTop.Side = asrBottom
+    Left = 484
+    Height = 24
+    Top = 220
     Width = 197
+    BorderSpacing.Around = 8
     Caption = 'Place Subtitle above Title'
     OnChange = chkSubtitleFirstChange
-    TabOrder = 5
+    TabOrder = 2
   end
   object btnAddChapter: TBitBtn
+    AnchorSideLeft.Control = Owner
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
     Left = 8
     Height = 36
-    Top = 320
+    Top = 396
     Width = 60
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Around = 8
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
       2000000000000010000064000000640000000000000000000000FFFFFF00FFFF
@@ -242,13 +211,21 @@ object frmChapter: TfrmChapter
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
     OnClick = btnAddChapterClick
-    TabOrder = 6
+    TabOrder = 3
   end
   object btnDeleteChapter: TBitBtn
-    Left = 184
+    AnchorSideLeft.Control = btnSaveChapters
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideRight.Control = lstChapters
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 144
     Height = 36
-    Top = 320
+    Top = 396
     Width = 60
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Around = 8
     Enabled = False
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
@@ -383,13 +360,19 @@ object frmChapter: TfrmChapter
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
     OnClick = btnDeleteChapterClick
-    TabOrder = 7
+    TabOrder = 4
   end
   object btnSaveChapters: TBitBtn
-    Left = 96
+    AnchorSideLeft.Control = btnAddChapter
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 76
     Height = 36
-    Top = 320
+    Top = 396
     Width = 60
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Around = 8
     Enabled = False
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
@@ -524,31 +507,51 @@ object frmChapter: TfrmChapter
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
     OnClick = btnSaveChaptersClick
-    TabOrder = 8
+    TabOrder = 5
   end
   object btnBuild: TButton
-    Left = 424
-    Height = 32
-    Top = 320
-    Width = 200
-    Caption = 'Build Story'
-    OnClick = btnBuildClick
-    TabOrder = 9
-  end
-  object btnMake: TButton
-    Left = 424
+    AnchorSideLeft.Control = lstChapters
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = btnMake
+    Left = 416
     Height = 32
     Top = 360
-    Width = 200
+    Width = 356
+    Anchors = [akLeft, akRight, akBottom]
+    BorderSpacing.Around = 8
+    Caption = 'Build Story'
+    OnClick = btnBuildClick
+    TabOrder = 6
+  end
+  object btnMake: TButton
+    AnchorSideLeft.Control = lstChapters
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 416
+    Height = 32
+    Top = 400
+    Width = 356
+    Anchors = [akLeft, akRight, akBottom]
+    BorderSpacing.Around = 8
     Caption = 'Make'
     OnClick = btnMakeClick
-    TabOrder = 10
+    TabOrder = 7
   end
   object btnChapterUp: TBitBtn
-    Left = 424
+    AnchorSideLeft.Control = lstChapters
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = txtFileName
+    AnchorSideTop.Side = asrBottom
+    Left = 416
     Height = 36
-    Top = 184
+    Top = 188
     Width = 60
+    BorderSpacing.Around = 8
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
       2000000000000010000064000000640000000000000000000000FFFFFF00FFFF
@@ -682,13 +685,18 @@ object frmChapter: TfrmChapter
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
     OnClick = btnChapterUpClick
-    TabOrder = 11
+    TabOrder = 8
   end
   object btnChapterDown: TBitBtn
-    Left = 424
+    AnchorSideLeft.Control = lstChapters
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = btnChapterUp
+    AnchorSideTop.Side = asrBottom
+    Left = 416
     Height = 36
     Top = 232
     Width = 60
+    BorderSpacing.Around = 8
     Glyph.Data = {
       36100000424D3610000000000000360000002800000020000000200000000100
       2000000000000010000064000000640000000000000000000000FFFFFF00FFFF
@@ -822,25 +830,136 @@ object frmChapter: TfrmChapter
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
     }
     OnClick = btnChapterDownClick
-    TabOrder = 12
+    TabOrder = 9
   end
   object chkNoTitle: TCheckBox
-    AnchorSideLeft.Control = chkSubtitleFirst
-    Left = 488
-    Height = 21
-    Top = 248
-    Width = 188
+    AnchorSideLeft.Control = btnChapterDown
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = chkSubtitleFirst
+    AnchorSideTop.Side = asrBottom
+    Left = 484
+    Height = 24
+    Top = 252
+    Width = 187
+    BorderSpacing.Around = 8
     Caption = 'Suppress Chapter Titles'
     OnChange = chkNoTitleChange
-    TabOrder = 13
+    TabOrder = 10
   end
   object btnStoryProfiles: TButton
-    Left = 424
-    Height = 32
-    Top = 288
+    AnchorSideLeft.Control = btnDeleteChapter
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideRight.Control = btnChapterUp
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Left = 212
+    Height = 36
+    Top = 396
     Width = 200
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Around = 8
     Caption = 'Story Profiles'
     OnClick = btnStoryProfilesClick
+    TabOrder = 11
+  end
+  object txtTitle: TEdit
+    AnchorSideLeft.Control = lstChapters
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = labTitle
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 416
+    Height = 27
+    Top = 33
+    Width = 356
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 8
+    OnChange = txtTitleChange
+    TabOrder = 12
+  end
+  object labTitle: TLabel
+    AnchorSideLeft.Control = lstChapters
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = Owner
+    Left = 416
+    Height = 17
+    Top = 8
+    Width = 30
+    BorderSpacing.Around = 8
+    Caption = 'Title'
+    ParentColor = False
+  end
+  object txtSubtitle: TEdit
+    AnchorSideLeft.Control = lstChapters
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = labSubtitle
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 416
+    Height = 27
+    Top = 93
+    Width = 356
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 8
+    OnChange = txtSubtitleChange
+    TabOrder = 13
+  end
+  object labSubtitle: TLabel
+    AnchorSideLeft.Control = lstChapters
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = txtTitle
+    AnchorSideTop.Side = asrBottom
+    Left = 416
+    Height = 17
+    Top = 68
+    Width = 54
+    BorderSpacing.Around = 8
+    Caption = 'Subtitle'
+    ParentColor = False
+  end
+  object txtFileName: TEdit
+    AnchorSideLeft.Control = lstChapters
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = labFileName
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 416
+    Height = 27
+    Top = 153
+    Width = 356
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 8
+    OnChange = txtFilenameChange
     TabOrder = 14
+  end
+  object labFileName: TLabel
+    AnchorSideLeft.Control = lstChapters
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = txtSubtitle
+    AnchorSideTop.Side = asrBottom
+    Left = 416
+    Height = 17
+    Top = 128
+    Width = 213
+    BorderSpacing.Around = 8
+    Caption = 'File Name (without extensions)'
+    ParentColor = False
+  end
+  object chkIsIndex: TCheckBox
+    AnchorSideLeft.Control = btnChapterDown
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = chkNoTitle
+    AnchorSideTop.Side = asrBottom
+    Left = 484
+    Height = 24
+    Top = 284
+    Width = 193
+    BorderSpacing.Around = 8
+    Caption = 'This Chapter is the Index'
+    OnChange = chkIsIndexChange
+    TabOrder = 15
   end
 end

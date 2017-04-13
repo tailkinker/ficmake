@@ -40,14 +40,18 @@ type
     btnBuild: TButton;
     btnMake: TButton;
     btnStoryProfiles: TButton;
+    chkIsIndex: TCheckBox;
     chkNoTitle: TCheckBox;
     chkIsABook : TCheckBox;
     chkSubtitleFirst : TCheckBox;
+    labFileName: TLabel;
+    txtFileName: TEdit;
+    labSubtitle: TLabel;
+    txtSubtitle: TEdit;
+    labTitle: TLabel;
+    txtTitle: TEdit;
     Label1 : TLabel;
     lstChapters : TListBox;
-    txtFilename : TLabeledEdit;
-    txtSubtitle : TLabeledEdit;
-    txtTitle : TLabeledEdit;
     procedure btnAddChapterClick (Sender : TObject );
     procedure btnBuildClick(Sender: TObject);
     procedure btnChapterDownClick(Sender: TObject);
@@ -57,6 +61,7 @@ type
     procedure btnSaveChaptersClick (Sender : TObject );
     procedure btnStoryProfilesClick(Sender: TObject);
     procedure chkIsABookChange(Sender: TObject);
+    procedure chkIsIndexChange(Sender: TObject);
     procedure chkNoTitleChange(Sender: TObject);
     procedure chkSubtitleFirstChange(Sender: TObject);
     procedure FormClose (Sender : TObject; var CloseAction : TCloseAction );
@@ -221,6 +226,12 @@ begin
     Chapters.Current.IsABook := chkIsABook.Checked;
 end;
 
+procedure TfrmChapter.chkIsIndexChange(Sender: TObject);
+begin
+  if (chkIsIndex.Enabled) then
+    Chapters.Current.IsIndex := chkIsIndex.Checked;
+end;
+
 procedure TfrmChapter.chkNoTitleChange(Sender: TObject);
 begin
   if (chkNoTitle.Enabled) then
@@ -301,6 +312,7 @@ begin
       chkIsABook.Enabled := FALSE;
       chkSubtitleFirst.Enabled := FALSE;
       chkNoTitle.Enabled := FALSE;
+      chkIsIndex.Enabled := FALSE;
 
       if (Chapters.Current <> nil) then begin
         // Load Controls
@@ -310,6 +322,7 @@ begin
         chkIsABook.Checked := Chapters.Current.IsABook;
         chkSubtitleFirst.Checked := Chapters.Current.SubtitleFirst;
         chkNoTitle.Checked := Chapters.Current.SuppressTitle;
+        chkIsIndex.Checked := Chapters.Current.IsIndex;
 
         // Enable Controls
         txtTitle.Enabled := TRUE;
@@ -318,6 +331,7 @@ begin
         chkIsABook.Enabled := TRUE;
         chkSubtitleFirst.Enabled := TRUE;
         chkNoTitle.Enabled := TRUE;
+        chkIsIndex.Enabled := TRUE;
       end;
     end;
   end;

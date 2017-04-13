@@ -30,9 +30,10 @@ type
   tChapter = class (tObject)
     private
       t_strings : array [0..2] of string;
-      t_book : boolean;
+      t_book,
       t_subfirst,
-      t_notitle : boolean;
+      t_notitle,
+      t_isindex : boolean;
       procedure SetString (index : integer; aData : string);
       function GetString (index : integer) : string;
     public
@@ -42,6 +43,7 @@ type
       property IsABook : boolean read t_book write t_book;
       property SubtitleFirst : boolean read t_subfirst write t_subfirst;
       property SuppressTitle : boolean read t_notitle write t_notitle;
+      property IsIndex : boolean read t_isindex write t_isindex;
       procedure Load (var t : text);
       procedure Save (var t : text);
   end;
@@ -138,6 +140,8 @@ begin
       end else if (k = 'Subtitle First') then begin
         if not (Upcase (v) = 'FALSE') then
           SubtitleFirst := TRUE
+      end else if (k = 'Is Index') then begin
+        IsIndex := TRUE
       end else if (k = 'Suppress Title') then
         SuppressTitle := TRUE;
     end;
@@ -157,6 +161,8 @@ begin
     writeln (t, 'Subtitle First');
   if (SuppressTitle) then
     writeln (t, 'Suppress Title');
+  if (IsIndex) then
+    writeln (t, 'Is Index');
   writeln (t, '[end]');
 end;
 

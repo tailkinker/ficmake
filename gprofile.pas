@@ -1184,6 +1184,7 @@ begin
 		if (UseIndex) then begin
       writeln (x, '.open INDEX ', ofilename, '.idx');
 		  writeln (x, '.write INDEX ".de IDXP');
+		  writeln (x, '.write INDEX ".br');
     end;
 	  writeln (x, '..');
     writeln (x, '.de XREFSTOP');
@@ -1200,21 +1201,19 @@ begin
       writeln (x, '.write INDEX .if ''\\\\\\\\$1''\\$1''\\\\\\\\$2', #9, '\\n[%]');
 	  writeln (x, '..');
   end;
+  {
 	if (UseIndex) then begin
 	  writeln (x, '.de IDX');
   	writeln (x, '.write INDEX .if ''\\\\\\\\$1''\\$1''\\\\\\\\$2', #9, '\\n[%]');
 	  writeln (x, '..');
   end;
+  }
   if (CrossReference OR UseIndex) then
     writeln (x, '.XREFSTART ', ofilename);
   if (UseIndex) then begin
     writeln (x, '.de INDEXSTOP ..');
     writeln (x, '.write INDEX "..');
     writeln (x, '.close INDEX');
-    writeln (x, '.MC ', indcolwidth:0:3, 'p 36p');
-    writeln (x, '.LP');
-    writeln (x, '.ta ', indcolwidth:0:3, 'pR');
-    writeln (x, '.tc .');
     writeln (x, '...');
   end;
   writeln (x, '.eo');
@@ -1541,6 +1540,7 @@ begin
 
 
   // Title Page
+  writeln (x, '.tc');
 	if (Columns > 1) then
 	  if not (OneColumnTitlePage) then
       writeln (x, '.MC ', colwidth:0:3, 'p 36p');
@@ -1620,6 +1620,9 @@ begin
 
   for indx := 0 to (Chapters.Count - 1) do begin
   	Chapters.SelectAt (indx);
+    if ((Chapters.Current.IsIndex) and (UseIndex = FALSE)) then
+      frmLog.txtLog.Lines.Add
+        ('WARNING:  Index Chapter found and no Index created');
 
     writeln (x, '.LP');
     writeln (x, '.EH ' + ExpandHeader (EvenHeader));
@@ -1661,7 +1664,14 @@ begin
           writeln (x, '.H3 "', Chapters.Current.Subtitle, '"');
       end;
 
-    if ((Columns > 1) and (H1Mode in [1, 3])) then
+    if ((UseIndex) and (Chapters.Current.IsIndex)) then begin
+      if ((IndexColumns > 1) and (H1Mode in [1, 3])) then
+        writeln (x, '.MC ', indcolwidth:0:3, 'p 36p');
+        writeln (x, '.INDEXSTOP');
+        writeln (x, '.LP');
+        writeln (x, '.ta ', indcolwidth:0:3, 'pR');
+        writeln (x, '.tc .');
+    end else if ((Columns > 1) and (H1Mode in [1, 3])) then
       writeln (x, '.MC ', colwidth:0:3, 'p 36p');
 
     writeln (x, '.EH ' + ExpandHeader (EvenHeader));
