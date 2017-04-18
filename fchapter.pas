@@ -332,6 +332,7 @@ begin
         chkSubtitleFirst.Enabled := TRUE;
         chkNoTitle.Enabled := TRUE;
         chkIsIndex.Enabled := TRUE;
+        btnDeleteChapter.Enabled := TRUE;
       end;
     end;
   end;
