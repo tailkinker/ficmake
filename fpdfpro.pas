@@ -36,11 +36,12 @@ type
     btnOutDir : TBitBtn;
     btnVariableHelp: TButton;
     btnClose: TButton;
+    chkCallHDTBL: TCheckBox;
+    chkCallEQN: TCheckBox;
+    chkCallPreconv: TCheckBox;
+    chkCallTBL: TCheckBox;
     chkIndex: TCheckBox;
     chkCrossRef: TCheckBox;
-    chkCallEQN: TCheckBox;
-    chkCallTBL: TCheckBox;
-    chkCallPreconv: TCheckBox;
     chkPDFMark: TCheckBox;
     chkTitlePageOneColumn: TCheckBox;
     chkFontCentered: TCheckBox;
@@ -119,6 +120,7 @@ type
     procedure btnOutDirClick(Sender: TObject);
     procedure btnVariableHelpClick(Sender: TObject);
     procedure chkCallEQNChange(Sender: TObject);
+    procedure chkCallHDTBLChange(Sender: TObject);
     procedure chkCallPreconvChange(Sender: TObject);
     procedure chkCallTBLChange(Sender: TObject);
     procedure chkCrossRefChange(Sender: TObject);
@@ -394,6 +396,7 @@ begin
   chkCallPreconv.Checked := aProfile.UsePreconv;
   chkCallTBL.Checked := aProfile.UseTBL;
   chkCallEQN.Checked := aProfile.UseEQN;
+  chkCallHDTBL.Checked := aProfile.UseHDTBL;
   chkPDFMark.Checked := aProfile.UsePDFMark;
   ChangePaperSize;
 end;
@@ -436,6 +439,12 @@ begin
   Profile.UseEQN := chkCallEQN.Checked;
 end;
 
+procedure TfrmPDFProfile.chkCallHDTBLChange(Sender: TObject);
+begin
+  If (chkCallHDTBL.Enabled) then
+    Profile.UseHDTBL := chkCallHDTBL.Checked;
+end;
+
 procedure TfrmPDFProfile.chkCallPreconvChange(Sender: TObject);
 begin
   Profile.UsePreconv := chkCallPreconv.Checked;
@@ -443,7 +452,8 @@ end;
 
 procedure TfrmPDFProfile.chkCallTBLChange(Sender: TObject);
 begin
-  Profile.UseTBL := chkCallTBL.Checked;
+  If (chkCallTBL.Enabled) then
+    Profile.UseTBL := chkCallTBL.Checked;
 end;
 
 procedure TfrmPDFProfile.chkCrossRefChange(Sender: TObject);

@@ -107,7 +107,7 @@ type
       t_toccol,
       t_indcol,
       t_H1Mode : byte;
-      t_flags : array [0..6] of boolean;
+      t_flags : array [0..7] of boolean;
       procedure SetMargin (index : integer; value : longint);
       function GetMargin (index : integer) : longint;
       procedure SetFlag (index : integer; aflag : boolean);
@@ -140,6 +140,7 @@ type
       property CrossReference     : boolean index 4 read GetFlag write SetFlag;
       property UseIndex           : boolean index 5 read GetFlag write SetFlag;
       property UsePDFMark         : boolean index 6 read GetFlag write SetFlag;
+      property UseHDTBL           : boolean index 7 read GetFlag write SetFlag;
       constructor Create; override;
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
@@ -827,6 +828,8 @@ begin
         Usetbl := true
       else if (k = 'Use PDFMark') then
         UsePDFMark := true
+      else if (k = 'Use HDTBL') then
+        UseHDTBL := true
     end;
   until Done;
 end;
@@ -932,6 +935,8 @@ begin
     writeln (t, 'Call tbl');
   if (UsePDFMark) then
     writeln (t, 'Use PDFMark');
+  if (UseHDTBL) then
+    writeln (t, 'Use HDTBL');
   writeln (t, '[end]');
   writeln (t);
 end;
@@ -1137,6 +1142,10 @@ begin
   // Create Output File
   assign (x, filename);
   rewrite (x);
+
+  // Calling HDTBL must be done early
+  if (UseHDTBL) then
+    writeln (x, '.mso hdtbl.tmac');
 
   // Page Dimensions
   writeln (x, '.hlm 0');
@@ -1354,9 +1363,9 @@ begin
     if (GroffFonts [5].Borders [2]) then
       write (x, '| ');
     if (GroffFonts [5].Centered) then
-      write (x, 'cx')
+      write (x, 'cx r')
     else
-      write (x, 'lx');
+      write (x, 'lx r');
     if (GroffFonts [5].Borders [3]) then
       write (x, ' |');
     writeln (x, '.');
@@ -1369,9 +1378,16 @@ begin
     writeln (x, '.TE');
   end else begin
     if (GroffFonts [5].Centered) then
-	    writeln (x, '.ce');
+	    write (x, '.tl ~~')
+    else
+      write (x, '.tl ~');
     write (x, X_Fonts [GroffFonts [5].Font]);
-    writeln (x, '\$1\fR');
+    write (x, '\$1\fR');
+    if (GroffFonts [5].Centered) then
+	    write (x, '.tl ~')
+    else
+      write (x, '.tl ~~');
+    writeln (x, '~');
   end;
   writeln (x, '.sp ', GroffFonts [5].SpaceBelow, 'p');
   writeln (x, '.write TOC .br');
@@ -1398,9 +1414,9 @@ begin
     if (GroffFonts [6].Borders [2]) then
       write (x, '| ');
     if (GroffFonts [6].Centered) then
-      write (x, 'cx')
+      write (x, 'cx r')
     else
-      write (x, 'lx');
+      write (x, 'lx r');
     if (GroffFonts [6].Borders [3]) then
       write (x, ' |');
     writeln (x, '.');
@@ -1413,9 +1429,16 @@ begin
     writeln (x, '.TE');
   end else begin
     if (GroffFonts [6].Centered) then
-	    writeln (x, '.ce');
+	    write (x, '.tl ~~')
+    else
+      write (x, '.tl ~');
     write (x, X_Fonts [GroffFonts [6].Font]);
-    writeln (x, '\$1\fR');
+    write (x, '\$1\fR');
+    if (GroffFonts [6].Centered) then
+	    write (x, '.tl ~')
+    else
+      write (x, '.tl ~~');
+    writeln (x, '~');
   end;
   writeln (x, '.sp ', GroffFonts [6].SpaceBelow, 'p');
   writeln (x, '...');
@@ -1434,9 +1457,9 @@ begin
     if (GroffFonts [7].Borders [2]) then
       write (x, '| ');
     if (GroffFonts [7].Centered) then
-      write (x, 'cx')
+      write (x, 'cx r')
     else
-      write (x, 'lx');
+      write (x, 'lx r');
     if (GroffFonts [7].Borders [3]) then
       write (x, ' |');
     writeln (x, '.');
@@ -1448,10 +1471,17 @@ begin
       writeln (x, '_');
     writeln (x, '.TE');
   end else begin
-	  if (GroffFonts [7].Centered) then
-		  writeln (x, '.ce');
+    if (GroffFonts [7].Centered) then
+	    write (x, '.tl ~~')
+    else
+      write (x, '.tl ~');
     write (x, X_Fonts [GroffFonts [7].Font]);
-    writeln (x, '\$1\fR');
+    write (x, '\$1\fR');
+    if (GroffFonts [7].Centered) then
+	    write (x, '.tl ~')
+    else
+      write (x, '.tl ~~');
+    writeln (x, '~');
   end;
   writeln (x, '.sp ', GroffFonts [7].SpaceBelow, 'p');
   writeln (x, '...');
@@ -1470,9 +1500,9 @@ begin
     if (GroffFonts [8].Borders [2]) then
       write (x, '| ');
     if (GroffFonts [8].Centered) then
-      write (x, 'cx')
+      write (x, 'cx r')
     else
-      write (x, 'lx');
+      write (x, 'lx r');
     if (GroffFonts [8].Borders [3]) then
       write (x, ' |');
     writeln (x, '.');
@@ -1484,10 +1514,17 @@ begin
       writeln (x, '_');
     writeln (x, '.TE');
   end else begin
-	  if (GroffFonts [8].Centered) then
-		  writeln (x, '.ce');
+    if (GroffFonts [8].Centered) then
+	    write (x, '.tl ~~')
+    else
+      write (x, '.tl ~');
     write (x, X_Fonts [GroffFonts [8].Font]);
-    writeln (x, '\$1\fR');
+    write (x, '\$1\fR');
+    if (GroffFonts [8].Centered) then
+	    write (x, '.tl ~')
+    else
+      write (x, '.tl ~~');
+    writeln (x, '~');
   end;
   writeln (x, '.sp ', GroffFonts [8].SpaceBelow, 'p');
   writeln (x, '...');

@@ -1,7 +1,7 @@
 object frmPDFProfile: TfrmPDFProfile
-  Left = 206
+  Left = 226
   Height = 439
-  Top = 105
+  Top = 128
   Width = 796
   AutoSize = True
   BorderStyle = bsDialog
@@ -18,9 +18,9 @@ object frmPDFProfile: TfrmPDFProfile
     Height = 320
     Top = 78
     Width = 790
-    ActivePage = tabContent
+    ActivePage = tabParts
     BorderSpacing.Around = 8
-    TabIndex = 1
+    TabIndex = 3
     TabOrder = 3
     TabPosition = tpLeft
     object tabPage: TTabSheet
@@ -975,60 +975,6 @@ object frmPDFProfile: TfrmPDFProfile
         Text = '0'
         OnChange = txtSpaceReservedChange
       end
-      object chkCallPreconv: TCheckBox
-        AnchorSideLeft.Control = txtSpaceBelow
-        AnchorSideLeft.Side = asrBottom
-        AnchorSideTop.Control = radForceFirstPage
-        AnchorSideTop.Side = asrBottom
-        Left = 390
-        Height = 24
-        Hint = 'When building the file, call the groff preconv pre-processor.'#10'This pre-processor converts non-ASCII characters to groff characters.'
-        Top = 259
-        Width = 110
-        BorderSpacing.Top = 8
-        BorderSpacing.Around = 8
-        Caption = 'Call Preconv'
-        OnChange = chkCallPreconvChange
-        ParentShowHint = False
-        ShowHint = True
-        TabOrder = 17
-      end
-      object chkCallTBL: TCheckBox
-        AnchorSideLeft.Control = chkCallPreconv
-        AnchorSideLeft.Side = asrBottom
-        AnchorSideTop.Control = radForceFirstPage
-        AnchorSideTop.Side = asrBottom
-        Left = 508
-        Height = 24
-        Hint = 'When building the file, call the groff tbl pre-processor.'#10'This pre-processor is used to construct tables.'
-        Top = 259
-        Width = 80
-        BorderSpacing.Top = 8
-        BorderSpacing.Around = 8
-        Caption = 'Call TBL'
-        OnChange = chkCallTBLChange
-        ParentShowHint = False
-        ShowHint = True
-        TabOrder = 18
-      end
-      object chkCallEQN: TCheckBox
-        AnchorSideLeft.Control = chkCallTBL
-        AnchorSideLeft.Side = asrBottom
-        AnchorSideTop.Control = radForceFirstPage
-        AnchorSideTop.Side = asrBottom
-        Left = 596
-        Height = 24
-        Hint = 'When building the file, call the groff eqn pre-processor.'#10'This pre-processor is used to typeset mathematical formulae.'
-        Top = 259
-        Width = 86
-        BorderSpacing.Top = 8
-        BorderSpacing.Around = 8
-        Caption = 'Call EQN'
-        OnChange = chkCallEQNChange
-        ParentShowHint = False
-        ShowHint = True
-        TabOrder = 19
-      end
       object radForceFirstPage: TRadioGroup
         AnchorSideLeft.Control = txtSpaceBelow
         AnchorSideLeft.Side = asrBottom
@@ -1176,6 +1122,71 @@ object frmPDFProfile: TfrmPDFProfile
         Caption = 'Enable PDF Bookmarks'
         OnChange = chkPDFMarkChange
         TabOrder = 4
+      end
+      object chkCallEQN: TCheckBox
+        AnchorSideLeft.Control = cmbTOCColumns
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkCallHDTBL
+        AnchorSideTop.Side = asrBottom
+        Left = 263
+        Height = 24
+        Hint = 'When building the file, call the groff eqn pre-processor.'#10'This pre-processor is used to typeset mathematical formulae.'
+        Top = 136
+        Width = 86
+        BorderSpacing.Around = 8
+        Caption = 'Call EQN'
+        OnChange = chkCallEQNChange
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 5
+      end
+      object chkCallTBL: TCheckBox
+        AnchorSideLeft.Control = cmbTOCColumns
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkCallPreconv
+        AnchorSideTop.Side = asrBottom
+        Left = 263
+        Height = 24
+        Hint = 'When building the file, call the groff tbl pre-processor.'#10'This pre-processor is used to construct tables.'
+        Top = 72
+        Width = 80
+        BorderSpacing.Around = 8
+        Caption = 'Call TBL'
+        OnChange = chkCallTBLChange
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 6
+      end
+      object chkCallPreconv: TCheckBox
+        AnchorSideLeft.Control = cmbTOCColumns
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkPDFMark
+        AnchorSideTop.Side = asrBottom
+        Left = 263
+        Height = 24
+        Hint = 'When building the file, call the groff preconv pre-processor.'#10'This pre-processor converts non-ASCII characters to groff characters.'
+        Top = 40
+        Width = 110
+        BorderSpacing.Around = 8
+        Caption = 'Call Preconv'
+        OnChange = chkCallPreconvChange
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 7
+      end
+      object chkCallHDTBL: TCheckBox
+        AnchorSideLeft.Control = cmbTOCColumns
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = chkCallTBL
+        AnchorSideTop.Side = asrBottom
+        Left = 263
+        Height = 24
+        Top = 104
+        Width = 102
+        BorderSpacing.Around = 8
+        Caption = 'Call HDTBL'
+        OnChange = chkCallHDTBLChange
+        TabOrder = 8
       end
     end
   end
