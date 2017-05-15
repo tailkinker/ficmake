@@ -81,12 +81,14 @@ type
       t_name : string;
       t_output : string;
       t_preconv : boolean;
+      t_hdtbl : boolean;
       t_separator : string;
     public
       class function ProfileType : integer; virtual;
       property Name : string read t_name write t_name;
       property OutputDir : string read t_output write t_output;
       property UsePreconv : boolean read t_preconv write t_preconv;
+      property UseHDTBL : boolean read t_hdtbl write t_hdtbl;
       property Separator : string read t_separator write t_separator;
       constructor Create; virtual;
       procedure Load (var t : text); virtual;
@@ -107,7 +109,7 @@ type
       t_toccol,
       t_indcol,
       t_H1Mode : byte;
-      t_flags : array [0..7] of boolean;
+      t_flags : array [0..6] of boolean;
       procedure SetMargin (index : integer; value : longint);
       function GetMargin (index : integer) : longint;
       procedure SetFlag (index : integer; aflag : boolean);
@@ -140,7 +142,6 @@ type
       property CrossReference     : boolean index 4 read GetFlag write SetFlag;
       property UseIndex           : boolean index 5 read GetFlag write SetFlag;
       property UsePDFMark         : boolean index 6 read GetFlag write SetFlag;
-      property UseHDTBL           : boolean index 7 read GetFlag write SetFlag;
       constructor Create; override;
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
@@ -353,6 +354,7 @@ begin
   Useeqn := false;
   Usepreconv := false;
   Usetbl := false;
+  UseHDTBL := false;
   CrossReference := false;
   UseIndex := false;
   UsePDFMark := false;
@@ -1766,7 +1768,7 @@ begin
   Separator := '* * * * *';
   OutputDir := '';
   Usepreconv := false;
-
+  UseHDTBL := false;
   {
   // Font 0 - Plain Text
   GroffFonts [0].Family := 6; // Times New Roman
@@ -2025,6 +2027,8 @@ begin
       // Groff stuff
       else if (k = 'Call preconv') then
         Usepreconv := true
+      else if (k = 'Call HDTBL') then
+        UseHDTBL := true
     end;
   until Done;
 end;
@@ -2079,10 +2083,11 @@ begin
   if (BackLinkText <> '') then
     writeln (t, 'Back Link Text = ', BackLinkText);
 
-
   // Groff Options
   if (Usepreconv) then
     writeln (t, 'Call preconv');
+  if (UseHDTBL) then
+    writeln (t, 'Call HDTBL');
 
   writeln (t, '[end]');
   writeln (t);
@@ -2123,6 +2128,8 @@ end;
 
 procedure tHTMLProfile.WriteTopSo (var x : text);
 begin
+  if (UseHDTBL) then
+    writeln (x, '.mso hdtbl.tmac');
   writeln (x, '.hlm 0');
   writeln (x, '.HTML <body style="font-family: verdana, sans-serif">');
   writeln (x, '.de H0');
@@ -2579,6 +2586,7 @@ begin
   OutputDir := '';
   Usepreconv := false;
   Usetbl := false;
+  UseHDTBL := false;
 
   BulkText := FALSE;
   FFMLCompliant := FALSE;
@@ -2645,6 +2653,8 @@ begin
         Usepreconv := true
       else if (k = 'Call tbl') then
         Usetbl := true
+      else if (k = 'Call HDTBL') then
+        UseHDTBL := true
 
     end;
   until Done;
@@ -2667,6 +2677,8 @@ begin
     writeln (t, 'Call preconv');
   if (usetbl) then
     writeln (t, 'Call tbl');
+  if (UseHDTBL) then
+    writeln (t, 'Call HDTBL');
 
   writeln (t, '[end]');
   writeln (t);
@@ -2740,6 +2752,9 @@ begin
   assign (x, filename);
   rewrite (x);
 
+  // HDTBL
+  if (UseHDTBL) then
+    writeln (x, '.mso hdtbl.tmac');
   // Page Dimensions
   writeln (x, '.hlm 0');
   writeln (x, '.open TOC ', ofilename, '.toc');
@@ -3251,7 +3266,7 @@ begin
   Separator := '* * * * *';
   OutputDir := '';
   Usepreconv := false;
-
+  UseHDTBL := false;
   BlurbInEPub := false;
   EPubSeries := '';
 end;
@@ -3305,6 +3320,8 @@ begin
       // Groff stuff
       else if (k = 'Call preconv') then
         Usepreconv := true
+      else if (k = 'Call HDTBL') then
+        useHDTBL := true
     end;
   until Done;
 end;
@@ -3324,7 +3341,8 @@ begin
   // Groff Options
   if (Usepreconv) then
     writeln (t, 'Call preconv');
-
+  if (UseHDTBL) then
+    writeln (t, 'Call HDTBL');
   writeln (t, '[end]');
   writeln (t);
 end;
@@ -3357,6 +3375,8 @@ end;
 
 procedure tEPubProfile.WriteTopSo (var x : text);
 begin
+  if (UseHDTBL) then
+    writeln (x, '.mso hdtbl.tmac');
   writeln (x, '.de H0');
   writeln (x, '.LP');
   writeln (x, '\fB\\$1\fR');

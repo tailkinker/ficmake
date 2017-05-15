@@ -35,6 +35,7 @@ type
   TfrmHTMLProfile = class(TForm)
     btnClose: TButton;
     btnOutDir: TBitBtn;
+    chkCallHDTBL: TCheckBox;
     chkUsePreconv: TCheckBox;
     chkBulkHTML: TCheckBox;
     chkSingleLineBooks: TCheckBox;
@@ -53,6 +54,7 @@ type
     procedure btnOutDirClick(Sender: TObject);
     procedure chkBookFilesInIndexChange(Sender: TObject);
     procedure chkBulkHTMLChange(Sender: TObject);
+    procedure chkCallHDTBLChange(Sender: TObject);
     procedure chkDisclaimerInChapterChange(Sender: TObject);
     procedure chkDisclaimerInIndexChange(Sender: TObject);
     procedure chkIsFFNetChange(Sender: TObject);
@@ -161,6 +163,12 @@ end;
 procedure TfrmHTMLProfile.chkBulkHTMLChange(Sender: TObject);
 begin
   Profile.BulkHTML := chkBulkHTML.Checked;
+  AdjustVisibility;
+end;
+
+procedure TfrmHTMLProfile.chkCallHDTBLChange(Sender: TObject);
+begin
+  Profile.UseHDTBL := chkCallHDTBL.Checked;
   AdjustVisibility;
 end;
 
