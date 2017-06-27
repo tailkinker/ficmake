@@ -113,13 +113,13 @@ object frmHTMLProfile: TfrmHTMLProfile
   end
   object txtBackLink: TLabeledEdit
     AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = txtBackLinkText
     AnchorSideTop.Side = asrBottom
     AnchorSideBottom.Control = btnClose
     Left = 8
     Height = 27
-    Top = 396
+    Top = 352
     Width = 764
-    Anchors = [akLeft, akBottom]
     BorderSpacing.Around = 8
     EditLabel.AnchorSideLeft.Control = txtBackLink
     EditLabel.AnchorSideRight.Control = txtBackLink
@@ -127,7 +127,7 @@ object frmHTMLProfile: TfrmHTMLProfile
     EditLabel.AnchorSideBottom.Control = txtBackLink
     EditLabel.Left = 8
     EditLabel.Height = 17
-    EditLabel.Top = 371
+    EditLabel.Top = 327
     EditLabel.Width = 764
     EditLabel.Caption = 'Link from index file to previous level'
     EditLabel.ParentColor = False
@@ -136,14 +136,13 @@ object frmHTMLProfile: TfrmHTMLProfile
   end
   object txtBackLinkText: TLabeledEdit
     AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = txtOutDir
+    AnchorSideTop.Control = txtSeparator
     AnchorSideTop.Side = asrBottom
     AnchorSideBottom.Control = txtBackLink
     Left = 8
     Height = 27
-    Top = 337
+    Top = 293
     Width = 764
-    Anchors = [akLeft, akBottom]
     BorderSpacing.Bottom = 24
     BorderSpacing.Around = 8
     EditLabel.AnchorSideLeft.Control = txtBackLinkText
@@ -152,7 +151,7 @@ object frmHTMLProfile: TfrmHTMLProfile
     EditLabel.AnchorSideBottom.Control = txtBackLinkText
     EditLabel.Left = 8
     EditLabel.Height = 17
-    EditLabel.Top = 312
+    EditLabel.Top = 268
     EditLabel.Width = 764
     EditLabel.Caption = 'Text for link from index file to previous level'
     EditLabel.ParentColor = False
@@ -241,15 +240,17 @@ object frmHTMLProfile: TfrmHTMLProfile
     TabOrder = 11
   end
   object btnClose: TButton
+    AnchorSideTop.Control = txtBackLink
+    AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
     Left = 692
     Height = 32
-    Top = 431
+    Top = 387
     Width = 80
-    Anchors = [akRight, akBottom]
+    Anchors = [akTop, akRight]
     BorderSpacing.Around = 8
     Caption = 'Close'
     ModalResult = 1
@@ -271,14 +272,16 @@ object frmHTMLProfile: TfrmHTMLProfile
     TabOrder = 13
   end
   object txtSeparator: TLabeledEdit
+    AnchorSideTop.Control = chkUsePreconv
+    AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = txtBackLinkText
     Left = 552
     Height = 27
-    Top = 282
+    Top = 238
     Width = 220
-    Anchors = [akRight, akBottom]
+    Anchors = [akTop, akRight]
     BorderSpacing.Bottom = 20
     BorderSpacing.Around = 8
     EditLabel.AnchorSideTop.Control = txtSeparator
@@ -288,7 +291,7 @@ object frmHTMLProfile: TfrmHTMLProfile
     EditLabel.AnchorSideBottom.Side = asrBottom
     EditLabel.Left = 352
     EditLabel.Height = 17
-    EditLabel.Top = 287
+    EditLabel.Top = 243
     EditLabel.Width = 192
     EditLabel.Caption = 'Separator for .SEP requests:'
     EditLabel.ParentColor = False
