@@ -34,6 +34,7 @@ type
 
   TfrmEditor = class(TForm)
     MainMenu1: TMainMenu;
+    mnuFileSaveNoBuild: TMenuItem;
     mnuFileOpen: TMenuItem;
     mnuMakeOnSave: TMenuItem;
     mnuFileClose: TMenuItem;
@@ -66,6 +67,7 @@ type
     procedure mnuFileDeleteClick(Sender: TObject);
     procedure mnuFileOpenClick(Sender: TObject);
     procedure mnuFileSaveClick(Sender: TObject);
+    procedure mnuFileSaveNoBuildClick(Sender: TObject);
     procedure mnuFormatBoldClick(Sender: TObject);
     procedure mnuFormatItalicsClick(Sender: TObject);
     procedure mnuMakeOnSaveClick(Sender: TObject);
@@ -291,6 +293,16 @@ end;
 procedure TfrmEditor.mnuFileSaveClick(Sender: TObject);
 begin
   SaveCurrentEdit;
+end;
+
+procedure TfrmEditor.mnuFileSaveNoBuildClick(Sender: TObject);
+var
+  Store : BOOLEAN;
+begin
+  Store := mnuMakeOnSave.Checked;
+  mnuMakeOnSave.Checked := FALSE;
+  SaveCurrentEdit;
+  mnuMakeOnSave.Checked := Store;
 end;
 
 procedure TfrmEditor.mnuFormatBoldClick(Sender: TObject);

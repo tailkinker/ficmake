@@ -1361,7 +1361,7 @@ begin
     	writeln (x, '.pdfhref O 2 \$1');
   if (UsesBorders) then begin
   	writeln (x, '.TS');
-    writeln (x, ';');
+    writeln (x, 'tab(|);');
     if (GroffFonts [5].Borders [2]) then
       write (x, '| ');
     if (GroffFonts [5].Centered) then
@@ -1374,7 +1374,7 @@ begin
     if (GroffFonts [5].Borders [0]) then
     	writeln (x, '_');
     write (x, X_Fonts [GroffFonts [5].Font]);
-    writeln (x, '\$1');
+    writeln (x, '\$1|\$2');
     if (GroffFonts [5].Borders [1]) then
     	writeln (x, '_');
     writeln (x, '.TE');
@@ -1389,7 +1389,7 @@ begin
 	    write (x, '.tl ~')
     else
       write (x, '.tl ~~');
-    writeln (x, '~');
+    writeln (x, '\$2~');
   end;
   writeln (x, '.sp ', GroffFonts [5].SpaceBelow, 'p');
   writeln (x, '.write TOC .br');
@@ -1412,7 +1412,7 @@ begin
       writeln (x, '.pdfhref O 3 \$1');
   if (UsesBorders) then begin
   	writeln (x, '.TS');
-    writeln (x, ';');
+    writeln (x, 'tab(|);');
     if (GroffFonts [6].Borders [2]) then
       write (x, '| ');
     if (GroffFonts [6].Centered) then
@@ -1425,7 +1425,7 @@ begin
     if (GroffFonts [6].Borders [0]) then
     	writeln (x, '_');
     write (x, X_Fonts [GroffFonts [6].Font]);
-    writeln (x, '\$1');
+    writeln (x, '\$1|\$2');
     if (GroffFonts [6].Borders [1]) then
     	writeln (x, '_');
     writeln (x, '.TE');
@@ -1440,7 +1440,7 @@ begin
 	    write (x, '.tl ~')
     else
       write (x, '.tl ~~');
-    writeln (x, '~');
+    writeln (x, '\$2~');
   end;
   writeln (x, '.sp ', GroffFonts [6].SpaceBelow, 'p');
   writeln (x, '...');
@@ -1455,7 +1455,7 @@ begin
   writeln (x, '.vs ', GroffFonts [7].size + 2);
   if (UsesBorders) then begin
     writeln (x, '.TS');
-    writeln (x, ';');
+    writeln (x, 'tab(|);');
     if (GroffFonts [7].Borders [2]) then
       write (x, '| ');
     if (GroffFonts [7].Centered) then
@@ -1468,7 +1468,7 @@ begin
     if (GroffFonts [7].Borders [0]) then
       writeln (x, '_');
     write (x, X_Fonts [GroffFonts [7].Font]);
-	  writeln (x, '\$1');
+	  writeln (x, '\$1|\$2');
     if (GroffFonts [7].Borders [1]) then
       writeln (x, '_');
     writeln (x, '.TE');
@@ -1483,7 +1483,7 @@ begin
 	    write (x, '.tl ~')
     else
       write (x, '.tl ~~');
-    writeln (x, '~');
+    writeln (x, '\$2~');
   end;
   writeln (x, '.sp ', GroffFonts [7].SpaceBelow, 'p');
   writeln (x, '...');
@@ -1498,7 +1498,7 @@ begin
   writeln (x, '.vs ', GroffFonts [8].size + 2);
   if (UsesBorders) then begin
     writeln (x, '.TS');
-    writeln (x, ';');
+    writeln (x, 'tab(|);');
     if (GroffFonts [8].Borders [2]) then
       write (x, '| ');
     if (GroffFonts [8].Centered) then
@@ -1511,7 +1511,7 @@ begin
     if (GroffFonts [8].Borders [0]) then
       writeln (x, '_');
     write (x, X_Fonts [GroffFonts [8].Font]);
-	  writeln (x, '\$1');
+	  writeln (x, '\$1|\$2');
     if (GroffFonts [8].Borders [1]) then
       writeln (x, '_');
     writeln (x, '.TE');
@@ -1526,7 +1526,7 @@ begin
 	    write (x, '.tl ~')
     else
       write (x, '.tl ~~');
-    writeln (x, '~');
+    writeln (x, '\$2~');
   end;
   writeln (x, '.sp ', GroffFonts [8].SpaceBelow, 'p');
   writeln (x, '...');
