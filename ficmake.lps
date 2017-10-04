@@ -26,13 +26,14 @@
       <Unit2>
         <Filename Value="gprofile.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="26"/>
-        <TopLine Value="1529"/>
-        <CursorPos X="21" Y="1529"/>
+        <TopLine Value="1663"/>
+        <CursorPos X="61" Y="1670"/>
         <UsageCount Value="214"/>
         <Bookmarks Count="2">
           <Item0 X="50" Y="1659" ID="1"/>
-          <Item1 Y="1716"/>
+          <Item1 Y="1721"/>
         </Bookmarks>
         <Loaded Value="True"/>
       </Unit2>
@@ -143,7 +144,7 @@
       <Unit14>
         <Filename Value="dgroff.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="67"/>
+        <TopLine Value="45"/>
         <CursorPos Y="87"/>
         <UsageCount Value="322"/>
         <Loaded Value="True"/>
@@ -166,7 +167,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="18"/>
-        <TopLine Value="445"/>
+        <TopLine Value="399"/>
         <CursorPos X="45" Y="399"/>
         <UsageCount Value="239"/>
         <Loaded Value="True"/>
@@ -266,13 +267,11 @@
         <ComponentName Value="frmEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="298"/>
+        <TopLine Value="299"/>
         <CursorPos X="36" Y="305"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit26>
       <Unit27>
         <Filename Value="gmake.pas"/>
@@ -321,7 +320,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="19"/>
+        <TopLine Value="16"/>
         <CursorPos Y="20"/>
         <UsageCount Value="206"/>
         <Loaded Value="True"/>

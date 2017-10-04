@@ -1664,8 +1664,13 @@ begin
         ('WARNING:  Index Chapter found and no Index created');
 
     writeln (x, '.LP');
+    writeln (x, '.EH ****');
+    writeln (x, '.OH ****');
+    {
+    Suppress headers on first page - changed 04 October 2017
     writeln (x, '.EH ' + ExpandHeader (EvenHeader));
     writeln (x, '.OH ' + ExpandHeader (OddHeader));
+    }
     writeln (x, '.bp');
     if (ForceFirstPage = 1) then begin
       writeln (x, '.if e');
