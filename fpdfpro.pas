@@ -33,47 +33,73 @@ type
   { TfrmPDFProfile }
 
   TfrmPDFProfile = class (TForm )
+    btnBordersBottom: TToggleBox;
+    btnBordersLeft: TToggleBox;
+    btnBordersRight: TToggleBox;
+    btnBordersTop: TToggleBox;
     btnOutDir : TBitBtn;
     btnVariableHelp: TButton;
     btnClose: TButton;
+    chkSuppressHeaders: TCheckBox;
     chkCallHDTBL: TCheckBox;
     chkCallEQN: TCheckBox;
     chkCallPreconv: TCheckBox;
     chkCallTBL: TCheckBox;
-    chkIndex: TCheckBox;
-    chkCrossRef: TCheckBox;
-    chkPDFMark: TCheckBox;
-    chkTitlePageOneColumn: TCheckBox;
+    chkFontBold: TCheckBox;
     chkFontCentered: TCheckBox;
     chkFontItalics: TCheckBox;
-    chkFontBold: TCheckBox;
+    chkIndex: TCheckBox;
+    chkCrossRef: TCheckBox;
+    chkLandscape: TCheckBox;
+    chkPDFMark: TCheckBox;
+    chkTitlePageOneColumn: TCheckBox;
     chkEvenFooterEnable: TCheckBox;
     chkOddFooterEnable: TCheckBox;
     chkEvenHeaderEnable: TCheckBox;
     chkOddHeaderEnable: TCheckBox;
-    chkLandscape : TCheckBox;
-    cmbColumns : TComboBox;
-    cmbPageSize : TComboBox;
-    cmbPageSizeUnits : TComboBox;
+    cmbColumns: TComboBox;
     cmbFontFamily: TComboBox;
     cmbH1CenterMode: TComboBox;
+    cmbPageSize: TComboBox;
+    cmbPageSizeUnits: TComboBox;
     cmbTOCColumns: TComboBox;
     cmbIndexColumns: TComboBox;
+    Panel1: TPanel;
+    txtSpaceBelow: TEdit;
+    labSpaceBelow: TLabel;
+    txtSpaceAbove: TEdit;
+    labSpaceAbove: TLabel;
+    txtSpaceReserved: TEdit;
+    labSpaceReserved: TLabel;
+    txtFontSize: TEdit;
+    GroupBox2: TGroupBox;
+    labFontSize: TLabel;
+    Label2: TLabel;
+    txtOutDir: TEdit;
+    labOutDir: TLabel;
+    txtName: TEdit;
+    GroupBox1: TGroupBox;
+    labBottomMargin: TLabel;
+    labColumns: TLabel;
+    labName: TLabel;
     Label10: TLabel;
     Label11: TLabel;
     labIndexColumns: TLabel;
     Label9: TLabel;
+    labInsideMargin: TLabel;
+    labOutsideMargin: TLabel;
+    labPageSize: TLabel;
+    labTopMargin: TLabel;
+    labUnits: TLabel;
+    labX: TLabel;
     radForceFirstPage: TRadioGroup;
     tabParts: TTabSheet;
+    txtBottomMargin: TEdit;
+    txtInsideMargin: TEdit;
+    txtOutsideMargin: TEdit;
+    txtPDFHeight: TEdit;
+    txtPDFWidth: TEdit;
     txtSeparator: TLabeledEdit;
-    Panel1: TPanel;
-    btnBordersTop: TToggleBox;
-    btnBordersBottom: TToggleBox;
-    btnBordersLeft: TToggleBox;
-    btnBordersRight: TToggleBox;
-    txtFontSize: TLabeledEdit;
-    txtSpaceAbove: TLabeledEdit;
-    Label2: TLabel;
     lstStyles: TListBox;
     txtOddHeaderLeft: TEdit;
     txtEvenFooterLeft: TEdit;
@@ -87,14 +113,6 @@ type
     txtOddFooterLeft: TEdit;
     txtOddFooterMiddle: TEdit;
     txtOddFooterRight: TEdit;
-    labX : TLabel;
-    labUnits : TLabel;
-    labColumns : TLabel;
-    labOutsideMargin : TLabel;
-    labInsideMargin : TLabel;
-    labTopMargin : TLabel;
-    labBottomMargin : TLabel;
-    labPageSize : TLabel;
     pgPDF : TPageControl;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     sBackground : TShape;
@@ -105,16 +123,7 @@ type
     tabContent : TTabSheet;
     tabPage : TTabSheet;
     tabStyles : TTabSheet;
-    txtBottomMargin : TEdit;
-    txtInsideMargin : TEdit;
-    txtName : TLabeledEdit;
-    txtOutDir : TLabeledEdit;
-    txtOutsideMargin : TEdit;
-    txtPDFHeight : TEdit;
-    txtPDFWidth : TEdit;
-    txtSpaceBelow: TLabeledEdit;
-    txtSpaceReserved: TLabeledEdit;
-    txtTopMargin : TEdit;
+    txtTopMargin: TEdit;
     procedure btnBordersTopChange(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
     procedure btnOutDirClick(Sender: TObject);
@@ -134,6 +143,7 @@ type
     procedure chkOddFooterEnableChange(Sender: TObject);
     procedure chkOddHeaderEnableChange(Sender: TObject);
     procedure chkPDFMarkChange(Sender: TObject);
+    procedure chkSuppressHeadersChange(Sender: TObject);
     procedure chkTitlePageOneColumnChange(Sender: TObject);
     procedure cmbColumnsChange(Sender: TObject);
     procedure cmbFontFamilyChange(Sender: TObject);
@@ -143,6 +153,7 @@ type
     procedure cmbPageSizeUnitsChange(Sender: TObject);
     procedure cmbTOCColumnsChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
     procedure lstStylesClick(Sender: TObject);
     procedure radForceFirstPageClick(Sender: TObject);
     procedure txtBottomMarginChange(Sender: TObject);
@@ -199,6 +210,29 @@ begin
   Left := (Screen.Width - Width) div 2;
   Top := (Screen.Height - Height) div 2;
   pgPDF.ActivePage := tabPage;
+end;
+
+procedure TfrmPDFProfile.FormResize(Sender: TObject);
+var
+  WidthVal : integer;
+begin
+  WidthVal := (tabContent.Width - 32) div 3;
+
+  txtOddHeaderLeft.Width := WidthVal;
+  txtOddHeaderMiddle.Width := WidthVal;
+  txtOddHeaderRight.Width := WidthVal;
+
+  txtEvenHeaderLeft.Width := WidthVal;
+  txtEvenHeaderMiddle.Width := WidthVal;
+  txtEvenHeaderRight.Width := WidthVal;
+
+  txtEvenFooterLeft.Width := WidthVal;
+  txtEvenFooterMiddle.Width := WidthVal;
+  txtEvenFooterRight.Width := WidthVal;
+
+  txtOddFooterLeft.Width := WidthVal;
+  txtOddFooterMiddle.Width := WidthVal;
+  txtOddFooterRight.Width := WidthVal;
 end;
 
 procedure TfrmPDFProfile.lstStylesClick(Sender: TObject);
@@ -386,6 +420,7 @@ begin
     chkTitlePageOneColumn.Enabled := TRUE;
 
   // Other Crap
+  chkSuppressHeaders.Checked := aProfile.SuppressHeader;
   cmbToCColumns.ItemIndex := aProfile.ToCColumns - 1;
   chkCrossRef.Checked := aProfile.CrossReference;
   chkIndex.Checked := aProfile.UseIndex;
@@ -532,6 +567,11 @@ end;
 procedure TfrmPDFProfile.chkPDFMarkChange(Sender: TObject);
 begin
   Profile.UsePDFMark := chkPDFMark.Checked;
+end;
+
+procedure TfrmPDFProfile.chkSuppressHeadersChange(Sender: TObject);
+begin
+  Profile.SuppressHeader := chkSuppressHeaders.Checked;
 end;
 
 procedure TfrmPDFProfile.chkTitlePageOneColumnChange(Sender: TObject);

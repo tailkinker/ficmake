@@ -1,7 +1,7 @@
 object frmChapter: TfrmChapter
-  Left = 238
+  Left = 175
   Height = 440
-  Top = 100
+  Top = 517
   Width = 780
   ClientHeight = 440
   ClientWidth = 780
@@ -14,9 +14,9 @@ object frmChapter: TfrmChapter
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     Left = 8
-    Height = 17
+    Height = 20
     Top = 8
-    Width = 62
+    Width = 75
     BorderSpacing.Around = 8
     Caption = 'Chapters'
     ParentColor = False
@@ -27,8 +27,8 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     AnchorSideBottom.Control = btnAddChapter
     Left = 8
-    Height = 355
-    Top = 33
+    Height = 352
+    Top = 36
     Width = 400
     Anchors = [akTop, akLeft, akBottom]
     BorderSpacing.Around = 8
@@ -36,7 +36,7 @@ object frmChapter: TfrmChapter
     OnClick = lstChaptersClick
     OnDblClick = lstChaptersDblClick
     OnKeyPress = lstChaptersKeyPress
-    ScrollWidth = 398
+    ScrollWidth = 396
     TabOrder = 0
     TopIndex = -1
   end
@@ -47,8 +47,8 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 484
     Height = 24
-    Top = 188
-    Width = 229
+    Top = 200
+    Width = 274
     BorderSpacing.Around = 8
     Caption = 'This Chapter is a Book Divider'
     OnChange = chkIsABookChange
@@ -61,8 +61,8 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 484
     Height = 24
-    Top = 220
-    Width = 197
+    Top = 232
+    Width = 233
     BorderSpacing.Around = 8
     Caption = 'Place Subtitle above Title'
     OnChange = chkSubtitleFirstChange
@@ -549,7 +549,7 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 416
     Height = 36
-    Top = 188
+    Top = 200
     Width = 60
     BorderSpacing.Around = 8
     Glyph.Data = {
@@ -694,7 +694,7 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 416
     Height = 36
-    Top = 232
+    Top = 244
     Width = 60
     BorderSpacing.Around = 8
     Glyph.Data = {
@@ -839,8 +839,8 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 484
     Height = 24
-    Top = 252
-    Width = 187
+    Top = 264
+    Width = 219
     BorderSpacing.Around = 8
     Caption = 'Suppress Chapter Titles'
     OnChange = chkNoTitleChange
@@ -855,8 +855,8 @@ object frmChapter: TfrmChapter
     Left = 212
     Height = 36
     Top = 396
-    Width = 200
-    Anchors = [akLeft, akBottom]
+    Width = 196
+    Anchors = [akLeft, akRight, akBottom]
     BorderSpacing.Around = 8
     Caption = 'Story Profiles'
     OnClick = btnStoryProfilesClick
@@ -870,8 +870,8 @@ object frmChapter: TfrmChapter
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     Left = 416
-    Height = 27
-    Top = 33
+    Height = 28
+    Top = 36
     Width = 356
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 8
@@ -883,9 +883,9 @@ object frmChapter: TfrmChapter
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = Owner
     Left = 416
-    Height = 17
+    Height = 20
     Top = 8
-    Width = 30
+    Width = 36
     BorderSpacing.Around = 8
     Caption = 'Title'
     ParentColor = False
@@ -898,8 +898,8 @@ object frmChapter: TfrmChapter
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     Left = 416
-    Height = 27
-    Top = 93
+    Height = 28
+    Top = 100
     Width = 356
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 8
@@ -912,9 +912,9 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Control = txtTitle
     AnchorSideTop.Side = asrBottom
     Left = 416
-    Height = 17
-    Top = 68
-    Width = 54
+    Height = 20
+    Top = 72
+    Width = 66
     BorderSpacing.Around = 8
     Caption = 'Subtitle'
     ParentColor = False
@@ -927,8 +927,8 @@ object frmChapter: TfrmChapter
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     Left = 416
-    Height = 27
-    Top = 153
+    Height = 28
+    Top = 164
     Width = 356
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 8
@@ -941,9 +941,9 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Control = txtSubtitle
     AnchorSideTop.Side = asrBottom
     Left = 416
-    Height = 17
-    Top = 128
-    Width = 213
+    Height = 20
+    Top = 136
+    Width = 264
     BorderSpacing.Around = 8
     Caption = 'File Name (without extensions)'
     ParentColor = False
@@ -955,8 +955,8 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 484
     Height = 24
-    Top = 284
-    Width = 193
+    Top = 296
+    Width = 232
     BorderSpacing.Around = 8
     Caption = 'This Chapter is the Index'
     OnChange = chkIsIndexChange

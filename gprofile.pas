@@ -109,7 +109,7 @@ type
       t_toccol,
       t_indcol,
       t_H1Mode : byte;
-      t_flags : array [0..6] of boolean;
+      t_flags : array [0..7] of boolean;
       procedure SetMargin (index : integer; value : longint);
       function GetMargin (index : integer) : longint;
       procedure SetFlag (index : integer; aflag : boolean);
@@ -142,6 +142,7 @@ type
       property CrossReference     : boolean index 4 read GetFlag write SetFlag;
       property UseIndex           : boolean index 5 read GetFlag write SetFlag;
       property UsePDFMark         : boolean index 6 read GetFlag write SetFlag;
+      property SuppressHeader     : boolean index 7 read GetFlag write SetFlag;
       constructor Create; override;
       procedure Load (var t : text); override;
       procedure Save (var t : text); override;
@@ -490,6 +491,7 @@ begin
   PageV := 792000;
   Columns := 1;
   OneColumnTitlePage := FALSE;
+  SuppressHeader := FALSE;
 
   OuterMargin := 36000; // in 1/1000 pt.
   InnerMargin := 72000;
@@ -807,6 +809,8 @@ begin
         end;
       end else if (k = 'One Column Title Page') then
         OneColumnTitlePage := TRUE
+      else if (k = 'Suppress Headers') then
+        SuppressHeader := TRUE
 
       // ToC/Index
   		else if (k = 'ToC Columns') then begin
@@ -890,6 +894,8 @@ begin
   end;
   if (OneColumnTitlePage) then
     writeln (t, 'One Column Title Page');
+  if (SuppressHeader) then
+    writeln (t, 'Suppress Headers');
 
   write (t, 'Odd Header = ');
   if (OddHeader.Enabled) then
@@ -982,6 +988,7 @@ begin
   dup.IndexColumns := IndexColumns;
   dup.ToCColumns := ToCColumns;
   dup.UsePDFMark := UsePDFMark;
+  dup.SuppressHeader := SuppressHeader;
   Duplicate := dup;
 end;
 
@@ -1664,13 +1671,17 @@ begin
         ('WARNING:  Index Chapter found and no Index created');
 
     writeln (x, '.LP');
-    writeln (x, '.EH ****');
-    writeln (x, '.OH ****');
     {
     Suppress headers on first page - changed 04 October 2017
-    writeln (x, '.EH ' + ExpandHeader (EvenHeader));
-    writeln (x, '.OH ' + ExpandHeader (OddHeader));
     }
+    if (SuppressHeader) then begin
+      writeln (x, '.EH ****');
+      writeln (x, '.OH ****');
+    end else begin
+      writeln (x, '.EH ' + ExpandHeader (EvenHeader));
+      writeln (x, '.OH ' + ExpandHeader (OddHeader));
+    end;
+
     writeln (x, '.bp');
     if (ForceFirstPage = 1) then begin
       writeln (x, '.if e');
