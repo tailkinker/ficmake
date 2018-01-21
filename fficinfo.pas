@@ -115,7 +115,7 @@ begin
     else begin
       ModalResult := mrOk;
       Close
-    end;
+    end
   end else
     Application.MessageBox
       ('Cannot save a story with an invalid source directory.',

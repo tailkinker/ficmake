@@ -1,7 +1,7 @@
 object frmStory: TfrmStory
-  Left = 242
+  Left = 236
   Height = 400
-  Top = 93
+  Top = 495
   Width = 780
   ClientHeight = 400
   ClientWidth = 780
@@ -10,12 +10,12 @@ object frmStory: TfrmStory
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.4.0.4'
+  LCLVersion = '1.6.0.4'
   object Label1: TLabel
     Left = 8
-    Height = 17
+    Height = 19
     Top = 8
-    Width = 48
+    Width = 57
     Caption = 'Stories'
     ParentColor = False
   end
@@ -28,14 +28,14 @@ object frmStory: TfrmStory
     OnClick = lstStoriesClick
     OnDblClick = lstStoriesDblClick
     OnKeyPress = lstStoriesKeyPress
-    ScrollWidth = 96
+    ScrollWidth = 98
     Sorted = True
     TabOrder = 0
     TopIndex = -1
   end
   object txtTitle: TLabeledEdit
     Left = 616
-    Height = 25
+    Height = 29
     Top = 32
     Width = 80
     EditLabel.AnchorSideLeft.Control = txtTitle
@@ -43,8 +43,8 @@ object frmStory: TfrmStory
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtTitle
     EditLabel.Left = 616
-    EditLabel.Height = 17
-    EditLabel.Top = 12
+    EditLabel.Height = 19
+    EditLabel.Top = 10
     EditLabel.Width = 80
     EditLabel.Caption = 'Title:'
     EditLabel.ParentColor = False
@@ -60,7 +60,7 @@ object frmStory: TfrmStory
     OnClick = lstProfilesClick
     OnDblClick = lstProfilesDblClick
     OnKeyPress = lstProfilesKeyPress
-    ScrollWidth = 96
+    ScrollWidth = 98
     TabOrder = 2
     TopIndex = -1
   end
@@ -558,9 +558,9 @@ object frmStory: TfrmStory
   end
   object labProfiles: TLabel
     Left = 616
-    Height = 17
+    Height = 19
     Top = 72
-    Width = 108
+    Width = 127
     Caption = 'Volume Profiles'
     ParentColor = False
   end

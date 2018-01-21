@@ -1,17 +1,17 @@
 object frmNewChapter: TfrmNewChapter
-  Left = 1019
+  Left = 476
   Height = 104
-  Top = 458
+  Top = 309
   Width = 480
   BorderStyle = bsDialog
   Caption = 'Create New Chapter'
   ClientHeight = 104
   ClientWidth = 480
   OnCreate = FormCreate
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.6.0.4'
   object txtName: TLabeledEdit
     Left = 8
-    Height = 27
+    Height = 29
     Top = 32
     Width = 464
     EditLabel.AnchorSideLeft.Control = txtName
@@ -19,8 +19,8 @@ object frmNewChapter: TfrmNewChapter
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtName
     EditLabel.Left = 8
-    EditLabel.Height = 20
-    EditLabel.Top = 9
+    EditLabel.Height = 19
+    EditLabel.Top = 10
     EditLabel.Width = 464
     EditLabel.Caption = 'New Chapter Title'
     EditLabel.ParentColor = False

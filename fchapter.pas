@@ -347,7 +347,8 @@ var
   Present : boolean;
 begin
   if (Chapters.Current <> nil) then begin
-    FormCaption := 'Chapter "' + Chapters.Current.Title + '"';
+    FormCaption := 'Chapter "' + Chapters.Current.Title + '" - '
+      + Chapters.Current.Filename;
     index := 0;
     Present := false;
     repeat

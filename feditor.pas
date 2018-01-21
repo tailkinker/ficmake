@@ -110,13 +110,15 @@ procedure TfrmEditor.SetDirty (aDirty : boolean);
 var
   s : string;
 begin
-  t_dirty := aDirty;
-  s := Caption;
-  if (copy (s, 1, 1) = '*') then
-    delete (s, 1, 1);
-  if (aDirty = TRUE) then
-    s := '*' + s;
-  Caption := s
+  if not Dirty then begin
+    t_dirty := aDirty;
+    s := Caption;
+    if (copy (s, 1, 1) = '*') then
+      delete (s, 1, 1);
+    if (aDirty = TRUE) then
+      s := '*' + s;
+    Caption := s
+  end;
 end;
 
 procedure TfrmEditor.SetBaseDir (aDir : string);
@@ -267,7 +269,8 @@ begin
     3 : CurrentFileName += '.om';
     4 : CurrentFileName += '.an';
   end;
-  if (Application.MessageBox ('Delete this story portion?  This cannot be undone!',
+  if (Application.MessageBox (
+    'Delete this story portion?  This cannot be undone!',
     'Delete Portion', MB_ICONQUESTION + MB_YESNO) = IDYES) then begin
       DeleteFile (CurrentFileName);
       txtEditor.Lines.Clear;

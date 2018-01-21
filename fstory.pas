@@ -536,7 +536,8 @@ var
   index : integer;
   Present : boolean;
 begin
-	FormCaption := 'Story "' + Stories.Current.Title + '"';
+	FormCaption := 'Story "' + Stories.Current.Title + '" - ' +
+    Stories.Current.SourceDir;
   index := 0;
   Present := false;
   repeat

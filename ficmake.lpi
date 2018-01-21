@@ -119,6 +119,7 @@
         <Filename Value="fnewchap.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmNewChapter"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit13>
       <Unit14>
