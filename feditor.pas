@@ -110,15 +110,13 @@ procedure TfrmEditor.SetDirty (aDirty : boolean);
 var
   s : string;
 begin
-  if not Dirty then begin
-    t_dirty := aDirty;
-    s := Caption;
-    if (copy (s, 1, 1) = '*') then
-      delete (s, 1, 1);
-    if (aDirty = TRUE) then
-      s := '*' + s;
-    Caption := s
-  end;
+  t_dirty := aDirty;
+  s := Caption;
+  if (copy (s, 1, 1) = '*') then
+    delete (s, 1, 1);
+  if (aDirty = TRUE) then
+    s := '*' + s;
+  Caption := s
 end;
 
 procedure TfrmEditor.SetBaseDir (aDir : string);

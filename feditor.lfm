@@ -1,10 +1,10 @@
 object frmEditor: TfrmEditor
-  Left = 242
+  Left = 236
   Height = 420
   Top = 121
   Width = 780
   Caption = 'frmEditor'
-  ClientHeight = 395
+  ClientHeight = 397
   ClientWidth = 780
   Constraints.MinHeight = 420
   Constraints.MinWidth = 780
@@ -21,7 +21,7 @@ object frmEditor: TfrmEditor
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
     Left = 8
-    Height = 379
+    Height = 381
     Top = 8
     Width = 764
     OnChange = tabEditorsChange
@@ -45,7 +45,7 @@ object frmEditor: TfrmEditor
       AnchorSideBottom.Control = tabEditors
       AnchorSideBottom.Side = asrBottom
       Left = 2
-      Height = 347
+      Height = 349
       Top = 30
       Width = 760
       Anchors = [akTop, akLeft, akRight, akBottom]
