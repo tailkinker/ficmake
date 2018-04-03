@@ -1,11 +1,11 @@
 object frmStory: TfrmStory
-  Left = 236
-  Height = 400
-  Top = 495
+  Left = 199
+  Height = 480
+  Top = 338
   Width = 780
-  ClientHeight = 400
+  ClientHeight = 480
   ClientWidth = 780
-  Constraints.MinHeight = 400
+  Constraints.MinHeight = 480
   Constraints.MinWidth = 780
   OnClose = FormClose
   OnCreate = FormCreate
@@ -65,70 +65,92 @@ object frmStory: TfrmStory
     TopIndex = -1
   end
   object btnEditStory: TButton
+    AnchorSideTop.Control = txtTitle
+    AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 72
+    Top = 69
     Width = 200
+    BorderSpacing.Around = 8
     Caption = 'Story Information'
     Enabled = False
     OnClick = btnEditStoryClick
     TabOrder = 3
   end
   object btnEditChapters: TButton
+    AnchorSideTop.Control = btnEditStory
+    AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 104
+    Top = 109
     Width = 200
+    BorderSpacing.Around = 8
     Caption = 'Chapter List'
     Enabled = False
     OnClick = btnEditChaptersClick
     TabOrder = 4
   end
   object btnBlurb: TButton
+    AnchorSideTop.Control = btnEditChapters
+    AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 168
+    Top = 149
     Width = 200
+    BorderSpacing.Around = 8
     Caption = 'Story Blurb'
     Enabled = False
     OnClick = btnBlurbClick
     TabOrder = 5
   end
   object btnDisclaimer: TButton
+    AnchorSideTop.Control = btnBlurb
+    AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 200
+    Top = 189
     Width = 200
+    BorderSpacing.Around = 8
     Caption = 'Disclaimer'
     Enabled = False
     OnClick = btnDisclaimerClick
     TabOrder = 6
   end
   object btnCredits: TButton
+    AnchorSideTop.Control = btnDisclaimer
+    AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 232
+    Top = 229
     Width = 200
+    BorderSpacing.Around = 8
     Caption = 'Credits'
     Enabled = False
     OnClick = btnCreditsClick
     TabOrder = 7
   end
   object btnBuild: TButton
+    AnchorSideTop.Control = btnProfiles
+    AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 328
+    Top = 397
     Width = 200
+    BorderSpacing.Top = 8
+    BorderSpacing.Around = 8
     Caption = 'Build Volume'
     Enabled = False
     OnClick = btnBuildClick
     TabOrder = 8
   end
   object btnMake: TButton
+    AnchorSideTop.Control = btnBuild
+    AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 360
+    Top = 437
     Width = 200
+    BorderSpacing.Around = 8
     Caption = 'Run Make on Volume'
     Enabled = False
     OnClick = btnMakeClick
@@ -565,10 +587,13 @@ object frmStory: TfrmStory
     ParentColor = False
   end
   object btnProfiles: TButton
+    AnchorSideTop.Control = btnStoryNotes
+    AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 136
+    Top = 349
     Width = 200
+    BorderSpacing.Around = 8
     Caption = 'Story Profiles'
     Enabled = False
     OnClick = btnProfilesClick
@@ -1137,13 +1162,29 @@ object frmStory: TfrmStory
     TabOrder = 17
   end
   object btnOtherFiles: TButton
+    AnchorSideTop.Control = btnCredits
+    AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 264
+    Top = 269
     Width = 200
+    BorderSpacing.Around = 8
     Caption = 'Dependant Files'
     Enabled = False
     OnClick = btnOtherFilesClick
     TabOrder = 18
+  end
+  object btnStoryNotes: TButton
+    AnchorSideTop.Control = btnOtherFiles
+    AnchorSideTop.Side = asrBottom
+    Left = 312
+    Height = 32
+    Top = 309
+    Width = 200
+    BorderSpacing.Around = 8
+    Caption = 'Story Notes'
+    Enabled = False
+    OnClick = btnStoryNotesClick
+    TabOrder = 19
   end
 end

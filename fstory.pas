@@ -40,6 +40,7 @@ type
     btnBuild : TButton;
     btnCredits : TButton;
     btnDeleteProfile: TBitBtn;
+    btnStoryNotes: TButton;
     btnProfiles : TButton;
     btnDeleteStory : TBitBtn;
     btnDisclaimer : TButton;
@@ -69,6 +70,7 @@ type
     procedure btnProfilesClick(Sender: TObject);
     procedure btnSaveProfilesClick(Sender: TObject);
     procedure btnSaveStoriesClick (Sender : TObject );
+    procedure btnStoryNotesClick(Sender: TObject);
     procedure FormClose (Sender : TObject; var CloseAction : TCloseAction );
     procedure FormCreate (Sender : TObject );
     procedure FormResize (Sender : TObject );
@@ -327,6 +329,15 @@ begin
   btnSaveStories.Enabled := FALSE;
 end;
 
+procedure TfrmStory.btnStoryNotesClick(Sender: TObject);
+begin
+  with (TfrmBareEditor.Create (Application)) do begin
+    Caption := 'Edit Notes';
+    Filename := Stories.Current.SourceDir + '/notes.txt';
+    ShowModal;
+  end;
+end;
+
 procedure TfrmStory.FormClose (Sender : TObject; var CloseAction : TCloseAction );
 begin
 	if (Stories.Dirty) then
@@ -371,6 +382,8 @@ begin
   btnProfiles.Left := y;
   btnOtherFiles.Left := y;
   btnOtherFiles.Width := x;
+  btnStoryNotes.Left := y;
+  btnStoryNotes.Width := x;
 
   btnImportProfile.Left := (Width - btnImportProfile.Width) - 8;
   btnImportProfile.Top := lstProfiles.Top - (btnImportProfile.Height + 8);
@@ -460,6 +473,7 @@ begin
     btnDisclaimer.Enabled := FALSE;
     btnCredits.Enabled := FALSE;
     btnProfiles.Enabled := FALSE;
+    btnStoryNotes.Enabled := FALSE;
     btnOtherFiles.Enabled := FALSE;
 
     // Load Controls
@@ -476,6 +490,7 @@ begin
       btnCredits.Enabled := TRUE;
       btnProfiles.Enabled := TRUE;
       btnOtherFiles.Enabled := TRUE;
+      btnStoryNotes.Enabled := TRUE;
     end;
   end;
 end;

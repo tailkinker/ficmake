@@ -34,6 +34,8 @@ type
 
   TfrmEditor = class(TForm)
     MainMenu1: TMainMenu;
+    MenuEditNotes: TMenuItem;
+    MenuSpacer1: TMenuItem;
     mnuFileSaveNoBuild: TMenuItem;
     mnuFileOpen: TMenuItem;
     mnuMakeOnSave: TMenuItem;
@@ -57,6 +59,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure MenuEditNotesClick(Sender: TObject);
     procedure mnuBuildMakeClick(Sender: TObject);
     procedure mnuBuildBuildClick(Sender: TObject);
     procedure mnuEditCopyClick(Sender: TObject);
@@ -99,7 +102,7 @@ implementation
 
 uses
   LCLType,
-  doption, flog, fpickchap,
+  doption, flog, fpickchap, fbaredit,
   gprofile, gmake, gtools;
 
 {$R *.lfm}
@@ -161,6 +164,15 @@ begin
   txtEditor.Left := 0;
   txtEditor.Top := tabEditors.TabHeight;
   }
+end;
+
+procedure TfrmEditor.MenuEditNotesClick(Sender: TObject);
+begin
+  with (TfrmBareEditor.Create (Application)) do begin
+    Caption := 'Edit Notes';
+    Filename := Story.SourceDir + '/notes.txt';
+    ShowModal;
+  end;
 end;
 
 procedure TfrmEditor.mnuBuildMakeClick(Sender: TObject);
