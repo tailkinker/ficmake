@@ -91,10 +91,7 @@ implementation
 
 uses
   LCLType,
-  fabout, fnewvol, foptions, fstory, fnewprof, doption;
-
-const
-  Version = '1.1.8';
+  fabout, fnewvol, foptions, fstory, fnewprof, doption, dversion;
 
 {$R *.lfm}
 
