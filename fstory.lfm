@@ -1,7 +1,7 @@
 object frmStory: TfrmStory
-  Left = 199
+  Left = 236
   Height = 480
-  Top = 338
+  Top = 286
   Width = 780
   ClientHeight = 480
   ClientWidth = 780
@@ -13,9 +13,9 @@ object frmStory: TfrmStory
   LCLVersion = '1.6.0.4'
   object Label1: TLabel
     Left = 8
-    Height = 19
+    Height = 15
     Top = 8
-    Width = 57
+    Width = 45
     Caption = 'Stories'
     ParentColor = False
   end
@@ -28,14 +28,14 @@ object frmStory: TfrmStory
     OnClick = lstStoriesClick
     OnDblClick = lstStoriesDblClick
     OnKeyPress = lstStoriesKeyPress
-    ScrollWidth = 98
+    ScrollWidth = 96
     Sorted = True
     TabOrder = 0
     TopIndex = -1
   end
   object txtTitle: TLabeledEdit
     Left = 616
-    Height = 29
+    Height = 23
     Top = 32
     Width = 80
     EditLabel.AnchorSideLeft.Control = txtTitle
@@ -43,8 +43,8 @@ object frmStory: TfrmStory
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtTitle
     EditLabel.Left = 616
-    EditLabel.Height = 19
-    EditLabel.Top = 10
+    EditLabel.Height = 15
+    EditLabel.Top = 14
     EditLabel.Width = 80
     EditLabel.Caption = 'Title:'
     EditLabel.ParentColor = False
@@ -60,7 +60,7 @@ object frmStory: TfrmStory
     OnClick = lstProfilesClick
     OnDblClick = lstProfilesDblClick
     OnKeyPress = lstProfilesKeyPress
-    ScrollWidth = 98
+    ScrollWidth = 96
     TabOrder = 2
     TopIndex = -1
   end
@@ -69,7 +69,7 @@ object frmStory: TfrmStory
     AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 69
+    Top = 63
     Width = 200
     BorderSpacing.Around = 8
     Caption = 'Story Information'
@@ -82,7 +82,7 @@ object frmStory: TfrmStory
     AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 109
+    Top = 103
     Width = 200
     BorderSpacing.Around = 8
     Caption = 'Chapter List'
@@ -95,7 +95,7 @@ object frmStory: TfrmStory
     AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 149
+    Top = 143
     Width = 200
     BorderSpacing.Around = 8
     Caption = 'Story Blurb'
@@ -108,7 +108,7 @@ object frmStory: TfrmStory
     AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 189
+    Top = 183
     Width = 200
     BorderSpacing.Around = 8
     Caption = 'Disclaimer'
@@ -121,7 +121,7 @@ object frmStory: TfrmStory
     AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 229
+    Top = 223
     Width = 200
     BorderSpacing.Around = 8
     Caption = 'Credits'
@@ -134,7 +134,7 @@ object frmStory: TfrmStory
     AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 397
+    Top = 391
     Width = 200
     BorderSpacing.Top = 8
     BorderSpacing.Around = 8
@@ -148,7 +148,7 @@ object frmStory: TfrmStory
     AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 437
+    Top = 431
     Width = 200
     BorderSpacing.Around = 8
     Caption = 'Run Make on Volume'
@@ -580,9 +580,9 @@ object frmStory: TfrmStory
   end
   object labProfiles: TLabel
     Left = 616
-    Height = 19
+    Height = 15
     Top = 72
-    Width = 127
+    Width = 101
     Caption = 'Volume Profiles'
     ParentColor = False
   end
@@ -591,7 +591,7 @@ object frmStory: TfrmStory
     AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 349
+    Top = 343
     Width = 200
     BorderSpacing.Around = 8
     Caption = 'Story Profiles'
@@ -1166,7 +1166,7 @@ object frmStory: TfrmStory
     AnchorSideTop.Side = asrBottom
     Left = 288
     Height = 32
-    Top = 269
+    Top = 263
     Width = 200
     BorderSpacing.Around = 8
     Caption = 'Dependant Files'
@@ -1179,7 +1179,7 @@ object frmStory: TfrmStory
     AnchorSideTop.Side = asrBottom
     Left = 312
     Height = 32
-    Top = 309
+    Top = 303
     Width = 200
     BorderSpacing.Around = 8
     Caption = 'Story Notes'

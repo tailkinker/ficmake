@@ -38,7 +38,6 @@ type
     procedure btnCancelClick(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure FormResize(Sender: TObject);
     procedure txtEditorChange(Sender: TObject);
     procedure txtEditorKeyPress(Sender: TObject; var Key: char);
   private
@@ -68,33 +67,68 @@ uses
 procedure TfrmBareEditor.btnOKClick(Sender: TObject);
 begin
   SaveCurrentEdit;
-  Hide;
+  ModalResult := mrOK;
 end;
 
 procedure TfrmBareEditor.btnCancelClick(Sender: TObject);
 begin
   if ((NOT Dirty) OR (Application.MessageBox ('Close this editor without saving?', 'Cancel',
     MB_ICONQUESTION + MB_YESNO) = IDYES)) then
-    Hide;
+    ModalResult := mrCancel;
 end;
 
 procedure TfrmBareEditor.FormCreate(Sender: TObject);
 begin
+  txtEditor.Font.Size := optFontSize;
   Width := optInitialX;
   Height := optInitialY;
-  Left := (Screen.Width - Width) div 2;
-  Top := (Screen.Height - Height) div 2;
-  txtEditor.Font.Size := optFontSize;
-end;
-
-procedure TfrmBareEditor.FormResize(Sender: TObject);
-begin
-  txtEditor.Width := Width - 16;
-  txtEditor.Height := Height - (btnOK.Height + 24);
-  btnOK.Top := Height - (btnOK.Height + 8);
-  btnCancel.Top := Height - (btnOK.Height + 8);
-  btnCancel.Left := Width - (btnCancel.Width + 8);
-  btnOK.Left := btnCancel.Left - (btnOK.Width + 8);
+  case (optAnchorWindow) of
+    0 :
+      begin
+        Left := 0;
+        Top := 0;
+      end;
+    1 :
+      begin
+        Left := 0;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    2 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := Screen.Height - Height;
+      end;
+    3 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := 0;
+      end;
+    4 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    5 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := Screen.Height - Height;
+      end;
+    6 :
+      begin
+        Left := Screen.Width - Width;
+        Top := 0;
+      end;
+    7 :
+      begin
+        Left := Screen.Width - Width;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    8 :
+      begin
+        Left := Screen.Width - Width;
+        Top := Screen.Height - Height;
+      end;
+  end;
 end;
 
 procedure TfrmBareEditor.txtEditorChange(Sender: TObject);

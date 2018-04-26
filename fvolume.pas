@@ -380,8 +380,53 @@ begin
   Dialog.Destroy;
   Width := optInitialX;
   Height := optInitialY;
-  Left := (Screen.Width - Width) div 2;
-  Top := (Screen.Height - Height) div 2;
+  case (optAnchorWindow) of
+    0 :
+      begin
+        Left := 0;
+        Top := 0;
+      end;
+    1 :
+      begin
+        Left := 0;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    2 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := Screen.Height - Height;
+      end;
+    3 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := 0;
+      end;
+    4 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    5 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := Screen.Height - Height;
+      end;
+    6 :
+      begin
+        Left := Screen.Width - Width;
+        Top := 0;
+      end;
+    7 :
+      begin
+        Left := Screen.Width - Width;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    8 :
+      begin
+        Left := Screen.Width - Width;
+        Top := Screen.Height - Height;
+      end;
+  end;
 end;
 
 procedure TfrmVolume.btnSaveProfilesClick(Sender: TObject);
@@ -400,10 +445,57 @@ procedure TfrmVolume.FormCreate (Sender : TObject );
 begin
   Caption := Caption + Version;
   LoadOptions;
+  writeln (Caption);
+  writeln ('Screen Size = ', Screen.Width, ' x ', Screen.Height);
   Width := optInitialX;
   Height := optInitialY;
-  Left := (Screen.Width - Width) div 2;
-  Top := (Screen.Height - Height) div 2;
+  case (optAnchorWindow) of
+    0 :
+      begin
+        Left := 0;
+        Top := 0;
+      end;
+    1 :
+      begin
+        Left := 0;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    2 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := Screen.Height - Height;
+      end;
+    3 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := 0;
+      end;
+    4 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    5 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := Screen.Height - Height;
+      end;
+    6 :
+      begin
+        Left := Screen.Width - Width;
+        Top := 0;
+      end;
+    7 :
+      begin
+        Left := Screen.Width - Width;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    8 :
+      begin
+        Left := Screen.Width - Width;
+        Top := Screen.Height - Height;
+      end;
+  end;
 
   Volumes := tVolumeList.Create;
   Volumes.LoadVolumeList;

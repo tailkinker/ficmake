@@ -3,15 +3,14 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="35">
+    <Units Count="39">
       <Unit0>
         <Filename Value="ficmake.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="15"/>
-        <TopLine Value="2"/>
-        <CursorPos Y="20"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="15"/>
+        <CursorPos X="80" Y="32"/>
         <UsageCount Value="214"/>
-        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="fvolume.pas"/>
@@ -19,16 +18,15 @@
         <ComponentName Value="frmVolume"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="14"/>
-        <TopLine Value="74"/>
-        <CursorPos X="19" Y="97"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="444"/>
+        <CursorPos X="78" Y="454"/>
         <UsageCount Value="207"/>
-        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="gprofile.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="26"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1653"/>
         <CursorPos X="23" Y="1677"/>
         <UsageCount Value="214"/>
@@ -38,21 +36,18 @@
           <Item2 X="43" Y="1684" ID="2"/>
           <Item3 X="41" Y="898" ID="3"/>
         </Bookmarks>
-        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="gvolume.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="29"/>
+        <EditorIndex Value="-1"/>
         <UsageCount Value="207"/>
-        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="gtools.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="31"/>
+        <EditorIndex Value="-1"/>
         <UsageCount Value="213"/>
-        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="fnewvol.pas"/>
@@ -60,7 +55,9 @@
         <ComponentName Value="frmNewVolume"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <CursorPos Y="45"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="14"/>
+        <CursorPos X="11" Y="30"/>
         <UsageCount Value="208"/>
       </Unit5>
       <Unit6>
@@ -69,20 +66,20 @@
         <ComponentName Value="frmStory"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="8"/>
-        <TopLine Value="332"/>
-        <CursorPos Y="339"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="148"/>
+        <CursorPos X="3" Y="111"/>
         <UsageCount Value="203"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="gstory.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="28"/>
-        <TopLine Value="40"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="82"/>
+        <CursorPos Y="97"/>
         <UsageCount Value="247"/>
-        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="fnewfic.pas"/>
@@ -90,11 +87,10 @@
         <ComponentName Value="frmNewStory"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="39"/>
-        <CursorPos Y="39"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="58"/>
+        <CursorPos X="11" Y="68"/>
         <UsageCount Value="244"/>
-        <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="foptions.pas"/>
@@ -102,9 +98,10 @@
         <ComponentName Value="frmOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="107"/>
+        <CursorPos X="3" Y="107"/>
         <UsageCount Value="242"/>
-        <Loaded Value="True"/>
       </Unit9>
       <Unit10>
         <Filename Value="fficinfo.pas"/>
@@ -112,18 +109,17 @@
         <ComponentName Value="frmStoryInfo"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="118"/>
-        <CursorPos X="8" Y="118"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="159"/>
+        <CursorPos X="3" Y="161"/>
         <UsageCount Value="230"/>
-        <Loaded Value="True"/>
       </Unit10>
       <Unit11>
         <Filename Value="gchapter.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="27"/>
-        <TopLine Value="124"/>
-        <CursorPos X="46" Y="143"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="286"/>
+        <CursorPos Y="304"/>
         <UsageCount Value="229"/>
         <Loaded Value="True"/>
       </Unit11>
@@ -133,12 +129,11 @@
         <ComponentName Value="frmChapter"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="13"/>
-        <TopLine Value="347"/>
-        <CursorPos X="34" Y="351"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="394"/>
+        <CursorPos X="3" Y="394"/>
         <UsageCount Value="272"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit12>
       <Unit13>
         <Filename Value="fnewchap.pas"/>
@@ -146,19 +141,18 @@
         <ComponentName Value="frmNewChapter"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="20"/>
-        <CursorPos Y="20"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="42"/>
+        <CursorPos X="11" Y="52"/>
         <UsageCount Value="271"/>
-        <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="dgroff.pas"/>
         <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="58"/>
         <CursorPos Y="87"/>
         <UsageCount Value="322"/>
-        <Loaded Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="fnewprof.pas"/>
@@ -166,10 +160,10 @@
         <ComponentName Value="frmNewProfile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="7"/>
-        <CursorPos Y="20"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="45"/>
+        <CursorPos X="11" Y="58"/>
         <UsageCount Value="248"/>
-        <Loaded Value="True"/>
       </Unit15>
       <Unit16>
         <Filename Value="fpdfpro.pas"/>
@@ -177,25 +171,24 @@
         <ComponentName Value="frmPDFProfile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="18"/>
-        <TopLine Value="215"/>
-        <CursorPos X="41" Y="234"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="228"/>
+        <CursorPos Y="257"/>
         <UsageCount Value="239"/>
-        <Loaded Value="True"/>
       </Unit16>
       <Unit17>
         <Filename Value="doption.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="23"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="23"/>
+        <CursorPos Y="52"/>
         <UsageCount Value="238"/>
-        <Loaded Value="True"/>
       </Unit17>
       <Unit18>
         <Filename Value="dtools.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="24"/>
+        <EditorIndex Value="-1"/>
         <UsageCount Value="237"/>
-        <Loaded Value="True"/>
       </Unit18>
       <Unit19>
         <Filename Value="fhdhelp.pas"/>
@@ -203,9 +196,10 @@
         <ComponentName Value="frmHeaderHelp"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="22"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="37"/>
+        <CursorPos X="11" Y="50"/>
         <UsageCount Value="209"/>
-        <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="fhtmlpro.pas"/>
@@ -213,11 +207,10 @@
         <ComponentName Value="frmHTMLProfile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="19"/>
-        <TopLine Value="163"/>
-        <CursorPos X="45" Y="167"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="73"/>
+        <CursorPos X="11" Y="86"/>
         <UsageCount Value="204"/>
-        <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="ftextpro.pas"/>
@@ -225,9 +218,10 @@
         <ComponentName Value="frmTextProfile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="43"/>
+        <CursorPos Y="69"/>
         <UsageCount Value="272"/>
-        <Loaded Value="True"/>
       </Unit21>
       <Unit22>
         <Filename Value="fepubpro.pas"/>
@@ -235,9 +229,10 @@
         <ComponentName Value="frmEPubProfile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="46"/>
+        <CursorPos X="11" Y="70"/>
         <UsageCount Value="211"/>
-        <Loaded Value="True"/>
       </Unit22>
       <Unit23>
         <Filename Value="fbaredit.pas"/>
@@ -245,9 +240,9 @@
         <ComponentName Value="frmBareEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="17"/>
-        <TopLine Value="49"/>
-        <CursorPos X="23" Y="16"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="73"/>
+        <CursorPos Y="75"/>
         <UsageCount Value="225"/>
         <Loaded Value="True"/>
       </Unit23>
@@ -257,9 +252,10 @@
         <ComponentName Value="frmImportProfile"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="25"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="49"/>
+        <CursorPos Y="60"/>
         <UsageCount Value="207"/>
-        <Loaded Value="True"/>
       </Unit24>
       <Unit25>
         <Filename Value="fstorypr.pas"/>
@@ -267,11 +263,10 @@
         <ComponentName Value="frmStoryProfiles"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="10"/>
-        <TopLine Value="2"/>
-        <CursorPos Y="20"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="61"/>
+        <CursorPos X="19" Y="64"/>
         <UsageCount Value="204"/>
-        <Loaded Value="True"/>
       </Unit25>
       <Unit26>
         <Filename Value="feditor.pas"/>
@@ -279,21 +274,21 @@
         <ComponentName Value="frmEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="91"/>
-        <CursorPos X="38" Y="105"/>
+        <TopLine Value="59"/>
+        <CursorPos X="27" Y="74"/>
         <UsageCount Value="202"/>
+        <Bookmarks Count="2">
+          <Item0 X="52" Y="376" ID="2"/>
+          <Item1 X="18" Y="211" ID="1"/>
+        </Bookmarks>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit26>
       <Unit27>
         <Filename Value="gmake.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="30"/>
+        <EditorIndex Value="-1"/>
         <CursorPos Y="20"/>
         <UsageCount Value="268"/>
-        <Loaded Value="True"/>
       </Unit27>
       <Unit28>
         <Filename Value="flog.pas"/>
@@ -301,11 +296,10 @@
         <ComponentName Value="frmLog"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="20"/>
-        <CursorPos Y="20"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="83"/>
+        <CursorPos Y="112"/>
         <UsageCount Value="212"/>
-        <Loaded Value="True"/>
       </Unit28>
       <Unit29>
         <Filename Value="fothers.pas"/>
@@ -313,19 +307,17 @@
         <ComponentName Value="frmOtherFiles"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="11"/>
-        <TopLine Value="2"/>
-        <CursorPos Y="20"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="44"/>
+        <CursorPos X="19" Y="64"/>
         <UsageCount Value="298"/>
-        <Loaded Value="True"/>
       </Unit29>
       <Unit30>
         <Filename Value="gothers.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="-1"/>
         <CursorPos Y="20"/>
         <UsageCount Value="298"/>
-        <Loaded Value="True"/>
       </Unit30>
       <Unit31>
         <Filename Value="fpickchap.pas"/>
@@ -333,11 +325,10 @@
         <ComponentName Value="frmPickChapter"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="20"/>
-        <CursorPos Y="20"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="17"/>
+        <CursorPos Y="61"/>
         <UsageCount Value="206"/>
-        <Loaded Value="True"/>
       </Unit31>
       <Unit32>
         <Filename Value="fabout.pas"/>
@@ -345,11 +336,10 @@
         <ComponentName Value="frmAbout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="20"/>
         <CursorPos Y="20"/>
-        <UsageCount Value="172"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="177"/>
       </Unit32>
       <Unit33>
         <Filename Value="../../gurps/BeamWeapons/gbeam.pas"/>
@@ -361,134 +351,176 @@
         <CursorPos Y="861"/>
         <UsageCount Value="2"/>
       </Unit34>
+      <Unit35>
+        <Filename Value="/usr/lib/lazarus/1.6/lcl/include/customform.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2888"/>
+        <CursorPos Y="2911"/>
+        <UsageCount Value="10"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="fmacedit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmMacroEdit"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="18"/>
+        <CursorPos X="11" Y="35"/>
+        <UsageCount Value="23"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="/usr/lib/lazarus/1.6/lcl/textstrings.pas"/>
+        <UnitName Value="TextStrings"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="720"/>
+        <CursorPos Y="735"/>
+        <UsageCount Value="10"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="/usr/lib/lazarus/1.6/lcl/interfaces/gtk2/gtk2memostrings.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="100"/>
+        <CursorPos Y="118"/>
+        <UsageCount Value="10"/>
+      </Unit38>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="fpdfpro.pas"/>
-        <Caret Line="405" Column="29" TopLine="384"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="200" TopLine="186"/>
       </Position1>
       <Position2>
-        <Filename Value="fpdfpro.pas"/>
-        <Caret Line="232" TopLine="215"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="201" TopLine="186"/>
       </Position2>
       <Position3>
-        <Filename Value="fpdfpro.pas"/>
-        <Caret Line="229" Column="3" TopLine="215"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="202" TopLine="186"/>
       </Position3>
       <Position4>
-        <Filename Value="fepubpro.pas"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="203" TopLine="186"/>
       </Position4>
       <Position5>
-        <Filename Value="fstory.pas"/>
-        <Caret Line="540" Column="52" TopLine="529"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="204" TopLine="186"/>
       </Position5>
       <Position6>
         <Filename Value="feditor.pas"/>
-        <Caret Line="215" Column="56" TopLine="200"/>
+        <Caret Line="205" TopLine="186"/>
       </Position6>
       <Position7>
         <Filename Value="feditor.pas"/>
-        <Caret Line="115" Column="17" TopLine="101"/>
+        <Caret Line="195" TopLine="186"/>
       </Position7>
       <Position8>
         <Filename Value="feditor.pas"/>
-        <Caret Line="120" Column="12" TopLine="101"/>
+        <Caret Line="260" Column="3" TopLine="293"/>
       </Position8>
       <Position9>
-        <Filename Value="fchapter.pas"/>
-        <Caret Line="350" Column="61" TopLine="329"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="197" TopLine="188"/>
       </Position9>
       <Position10>
-        <Filename Value="fchapter.pas"/>
-        <Caret Line="249" TopLine="241"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="196" Column="30" TopLine="184"/>
       </Position10>
       <Position11>
-        <Filename Value="fchapter.pas"/>
-        <Caret Line="420" Column="3" TopLine="416"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="209" TopLine="188"/>
       </Position11>
       <Position12>
-        <Filename Value="fchapter.pas"/>
-        <Caret Line="57" TopLine="57"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="456" Column="3" TopLine="452"/>
       </Position12>
       <Position13>
-        <Filename Value="fstory.pas"/>
-        <Caret Line="539" TopLine="532"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="587" Column="24" TopLine="567"/>
       </Position13>
       <Position14>
-        <Filename Value="feditor.pas"/>
-        <Caret Line="110" Column="24" TopLine="101"/>
+        <Filename Value="fbaredit.pas"/>
+        <Caret Line="88" TopLine="79"/>
       </Position14>
       <Position15>
-        <Filename Value="feditor.pas"/>
-        <Caret Line="83" Column="12" TopLine="69"/>
+        <Filename Value="fbaredit.pas"/>
+        <Caret Line="89" TopLine="79"/>
       </Position15>
       <Position16>
-        <Filename Value="feditor.pas"/>
-        <Caret Line="95" Column="42" TopLine="72"/>
+        <Filename Value="fbaredit.pas"/>
+        <Caret Line="90" TopLine="79"/>
       </Position16>
       <Position17>
-        <Filename Value="feditor.pas"/>
-        <Caret Line="113" Column="10" TopLine="90"/>
+        <Filename Value="fbaredit.pas"/>
+        <Caret Line="91" TopLine="79"/>
       </Position17>
       <Position18>
-        <Filename Value="feditor.pas"/>
-        <Caret Line="422" Column="13" TopLine="401"/>
+        <Filename Value="fbaredit.pas"/>
+        <Caret Line="92" TopLine="79"/>
       </Position18>
       <Position19>
-        <Filename Value="feditor.pas"/>
-        <Caret Line="408" Column="3" TopLine="381"/>
+        <Filename Value="fbaredit.pas"/>
+        <Caret Line="93" TopLine="79"/>
       </Position19>
       <Position20>
-        <Filename Value="feditor.pas"/>
-        <Caret Line="113" Column="28" TopLine="97"/>
+        <Filename Value="fbaredit.pas"/>
+        <Caret Line="94" TopLine="79"/>
       </Position20>
       <Position21>
-        <Filename Value="feditor.pas"/>
-        <Caret Line="114" Column="28" TopLine="98"/>
+        <Filename Value="fbaredit.pas"/>
+        <Caret Line="86" TopLine="79"/>
       </Position21>
       <Position22>
-        <Filename Value="fstory.pas"/>
-        <Caret Line="540" Column="30" TopLine="529"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="262" TopLine="270"/>
       </Position22>
       <Position23>
-        <Filename Value="fstory.pas"/>
-        <Caret Line="541" Column="30" TopLine="530"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="566" TopLine="551"/>
       </Position23>
       <Position24>
-        <Filename Value="fstory.pas"/>
-        <Caret Line="376" Column="16" TopLine="336"/>
+        <Filename Value="feditor.pas"/>
+        <Caret Line="578" TopLine="563"/>
       </Position24>
       <Position25>
-        <Filename Value="fstory.pas"/>
-        <Caret Line="483" Column="36" TopLine="461"/>
+        <Filename Value="fbaredit.pas"/>
+        <Caret Line="82" TopLine="68"/>
       </Position25>
       <Position26>
-        <Filename Value="fstory.pas"/>
-        <Caret Line="490" Column="3" TopLine="488"/>
+        <Filename Value="fbaredit.pas"/>
+        <Caret Line="70" Column="22" TopLine="61"/>
       </Position26>
       <Position27>
-        <Filename Value="fstory.pas"/>
-        <Caret Line="495" Column="3" TopLine="493"/>
+        <Filename Value="fbaredit.pas"/>
+        <Caret Line="75" TopLine="73"/>
       </Position27>
       <Position28>
         <Filename Value="fstory.pas"/>
-        <Caret Line="161" TopLine="154"/>
+        <Caret Line="74" Column="48" TopLine="59"/>
       </Position28>
       <Position29>
-        <Filename Value="feditor.pas"/>
-        <Caret Line="116" Column="28" TopLine="100"/>
+        <Filename Value="fstory.pas"/>
+        <Caret Line="379" Column="3" TopLine="377"/>
       </Position29>
       <Position30>
-        <Filename Value="feditor.pas"/>
-        <Caret Line="161" TopLine="154"/>
+        <Filename Value="fstory.pas"/>
+        <Caret Line="201" Column="3" TopLine="199"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
-    <Watches Count="1">
+    <Watches Count="4">
       <Item1>
-        <Expression Value="index"/>
+        <Expression Value="w"/>
       </Item1>
+      <Item2>
+        <Expression Value="h"/>
+      </Item2>
+      <Item3>
+        <Expression Value="sw"/>
+      </Item3>
+      <Item4>
+        <Expression Value="sh"/>
+      </Item4>
     </Watches>
   </Debugging>
 </CONFIG>

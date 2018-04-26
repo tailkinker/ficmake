@@ -1,5 +1,5 @@
 object frmOtherFiles: TfrmOtherFiles
-  Left = 340
+  Left = 242
   Height = 420
   Top = 694
   Width = 780
@@ -11,7 +11,7 @@ object frmOtherFiles: TfrmOtherFiles
   OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.4.0'
+  LCLVersion = '1.6.0.4'
   object lstOtherFiles: TListBox
     Left = 29
     Height = 80
@@ -19,7 +19,7 @@ object frmOtherFiles: TfrmOtherFiles
     Width = 100
     ItemHeight = 0
     OnClick = lstOtherFilesClick
-    ScrollWidth = 98
+    ScrollWidth = 96
     TabOrder = 0
     TopIndex = -1
   end
@@ -447,7 +447,7 @@ object frmOtherFiles: TfrmOtherFiles
   end
   object txtFileName: TLabeledEdit
     Left = 384
-    Height = 27
+    Height = 23
     Top = 32
     Width = 80
     EditLabel.AnchorSideLeft.Control = txtFileName
@@ -456,8 +456,8 @@ object frmOtherFiles: TfrmOtherFiles
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtFileName
     EditLabel.Left = 384
-    EditLabel.Height = 17
-    EditLabel.Top = 12
+    EditLabel.Height = 15
+    EditLabel.Top = 14
     EditLabel.Width = 80
     EditLabel.Caption = 'Filename: '
     EditLabel.ParentColor = False

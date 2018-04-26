@@ -8,10 +8,10 @@ object frmNewStory: TfrmNewStory
   ClientHeight = 104
   ClientWidth = 480
   OnCreate = FormCreate
-  LCLVersion = '1.4.0.4'
+  LCLVersion = '1.6.0.4'
   object txtName: TLabeledEdit
     Left = 8
-    Height = 25
+    Height = 23
     Top = 32
     Width = 464
     EditLabel.AnchorSideLeft.Control = txtName
@@ -19,8 +19,8 @@ object frmNewStory: TfrmNewStory
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtName
     EditLabel.Left = 8
-    EditLabel.Height = 17
-    EditLabel.Top = 12
+    EditLabel.Height = 15
+    EditLabel.Top = 14
     EditLabel.Width = 464
     EditLabel.Caption = 'New Story Title'
     EditLabel.ParentColor = False

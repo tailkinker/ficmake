@@ -1,5 +1,5 @@
 object frmLog: TfrmLog
-  Left = 993
+  Left = 1024
   Height = 420
   Top = 706
   Width = 780
@@ -10,7 +10,7 @@ object frmLog: TfrmLog
   Constraints.MinWidth = 780
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.2.2.0'
+  LCLVersion = '1.6.0.4'
   object txtLog: TMemo
     Left = 97
     Height = 90

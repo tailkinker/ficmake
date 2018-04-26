@@ -1,5 +1,5 @@
 object frmNewProfile: TfrmNewProfile
-  Left = 541
+  Left = 242
   Height = 102
   Top = 306
   Width = 780
@@ -8,10 +8,10 @@ object frmNewProfile: TfrmNewProfile
   ClientHeight = 102
   ClientWidth = 780
   OnCreate = FormCreate
-  LCLVersion = '1.0.14.0'
+  LCLVersion = '1.6.0.4'
   object txtName: TLabeledEdit
     Left = 8
-    Height = 27
+    Height = 23
     Top = 32
     Width = 764
     EditLabel.AnchorSideLeft.Control = txtName
@@ -19,8 +19,8 @@ object frmNewProfile: TfrmNewProfile
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtName
     EditLabel.Left = 8
-    EditLabel.Height = 20
-    EditLabel.Top = 9
+    EditLabel.Height = 15
+    EditLabel.Top = 14
     EditLabel.Width = 764
     EditLabel.Caption = 'Profile Name:'
     EditLabel.ParentColor = False

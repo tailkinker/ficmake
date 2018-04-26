@@ -288,8 +288,9 @@ begin
     rewrite (t);
 
     // Go through all the stories, and save them
-    for index := 0 to (length (t_chapters) - 1) do
-      t_chapters [index].Save (t);
+    if (length(t_chapters) > 0) then
+      for index := 0 to (length (t_chapters) - 1) do
+        t_chapters [index].Save (t);
 
     // Close out the list
     writeln (t, '[end list]');

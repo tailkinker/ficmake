@@ -30,11 +30,24 @@ uses
 
 type
 
-  { TfrmEditor }
+  { tMacro }
 
+  tMacro = class (tObject)
+    MacroName : string;
+    MacroLines : tStringList;
+    constructor Create;
+    destructor Destroy;
+    procedure LoadFrom (var t : text);
+    procedure SaveTo (var t : text);
+    procedure Edit;
+  end;
+
+  { TfrmEditor }
   TfrmEditor = class(TForm)
+    grpMacros: TGroupBox;
     MainMenu1: TMainMenu;
     MenuEditNotes: TMenuItem;
+    mnuEditMacros: TMenuItem;
     MenuSpacer1: TMenuItem;
     mnuFileSaveNoBuild: TMenuItem;
     mnuFileOpen: TMenuItem;
@@ -56,6 +69,9 @@ type
     mnuFile: TMenuItem;
     txtEditor: TMemo;
     tabEditors: TTabControl;
+    procedure btnMacroClick(Sender: TObject);
+    procedure btnMacroMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -64,6 +80,7 @@ type
     procedure mnuBuildBuildClick(Sender: TObject);
     procedure mnuEditCopyClick(Sender: TObject);
     procedure mnuEditCutClick(Sender: TObject);
+    procedure mnuEditMacrosClick(Sender: TObject);
     procedure mnuEditPasteClick(Sender: TObject);
     procedure mnuEditWordsClick(Sender: TObject);
     procedure mnuFileCloseClick(Sender: TObject);
@@ -89,8 +106,12 @@ type
     procedure LoadFromFile;
     procedure SaveCurrentEdit;
     procedure SetDirty (aDirty : boolean);
+    procedure LoadMacros;
+    procedure SaveMacros;
   public
     { public declarations }
+    t_macros : array [0..9] of tMacro;
+    btnMacros : array [0..9] of tButton;
     Story : tStory;
     property BaseDir : string read t_basedir write SetBaseDir;
     property Filename : string read t_filename write SetFileName;
@@ -102,12 +123,113 @@ implementation
 
 uses
   LCLType,
-  doption, flog, fpickchap, fbaredit,
+  doption, flog, fpickchap, fbaredit, fmacedit,
   gprofile, gmake, gtools;
 
 {$R *.lfm}
 
+{ tMacro }
+constructor tMacro.Create;
+begin
+  inherited Create;
+  MacroLines := tStringList.Create;
+end;
+
+destructor tMacro.Destroy;
+begin
+  MacroLines.Destroy;
+  inherited Destroy;
+end;
+
+procedure tMacro.LoadFrom (var t : text);
+var
+  s : string;
+begin
+  readln (t, MacroName);
+  MacroLines.Clear;
+  repeat
+    readln (t, s);
+    if (s <> '<END>') then
+      MacroLines.Add (s);
+  until (s = '<END>');
+end;
+
+procedure tMacro.SaveTo (var t : text);
+var
+  index : integer;
+begin
+  writeln (t, MacroName);
+  for index := 0 to (MacroLines.Count - 1) do
+    writeln (t, MacroLines [index]);
+  writeln (t, '<END>');
+end;
+
+procedure tMacro.Edit;
+var
+  Editor : TfrmMacroEdit;
+  index : integer;
+begin
+  Editor := TfrmMacroEdit.Create(Application);
+  Editor.txtName.Text := MacroName;
+  if (MacroLines.Count > 0) then
+    for index := 0 to (MacroLines.Count - 1) do
+      Editor.txtLines.Lines.Add(MacroLines [index]);
+  Editor.ShowModal;
+  MacroName := Editor.txtName.Text;
+  MacroLines.Clear;
+  if (Editor.txtLines.Lines.Count > 0) then
+    for index := 0 to (Editor.txtLines.Lines.Count - 1) do
+      MacroLines.Add (Editor.txtLines.Lines [index]);
+  Editor.Destroy;
+end;
+
 { TfrmEditor }
+
+procedure TfrmEditor.LoadMacros;
+var
+  aFilename : string;
+  MacroCount : integer;
+  t : text;
+  s : string;
+begin
+  aFilename := Story.SourceDir + '/macros.txt';
+  if (FileExists (aFilename)) then begin
+    system.assign (t, aFilename);
+    system.reset (t);
+    MacroCount := 0;
+    repeat
+      readln (t, s);
+      if (s = '<MACRO>') then begin
+        t_macros [MacroCount] := tMacro.Create;
+        t_macros [MacroCount].LoadFrom (t);
+        btnMacros [MacroCount].Caption := t_macros [MacroCount].MacroName;
+        inc (MacroCount);
+        mnuEditMacros.Checked := TRUE;
+        grpMacros.Visible := TRUE;
+      end;
+    until (s = '<END LIST>');
+    system.close (t);
+  end;
+end;
+
+procedure TfrmEditor.SaveMacros;
+var
+  aFilename : string;
+  t : text;
+  index : integer;
+begin
+  aFilename := Story.SourceDir + '/macros.txt';
+  system.assign (t, aFilename);
+  system.rewrite (t);
+
+  for index := 0 to 9 do
+    if (t_macros [index] <> nil) then begin
+      writeln (t, '<MACRO>');
+      t_macros [index].SaveTo(t);
+    end;
+  writeln (t, '<END LIST>');
+  system.close(t);
+end;
 
 procedure TfrmEditor.SetDirty (aDirty : boolean);
 var
@@ -134,14 +256,83 @@ begin
 end;
 
 procedure TfrmEditor.FormCreate(Sender: TObject);
+var
+  aFileName : string;
+  index : integer;
 begin
   Width := optInitialX;
   Height := optInitialY;
-  Left := (Screen.Width - Width) div 2;
-  Top := (Screen.Height - Height) div 2;
+  case (optAnchorWindow) of
+    0 :
+      begin
+        Left := 0;
+        Top := 0;
+      end;
+    1 :
+      begin
+        Left := 0;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    2 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := Screen.Height - Height;
+      end;
+    3 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := 0;
+      end;
+    4 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    5 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := Screen.Height - Height;
+      end;
+    6 :
+      begin
+        Left := Screen.Width - Width;
+        Top := 0;
+      end;
+    7 :
+      begin
+        Left := Screen.Width - Width;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    8 :
+      begin
+        Left := Screen.Width - Width;
+        Top := Screen.Height - Height;
+      end;
+  end;
+
+  for index := 0 to 9 do begin
+    str (index + 1, aFilename);
+    aFilename := 'Macro ' + aFilename;
+    btnMacros [index] := tButton.Create (grpMacros);
+    with btnMacros [index] do begin
+      Caption := aFilename;
+      Parent := grpMacros;
+      Width := 120;
+      Height := 30;
+      Left := 4;
+      Top := 4 + (index - 1) * 34;
+      Hint := 'Right-Click to Edit';
+      Tag := index;
+      ShowHint := TRUE;
+      OnClick := @btnMacroClick;
+      OnMouseUp := @btnMacroMouseUp;
+    end;
+  end;
   t_tab := 1;
   tabEditors.TabIndex := 1;
   mnuMakeOnSave.Checked := optAssumeMakeOnSave;
+
+  mnuEditMacros.Checked := FALSE;
 end;
 
 procedure TfrmEditor.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -150,6 +341,43 @@ begin
     if (Application.MessageBox ('Save changes to this story portion?',
       'Save Changes', MB_ICONQUESTION + MB_YESNO) = IDYES) then
       SaveCurrentEdit;
+  end;
+end;
+
+procedure TfrmEditor.btnMacroMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var
+  Macro : tMacro;
+  index : integer;
+begin
+  index := TButton(Sender).Tag;
+  if (Button = mbRight) then begin
+    if (t_macros [index] = nil) then
+      t_macros [index] := tMacro.Create;
+    Macro := t_macros [index];
+    Macro.Edit;
+    SaveMacros;
+  end;
+end;
+
+procedure TfrmEditor.btnMacroClick(Sender: TObject);
+var
+  Macro : tMacro;
+  index : integer;
+begin
+  index := TButton(Sender).Tag;
+  Macro := t_macros [index];
+  if (Macro = nil) then begin
+    t_macros [index] := tMacro.Create;
+    Macro := t_macros [index];
+    Macro.Edit;
+    btnMacros [(Sender as tButton).Tag].Caption := Macro.MacroName;
+    SaveMacros;
+  end else begin
+    for index := 0 to (Macro.MacroLines.Count - 1) do begin
+      with (txtEditor) do
+        Lines.Insert (CaretPos.Y, Macro.MacroLines [index]);
+    end;
   end;
 end;
 
@@ -164,6 +392,7 @@ begin
   txtEditor.Left := 0;
   txtEditor.Top := tabEditors.TabHeight;
   }
+  LoadMacros;
 end;
 
 procedure TfrmEditor.MenuEditNotesClick(Sender: TObject);
@@ -217,6 +446,19 @@ end;
 procedure TfrmEditor.mnuEditCutClick(Sender: TObject);
 begin
   txtEditor.CutToClipboard;
+end;
+
+procedure TfrmEditor.mnuEditMacrosClick(Sender: TObject);
+var
+  aFileName : string;
+begin
+  mnuEditMacros.Checked := not mnuEditMacros.Checked;
+  if (mnuEditMacros.Checked) then begin
+    aFilename := Story.SourceDir + '/macros.txt';
+    if (FileExists (aFileName)) then
+      LoadMacros;
+  end;
+  grpMacros.Visible := mnuEditMacros.Checked;
 end;
 
 procedure TfrmEditor.mnuEditPasteClick(Sender: TObject);
@@ -321,43 +563,25 @@ end;
 procedure TfrmEditor.mnuFormatBoldClick(Sender: TObject);
 var
   s : string;
-  SavePos : TPoint;
 begin
   with (txtEditor) do
     if (SelLength > 0) then begin
       s := '\fB' + SelText + '\fR';
       SelText := s;
-    end else begin
-    	SavePos := CaretPos;
-    	s := Lines [CaretPos.Y];
-      s := copy (s, 1, CaretPos.X)
-      	+ '\fB'
-        + copy (s, CaretPos.X + 1, length (s) - CaretPos.X);
-      Lines [CaretPos.Y] := s;
-      SavePos.X += 3;
-      CaretPos := SavePos
-    end;
+    end else
+      SelText := '\fB'
 end;
 
 procedure TfrmEditor.mnuFormatItalicsClick(Sender: TObject);
 var
   s : string;
-  SavePos : TPoint;
 begin
   with (txtEditor) do
     if (SelLength > 0) then begin
       s := '\fI' + SelText + '\fR';
       SelText := s;
-    end else begin
-	    SavePos := CaretPos;
-	    s := Lines [CaretPos.Y];
-      s := copy (s, 1, CaretPos.X)
-  	    + '\fI'
-        + copy (s, CaretPos.X + 1, length (s) - CaretPos.X);
-      Lines [CaretPos.Y] := s;
-      SavePos.X += 3;
-      CaretPos := SavePos
-    end;
+    end else
+      SelText := '\fI';
 end;
 
 procedure TfrmEditor.mnuMakeOnSaveClick(Sender: TObject);

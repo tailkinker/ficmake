@@ -35,6 +35,7 @@ var
   optFontSize : integer = 12;
   optAssumeMakeOnSave : boolean = FALSE;
   optOpenLogOnStart : boolean = FALSE;
+  optAnchorWindow : integer = 4;
 
 const
   MaxResolution = 9;
@@ -110,6 +111,9 @@ begin
         optOpenLogOnStart := TRUE
       end else if (k = 'Assume Make On Save') then begin
         optAssumeMakeOnSave := TRUE
+      end else if (k = 'Anchor Windows') then begin
+        val (v, i);
+        optAnchorWindow := i;
       end else if (k = 'Measurement') then begin
         if (v = 'in') then
         	SetScale (0)
@@ -145,6 +149,7 @@ begin
 
   // Save all Options
   writeln (t, 'Screen Size = ', optScreenSize);
+  writeln (t, 'Anchor Windows = ', optAnchorWindow);
   write (t, 'Measurement = ');
   case ScaleType of
     0:

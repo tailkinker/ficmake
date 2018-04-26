@@ -36,6 +36,7 @@ type
     btnOk : TButton;
     chkAssumeMakeOnSave: TCheckBox;
     chkOpenLogOnStart: TCheckBox;
+    rdgAnchors: TRadioGroup;
     txtLoremIpsum: TMemo;
     txtFontSize: TLabeledEdit;
     radScreen : TRadioGroup;
@@ -45,6 +46,7 @@ type
     procedure chkOpenLogOnStartChange(Sender: TObject);
     procedure FormCreate (Sender : TObject );
     procedure FormResize (Sender : TObject );
+    procedure rdgAnchorsClick(Sender: TObject);
     procedure txtFontSizeChange(Sender: TObject);
     procedure radScreenClick (Sender : TObject );
     procedure txtLoremIpsumChange(Sender: TObject);
@@ -71,6 +73,12 @@ begin
   btnGuess.Top := (radScreen.Height + 16);
   txtLoremIpsum.Width := (Width - 16);
   txtFontSize.Left := (Width - txtFontSize.Width) - 8;
+end;
+
+procedure TfrmOptions.rdgAnchorsClick(Sender: TObject);
+begin
+  if (rdgAnchors.ItemIndex > -1) then
+    optAnchorWindow := rdgAnchors.ItemIndex;
 end;
 
 procedure TfrmOptions.txtFontSizeChange(Sender: TObject);
@@ -110,6 +118,8 @@ begin
   end;
   radScreen.ItemIndex := optScreenSize;
 
+  // Anchors
+  rdgAnchors.ItemIndex := optAnchorWindow;
   // Check Boxes
   chkAssumeMakeOnSave.Checked := optAssumeMakeOnSave;
   chkOpenLogOnStart.Checked := optOpenLogOnStart;
@@ -121,8 +131,53 @@ begin
   Width := radScreen.Width + 36 + chkOpenLogOnStart.Width;
   Height := (radScreen.Height + btnGuess.Height
     + txtLoremIpsum.Height + btnOK.Height) + 48;
-  Left := (Screen.Width - Width) div 2;
-  Top := (Screen.Height - Height) div 2;
+  case (optAnchorWindow) of
+    0 :
+      begin
+        Left := 0;
+        Top := 0;
+      end;
+    1 :
+      begin
+        Left := 0;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    2 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := Screen.Height - Height;
+      end;
+    3 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := 0;
+      end;
+    4 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    5 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := Screen.Height - Height;
+      end;
+    6 :
+      begin
+        Left := Screen.Width - Width;
+        Top := 0;
+      end;
+    7 :
+      begin
+        Left := Screen.Width - Width;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    8 :
+      begin
+        Left := Screen.Width - Width;
+        Top := Screen.Height - Height;
+      end;
+  end;
 end;
 
 procedure TfrmOptions.btnGuessClick (Sender : TObject );

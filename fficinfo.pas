@@ -59,6 +59,7 @@ type
     procedure chkSubtitleFirstChange (Sender : TObject );
     procedure chkSuppressAuthorChange (Sender : TObject );
     procedure chkSuppressTitlesChange (Sender : TObject );
+    procedure FormCreate(Sender: TObject);
     procedure FormResize (Sender : TObject );
     procedure txtAuthorChange (Sender : TObject );
     procedure txtCoverPictureChange (Sender : TObject );
@@ -79,7 +80,7 @@ type
 implementation
 
 uses
-  LCLType;
+  LCLType, doption;
 
 {$R *.lfm}
 
@@ -152,6 +153,57 @@ begin
   if (chkSuppressTitles.Enabled) then begin
   	Story.SuppressTitles := chkSuppressTitles.Checked;
     chkSubtitleFirst.Enabled := not chkSuppressTitles.Checked;
+  end;
+end;
+
+procedure TfrmStoryInfo.FormCreate(Sender: TObject);
+begin
+  case (optAnchorWindow) of
+    0 :
+      begin
+        Left := 0;
+        Top := 0;
+      end;
+    1 :
+      begin
+        Left := 0;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    2 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := Screen.Height - Height;
+      end;
+    3 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := 0;
+      end;
+    4 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    5 :
+      begin
+        Left := (Screen.Width - Width) div 2;
+        Top := Screen.Height - Height;
+      end;
+    6 :
+      begin
+        Left := Screen.Width - Width;
+        Top := 0;
+      end;
+    7 :
+      begin
+        Left := Screen.Width - Width;
+        Top := (Screen.Height - Height) div 2;
+      end;
+    8 :
+      begin
+        Left := Screen.Width - Width;
+        Top := Screen.Height - Height;
+      end;
   end;
 end;
 

@@ -8,10 +8,10 @@ object frmTextProfile: TfrmTextProfile
   ClientHeight = 168
   ClientWidth = 780
   OnCreate = FormCreate
-  LCLVersion = '1.4.0.4'
+  LCLVersion = '1.6.0.4'
   object txtOutDir: TLabeledEdit
     Left = 160
-    Height = 25
+    Height = 23
     Top = 40
     Width = 584
     EditLabel.AnchorSideTop.Control = txtOutDir
@@ -19,10 +19,10 @@ object frmTextProfile: TfrmTextProfile
     EditLabel.AnchorSideRight.Control = txtOutDir
     EditLabel.AnchorSideBottom.Control = txtOutDir
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 31
-    EditLabel.Height = 17
+    EditLabel.Left = 42
+    EditLabel.Height = 15
     EditLabel.Top = 44
-    EditLabel.Width = 126
+    EditLabel.Width = 115
     EditLabel.Caption = 'Output Directory: '
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
@@ -63,7 +63,7 @@ object frmTextProfile: TfrmTextProfile
   end
   object txtName: TLabeledEdit
     Left = 120
-    Height = 25
+    Height = 23
     Top = 8
     Width = 652
     EditLabel.AnchorSideTop.Control = txtName
@@ -71,10 +71,10 @@ object frmTextProfile: TfrmTextProfile
     EditLabel.AnchorSideRight.Control = txtName
     EditLabel.AnchorSideBottom.Control = txtName
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 23
-    EditLabel.Height = 17
+    EditLabel.Left = 29
+    EditLabel.Height = 15
     EditLabel.Top = 12
-    EditLabel.Width = 94
+    EditLabel.Width = 88
     EditLabel.Caption = 'Profile Name:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
@@ -83,7 +83,7 @@ object frmTextProfile: TfrmTextProfile
   end
   object txtSeparator: TLabeledEdit
     Left = 192
-    Height = 25
+    Height = 23
     Top = 136
     Width = 220
     EditLabel.AnchorSideTop.Control = txtSeparator
@@ -91,10 +91,10 @@ object frmTextProfile: TfrmTextProfile
     EditLabel.AnchorSideRight.Control = txtSeparator
     EditLabel.AnchorSideBottom.Control = txtSeparator
     EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = -6
-    EditLabel.Height = 17
+    EditLabel.Left = 8
+    EditLabel.Height = 15
     EditLabel.Top = 140
-    EditLabel.Width = 195
+    EditLabel.Width = 181
     EditLabel.Caption = 'Separator for .SEP requests:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
@@ -117,7 +117,7 @@ object frmTextProfile: TfrmTextProfile
     Height = 21
     Hint = 'When creating the output, call groff preconv pre-processor.'#10'This pre-processor converts characters that groff cannot handle into those that it can.'
     Top = 112
-    Width = 171
+    Width = 165
     Caption = 'Call Preconv on make'
     OnChange = chkUsePreconvChange
     TabOrder = 5
@@ -126,7 +126,7 @@ object frmTextProfile: TfrmTextProfile
     Left = 394
     Height = 21
     Top = 112
-    Width = 141
+    Width = 137
     Caption = 'Call TBL on make'
     OnChange = chkUseTBLChange
     TabOrder = 6
@@ -135,7 +135,7 @@ object frmTextProfile: TfrmTextProfile
     Left = 8
     Height = 21
     Top = 80
-    Width = 216
+    Width = 207
     Caption = 'Create a single bulk text file'
     OnChange = chkBulkTextChange
     TabOrder = 7
@@ -144,7 +144,7 @@ object frmTextProfile: TfrmTextProfile
     Left = 394
     Height = 21
     Top = 80
-    Width = 338
+    Width = 315
     Caption = 'Generate output suitable for posting on FFML'
     OnChange = chkFFMLCompliantChange
     TabOrder = 8

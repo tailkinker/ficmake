@@ -1,14 +1,14 @@
 object frmHeaderHelp: TfrmHeaderHelp
   Left = 1200
   Height = 250
-  Top = 397
+  Top = 512
   Width = 300
   BorderStyle = bsDialog
   Caption = 'Header and Footer Help'
   ClientHeight = 250
   ClientWidth = 300
   OnCreate = FormCreate
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.6.0.4'
   object btnDismiss: TButton
     Left = 217
     Height = 25

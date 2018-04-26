@@ -21,22 +21,22 @@ object frmVolume: TfrmVolume
     OnClick = lstVolumesClick
     OnDblClick = lstVolumesDblClick
     OnKeyPress = lstVolumesKeyPress
-    ScrollWidth = 98
+    ScrollWidth = 96
     Sorted = True
     TabOrder = 5
     TopIndex = -1
   end
   object Label1: TLabel
     Left = 8
-    Height = 19
+    Height = 15
     Top = 152
-    Width = 68
+    Width = 56
     Caption = 'Volumes'
     ParentColor = False
   end
   object txtVolumeName: TLabeledEdit
     Left = 8
-    Height = 29
+    Height = 23
     Top = 32
     Width = 80
     EditLabel.AnchorSideLeft.Control = txtVolumeName
@@ -44,8 +44,8 @@ object frmVolume: TfrmVolume
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtVolumeName
     EditLabel.Left = 8
-    EditLabel.Height = 19
-    EditLabel.Top = 10
+    EditLabel.Height = 15
+    EditLabel.Top = 14
     EditLabel.Width = 80
     EditLabel.Caption = 'Volume Name'
     EditLabel.ParentColor = False
@@ -55,7 +55,7 @@ object frmVolume: TfrmVolume
   end
   object txtDirectory: TLabeledEdit
     Left = 360
-    Height = 29
+    Height = 23
     Top = 32
     Width = 80
     EditLabel.AnchorSideLeft.Control = txtDirectory
@@ -63,8 +63,8 @@ object frmVolume: TfrmVolume
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtDirectory
     EditLabel.Left = 360
-    EditLabel.Height = 19
-    EditLabel.Top = 10
+    EditLabel.Height = 15
+    EditLabel.Top = 14
     EditLabel.Width = 80
     EditLabel.Caption = 'Volume Base Directory'
     EditLabel.ParentColor = False
@@ -74,7 +74,7 @@ object frmVolume: TfrmVolume
   end
   object txtAuthor: TLabeledEdit
     Left = 8
-    Height = 29
+    Height = 23
     Top = 88
     Width = 80
     EditLabel.AnchorSideLeft.Control = txtAuthor
@@ -82,8 +82,8 @@ object frmVolume: TfrmVolume
     EditLabel.AnchorSideRight.Side = asrBottom
     EditLabel.AnchorSideBottom.Control = txtAuthor
     EditLabel.Left = 8
-    EditLabel.Height = 19
-    EditLabel.Top = 66
+    EditLabel.Height = 15
+    EditLabel.Top = 70
     EditLabel.Width = 80
     EditLabel.Caption = 'Default Author Name'
     EditLabel.ParentColor = False
@@ -95,7 +95,7 @@ object frmVolume: TfrmVolume
     Left = 8
     Height = 21
     Top = 120
-    Width = 438
+    Width = 353
     Caption = 'HTML Profiles in this Volume generate Index pages'
     Enabled = False
     OnChange = chkHTMLIndexChange
@@ -417,9 +417,9 @@ object frmVolume: TfrmVolume
   end
   object labProfile: TLabel
     Left = 288
-    Height = 19
+    Height = 15
     Top = 152
-    Width = 120
+    Width = 94
     Caption = 'Global Profiles'
     ParentColor = False
   end
@@ -432,7 +432,7 @@ object frmVolume: TfrmVolume
     OnClick = lstGlobalProfilesClick
     OnDblClick = lstGlobalProfilesDblClick
     OnKeyPress = lstGlobalProfilesKeyPress
-    ScrollWidth = 98
+    ScrollWidth = 96
     TabOrder = 8
     TopIndex = -1
   end
