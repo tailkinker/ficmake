@@ -36,6 +36,7 @@ type
     btnAddChapter : TBitBtn;
     btnChapterDown: TBitBtn;
     btnDeleteChapter : TBitBtn;
+    btnOtherFiles: TButton;
     btnSaveChapters : TBitBtn;
     btnBuild: TButton;
     btnMake: TButton;
@@ -58,6 +59,7 @@ type
     procedure btnChapterUpClick(Sender: TObject);
     procedure btnDeleteChapterClick (Sender : TObject );
     procedure btnMakeClick(Sender: TObject);
+    procedure btnOtherFilesClick(Sender: TObject);
     procedure btnSaveChaptersClick (Sender : TObject );
     procedure btnStoryProfilesClick(Sender: TObject);
     procedure chkIsABookChange(Sender: TObject);
@@ -89,7 +91,8 @@ implementation
 
 uses
   LCLType,
-  doption, gmake, fstorypr, fnewchap, feditor, flog;
+  doption, gmake, fstorypr, fnewchap, feditor, flog,
+  fothers;
 
 {$R *.lfm}
 
@@ -203,6 +206,34 @@ begin
   frmLog.BringToFront;
   frmLog.txtLog.Lines.Clear;
   Make (Story.SourceDir);
+end;
+
+procedure TfrmChapter.btnOtherFilesClick(Sender: TObject);
+var
+  NewForm : TfrmOtherFiles;
+  FormCaption : string;
+  index : integer;
+  Present : boolean;
+begin
+	FormCaption := 'Dependant Files for "' + Story.Title + '"';
+  index := 0;
+  Present := false;
+  repeat
+    if (Screen.Forms [index].Caption = FormCaption) then
+      Present := true
+    else
+    	index += 1;
+  until (Present or (index >= Screen.FormCount));
+  if (Present) then begin
+    Screen.Forms [index].Show;
+    Screen.Forms [index].BringToFront
+  end else begin
+    NewForm := TfrmOtherFiles.Create (Application);
+    NewForm.Caption := FormCaption;
+    NewForm.SetBaseDir (Story.SourceDir);
+    NewForm.ForceFileListLoad;
+    NewForm.Show;
+  end;
 end;
 
 procedure TfrmChapter.btnSaveChaptersClick (Sender : TObject );

@@ -22,7 +22,7 @@ unit dversion;
 interface
 
 const
-  Version = '1.1.10';
+  Version = '1.1.11';
 
 
 implementation

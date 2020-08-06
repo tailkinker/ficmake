@@ -1,7 +1,7 @@
 object frmChapter: TfrmChapter
-  Left = 205
+  Left = 297
   Height = 440
-  Top = 326
+  Top = 261
   Width = 780
   ClientHeight = 440
   ClientWidth = 780
@@ -9,14 +9,14 @@ object frmChapter: TfrmChapter
   Constraints.MinWidth = 780
   OnClose = FormClose
   OnCreate = FormCreate
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '2.0.6.0'
   object Label1: TLabel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     Left = 8
     Height = 15
     Top = 8
-    Width = 58
+    Width = 60
     BorderSpacing.Around = 8
     Caption = 'Chapters'
     ParentColor = False
@@ -47,8 +47,8 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 484
     Height = 21
-    Top = 170
-    Width = 220
+    Top = 173
+    Width = 224
     BorderSpacing.Around = 8
     Caption = 'This Chapter is a Book Divider'
     OnChange = chkIsABookChange
@@ -61,8 +61,8 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 484
     Height = 21
-    Top = 199
-    Width = 189
+    Top = 202
+    Width = 192
     BorderSpacing.Around = 8
     Caption = 'Place Subtitle above Title'
     OnChange = chkSubtitleFirstChange
@@ -549,7 +549,7 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 416
     Height = 36
-    Top = 170
+    Top = 173
     Width = 60
     BorderSpacing.Around = 8
     Glyph.Data = {
@@ -694,7 +694,7 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 416
     Height = 36
-    Top = 214
+    Top = 217
     Width = 60
     BorderSpacing.Around = 8
     Glyph.Data = {
@@ -839,8 +839,8 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 484
     Height = 21
-    Top = 228
-    Width = 177
+    Top = 231
+    Width = 182
     BorderSpacing.Around = 8
     Caption = 'Suppress Chapter Titles'
     OnChange = chkNoTitleChange
@@ -870,7 +870,7 @@ object frmChapter: TfrmChapter
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     Left = 416
-    Height = 23
+    Height = 24
     Top = 31
     Width = 356
     Anchors = [akTop, akLeft, akRight]
@@ -898,8 +898,8 @@ object frmChapter: TfrmChapter
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     Left = 416
-    Height = 23
-    Top = 85
+    Height = 24
+    Top = 86
     Width = 356
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 8
@@ -913,8 +913,8 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 416
     Height = 15
-    Top = 62
-    Width = 50
+    Top = 63
+    Width = 52
     BorderSpacing.Around = 8
     Caption = 'Subtitle'
     ParentColor = False
@@ -927,8 +927,8 @@ object frmChapter: TfrmChapter
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     Left = 416
-    Height = 23
-    Top = 139
+    Height = 24
+    Top = 141
     Width = 356
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 8
@@ -942,8 +942,8 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 416
     Height = 15
-    Top = 116
-    Width = 203
+    Top = 118
+    Width = 204
     BorderSpacing.Around = 8
     Caption = 'File Name (without extensions)'
     ParentColor = False
@@ -955,11 +955,28 @@ object frmChapter: TfrmChapter
     AnchorSideTop.Side = asrBottom
     Left = 484
     Height = 21
-    Top = 257
-    Width = 185
+    Top = 260
+    Width = 188
     BorderSpacing.Around = 8
     Caption = 'This Chapter is the Index'
     OnChange = chkIsIndexChange
     TabOrder = 15
+  end
+  object btnOtherFiles: TButton
+    AnchorSideLeft.Control = lstChapters
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = btnBuild
+    Left = 416
+    Height = 32
+    Top = 320
+    Width = 356
+    Anchors = [akLeft, akRight, akBottom]
+    BorderSpacing.Around = 8
+    Caption = 'Dependant Files'
+    OnClick = btnOtherFilesClick
+    TabOrder = 16
   end
 end
