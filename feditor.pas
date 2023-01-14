@@ -47,6 +47,8 @@ type
     grpMacros: TGroupBox;
     MainMenu1: TMainMenu;
     MenuEditNotes: TMenuItem;
+    mnuInsertFile: TMenuItem;
+    mnuFileRevert: TMenuItem;
     mnuEditMacros: TMenuItem;
     MenuSpacer1: TMenuItem;
     mnuFileSaveNoBuild: TMenuItem;
@@ -67,6 +69,8 @@ type
     mnuBuild: TMenuItem;
     mnuEdit: TMenuItem;
     mnuFile: TMenuItem;
+    MenuSpacer2: TMenuItem;
+    diaOpen: TOpenDialog;
     txtEditor: TMemo;
     tabEditors: TTabControl;
     procedure btnMacroClick(Sender: TObject);
@@ -86,10 +90,12 @@ type
     procedure mnuFileCloseClick(Sender: TObject);
     procedure mnuFileDeleteClick(Sender: TObject);
     procedure mnuFileOpenClick(Sender: TObject);
+    procedure mnuFileRevertClick(Sender: TObject);
     procedure mnuFileSaveClick(Sender: TObject);
     procedure mnuFileSaveNoBuildClick(Sender: TObject);
     procedure mnuFormatBoldClick(Sender: TObject);
     procedure mnuFormatItalicsClick(Sender: TObject);
+    procedure mnuInsertFileClick(Sender: TObject);
     procedure mnuMakeOnSaveClick(Sender: TObject);
     procedure tabEditorsChange(Sender: TObject);
     procedure txtEditorChange(Sender: TObject);
@@ -124,7 +130,7 @@ implementation
 uses
   LCLType,
   doption, flog, fpickchap, fbaredit, fmacedit,
-  gprofile, gmake, gtools;
+  gprofile, gmake, gtools, gothers;
 
 {$R *.lfm}
 
@@ -309,6 +315,9 @@ begin
         Top := Screen.Height - Height;
       end;
   end;
+
+  if (optMaximize) then
+    WindowState := wsMaximized;
 
   for index := 0 to 9 do begin
     str (index + 1, aFilename);
@@ -545,6 +554,15 @@ begin
   end;
 end;
 
+procedure TfrmEditor.mnuFileRevertClick(Sender: TObject);
+begin
+  if Dirty then
+    if (Application.MessageBox (
+      'This will reload the file from disk and erase any changes that were made.',
+      'Are You Sure?', MB_ICONQUESTION + MB_YESNO) = IDYES) then
+      LoadFromFile;
+end;
+
 procedure TfrmEditor.mnuFileSaveClick(Sender: TObject);
 begin
   SaveCurrentEdit;
@@ -584,6 +602,24 @@ begin
       SelText := '\fI';
 end;
 
+procedure TfrmEditor.mnuInsertFileClick(Sender: TObject);
+var
+  soFilename : string;
+  OtherList : tOtherFileList;
+begin
+  if (diaOpen.Execute) then begin
+    soFilename := diaOpen.FileName;
+    with (txtEditor) do
+      Lines.Insert (CaretPos.Y, '.so ' + soFilename);
+    OtherList := tOtherFileList.Create;
+    OtherList.BaseDir := Story.SourceDir;
+    OtherList.Load;
+    OtherList.New(soFilename);
+    OtherList.Save;
+    OtherList.Destroy
+  end;
+end;
+
 procedure TfrmEditor.mnuMakeOnSaveClick(Sender: TObject);
 begin
   MakeOnSave := not MakeOnSave;
@@ -609,7 +645,7 @@ end;
 procedure TfrmEditor.txtEditorKeyPress(Sender: TObject; var Key: char);
 begin
   with (txtEditor) do
-    if (Key = #13) then
+    if ((Key = #13) or (Key = #10)) then
       if (CaretPos.X = 0) then begin
         Lines.Insert (CaretPos.Y, '.PP');
         Key := #0

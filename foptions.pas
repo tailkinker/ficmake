@@ -34,6 +34,7 @@ type
   TfrmOptions = class (TForm )
     btnGuess : TButton;
     btnOk : TButton;
+    chkMaximize: TCheckBox;
     chkAssumeMakeOnSave: TCheckBox;
     chkOpenLogOnStart: TCheckBox;
     rdgAnchors: TRadioGroup;
@@ -43,13 +44,13 @@ type
     procedure btnGuessClick (Sender : TObject );
     procedure btnOkClick(Sender: TObject);
     procedure chkAssumeMakeOnSaveChange(Sender: TObject);
+    procedure chkMaximizeChange(Sender: TObject);
     procedure chkOpenLogOnStartChange(Sender: TObject);
     procedure FormCreate (Sender : TObject );
     procedure FormResize (Sender : TObject );
     procedure rdgAnchorsClick(Sender: TObject);
     procedure txtFontSizeChange(Sender: TObject);
     procedure radScreenClick (Sender : TObject );
-    procedure txtLoremIpsumChange(Sender: TObject);
   private
     { private declarations }
   public
@@ -123,6 +124,7 @@ begin
   // Check Boxes
   chkAssumeMakeOnSave.Checked := optAssumeMakeOnSave;
   chkOpenLogOnStart.Checked := optOpenLogOnStart;
+  chkMaximize.Checked := optMaximize;
 
   // Font Size
   str (optFontSize, s);
@@ -218,6 +220,11 @@ begin
   optAssumeMakeOnSave := chkAssumeMakeOnSave.Checked;
 end;
 
+procedure TfrmOptions.chkMaximizeChange(Sender: TObject);
+begin
+  optMaximize := chkMaximize.Checked;
+end;
+
 procedure TfrmOptions.chkOpenLogOnStartChange(Sender: TObject);
 begin
   optOpenLogOnStart := chkOpenLogOnStart.Checked;
@@ -227,11 +234,6 @@ procedure TfrmOptions.radScreenClick (Sender : TObject );
 begin
   optScreenSize := radScreen.ItemIndex;
   SetScreenSize;
-end;
-
-procedure TfrmOptions.txtLoremIpsumChange(Sender: TObject);
-begin
-
 end;
 
 // Everything from here...

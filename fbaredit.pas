@@ -129,6 +129,8 @@ begin
         Top := Screen.Height - Height;
       end;
   end;
+  if (optMaximize) then
+    WindowState := wsMaximized;
 end;
 
 procedure TfrmBareEditor.txtEditorChange(Sender: TObject);

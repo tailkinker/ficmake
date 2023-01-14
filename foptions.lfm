@@ -10,14 +10,14 @@ object frmOptions: TfrmOptions
   ClientWidth = 600
   OnCreate = FormCreate
   OnResize = FormResize
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '2.2.2.0'
   object radScreen: TRadioGroup
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     Left = 8
-    Height = 134
+    Height = 136
     Top = 8
-    Width = 255
+    Width = 271
     AutoFill = True
     AutoSize = True
     BorderSpacing.Around = 8
@@ -31,7 +31,7 @@ object frmOptions: TfrmOptions
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 2
     ClientHeight = 117
-    ClientWidth = 251
+    ClientWidth = 267
     Columns = 2
     ItemIndex = 0
     Items.Strings = (
@@ -58,7 +58,7 @@ object frmOptions: TfrmOptions
     AnchorSideBottom.Side = asrBottom
     Left = 492
     Height = 30
-    Top = 276
+    Top = 278
     Width = 100
     Anchors = [akTop, akRight]
     BorderSpacing.Around = 8
@@ -76,7 +76,7 @@ object frmOptions: TfrmOptions
     AnchorSideBottom.Side = asrBottom
     Left = 16
     Height = 30
-    Top = 150
+    Top = 152
     Width = 100
     BorderSpacing.Around = 8
     Caption = 'Guess'
@@ -87,10 +87,10 @@ object frmOptions: TfrmOptions
     AnchorSideLeft.Control = radScreen
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = Owner
-    Left = 271
+    Left = 287
     Height = 21
     Top = 8
-    Width = 253
+    Width = 254
     BorderSpacing.Around = 8
     Caption = 'Open Log Window on program start'
     OnChange = chkOpenLogOnStartChange
@@ -101,7 +101,7 @@ object frmOptions: TfrmOptions
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = chkOpenLogOnStart
     AnchorSideTop.Side = asrBottom
-    Left = 271
+    Left = 287
     Height = 21
     Top = 37
     Width = 170
@@ -115,21 +115,14 @@ object frmOptions: TfrmOptions
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     Left = 532
-    Height = 23
-    Top = 158
+    Height = 24
+    Top = 160
     Width = 60
     Alignment = taCenter
     Anchors = [akTop, akRight]
     BorderSpacing.Around = 8
-    EditLabel.AnchorSideTop.Control = txtFontSize
-    EditLabel.AnchorSideTop.Side = asrCenter
-    EditLabel.AnchorSideRight.Control = txtFontSize
-    EditLabel.AnchorSideBottom.Control = txtFontSize
-    EditLabel.AnchorSideBottom.Side = asrBottom
-    EditLabel.Left = 419
-    EditLabel.Height = 15
-    EditLabel.Top = 162
-    EditLabel.Width = 105
+    EditLabel.Height = 17
+    EditLabel.Width = 106
     EditLabel.Caption = 'Editor Font Size:'
     EditLabel.ParentColor = False
     LabelPosition = lpLeft
@@ -145,14 +138,13 @@ object frmOptions: TfrmOptions
     AnchorSideRight.Side = asrBottom
     Left = 8
     Height = 80
-    Top = 188
+    Top = 190
     Width = 584
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 8
     Lines.Strings = (
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna  aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco nisi ut aliquip ex ea commodo consequat.'
     )
-    OnChange = txtLoremIpsumChange
     ReadOnly = True
     TabOrder = 6
   end
@@ -161,10 +153,10 @@ object frmOptions: TfrmOptions
     AnchorSideLeft.Side = asrBottom
     AnchorSideTop.Control = chkAssumeMakeOnSave
     AnchorSideTop.Side = asrBottom
-    Left = 271
-    Height = 80
+    Left = 287
+    Height = 82
     Top = 66
-    Width = 289
+    Width = 288
     AutoFill = True
     AutoSize = True
     BorderSpacing.Around = 8
@@ -177,7 +169,7 @@ object frmOptions: TfrmOptions
     ChildSizing.Layout = cclTopToBottomThenLeftToRight
     ChildSizing.ControlsPerLine = 3
     ClientHeight = 63
-    ClientWidth = 285
+    ClientWidth = 284
     ColumnLayout = clVerticalThenHorizontal
     Columns = 3
     ItemIndex = 4
@@ -194,5 +186,19 @@ object frmOptions: TfrmOptions
     )
     OnClick = rdgAnchorsClick
     TabOrder = 7
+  end
+  object chkMaximize: TCheckBox
+    AnchorSideLeft.Control = btnGuess
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = btnGuess
+    AnchorSideTop.Side = asrCenter
+    Left = 124
+    Height = 21
+    Top = 157
+    Width = 150
+    BorderSpacing.Around = 8
+    Caption = 'Maximize Windows'
+    OnChange = chkMaximizeChange
+    TabOrder = 8
   end
 end

@@ -326,6 +326,8 @@ begin
         Top := Screen.Height - Height;
       end;
   end;
+  if (optMaximize) then
+    WindowState := wsMaximized;
   Chapters := tChapterList.Create;
 end;
 

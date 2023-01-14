@@ -76,7 +76,6 @@ type
     procedure FormResize (Sender : TObject );
     procedure lstProfilesClick(Sender: TObject);
     procedure lstProfilesDblClick(Sender: TObject);
-    procedure lstProfilesEnter(Sender: TObject);
     procedure lstProfilesKeyPress(Sender: TObject; var Key: char);
     procedure lstStoriesClick (Sender : TObject );
     procedure lstStoriesDblClick(Sender: TObject);
@@ -157,6 +156,8 @@ begin
         Top := Screen.Height - Height;
       end;
   end;
+  if (optMaximize) then
+    WindowState := wsMaximized;
   Stories := tStoryList.Create;
   Profiles := tProfileList.Create;
 end;
@@ -485,11 +486,6 @@ begin
     btnSaveProfiles.Enabled := TRUE;
     PopulateProfileList;
   end;
-end;
-
-procedure TfrmStory.lstProfilesEnter(Sender: TObject);
-begin
-
 end;
 
 procedure TfrmStory.lstProfilesKeyPress(Sender: TObject; var Key: char);

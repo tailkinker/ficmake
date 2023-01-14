@@ -497,6 +497,9 @@ begin
       end;
   end;
 
+  if optMaximize then
+    WindowState := wsMaximized;
+
   Volumes := tVolumeList.Create;
   Volumes.LoadVolumeList;
   PopulateVolumeList;

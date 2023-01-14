@@ -31,6 +31,7 @@ var
   ScaleMult : real = 72000.0;
   optInitialX,
   optInitialY : integer;
+  optMaximize : boolean = FALSE;
   optScreenSize : integer = 0;
   optFontSize : integer = 12;
   optAssumeMakeOnSave : boolean = FALSE;
@@ -121,6 +122,8 @@ begin
           SetScale (1)
         else if (v = 'pt') then
           SetScale (2);
+      end else if (k = 'Maximize Windows') then begin
+        optMaximize := TRUE
       end else if (k = 'Font Size') then begin
         val (v, i);
         optFontSize := i;
@@ -150,6 +153,8 @@ begin
   // Save all Options
   writeln (t, 'Screen Size = ', optScreenSize);
   writeln (t, 'Anchor Windows = ', optAnchorWindow);
+  if (optMaximize) then
+    writeln (t, 'Maximize Windows');
   write (t, 'Measurement = ');
   case ScaleType of
     0:

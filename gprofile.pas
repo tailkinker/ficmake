@@ -989,6 +989,11 @@ begin
   dup.ToCColumns := ToCColumns;
   dup.UsePDFMark := UsePDFMark;
   dup.SuppressHeader := SuppressHeader;
+  dup.OddHeader := OddHeader;
+  dup.EvenHeader := EvenHeader;
+  dup.OddFooter := OddFooter;
+  dup.EvenFooter := EvenFooter;
+
   Duplicate := dup;
 end;
 
@@ -1393,9 +1398,9 @@ begin
     write (x, X_Fonts [GroffFonts [5].Font]);
     write (x, '\$1\fR');
     if (GroffFonts [5].Centered) then
-	    write (x, '.tl ~')
+	    write (x, '~')
     else
-      write (x, '.tl ~~');
+      write (x, '~~');
     writeln (x, '\$2~');
   end;
   writeln (x, '.sp ', GroffFonts [5].SpaceBelow, 'p');
@@ -1444,9 +1449,9 @@ begin
     write (x, X_Fonts [GroffFonts [6].Font]);
     write (x, '\$1\fR');
     if (GroffFonts [6].Centered) then
-	    write (x, '.tl ~')
+	    write (x, '~')
     else
-      write (x, '.tl ~~');
+      write (x, '~~');
     writeln (x, '\$2~');
   end;
   writeln (x, '.sp ', GroffFonts [6].SpaceBelow, 'p');
@@ -1487,9 +1492,9 @@ begin
     write (x, X_Fonts [GroffFonts [7].Font]);
     write (x, '\$1\fR');
     if (GroffFonts [7].Centered) then
-	    write (x, '.tl ~')
+	    write (x, '~')
     else
-      write (x, '.tl ~~');
+      write (x, '~~');
     writeln (x, '\$2~');
   end;
   writeln (x, '.sp ', GroffFonts [7].SpaceBelow, 'p');
@@ -1530,9 +1535,9 @@ begin
     write (x, X_Fonts [GroffFonts [8].Font]);
     write (x, '\$1\fR');
     if (GroffFonts [8].Centered) then
-	    write (x, '.tl ~')
+	    write (x, '~')
     else
-      write (x, '.tl ~~');
+      write (x, '~~');
     writeln (x, '\$2~');
   end;
   writeln (x, '.sp ', GroffFonts [8].SpaceBelow, 'p');
@@ -1598,7 +1603,15 @@ begin
 
   s := aStory.TitlePicture;
   if (FileExists (s) and (s <> '')) then
-	  writeln (x, '.JPEG ', s);
+    if (ExtractFileExt (s) = '.jpg') or (ExtractFileExt (s) = '.jpeg') then
+  	  writeln (x, '.JPEG ', s)
+    else if (ExtractFileExt (s) = '.ps') then
+      writeln (x, '.PSPIC ', s)
+    else if (ExtractFileExt (s) = '.svg') then begin
+      writeln (x, '.sy convert "', s, '" "', s, '.ps"');
+      writeln (x, '.PSPIC ', s, '.ps');
+    end;
+
 
   if (aStory.SuppressTitles = FALSE) then
 	  begin

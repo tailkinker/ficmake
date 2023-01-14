@@ -175,7 +175,7 @@ begin
       	// Build the basic Groff call
         groffline := 'groff -Tps -U -ms ';
         if (TPDFProfile (Profiles.Current).UsePDFMark) then
-          groffline += '-mpdfmark ';
+          groffline += '-mspdf ';
         groffline += '-s';
         if (TPDFProfile (Profiles.Current).Useeqn) then
           groffline += 'e';
